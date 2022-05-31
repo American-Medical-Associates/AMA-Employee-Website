@@ -3,25 +3,28 @@ import { Fragment } from 'react'
 import { MenuItem } from './MenuItem'
 
 const DropDownMenu: React.FC<{
-  focus: boolean
+  // focus: boolean
   item: Array<any>
-  props: any
-  setOpen: any
-  open: boolean
-}> = ({ item, focus, props, setOpen, open }) => {
+  // props: any
+  // setOpen: any
+  // open: boolean
+}> = ({
+  item,
+  // focus, props, setOpen, open
+}) => {
   const ref = useRef(null)
   //const [open, setOpen] = useState(false)
-  useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setOpen(!open)
-      }
-    }
-    document.addEventListener('click', handleClickOutside, true)
-    return () => {
-      document.removeEventListener('click', handleClickOutside, true)
-    }
-  }, [open])
+  // useEffect(() => {
+  //   const handleClickOutside = (event: any) => {
+  //     if (ref.current && !ref.current.contains(event.target)) {
+  //       setOpen(!open)
+  //     }
+  //   }
+  //   document.addEventListener('click', handleClickOutside, true)
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside, true)
+  //   }
+  // }, [open])
   return (
     <div
       ref={ref}

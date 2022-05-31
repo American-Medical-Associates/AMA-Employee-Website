@@ -89,8 +89,8 @@ const Header = () => {
         {openMenu && (
           <div className=" absolute flex justify-start duration-[500s] ease-in">
             <DropDownMenu
-              open={openMenu}
-              setOpen={setOpenMenu}
+              // open={openMenu}
+              // setOpen={setOpenMenu}
               item={[
                 <MenuItem
                   icon={
