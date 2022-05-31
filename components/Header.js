@@ -26,7 +26,7 @@ const Header = () => {
     }
   }, [])
   const Logout = () => {
-    const auth: any = getAuth()
+    const auth = getAuth()
     signOut(auth).then(() => {
       router.push('/')
     })
