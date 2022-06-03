@@ -157,6 +157,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                   text.hand
                   setPhoneNumber(text.target.value)
                 }}
+                value={phoneNumber}
               />
             </div>
             <div className=" my-12 flex w-full  flex-col items-center justify-center p-2">
@@ -168,6 +169,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                   setProfileLink(text.target.value)
                 }}
                 type={'url'}
+                value={profileLink}
               />
             </div>
           </div>
@@ -180,6 +182,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                   setLastName(text.target.value)
                 }}
                 type={'name'}
+                value={lastName}
               />
             </div>
             <div className="  my-12 flex w-full ">
@@ -190,6 +193,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                 onChange={(text: any) => {
                   setEmail(text.target.value)
                 }}
+                value={email}
               />
             </div>
             <div className=" my-12 flex w-full flex-col  items-center justify-center p-4">
@@ -226,6 +230,7 @@ const JobApplicationPage: React.FC<{}> = () => {
               uploadimage({ e: text })
               console.log(resume)
             }}
+            value={uploadimage}
           />
           <LargeTextBox
             heightPercentage="h-[200px]"
@@ -234,6 +239,7 @@ const JobApplicationPage: React.FC<{}> = () => {
             onChange={(text: any) => {
               setAboutYou(text.target.value)
             }}
+            value={aboutYou}
           />
           <LineDivider
             lineColor={'bg-[#ABABAB]'}
@@ -457,6 +463,7 @@ const JobApplicationPage: React.FC<{}> = () => {
             onChange={(text: any) => {
               setFullLegalName(text.target.value)
             }}
+            value={fullLegalName}
           />
           <div className=" my-3 flex w-full items-center justify-center">
             <MainButton

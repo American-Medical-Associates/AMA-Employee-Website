@@ -5,11 +5,13 @@ function LargeTextBox({
   widthPercentage,
   onChange,
   heightPercentage,
+  value,
 }: {
   placeHolder: string
   widthPercentage: string
   onChange: any
   heightPercentage: string
+  value: any
 }) {
   return (
     <div
@@ -19,6 +21,7 @@ function LargeTextBox({
       )}
     >
       <textarea
+        value={value}
         placeholder={placeHolder}
         className={classnames(
           ` h-full w-full flex-grow select-none  rounded-[30px] border-2 bg-[#d6d6d671] p-4 text-lg  outline-none`

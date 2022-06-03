@@ -33,11 +33,12 @@ const Login: NextPage<{}> = () => {
           width={200}
         />
       </div>
-      <input
-        placeholder="e"
+      <TextInput
+        placeHolder="Email"
         onChange={(text: any) => {
           setEmail(text.target.value)
         }}
+        widthPercentage={'w-[60%]'}
         type="email"
         value={email}
       />
