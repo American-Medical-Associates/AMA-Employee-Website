@@ -25,6 +25,8 @@ const JobApplicationPage: React.FC<{}> = () => {
   const [radio3, setRadio3] = useState(null)
   const [radio4, setRadio4] = useState(null)
   const [radio5, setRadio5] = useState(null)
+  const [radio6, setRadio6] = useState(null)
+  const [radio7, setRadio7] = useState(null)
   const [checkBoxAgree, setCheckBoxAgree] = useState(false)
   const [checkBoxAgree2, setCheckBoxAgree2] = useState(false)
   const [scrollComplete, setScrollComplete] = useState(true)
@@ -55,6 +57,8 @@ const JobApplicationPage: React.FC<{}> = () => {
       !radio3 ||
       !radio4 ||
       !radio5 ||
+      !radio6 ||
+      !radio7 ||
       !fullLegalName ||
       !race ||
       !gender ||
@@ -92,6 +96,8 @@ const JobApplicationPage: React.FC<{}> = () => {
           radio3: radio3,
           radio4: radio4,
           radio5: radio5,
+          radio6: radio6,
+          radio7: radio7,
           fullLegalName: fullLegalName,
           race: race,
           gender: gender,
@@ -287,6 +293,15 @@ const JobApplicationPage: React.FC<{}> = () => {
                 details, pre-employment screening notifications and reminders?
               </h5>
               <RadioButton answerState={setRadio5} />
+              <h5 className=" my-5 text-lg">
+                Have you ever been terminated from a job?
+              </h5>
+              <RadioButton answerState={setRadio6} />
+              <h5 className=" my-5 text-lg">
+                Have you ever been convicted of a crime?
+              </h5>
+              <RadioButton answerState={setRadio7} />
+
               <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
                 Acknowledgment
               </h4>

@@ -61,6 +61,8 @@ export async function submitResume({
   radio3,
   radio4,
   radio5,
+  radio6,
+  radio7,
   fullLegalName,
   race,
   gender,
@@ -89,6 +91,8 @@ export async function submitResume({
         former_or_current_intern_or_contractor: radio4,
         consent_to_receiving_text_messages_throughout_your_application_process:
           radio5,
+        Have_you_ever_been_terminated_from_a_job: radio6,
+        Have_you_ever_been_convicted_of_a_crime: radio7,
         accept_them_as_conditions_of_employment: checkbox1,
         employee_opportunitiesDisclosure: checkbox2,
         DisabilityStatus: DisabilityStatus,
@@ -146,4 +150,18 @@ export function SignInToAccount({ email, password }) {
       // const errorCode = error.code;
       // const errorMessage = error.message;
     })
+}
+export function getResumes({ applicationtState }) {
+  onSnapshot(
+    query(collection(db, 'applications'), orderBy('timestamp', 'desc')),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      applicationtState(arrays)
+      // console.log(products);
+    }
+  )
 }

@@ -20,7 +20,7 @@ function MainButton({
       disabled={disabled}
       onClick={onClick}
       className={classnames(
-        ` ${buttonWidth} hover: my-3 rounded-full  bg-[#0008ff] px-9 py-4 font-bold text-[#ffffff] shadow-md transition duration-150 hover:h-[60px] hover:shadow-lg active:scale-90  `
+        ` ${buttonWidth} hover: my-3 rounded-full  bg-[#0008ff] px-9 py-4 font-bold text-[#ffffff] shadow-md transition duration-150 hover:scale-[110%] hover:shadow-lg active:scale-90  `
       )}
     >
       {buttonText}
