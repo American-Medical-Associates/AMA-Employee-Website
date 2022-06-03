@@ -230,7 +230,6 @@ const JobApplicationPage: React.FC<{}> = () => {
               uploadimage({ e: text })
               console.log(resume)
             }}
-            value={uploadimage}
           />
           <LargeTextBox
             heightPercentage="h-[200px]"
