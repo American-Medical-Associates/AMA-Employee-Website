@@ -144,7 +144,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                 onChange={(text: any) => {
                   setFirstName(text.target.value)
                 }}
-                type={'name'}
+                type={'text'}
               />
             </div>
 
