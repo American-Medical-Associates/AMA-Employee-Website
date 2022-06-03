@@ -144,6 +144,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                 onChange={(text: any) => {
                   setFirstName(text.target.value)
                 }}
+                value={firstName}
                 type={'text'}
               />
             </div>
@@ -153,6 +154,7 @@ const JobApplicationPage: React.FC<{}> = () => {
                 widthPercentage="w-[80%]"
                 placeHolder="Phone Number"
                 onChange={(text: any) => {
+                  text.hand
                   setPhoneNumber(text.target.value)
                 }}
               />

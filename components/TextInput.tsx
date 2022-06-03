@@ -17,12 +17,11 @@ export default function TextInput({
   return (
     <div className=" my-5 flex w-full items-center justify-center ">
       <input
-        required={true}
         value={value}
         type={type}
         placeholder={placeHolder}
         className={classnames(
-          `${widthPercentage} select-none rounded-[30px] border-2  bg-[#cacaca71] p-4 text-lg outline-none`
+          `${widthPercentage} cursor-pointer select-none rounded-[30px] border-2  bg-[#cacaca71] p-4 text-lg outline-none`
         )}
         onChange={onChange}
         // value={value}
