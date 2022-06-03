@@ -40,6 +40,7 @@ const Login: NextPage<{}> = () => {
         }}
         widthPercentage={'w-[60%]'}
         type="email"
+        value={email}
       />
       <TextInput
         placeHolder="Password"
