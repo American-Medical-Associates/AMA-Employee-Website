@@ -128,6 +128,7 @@ const JobApplicationPage: React.FC<{}> = () => {
     radio_Terminated_upon_mutual_agreement,
     setRadio_Terminated_upon_mutual_agreement,
   ] = useState(null)
+
   const [
     radio_Choice_to_resign_rather_than_be_terminated,
     setRadio_Choice_to_resign_rather_than_be_terminated,
@@ -408,9 +409,9 @@ const JobApplicationPage: React.FC<{}> = () => {
                 widthPercentage="w-[80%]"
                 placeHolder="Position Applying For"
                 onChange={(text: any) => {
-                  setFirstName(text.target.value)
+                  setPositionApplyingfor(text.target.value)
                 }}
-                value={firstName}
+                value={positionApplyingfor}
                 type={'text'}
               />
             </div>
