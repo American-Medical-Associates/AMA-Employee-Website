@@ -428,7 +428,7 @@ const JobApplicationPage: React.FC<{}> = () => {
             </div>
             <AddressInput
               addressState={setAddressState}
-              addressState2={addressState2}
+              addressState2={setAddressState2}
               addressValue={addressState}
               addressValue2={addressState2}
               cityState={setCity}
