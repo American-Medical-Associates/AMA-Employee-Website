@@ -6,17 +6,20 @@ export default function TextInput({
   onChange,
   type,
   value,
+  ref,
 }: {
   placeHolder: string
   widthPercentage: string
   onChange: any
   type?: string
   value?: any
+  ref?: any
   //   text: string
 }) {
   return (
     <div className=" my-5 flex w-full items-center justify-center ">
       <input
+        ref={ref}
         value={value}
         type={type}
         placeholder={placeHolder}
