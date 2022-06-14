@@ -1,7 +1,18 @@
 import React from 'react'
 import TextInput from './TextInput'
 
-function AddressInput({
+const AddressInput: React.FC<{
+  addressValue: String
+  addressValue2: String
+  addressState: any
+  addressState2: any
+  cityState: any
+  cityValue: String
+  zipCodeState: any
+  zipCodeValue: String
+  USStateState: any
+  USStateValue: String
+}> = ({
   addressValue,
   addressValue2,
   addressState,
@@ -12,14 +23,14 @@ function AddressInput({
   zipCodeValue,
   USStateState,
   USStateValue,
-}) {
+}) => {
   return (
     <div className=" my-12">
       <TextInput
         type="Address"
         widthPercentage="w-[80%]"
         placeHolder="Address"
-        onChange={(text) => {
+        onChange={(text: any) => {
           addressState(text.target.value)
         }}
         value={addressValue}
@@ -28,7 +39,7 @@ function AddressInput({
         type="Address 2"
         widthPercentage="w-[50%]"
         placeHolder="Address 2"
-        onChange={(text) => {
+        onChange={(text: any) => {
           addressState2(text.target.value)
         }}
         value={addressValue2}
@@ -37,7 +48,7 @@ function AddressInput({
         <TextInput
           widthPercentage="w-[50%]"
           placeHolder="City"
-          onChange={(text) => {
+          onChange={(text: any) => {
             cityState(text.target.value)
           }}
           value={cityValue}
@@ -46,7 +57,7 @@ function AddressInput({
         <TextInput
           widthPercentage="w-[60%]"
           placeHolder="State"
-          onChange={(text) => {
+          onChange={(text: any) => {
             USStateState(text.target.value)
           }}
           value={USStateValue}
@@ -55,7 +66,7 @@ function AddressInput({
       <TextInput
         widthPercentage="w-[60%]"
         placeHolder="Zip Code"
-        onChange={(text) => {
+        onChange={(text: any) => {
           zipCodeState(text.target.value)
         }}
         value={zipCodeValue}
