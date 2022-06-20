@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "copy-pdfjs-worker": "cp ./node_modules/pdfjs-dist/build/pdf.worker.js public/scripts"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
+    "@types/react-pdf": "^5.7.2",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",

@@ -147,6 +147,10 @@ export async function submitResume({
   referencePhoneNumberState4,
   havePreviouslyApplied,
   under_the_age_of_18,
+  WhyTerminatedTextBox,
+  resumeFileType,
+  radio_Terminated_upon_mutual_agreement,
+  radio_Choice_to_resign_rather_than_be_terminated,
 }) {
   try {
     await setDoc(
@@ -266,7 +270,12 @@ export async function submitResume({
         ReferenceCompanyValue4: referenceCompanyState4,
 
         ReferencePhoneNumberValue4: referencePhoneNumberState4,
-
+        WhyTerminatedTextBox: WhyTerminatedTextBox,
+        resumeFileType: resumeFileType,
+        radio_Terminated_upon_mutual_agreement:
+          radio_Terminated_upon_mutual_agreement,
+        radio_Choice_to_resign_rather_than_be_terminated:
+          radio_Choice_to_resign_rather_than_be_terminated,
         timestamp: serverTimestamp(),
       },
       { merge: true }

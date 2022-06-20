@@ -27,7 +27,7 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               Pre-Offer Invitation to Self-Identify - Race/Ethnicity, Sex, and
               Veteran Status
             </h3> */}
-            <p className=" object-contain text-left">APPLICANTCERTIFICATION</p>
+            <p className=" object-contain text-left">APPLICANT CERTIFICATION</p>
             {/* <h3 className=" my-10  text-left text-xl font-bold">
               Race/Ethnicity Definitions
             </h3> */}

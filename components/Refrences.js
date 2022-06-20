@@ -47,7 +47,7 @@ function References({
   return (
     <div className=" flex w-full grid-rows-4 flex-col rounded-[20px] outline outline-2 outline-[#b5b5b5]">
       <ReferenceItem
-        title="Reference"
+        title="Professional Reference"
         ReferenceNameValue={ReferenceNameValue}
         ReferenceNameState={ReferenceNameState}
         ReferencePositionValue={ReferencePositionValue}
@@ -60,7 +60,7 @@ function References({
         ReferencePhoneNumberState={ReferencePhoneNumberState}
       />
       <ReferenceItem
-        title="Reference"
+        title="Professional Reference"
         ReferenceNameValue={ReferenceNameValue2}
         ReferenceNameState={ReferenceNameState2}
         ReferencePositionValue={ReferencePositionValue2}
@@ -73,7 +73,7 @@ function References({
         ReferencePhoneNumberState={ReferencePhoneNumberState2}
       />
       <ReferenceItem
-        title="Reference"
+        title="Personal Reference"
         ReferenceNameValue={ReferenceNameValue3}
         ReferenceNameState={ReferenceNameState3}
         ReferencePositionValue={ReferencePositionValue3}
@@ -86,7 +86,7 @@ function References({
         ReferencePhoneNumberState={ReferencePhoneNumberState3}
       />
       <ReferenceItem
-        title="Reference"
+        title="Personal Reference"
         ReferenceNameValue={ReferenceNameValue4}
         ReferenceNameState={ReferenceNameState4}
         ReferencePositionValue={ReferencePositionValue4}

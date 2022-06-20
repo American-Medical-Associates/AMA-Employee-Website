@@ -14,7 +14,10 @@ import EducationBox from '../components/EducationBox'
 import WorkHistory from '../components/WorkHistory'
 import Reference from '../components/Refrences'
 import APPLICANTCERTIFICATION from '../components/APPLICANTCERTIFICATION'
-const JobApplicationPage: React.FC<{}> = () => {
+import { NextPage } from 'next'
+import { Router, useRouter } from 'next/router'
+import { image } from '@tensorflow/tfjs'
+const JobApplicationPage: NextPage<{}> = () => {
   const filePicker = useRef(null)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -128,7 +131,7 @@ const JobApplicationPage: React.FC<{}> = () => {
     radio_Terminated_upon_mutual_agreement,
     setRadio_Terminated_upon_mutual_agreement,
   ] = useState(null)
-
+  const router = useRouter()
   const [
     radio_Choice_to_resign_rather_than_be_terminated,
     setRadio_Choice_to_resign_rather_than_be_terminated,
@@ -160,6 +163,8 @@ const JobApplicationPage: React.FC<{}> = () => {
   const [referenceCompanyState4, setReferenceCompanyState4] = useState('')
   const [referencePhoneNumberState4, setReferencePhoneNumberState4] =
     useState('')
+  const [whyTerminatedTextBox, setWhyTerminatedTextBox] = useState('')
+  const [resumeFileType, setResumeFileType] = useState('not a pdf')
   const checkForInput: any = () => {
     if (
       !firstName ||
@@ -324,7 +329,14 @@ const JobApplicationPage: React.FC<{}> = () => {
           referenceCompanyState4: referenceCompanyState4,
 
           referencePhoneNumberState4: referencePhoneNumberState4,
+          WhyTerminatedTextBox: whyTerminatedTextBox,
+          resumeFileType: resumeFileType,
+          radio_Terminated_upon_mutual_agreement:
+            radio_Terminated_upon_mutual_agreement,
+          radio_Choice_to_resign_rather_than_be_terminated:
+            radio_Choice_to_resign_rather_than_be_terminated,
         })
+        router.push('/Success')
       } catch (e) {
         alert(e)
       }
@@ -343,9 +355,9 @@ const JobApplicationPage: React.FC<{}> = () => {
             widthPercentage="w-[80%]"
             placeHolder="Please explain the circumstances if answered yes to any of the questions above"
             onChange={(text: any) => {
-              setAboutYou(text.target.value)
+              setWhyTerminatedTextBox(text.target.value)
             }}
-            value={aboutYou}
+            value={whyTerminatedTextBox}
           />
         </div>
       )
@@ -356,6 +368,11 @@ const JobApplicationPage: React.FC<{}> = () => {
       const reader = new FileReader()
       if (e.target.files[0]) {
         // console.log(resume)
+        const image = e.target.files[0]
+
+        if (image.type.search('pdf') > -1) {
+          setResumeFileType('pdf')
+        }
         reader.readAsDataURL(e.target.files[0])
         reader.onload = (readEvent) => {
           setResume(readEvent!.target?.result as any)
@@ -363,7 +380,7 @@ const JobApplicationPage: React.FC<{}> = () => {
         }
       }
     } catch (e) {
-      alert('please upload your Resume')
+      alert(e + 'please upload your Resume')
     }
   }
 
@@ -678,7 +695,7 @@ const JobApplicationPage: React.FC<{}> = () => {
               GradValue={GradState}
               GradCourseOfStudyState={setGradCourseOfStudyState}
               GradCourseOfStudyValue={GradCourseOfStudyState}
-              GradGraduateState={GradGraduateState}
+              GradGraduateState={setGradGraduateState}
               GradNumberOfYearsCompletedState={
                 setGradNumberOfYearsCompletedState
               }
@@ -688,8 +705,8 @@ const JobApplicationPage: React.FC<{}> = () => {
               tradeState={setTradeState}
               tradeValue={tradeState}
               tradeCourseOfStudyState={setTradeCourseOfStudyState}
-              tradeCourseOfStudyValue={tradeGraduateState}
-              tradeGraduateState={tradeGraduateState}
+              tradeCourseOfStudyValue={tradeCourseOfStudyState}
+              tradeGraduateState={setTradeGraduateState}
               tradeNumberOfYearsCompletedState={
                 setTradeNumberOfYearsCompletedState
               }
@@ -798,8 +815,8 @@ const JobApplicationPage: React.FC<{}> = () => {
                 setReferenceWorkRelationshipState3
               }
               ReferenceWorkRelationshipValue3={referenceWorkRelationshipState3}
-              ReferenceCompanyValue3={setReferenceCompanyState3}
-              ReferenceCompanyState3={referenceCompanyState3}
+              ReferenceCompanyValue3={referenceCompanyState3}
+              ReferenceCompanyState3={setReferenceCompanyState3}
               ReferencePhoneNumberValue3={referencePhoneNumberState3}
               ReferencePhoneNumberState3={setReferencePhoneNumberState3}
               ReferenceNameValue4={referenceNameState4}

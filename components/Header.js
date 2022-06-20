@@ -100,15 +100,15 @@ const Header = () => {
               openMenu={openMenu}
               setOpenMenu={setOpenMenu}
               item={[
-                <MenuItem
-                  icon={
-                    <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Home'}
-                  onClick={() => {
-                    router.push('/')
-                  }}
-                />,
+                // <MenuItem
+                //   icon={
+                //     <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                //   }
+                //   text={'Home'}
+                //   onClick={() => {
+                //     router.push('/')
+                //   }}
+                // />,
                 <MenuItem
                   icon={
                     <LoginIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
@@ -134,16 +134,15 @@ const Header = () => {
       <div
         ref={ref}
         className=" flex items-start justify-start text-center"
-        onClick={() => {
-          router.push('/')
-        }}
+        // onClick={() => {
+        //   router.push('/')
+        // }}
       >
         <Image
           src="/American Medical Associates.png"
           alt="Logo.png"
           height={50}
           width={50}
-          className=" cursor-pointer"
         />
         <h1 className=" ml-7 text-center text-4xl text-[#377adf]">AMA</h1>
       </div>
