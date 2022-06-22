@@ -76,15 +76,16 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               EMPLOYMENT RELATIONSHIP AT ANY TIME, FOR ANY REASON. WITH OR
               WITHOUT CAUSE OR NOTICE. NOTHING IN THIS APPLICATION OR IN ANY
               DOCUMENT OR STATEMENT. WRITTEN OR ORAL, SHALL LIMIT THE RIGHT TQ
-              TERMINATE EMPLOYMENT AT•WfLL. NO OFFICER, EMPLOYEE OR
-              REPRESENTATIVE OF THE COMPANY IS AUTHORIZED TO ENTER fNTO AN
+              TERMINATE EMPLOYMENT AT-WILL. NO OFFICER, EMPLOYEE OR
+              REPRESENTATIVE OF THE COMPANY IS AUTHORIZED TO ENTER INTO AN
               AGREEMENT-EXPRESS OR IMPLIED-WITH ME OR ANY APPLICANT FOR
               EMPLOYMENT FOR A SPECIFIED PERIOD OF TIME UNLESS SUCH AN AGREEMENT
-              IS IN A WRITTEN CONTRACT SIGNED BY THE PRESIDENT OF THE COMPANY.IF
-              HIRED, I AGREE TO CONFORM TO THE RULES AND REGULATIONS OF THE
-              COMPANY. AND I UNDERSTAND THAT THE COMPANY HAS COMPLETE DISCRETION
-              TO MODIFY SUCH RULES AND REGULATIONS AT ANY TIME, EXCEPT THAT IT
-              WILL NOT MODIFY ITS POLICY OF EMPLOYMENT AT-WILL.
+              IS IN A WRITTEN CONTRACT SIGNED BY THE CHIEF OPERATING OFFICER OF
+              THE COMPANY.IF HIRED, I AGREE TO CONFORM TO THE RULES AND
+              REGULATIONS OF THE COMPANY. AND I UNDERSTAND THAT THE COMPANY HAS
+              COMPLETE DISCRETION TO MODIFY SUCH RULES AND REGULATIONS AT ANY
+              TIME, EXCEPT THAT IT WILL NOT MODIFY ITS POLICY OF EMPLOYMENT
+              AT-WILL.
             </p>
             {/* <h3 className=" my-10  text-left text-xl font-bold">
               OFCCP Notice
@@ -96,8 +97,8 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               or local law. I agree to complete any requisite authorization
               forms for the background investigation which may be permitted by
               federal, state and/or local law. If applicable and allowed by law,
-              1 will receive separate written notification regarding the
-              Company's intent to obtain •consumer reports.• I authorize and
+              I will receive separate written notification regarding the
+              Company's intent to obtain •consumer reports. I authorize and
               consent to, without reservation, any party or agency contacted by
               this employer to furnish the above-mentioned information. I hereby
               release, discharge, and hold harmless, to the extent permitted by

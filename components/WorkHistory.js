@@ -320,6 +320,11 @@ function WorkHistoryItem({
           answerState={mayWeContactState}
           answer={mayWeContactValue}
         />
+        {mayWeContactValue == 'No' && (
+          <h5 className=" font-bold">
+            If Not Please Provide two professional references
+          </h5>
+        )}
       </div>
       <div className=" w-full justify-start">
         <h5 className=" m-10 text-xl font-bold text-[#2a2a2ad8]">

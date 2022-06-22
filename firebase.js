@@ -151,6 +151,12 @@ export async function submitResume({
   resumeFileType,
   radio_Terminated_upon_mutual_agreement,
   radio_Choice_to_resign_rather_than_be_terminated,
+  middleInitial,
+  WhenAndWhereDidYouApply,
+  previouslyEmployedBox,
+  previouslyExternOrContractor,
+  convictedOfACrimeBox,
+  canYouWorkOvertime,
 }) {
   try {
     await setDoc(
@@ -168,7 +174,7 @@ export async function submitResume({
         require_immigration_sponsorShip: radio1,
         authorize_job_application: radio2,
         previously_been_employed: radio3,
-        former_or_current_intern_or_contractor: radio4,
+        former_or_current_extern_or_contractor: radio4,
         consent_to_receiving_text_messages_throughout_your_application_process:
           radio5,
         Have_you_ever_been_terminated_from_a_job: radio6,
@@ -276,6 +282,12 @@ export async function submitResume({
           radio_Terminated_upon_mutual_agreement,
         radio_Choice_to_resign_rather_than_be_terminated:
           radio_Choice_to_resign_rather_than_be_terminated,
+        middleInitial: middleInitial,
+        whenAndWhereDidYouApply: WhenAndWhereDidYouApply,
+        previouslyEmployedBox: previouslyEmployedBox,
+        previouslyExternOrContractor: previouslyExternOrContractor,
+        convictedOfACrimeBox: convictedOfACrimeBox,
+        canYouWorkOvertime: canYouWorkOvertime,
         timestamp: serverTimestamp(),
       },
       { merge: true }

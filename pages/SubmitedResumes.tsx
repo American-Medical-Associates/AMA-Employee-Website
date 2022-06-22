@@ -9,6 +9,7 @@ import ApplicationItem from '../components/ApplicationItem'
 import Image from 'next/image'
 import MainButton from '../components/MainButton'
 import { useRouter } from 'next/router'
+import ItemPicker from '../components/ItemPicker'
 
 const SubmitedResumes: React.FC<{}> = () => {
   const [application, setApplication] = useState(Array)
@@ -117,6 +118,13 @@ const SubmitedResumes: React.FC<{}> = () => {
                 name="Previously been employed:"
                 Item={applicationDetails?.item?.previously_been_employed}
               />
+              {applicationDetails?.item?.previously_been_employed == 'Yes' && (
+                <ApplicationItem
+                  name="Dates of employment, location, and reason for separation:"
+                  Item={applicationDetails?.item?.previouslyEmployedBox}
+                />
+              )}
+
               <ApplicationItem
                 name="Phone Number:"
                 Item={applicationDetails?.item?.phoneNumber}
@@ -149,6 +157,13 @@ const SubmitedResumes: React.FC<{}> = () => {
                     ?.Have_you_ever_been_convicted_of_a_crime
                 }
               />
+              {applicationDetails?.item
+                ?.Have_you_ever_been_convicted_of_a_crime == 'Yes' && (
+                <ApplicationItem
+                  name="Convicted Of A Crime Details"
+                  Item={applicationDetails?.item?.convictedOfACrimeBox}
+                />
+              )}
               <ApplicationItem
                 name="Ever been terminated from a job?"
                 Item={
@@ -183,9 +198,15 @@ const SubmitedResumes: React.FC<{}> = () => {
               <ApplicationItem
                 name="Have Previously Applied"
                 Item={applicationDetails?.item?.havePreviouslyApplied}
-              />{' '}
+              />
+              {applicationDetails?.item?.havePreviouslyApplied == 'Yes' && (
+                <ApplicationItem
+                  name=" When And Where Did They Apply"
+                  Item={applicationDetails?.item?.WhenAndWhereDidYouApply}
+                />
+              )}
               <ApplicationItem
-                name="Have Previously Applied"
+                name="Under the age of 18"
                 Item={applicationDetails?.item?.under_the_age_of_18}
               />
               {applicationDetails?.item?.ReferenceNameValue != '' &&
@@ -341,13 +362,25 @@ const SubmitedResumes: React.FC<{}> = () => {
                     ?.consent_to_receiving_text_messages_throughout_your_application_process
                 }
               />
+
               <ApplicationItem
-                name="Current Intern or Contractor:"
+                name="Current extern or Contractor:"
                 Item={
                   applicationDetails?.item
-                    ?.former_or_current_intern_or_contractor
+                    ?.former_or_current_extern_or_contractor
                 }
               />
+              {applicationDetails?.item
+                ?.former_or_current_extern_or_contractor == 'Yes' && (
+                <ApplicationItem
+                  name="Extern dates and Location"
+                  Item={
+                    applicationDetails?.item
+                      ?.former_or_current_extern_or_contractor
+                  }
+                />
+              )}
+
               <ApplicationItem
                 name="Require immigration Sponsorship:"
                 Item={applicationDetails?.item?.require_immigration_sponsorShip}

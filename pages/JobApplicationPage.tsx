@@ -165,6 +165,13 @@ const JobApplicationPage: NextPage<{}> = () => {
     useState('')
   const [whyTerminatedTextBox, setWhyTerminatedTextBox] = useState('')
   const [resumeFileType, setResumeFileType] = useState('not a pdf')
+  const [middleInitial, setMiddleInitial] = useState('')
+  const [whenAndWhereDidYouApply, setWhenAndWhereDidYouApply] = useState('')
+  const [previouslyEmployedBox, setPreviouslyEmployedBox] = useState('')
+  const [previouslyExternOrContractor, setPreviouslyExternOrContractor] =
+    useState('')
+  const [convictedOfACrimeBox, setConvictedOfACrimeBox] = useState('')
+  const [canYouWorkOvertime, setCanYouWorkOvertime] = useState(null)
   const checkForInput: any = () => {
     if (
       !firstName ||
@@ -190,7 +197,11 @@ const JobApplicationPage: NextPage<{}> = () => {
       !disabilityStatus ||
       !highSchoolState ||
       !referenceNameState ||
-      !checkBoxAgree3
+      !checkBoxAgree3 ||
+      !referenceNameState ||
+      !referenceNameValue2 ||
+      !referencePhoneNumberState ||
+      !referencePhoneNumberValue2
     ) {
       alert('Please make sure all the felids are filled out')
     } else if (phoneNumber.length != 10) {
@@ -335,6 +346,12 @@ const JobApplicationPage: NextPage<{}> = () => {
             radio_Terminated_upon_mutual_agreement,
           radio_Choice_to_resign_rather_than_be_terminated:
             radio_Choice_to_resign_rather_than_be_terminated,
+          middleInitial: middleInitial,
+          WhenAndWhereDidYouApply: whenAndWhereDidYouApply,
+          previouslyEmployedBox: previouslyEmployedBox,
+          previouslyExternOrContractor: previouslyExternOrContractor,
+          convictedOfACrimeBox: convictedOfACrimeBox,
+          canYouWorkOvertime: canYouWorkOvertime,
         })
         router.push('/Success')
       } catch (e) {
@@ -353,11 +370,75 @@ const JobApplicationPage: NextPage<{}> = () => {
           <LargeTextBox
             heightPercentage="h-[200px]"
             widthPercentage="w-[80%]"
-            placeHolder="Please explain the circumstances if answered yes to any of the questions above"
+            placeHolder="Please explain the circumstances if answered Yes to any of the questions above."
             onChange={(text: any) => {
               setWhyTerminatedTextBox(text.target.value)
             }}
             value={whyTerminatedTextBox}
+          />
+        </div>
+      )
+  }
+  const showPreviouslyAppliedBox = () => {
+    if (previouslyApplied == 'Yes')
+      return (
+        <div className=" flex w-full items-center justify-center">
+          <LargeTextBox
+            heightPercentage="h-[200px]"
+            widthPercentage="w-[80%]"
+            placeHolder="If Yes, when and where did you apply?"
+            onChange={(text: any) => {
+              setWhenAndWhereDidYouApply(text.target.value)
+            }}
+            value={whenAndWhereDidYouApply}
+          />
+        </div>
+      )
+  }
+  const showPreviouslyEmployedBox = () => {
+    if (radio3 == 'Yes')
+      return (
+        <div className=" flex w-full items-center justify-center">
+          <LargeTextBox
+            heightPercentage="h-[200px]"
+            widthPercentage="w-[80%]"
+            placeHolder="If Yes, provide dates of employment, location, and reason for separation from employment."
+            onChange={(text: any) => {
+              setPreviouslyEmployedBox(text.target.value)
+            }}
+            value={previouslyEmployedBox}
+          />
+        </div>
+      )
+  }
+  const showPreviouslyExternOrContractor = () => {
+    if (radio4 == 'Yes')
+      return (
+        <div className=" flex w-full items-center justify-center">
+          <LargeTextBox
+            heightPercentage="h-[200px]"
+            widthPercentage="w-[80%]"
+            placeHolder="If Yes, provide dates of employment, location, and reason for separation from employment."
+            onChange={(text: any) => {
+              setPreviouslyExternOrContractor(text.target.value)
+            }}
+            value={previouslyExternOrContractor}
+          />
+        </div>
+      )
+  }
+  const showConvictedOfACrime = () => {
+    if (radio7 == 'Yes')
+      return (
+        <div className=" flex w-full items-center justify-center">
+          <LargeTextBox
+            heightPercentage="h-[200px]"
+            widthPercentage="w-[80%]"
+            placeHolder="If Yes, provide dates and details."
+            onChange={(text: any) => {
+              setConvictedOfACrimeBox(text.target.value)
+            }}
+            value={convictedOfACrimeBox}
           />
         </div>
       )
@@ -388,16 +469,20 @@ const JobApplicationPage: NextPage<{}> = () => {
     <div className=" flex  w-full flex-1 flex-col">
       <Header />
       <main className=" flex w-full flex-col text-center ">
-        <h1 className=" mt-8 text-4xl text-[#4e4e4e]"> Application</h1>
+        <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
+          APPLICATION OF EMPLOYMENT
+        </h1>
         <div className=" mt-8 px-60 text-center">
-          <p className=" text-lg">
+          <h5 className=" mb-5 text-center text-xl font-bold">
             Please Answer All Questions. Resumes Are Not A Substitute For A
-            Completed Application. We are an equal opportunity employer.
-            Applicants are considered for positions without regard to veteran
-            status, uniformed service member status, race, color, religion, sex,
-            national origin, age, physical or mental disability, genetic
-            information or any other category protected by applicable federal,
-            state, or local laws.
+            Completed Application.
+          </h5>
+          <p className=" text-lg font-bold">
+            We are an equal opportunity employer. Applicants are considered for
+            positions without regard to veteran status, uniformed service member
+            status, race, color, religion, sex, national origin, age, physical
+            or mental disability, genetic information or any other category
+            protected by applicable federal, state, or local laws.
           </p>
           <p className=" mt-5 text-lg">
             THIS COMPANY IS AN AT-WILL EMPLOYER AS ALLOWED BY APPLICABLE STATE
@@ -418,6 +503,17 @@ const JobApplicationPage: NextPage<{}> = () => {
                   setFirstName(text.target.value)
                 }}
                 value={firstName}
+                type={'text'}
+              />
+            </div>
+            <div className=" my-12">
+              <TextInput
+                widthPercentage="w-[80%]"
+                placeHolder="Middle Initial"
+                onChange={(text: any) => {
+                  setMiddleInitial(text.target.value)
+                }}
+                value={middleInitial}
                 type={'text'}
               />
             </div>
@@ -481,7 +577,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               />
             </div>
             <div className=" my-12 flex w-full  flex-col items-center justify-center p-2">
-              <h3 className=" text-lg text-[#838383]"> Portfolio Link</h3>
+              <h3 className=" text-lg text-[#838383]"> Profile Link</h3>
               <TextInput
                 widthPercentage="w-[80%]"
                 placeHolder="Profile Link"
@@ -506,9 +602,9 @@ const JobApplicationPage: NextPage<{}> = () => {
                     Please Select One
                   </option>,
                   <option value="LinkedIn">LinkedIn</option>,
-                  <option value="FaceBook">FaceBook</option>,
-                  <option value="Indeed">Indeed</option>,
-                  <option value="Portfolio">Portfolio</option>,
+                  <option value="FaceBook">Facebook</option>,
+                  // <option value="Indeed">Indeed</option>,
+                  <option value="Portfolio">Profile</option>,
                 ]}
               />
             </div>
@@ -530,7 +626,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           <LargeTextBox
             heightPercentage="h-[200px]"
             widthPercentage="w-[80%]"
-            placeHolder="Evidence of Excellence"
+            placeHolder="Tell us something about yourself that is not included your resume."
             onChange={(text: any) => {
               setAboutYou(text.target.value)
             }}
@@ -562,10 +658,9 @@ const JobApplicationPage: NextPage<{}> = () => {
                 </option>,
                 <option value="Immediately">Immediately</option>,
                 <option value="In 1-2 weeks">In 1-2 weeks</option>,
-                <option value="In 1-2 weeks">In 1-2 weeks</option>,
                 <option value="In 3-4 weeks">In 3-4 weeks</option>,
                 <option value="In 5-12 weeks">In 5-12 weeks</option>,
-                <option value="More then 12 weeks">More then 12 weeks</option>,
+                <option value="More than 12 weeks">More then 12 weeks</option>,
               ]}
             />
             <div className=" mt-5 flex items-center justify-center">
@@ -582,11 +677,12 @@ const JobApplicationPage: NextPage<{}> = () => {
                   </option>,
                   <option value="Full Time">Full Time</option>,
                   <option value="Part Time">Part Time</option>,
-                  <option value="In 1-2 weeks">In 1-2 weeks</option>,
                 ]}
               />
             </div>
             <div className=" my-12 flex w-full  flex-col items-center justify-center p-2">
+              <h5 className=" my-5 text-lg">Can you work overtime?</h5>
+              <RadioButton answerState={setCanYouWorkOvertime} />
               <h5 className=" my-5 text-lg">
                 If under the age of 18, can you produce the necessary work
                 certificate at the time of employment?
@@ -600,35 +696,39 @@ const JobApplicationPage: NextPage<{}> = () => {
             <RadioButton answerState={setRadio1} />
             <h5 className=" my-5 text-lg">
               I authorize American Medical Associates to consider me for other
-              job opportunities for the next 24 months within American Medical
+              job opportunities for the next 6 months within American Medical
               Associates in addition to the specific job I am applying for.
             </h5>
             <RadioButton answerState={setRadio2} />
             <h5 className=" my-5 text-lg">
-              Have you previously applied by American Medical Associates?
+              Have you previously applied to American Medical Associates?
             </h5>
 
             <RadioButton answerState={setPreviouslyApplied} />
+            {showPreviouslyAppliedBox()}
             <h5 className=" my-5 text-lg">
               Have you previously been employed by American Medical Associates?
             </h5>
 
             <RadioButton answerState={setRadio3} />
+            {showPreviouslyEmployedBox()}
             <h5 className=" my-5 text-lg">
-              Are you a former/current intern or contractor?
+              Are you a former/current extern or contractor?
             </h5>
             <RadioButton answerState={setRadio4} />
-            <h5 className=" my-5 text-lg">
+            {showPreviouslyExternOrContractor()}
+            {/* <h5 className=" my-5 text-lg">
               Do you consent to receiving text messages throughout your
               application process including but not limited to interview
               details, pre-employment screening notifications and reminders?
             </h5>
-            <RadioButton answerState={setRadio5} />
+            <RadioButton answerState={setRadio5} /> */}
 
             <h5 className=" my-5 text-lg">
               Have you ever been convicted of a crime?
             </h5>
             <RadioButton answerState={setRadio7} />
+            {showConvictedOfACrime()}
             <LineDivider
               lineColor={'bg-[#ABABAB]'}
               lineHight={'h-[10px]'}
