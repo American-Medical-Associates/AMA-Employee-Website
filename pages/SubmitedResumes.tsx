@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Head from 'next/head'
-import { getResumes } from '../firebase'
+import { getResumes, archiveItem } from '../firebase'
 import ListItem from '../components/ListItem'
 import { ReactDOM } from 'react'
 import classnames from 'classnames'
@@ -10,6 +10,7 @@ import Image from 'next/image'
 import MainButton from '../components/MainButton'
 import { useRouter } from 'next/router'
 import ItemPicker from '../components/ItemPicker'
+import LineDivider from '../components/lineDiveider'
 
 const SubmitedResumes: React.FC<{}> = () => {
   const [application, setApplication] = useState(Array)
@@ -19,6 +20,7 @@ const SubmitedResumes: React.FC<{}> = () => {
   const router = useRouter()
   const [numPages, setNumPages] = useState(1)
   const [pageNumber, setPageNumber] = useState(1)
+  const [showArchived, setShowArchived] = useState(false)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -35,18 +37,20 @@ const SubmitedResumes: React.FC<{}> = () => {
   const list = application.map((item: any) => {
     // console.log('hiii ' + item.email)
     // console.log(height)
-    return (
-      <div
-        key={item.phoneNumber}
-        onClick={() => {
-          setApplicationDetails({ item })
-          console.log(applicationDetails?.item?.selectedDateStart1)
-        }}
-        className=" w-30% m-5 cursor-pointer rounded-[30px] bg-[#ebebebc6] p-4 text-center shadow-xl duration-500 hover:scale-[110%]"
-      >
-        <h1 className=" text-lg text-[#707070]">{item.email}</h1>
-      </div>
-    )
+    if (item.archive == showArchived) {
+      return (
+        <div
+          key={item.phoneNumber}
+          onClick={() => {
+            setApplicationDetails({ item })
+            console.log(applicationDetails?.item?.selectedDateStart1)
+          }}
+          className=" w-30% m-5 cursor-pointer rounded-[30px] bg-[#ebebebc6] p-4 text-center shadow-xl duration-500 hover:scale-[110%]"
+        >
+          <h1 className=" text-lg text-[#707070]">{item.email}</h1>
+        </div>
+      )
+    }
   })
   const isPDf = () => {
     if (applicationDetails?.item?.resumeFileType == 'pdf') {
@@ -81,6 +85,39 @@ const SubmitedResumes: React.FC<{}> = () => {
       )
     }
   }
+  const archiveButton = () => {
+    if (applicationDetails?.item?.archive == true) {
+      return (
+        <MainButton
+          buttonText=" unArchive"
+          buttonWidth="w-[10]"
+          onClick={() => {
+            archiveItem({
+              collections: 'applications',
+              docs: applicationDetails?.item?.email,
+              archiveBool: false,
+            })
+            setApplicationDetails(null)
+          }}
+        />
+      )
+    } else {
+      return (
+        <MainButton
+          buttonText="Archive"
+          buttonWidth="w-[10]"
+          onClick={() => {
+            archiveItem({
+              collections: 'applications',
+              docs: applicationDetails?.item?.email,
+              archiveBool: true,
+            })
+            setApplicationDetails(null)
+          }}
+        />
+      )
+    }
+  }
   const details = () => {
     if (applicationDetails == null) {
       return (
@@ -92,13 +129,16 @@ const SubmitedResumes: React.FC<{}> = () => {
       console.log(applicationDetails)
       return (
         <div className="  h-[80vh] w-full  overflow-auto rounded-[20px] bg-[#ebebebc6] p-[40px] text-center shadow-xl">
-          <MainButton
-            buttonText=" See The Application "
-            buttonWidth="w-20%"
-            onClick={() => {
-              router.push('/JobApplicationPage')
-            }}
-          />
+          <div className=" flex flex-col items-center  justify-center">
+            <MainButton
+              buttonText=" See The Application "
+              buttonWidth="w-[3 0%]"
+              onClick={() => {
+                router.push('/JobApplicationPage')
+              }}
+            />
+            {archiveButton()}
+          </div>
           <h2 className=" m-5 text-2xl text-[#1c91de] "> Application</h2>
           <div className=" flex w-full grid-cols-2 ">
             <div className=" flex w-[50%] flex-col items-center justify-center">
@@ -129,14 +169,14 @@ const SubmitedResumes: React.FC<{}> = () => {
                 name="Phone Number:"
                 Item={applicationDetails?.item?.phoneNumber}
               />
-              <ApplicationItem
+              {/* <ApplicationItem
                 name="Gender:"
                 Item={applicationDetails?.item?.gender}
-              />
-              <ApplicationItem
+              /> */}
+              {/* <ApplicationItem
                 name="Race:"
                 Item={applicationDetails?.item?.race}
-              />
+              /> */}
               <ApplicationItem
                 name="Profile Link:"
                 Item={applicationDetails?.item?.profileLink}
@@ -351,10 +391,10 @@ const SubmitedResumes: React.FC<{}> = () => {
                 )}
             </div>
             <div className="flex w-[50%] flex-col">
-              <ApplicationItem
+              {/* <ApplicationItem
                 name="Disability Status:"
                 Item={applicationDetails?.item?.DisabilityStatus}
-              />
+              /> */}
               <ApplicationItem
                 name="Authorize to Receive Texts About Job:"
                 Item={
@@ -389,10 +429,10 @@ const SubmitedResumes: React.FC<{}> = () => {
                 name="Statement of Availability:"
                 Item={applicationDetails?.item?.statmentOfAvailbilty}
               />
-              <ApplicationItem
+              {/* <ApplicationItem
                 name="Veteran Status"
                 Item={applicationDetails?.item?.veteranStatus}
-              />
+              /> */}
               {applicationDetails?.item?.highSchool != '' &&
                 applicationDetails?.item?.highSchool != null && (
                   <div className="mt-9  flex w-full items-center justify-end  pr-[45px] ">
@@ -705,7 +745,36 @@ const SubmitedResumes: React.FC<{}> = () => {
                 </div>
               </div>
             )}
+          <div className=" flex items-center justify-center justify-self-center">
+            <ApplicationItem
+              name="Signature"
+              Item={applicationDetails?.item?.fullName}
+            />
+          </div>
         </div>
+      )
+    }
+  }
+  const showArchiveList = () => {
+    if (showArchived == true) {
+      return (
+        <MainButton
+          buttonText=" Hide Archived"
+          onClick={() => {
+            setShowArchived(!showArchived)
+            setApplicationDetails(null)
+          }}
+        />
+      )
+    } else {
+      return (
+        <MainButton
+          buttonText=" Show Archived"
+          onClick={() => {
+            setShowArchived(!showArchived)
+            setApplicationDetails(null)
+          }}
+        />
       )
     }
   }
@@ -719,12 +788,22 @@ const SubmitedResumes: React.FC<{}> = () => {
       <Header />
 
       <main className=" flex grid-cols-2 justify-center">
-        <div
-          className={classnames(
-            `flex h-[80vh] w-[25%] flex-col  overflow-y-auto `
-          )}
-        >
-          {list}
+        <div className=" flex h-[80vh] w-[25%] flex-col">
+          <div className=" flex flex-col items-center justify-center">
+            {showArchiveList()}
+            <LineDivider
+              lineHight="h-[10px]"
+              lineWidth="w-[50px]"
+              lineColor="#737272f"
+            />
+          </div>
+          <div
+            className={classnames(
+              `flex h-[80vh] w-[full] flex-col  overflow-y-auto `
+            )}
+          >
+            {list}
+          </div>
         </div>
         <div className="flex w-[75%] flex-col justify-center  p-[20px]">
           {details()}

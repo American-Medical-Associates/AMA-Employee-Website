@@ -142,7 +142,7 @@ function SchoolItem({
         <TextInput
           value={NumberOfYearsCompletedValue}
           widthPercentage="w-full"
-          placeHolder="Honers Received"
+          placeHolder="Honors Received"
           onChange={(text) => {
             NumberOfYearsCompletedState(text.target.value)
           }}

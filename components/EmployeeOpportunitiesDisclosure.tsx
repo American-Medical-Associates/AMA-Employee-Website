@@ -30,7 +30,7 @@ const EmployeeOpportunitiesDisclosure: React.FC<{
               Veteran Status
             </h3>
             <p className=" object-contain text-left">
-              American Medical Associates is a Government contractor or
+              American Medical Associates is not a Government contractor or
               subcontractor subject to laws including Executive Order 11246 (EO
               11246) and the Vietnam Era Veterans' Readjustment Assistance Act
               of 1974 (VEVRAA). These laws require that covered Government

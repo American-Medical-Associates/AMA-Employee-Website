@@ -1,5 +1,6 @@
 import { title } from 'process'
 import React from 'react'
+import PhoneNumberInput from './PhoneNumberInput'
 import TextInput from './TextInput'
 
 function References({
@@ -159,9 +160,10 @@ function ReferenceItem({
         />
       </div>
       <div className=" mx-3 w-full">
-        <TextInput
+        <PhoneNumberInput
           value={ReferencePhoneNumberValue}
           widthPercentage="w-full"
+          valueState={ReferencePhoneNumberState}
           placeHolder="Phone Number"
           onChange={(text) => {
             ReferencePhoneNumberState(text.target.value)

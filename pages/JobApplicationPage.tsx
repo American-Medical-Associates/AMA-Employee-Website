@@ -17,6 +17,9 @@ import APPLICANTCERTIFICATION from '../components/APPLICANTCERTIFICATION'
 import { NextPage } from 'next'
 import { Router, useRouter } from 'next/router'
 import { image } from '@tensorflow/tfjs'
+import { PhoneIncomingIcon } from '@heroicons/react/outline'
+import PhoneNumberInput from '../components/PhoneNumberInput'
+import Datepicker from '../components/Datepicker'
 const JobApplicationPage: NextPage<{}> = () => {
   const filePicker = useRef(null)
   const [firstName, setFirstName] = useState('')
@@ -172,29 +175,29 @@ const JobApplicationPage: NextPage<{}> = () => {
     useState('')
   const [convictedOfACrimeBox, setConvictedOfACrimeBox] = useState('')
   const [canYouWorkOvertime, setCanYouWorkOvertime] = useState(null)
+  const [immigrationBox, setImmigrationBox] = useState('')
   const checkForInput: any = () => {
     if (
       !firstName ||
       !lastName ||
       !phoneNumber ||
       !email ||
-      !profileLink ||
-      !linkType ||
+      // !profileLink ||
+      // !linkType ||
       !aboutYou ||
       !resume ||
       !radio1 ||
       !radio2 ||
       !radio3 ||
       !radio4 ||
-      !radio5 ||
       !radio6 ||
       !radio7 ||
       !fullLegalName ||
-      !race ||
-      !gender ||
-      !veteranStatus ||
+      // !race ||
+      // !gender ||
+      // !veteranStatus ||
       !statmentOfAvailability ||
-      !disabilityStatus ||
+      // !disabilityStatus ||
       !highSchoolState ||
       !referenceNameState ||
       !checkBoxAgree3 ||
@@ -203,7 +206,7 @@ const JobApplicationPage: NextPage<{}> = () => {
       !referencePhoneNumberState ||
       !referencePhoneNumberValue2
     ) {
-      alert('Please make sure all the felids are filled out')
+      alert('Please make sure all the fields are filled out')
     } else if (phoneNumber.length != 10) {
       alert('Plaese make sure your Phone Number is a standard 10 digit number')
     } else if (phoneNumber.includes('9999999999') == true) {
@@ -212,7 +215,7 @@ const JobApplicationPage: NextPage<{}> = () => {
       alert('Please make sure your phone number is valid')
     } else if (email.includes('@') == false) {
       alert('Please make sure your email valid')
-    } else if (checkBoxAgree2 != true || checkBoxAgree != true) {
+    } else if (checkBoxAgree != true) {
       alert(
         'Please acknowledge with checkboxes that you have read all of the information '
       )
@@ -242,10 +245,10 @@ const JobApplicationPage: NextPage<{}> = () => {
           under_the_age_of_18: under18Bool,
           havePreviouslyApplied: previouslyApplied,
           fullLegalName: fullLegalName,
-          race: race,
-          gender: gender,
-          veteranStatus: veteranStatus,
-          DisabilityStatus: disabilityStatus,
+          // race: race,
+          //gender: gender,
+          //veteranStatus: veteranStatus,
+          //DisabilityStatus: disabilityStatus,
           statmentOfAvailbilty: statmentOfAvailability,
           checkbox1: checkBoxAgree,
           checkbox2: checkBoxAgree2,
@@ -352,6 +355,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           previouslyExternOrContractor: previouslyExternOrContractor,
           convictedOfACrimeBox: convictedOfACrimeBox,
           canYouWorkOvertime: canYouWorkOvertime,
+          reasonForImmigrationBox: immigrationBox,
         })
         router.push('/Success')
       } catch (e) {
@@ -443,6 +447,22 @@ const JobApplicationPage: NextPage<{}> = () => {
         </div>
       )
   }
+  const showImmigrationBox = () => {
+    if (radio1 == 'Yes')
+      return (
+        <div className=" flex w-full items-center justify-center">
+          <LargeTextBox
+            heightPercentage="h-[200px]"
+            widthPercentage="w-[80%]"
+            placeHolder="Please describe your future eligibility requirements."
+            onChange={(text: any) => {
+              setImmigrationBox(text.target.value)
+            }}
+            value={immigrationBox}
+          />
+        </div>
+      )
+  }
 
   const uploadimage = ({ e }: { e: any }) => {
     try {
@@ -530,9 +550,10 @@ const JobApplicationPage: NextPage<{}> = () => {
             </div>
 
             <div className=" my-12">
-              <TextInput
+              <PhoneNumberInput
                 widthPercentage="w-[80%]"
                 placeHolder="Phone Number"
+                valueState={setPhoneNumber}
                 onChange={(text: any) => {
                   text.hand
                   setPhoneNumber(text.target.value)
@@ -605,6 +626,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                   <option value="FaceBook">Facebook</option>,
                   // <option value="Indeed">Indeed</option>,
                   <option value="Portfolio">Profile</option>,
+                  <option value="Portfolio">None</option>,
                 ]}
               />
             </div>
@@ -693,11 +715,12 @@ const JobApplicationPage: NextPage<{}> = () => {
               Will you now or in the future require immigration sponsorship for
               employment with American Medical Associates?
             </h5>
+
             <RadioButton answerState={setRadio1} />
+            {showImmigrationBox()}
             <h5 className=" my-5 text-lg">
               I authorize American Medical Associates to consider me for other
-              job opportunities for the next 6 months within American Medical
-              Associates in addition to the specific job I am applying for.
+              job opportunities within the next 60 days.
             </h5>
             <RadioButton answerState={setRadio2} />
             <h5 className=" my-5 text-lg">
@@ -978,7 +1001,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             margin={'my-20'}
           />
 
-          <EmployeeOpportunitiesDisclosure setScrollState={setScrollComplete} />
+          {/* <EmployeeOpportunitiesDisclosure setScrollState={setScrollComplete} />
           <div className=" m-12 flex flex-row justify-center self-center">
             <CheckBox
               disabled={scrollComplete}
@@ -1092,7 +1115,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
           <TextInput
             placeHolder="Signature (Legal Name)"
             type="name"
@@ -1102,6 +1125,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             }}
             value={fullLegalName}
           />
+
           <div className=" my-3 flex w-full items-center justify-center">
             <MainButton
               typeOfButton={'submit'}

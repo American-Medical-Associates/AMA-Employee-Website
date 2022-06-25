@@ -9,7 +9,7 @@ const Success: NextPage<{}> = () => {
         <div className=" flex h-[40%] w-[60%] flex-col items-center justify-center rounded-[20px] bg-[#c5c5c576] shadow-2xl">
           <h1 className=" text-3xl text-[#377adf]"> Success!</h1>
           <h2 className="mt-5 text-xl">
-            Thank you for Submitting! We will get back to you as soon a
+            Thank you for submitting! We will get back to you as soon as
             possible!
           </h2>
         </div>

@@ -64,10 +64,10 @@ export async function submitResume({
   radio6,
   radio7,
   fullLegalName,
-  race,
-  gender,
-  veteranStatus,
-  DisabilityStatus,
+  // race,
+  //gender,
+  //veteranStatus,
+  //DisabilityStatus,
   statmentOfAvailbilty,
   checkbox1,
   checkbox2,
@@ -157,6 +157,7 @@ export async function submitResume({
   previouslyExternOrContractor,
   convictedOfACrimeBox,
   canYouWorkOvertime,
+  reasonForImmigrationBox,
 }) {
   try {
     await setDoc(
@@ -169,8 +170,8 @@ export async function submitResume({
         linkType: linkType,
         fullLegalName: fullLegalName,
         phoneNumber: phoneNumber,
-        race: race,
-        gender: gender,
+        // race: race,
+        //gender: gender,
         require_immigration_sponsorShip: radio1,
         authorize_job_application: radio2,
         previously_been_employed: radio3,
@@ -181,9 +182,9 @@ export async function submitResume({
         Have_you_ever_been_convicted_of_a_crime: radio7,
         accept_them_as_conditions_of_employment: checkbox1,
         employee_opportunitiesDisclosure: checkbox2,
-        DisabilityStatus: DisabilityStatus,
+        // DisabilityStatus: DisabilityStatus,
         statmentOfAvailbilty: statmentOfAvailbilty,
-        veteranStatus,
+        // veteranStatus,
         aboutYou: aboutYou,
         under_the_age_of_18: under_the_age_of_18,
         havePreviouslyApplied: havePreviouslyApplied,
@@ -288,6 +289,8 @@ export async function submitResume({
         previouslyExternOrContractor: previouslyExternOrContractor,
         convictedOfACrimeBox: convictedOfACrimeBox,
         canYouWorkOvertime: canYouWorkOvertime,
+        archived: false,
+        reasonForImmigrationBox: reasonForImmigrationBox,
         timestamp: serverTimestamp(),
       },
       { merge: true }
@@ -351,5 +354,14 @@ export function getResumes({ applicationtState }) {
       applicationtState(arrays)
       // console.log(products);
     }
+  )
+}
+export async function archiveItem({ collections, docs, archiveBool }) {
+  await setDoc(
+    doc(db, collections, docs),
+    {
+      archive: archiveBool,
+    },
+    { merge: true }
   )
 }

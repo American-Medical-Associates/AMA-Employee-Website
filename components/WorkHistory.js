@@ -6,6 +6,7 @@ import LargeTextBox from './LargeTextBox'
 import MainButton from './MainButton'
 
 import { RoundAddButton } from './RoundAddButton'
+import PhoneNumberInput from './PhoneNumberInput'
 // todo add google address auto complete
 export default function WorkHistory({
   selectedDateStart1,
@@ -291,10 +292,11 @@ function WorkHistoryItem({
         </div>
 
         <div className=" w-full md:ml-5 md:w-[40%]">
-          <TextInput
+          <PhoneNumberInput
             onChange={(text) => {
               workPhoneNumberState(text.target.value)
             }}
+            valueState={workPhoneNumberValue}
             placeHolder="Phone Number"
             widthPercentage="w-full"
             value={workPhoneNumberValue}
@@ -322,7 +324,7 @@ function WorkHistoryItem({
         />
         {mayWeContactValue == 'No' && (
           <h5 className=" font-bold">
-            If Not Please Provide two professional references
+            If not please provide two professional references
           </h5>
         )}
       </div>

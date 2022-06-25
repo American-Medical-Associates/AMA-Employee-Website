@@ -98,7 +98,7 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               forms for the background investigation which may be permitted by
               federal, state and/or local law. If applicable and allowed by law,
               I will receive separate written notification regarding the
-              Company's intent to obtain •consumer reports. I authorize and
+              Company's intent to obtain consumer reports. I authorize and
               consent to, without reservation, any party or agency contacted by
               this employer to furnish the above-mentioned information. I hereby
               release, discharge, and hold harmless, to the extent permitted by
