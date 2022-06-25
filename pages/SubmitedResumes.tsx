@@ -425,6 +425,13 @@ const SubmitedResumes: React.FC<{}> = () => {
                 name="Require immigration Sponsorship:"
                 Item={applicationDetails?.item?.require_immigration_sponsorShip}
               />
+              {applicationDetails?.item?.require_immigration_sponsorShip ==
+                'Yes' && (
+                <ApplicationItem
+                  name="Require immigration Sponsorship Details:"
+                  Item={applicationDetails?.item?.reasonForImmigrationBox}
+                />
+              )}
               <ApplicationItem
                 name="Statement of Availability:"
                 Item={applicationDetails?.item?.statmentOfAvailbilty}
