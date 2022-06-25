@@ -109,7 +109,7 @@ export default function WorkHistory({
       </div>
 
       {showWorkExperience2 && (
-        <div className=" mx-20 mt-20 flex w-[80%] flex-col items-center justify-center rounded-[20px] p-20 outline outline-2 outline-[#8b8b8b]">
+        <div className=" mt-20 flex w-full  flex-col items-center justify-center rounded-[20px]   outline outline-2 outline-[#8b8b8b]">
           <h2 className=" text-2xl"> Work History 2</h2>
           {WorkHistoryItem({
             selectedDateStart: selectedDateStart2,
@@ -138,7 +138,7 @@ export default function WorkHistory({
         </div>
       )}
       {showWorkExperience3 && (
-        <div className=" mx-20 mt-20 flex w-[80%] flex-col items-center justify-center rounded-[20px] p-20 outline outline-2 outline-[#8b8b8b]">
+        <div className=" mt-20 flex w-full  flex-col items-center justify-center rounded-[20px]   outline outline-2 outline-[#8b8b8b]">
           <h2 className=" text-2xl"> Work History 3</h2>
           {WorkHistoryItem({
             selectedDateStart: selectedDateStart3,
