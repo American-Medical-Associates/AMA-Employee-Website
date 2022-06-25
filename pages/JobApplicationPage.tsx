@@ -839,7 +839,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               tradeHonorsReceivedState={setTradeHonorsReceivedState}
               tradeHonorsReceivedValue={tradeHonorsReceivedState}
             />
-            <WorkHistory
+            {/* <WorkHistory
               setSelectedDateStart1={setSelectedDateStart1}
               selectedDateStart1={selectedDateStart1}
               selectedDateEnd1={selectedDateEnd1}
@@ -906,7 +906,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               dutiesState3={setDutiesState3}
               mayWeContactState3={setMayWeContactState3}
               mayWeContactValue3={mayWeContactState3}
-            />
+            /> */}
             <Reference
               ReferenceNameValue={referenceNameState}
               ReferenceNameState={setReferenceNameState}
