@@ -79,7 +79,7 @@ export default function WorkHistory({
   const [showWorkExperience2, setShowWorkExperience2] = useState(false)
   const [showWorkExperience3, setShowWorkExperience3] = useState(false)
   return (
-    <div className=" w-fill flex flex-col items-center justify-center">
+    <div className=" flex w-full flex-col items-center justify-center">
       <div className=" mt-20 flex w-[75%]  flex-col items-center justify-center rounded-[20px]   outline outline-2 outline-[#8b8b8b]">
         <h2 className=" text-2xl"> Work History</h2>
         {WorkHistoryItem({
