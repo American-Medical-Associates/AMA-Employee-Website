@@ -111,7 +111,7 @@ function SchoolItem({
   HonorsReceivedValue,
 }) {
   return (
-    <div className=" flex grid-cols-6 flex-col  items-center justify-center px-10 text-center md:flex-row">
+    <div className=" flex w-full grid-cols-6 flex-col  items-center justify-center px-10 text-center md:flex-row">
       <h4 className=" flex text-lg font-bold"> {title}</h4>
       <div className=" mx-3 w-full">
         <TextInput
