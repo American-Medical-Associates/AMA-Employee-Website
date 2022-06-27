@@ -513,8 +513,8 @@ const JobApplicationPage: NextPage<{}> = () => {
           </p>
         </div> */}
 
-        <div className=" w-fill flex grid-cols-2 bg-red-900">
-          {/* <div className=" flex w-[50%] flex-col  ">
+        {/* <div className=" w-fill flex grid-cols-2 bg-red-900"> */}
+        {/* <div className=" flex w-[50%] flex-col  ">
             <div className=" my-12">
               <TextInput
                 widthPercentage="w-[80%]"
@@ -574,8 +574,8 @@ const JobApplicationPage: NextPage<{}> = () => {
               zipCodeValue={zipCode}
             />
           </div> */}
-          {/* <div className=" flex w-[50%] flex-col "> */}
-          {/* <div className="  my-12 flex w-full">
+        {/* <div className=" flex w-[50%] flex-col "> */}
+        {/* <div className="  my-12 flex w-full">
               <TextInput
                 widthPercentage="w-[80%]"
                 placeHolder="Last Name"
@@ -630,8 +630,8 @@ const JobApplicationPage: NextPage<{}> = () => {
                 ]}
               />
             </div> */}
-          {/* </div> */}
-        </div>
+        {/* </div> */}
+        {/* </div> */}
         <div className=" my-12 flex w-full flex-col items-center justify-center">
           {/* <h3 className=" text-lg text-[#838383]">Upload a Resume</h3>
           <TextInput
