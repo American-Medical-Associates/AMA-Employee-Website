@@ -787,7 +787,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
-            <EducationBox
+            {/* <EducationBox
               highSchoolState={setHighSchoolState}
               highSchoolValue={highSchoolState}
               highSchoolCourseOfStudyState={setHighSchoolCourseOfStudyState}
@@ -838,7 +838,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               }
               tradeHonorsReceivedState={setTradeHonorsReceivedState}
               tradeHonorsReceivedValue={tradeHonorsReceivedState}
-            />
+            /> */}
             {/* <WorkHistory
               setSelectedDateStart1={setSelectedDateStart1}
               selectedDateStart1={selectedDateStart1}
@@ -907,7 +907,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               mayWeContactState3={setMayWeContactState3}
               mayWeContactValue3={mayWeContactState3}
             /> */}
-            <Reference
+            {/* <Reference
               ReferenceNameValue={referenceNameState}
               ReferenceNameState={setReferenceNameState}
               ReferencePositionValue={referencePositionState}
@@ -954,7 +954,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               ReferenceCompanyState4={setReferenceCompanyState4}
               ReferencePhoneNumberValue4={referencePhoneNumberState4}
               ReferencePhoneNumberState4={setReferencePhoneNumberState4}
-            />
+            /> */}
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Acknowledgment
             </h4>
