@@ -514,7 +514,7 @@ const JobApplicationPage: NextPage<{}> = () => {
         </div> */}
 
         <div className=" w-fill flex grid-cols-2 flex-row">
-          <div className=" flex w-[50%] flex-col  ">
+          {/* <div className=" flex w-[50%] flex-col  ">
             <div className=" my-12">
               <TextInput
                 widthPercentage="w-[80%]"
@@ -573,7 +573,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               zipCodeState={setZipCode}
               zipCodeValue={zipCode}
             />
-          </div>
+          </div> */}
           <div className=" flex w-[50%] flex-col ">
             <div className="  my-12 flex w-full">
               <TextInput
