@@ -513,7 +513,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           </p>
         </div>
 
-        <div className=" w-fill flex flex-row md:grid-cols-2">
+        <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
             <div className=" my-12">
               <TextInput
@@ -664,7 +664,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             <h3 className=" mb-10 text-center text-4xl text-[#4e4e4e]">
               Legal Acknowledgment
             </h3>
-            <h5 className=" my-5 text-lg">
+            {/* <h5 className=" my-5 text-lg">
               What is your availability or notice period?
             </h5>
             <ItemPicker
@@ -783,7 +783,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               lineHight={'h-[10px]'}
               lineWidth={'w-[60%]'}
               margin={'my-20'}
-            />
+            /> */}
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
