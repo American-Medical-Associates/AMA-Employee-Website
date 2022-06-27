@@ -492,7 +492,7 @@ const JobApplicationPage: NextPage<{}> = () => {
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT
         </h1>
-        <div className=" mt-8 px-10 text-center md:px-60">
+        {/* <div className=" mt-8 px-10 text-center md:px-60">
           <h5 className=" mb-5 text-center text-xl font-bold">
             Please Answer All Questions. Resumes Are Not A Substitute For A
             Completed Application.
@@ -511,7 +511,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             RELATIONSHIP AT ANY TIME, FOR ANY REASON, WITH OR WITHOUT CAUSE OR
             NOTICE.
           </p>
-        </div>
+        </div> */}
 
         <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
@@ -634,7 +634,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           </div>
         </div>
         <div className=" my-12 flex w-full flex-col items-center justify-center">
-          <h3 className=" text-lg text-[#838383]">Upload a Resume</h3>
+          {/* <h3 className=" text-lg text-[#838383]">Upload a Resume</h3>
           <TextInput
             // ref={filePicker}
             type="file"
@@ -659,7 +659,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             lineHight={'h-[10px]'}
             lineWidth={'w-[60%]'}
             margin={'my-20'}
-          />
+          /> */}
           <div className=" flex flex-col items-center justify-center px-40">
             <h3 className=" mb-10 text-center text-4xl text-[#4e4e4e]">
               Legal Acknowledgment
