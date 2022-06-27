@@ -515,7 +515,7 @@ const JobApplicationPage: NextPage<{}> = () => {
 
         <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
-            <div className=" my-12">
+            {/* <div className=" my-12">
               <TextInput
                 widthPercentage="w-[80%]"
                 placeHolder="First Name"
@@ -630,11 +630,11 @@ const JobApplicationPage: NextPage<{}> = () => {
                 ]}
               />
             </div>
-            <div className="  my-12 flex w-full"></div>
+            <div className="  my-12 flex w-full"></div> */}
           </div>
         </div>
         <div className=" my-12 flex w-full flex-col items-center justify-center">
-          <h3 className=" text-lg text-[#838383]">Upload a Resume</h3>
+          {/* <h3 className=" text-lg text-[#838383]">Upload a Resume</h3>
           <TextInput
             // ref={filePicker}
             type="file"
@@ -659,12 +659,12 @@ const JobApplicationPage: NextPage<{}> = () => {
             lineHight={'h-[10px]'}
             lineWidth={'w-[60%]'}
             margin={'my-20'}
-          />
+          /> */}
           <div className=" flex flex-col items-center justify-center px-40">
             <h3 className=" mb-10 text-center text-4xl text-[#4e4e4e]">
               Legal Acknowledgment
             </h3>
-            <h5 className=" my-5 text-lg">
+            {/* <h5 className=" my-5 text-lg">
               What is your availability or notice period?
             </h5>
             <ItemPicker
@@ -747,7 +747,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             </h5>
             <RadioButton answerState={setRadio5} /> */}
 
-            <h5 className=" my-5 text-lg">
+            {/* <h5 className=" my-5 text-lg">
               Have you ever been convicted of a crime?
             </h5>
             <RadioButton answerState={setRadio7} />
@@ -784,7 +784,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               lineWidth={'w-[60%]'}
               margin={'my-20'}
             />
-
+           */}
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
@@ -983,7 +983,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               />
               I have read and understand the statements above and accept them as
               conditions of employment.
-            </div>
+            </div> */}
           </div>
           {/* <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} />
           <div className=" m-12 flex flex-row justify-center self-center">
@@ -1000,7 +1000,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             lineHight={'h-[10px]'}
             lineWidth={'w-[60%]'}
             margin={'my-20'}
-          />
+          /> */}
 
           {/* <EmployeeOpportunitiesDisclosure setScrollState={setScrollComplete} />
           <div className=" m-12 flex flex-row justify-center self-center">
@@ -1010,7 +1010,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               isChecked={checkBoxAgree2}
             />
             I acknowledge that I have read and understood American Medical
-            Associates's Equal Employee Opportunities.*/}
+            Associates's Equal Employee Opportunities.
           </div>
           <div className=" flex w-full grid-cols-2 items-center justify-center">
             <div className=" flex w-full flex-col items-center justify-center">
@@ -1116,7 +1116,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
           <TextInput
             placeHolder="Signature (Legal Name)"
             type="name"
