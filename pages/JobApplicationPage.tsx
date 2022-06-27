@@ -486,7 +486,7 @@ const JobApplicationPage: NextPage<{}> = () => {
   }
 
   return (
-    <div className=" flex  w-full flex-1 flex-col">
+    <div className=" mx-6  flex w-full flex-1 flex-col">
       <Header />
       <main className=" flex w-full flex-col text-center ">
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
