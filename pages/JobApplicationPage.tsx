@@ -515,7 +515,7 @@ const JobApplicationPage: NextPage<{}> = () => {
 
         <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
-            {/* <div className=" my-12">
+            <div className=" my-12">
               <TextInput
                 widthPercentage="w-[80%]"
                 placeHolder="First Name"
@@ -630,7 +630,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 ]}
               />
             </div>
-            <div className="  my-12 flex w-full"></div> */}
+            <div className="  my-12 flex w-full"></div>
           </div>
         </div>
         <div className=" my-12 flex w-full flex-col items-center justify-center">
