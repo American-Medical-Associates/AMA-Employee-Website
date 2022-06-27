@@ -488,11 +488,11 @@ const JobApplicationPage: NextPage<{}> = () => {
   return (
     <div className=" flex  w-full flex-1 flex-col">
       <Header />
-      <main className=" flex w-full flex-col px-10 text-center md:px-60 ">
+      <main className=" flex w-full flex-col text-center  ">
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT
         </h1>
-        <div className=" mt-8 flex w-full flex-col justify-center text-center ">
+        <div className=" mt-8 flex w-[80%] flex-col justify-center text-center ">
           <h5 className=" mb-5 text-center text-xl font-bold">
             Please Answer All Questions. Resumes Are Not A Substitute For A
             Completed Application.
