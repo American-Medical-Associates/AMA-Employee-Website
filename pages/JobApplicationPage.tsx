@@ -492,26 +492,24 @@ const JobApplicationPage: NextPage<{}> = () => {
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT
         </h1>
-        <div className=" mt-8 text-center ">
-          <h5 className=" mb-5 text-center text-xl font-bold">
-            Please Answer All Questions. Resumes Are Not A Substitute For A
-            Completed Application.
-          </h5>
-          <p className=" text-lg font-bold">
-            We are an equal opportunity employer. Applicants are considered for
-            positions without regard to veteran status, uniformed service member
-            status, race, color, religion, sex, national origin, age, physical
-            or mental disability, genetic information or any other category
-            protected by applicable federal, state, or local laws.
-          </p>
-          <p className=" mt-5 text-lg">
-            THIS COMPANY IS AN AT-WILL EMPLOYER AS ALLOWED BY APPLICABLE STATE
-            LAW. THIS MEANS THAT REGARDLESS OF ANY PROVISION IN THIS
-            APPLICATION, IF HIRED, THE COMPANY OR I MAY TERMINATE THE EMPLOYMENT
-            RELATIONSHIP AT ANY TIME, FOR ANY REASON, WITH OR WITHOUT CAUSE OR
-            NOTICE.
-          </p>
-        </div>
+
+        <h5 className=" mb-5 text-center text-xl font-bold">
+          Please Answer All Questions. Resumes Are Not A Substitute For A
+          Completed Application.
+        </h5>
+        <p className=" text-lg font-bold">
+          We are an equal opportunity employer. Applicants are considered for
+          positions without regard to veteran status, uniformed service member
+          status, race, color, religion, sex, national origin, age, physical or
+          mental disability, genetic information or any other category protected
+          by applicable federal, state, or local laws.
+        </p>
+        <p className=" mt-5 text-lg">
+          THIS COMPANY IS AN AT-WILL EMPLOYER AS ALLOWED BY APPLICABLE STATE
+          LAW. THIS MEANS THAT REGARDLESS OF ANY PROVISION IN THIS APPLICATION,
+          IF HIRED, THE COMPANY OR I MAY TERMINATE THE EMPLOYMENT RELATIONSHIP
+          AT ANY TIME, FOR ANY REASON, WITH OR WITHOUT CAUSE OR NOTICE.
+        </p>
 
         <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
