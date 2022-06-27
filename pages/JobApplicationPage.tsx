@@ -984,7 +984,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               conditions of employment.
             </div>
           </div>
-          <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} />
+          {/* <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} /> */}
           <div className=" m-12 flex flex-row justify-center self-center">
             <CheckBox
               disabled={scrollComplete2}
