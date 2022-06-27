@@ -956,7 +956,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               ReferencePhoneNumberValue4={referencePhoneNumberState4}
               ReferencePhoneNumberState4={setReferencePhoneNumberState4}
             />
-            <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
+            {/* <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Acknowledgment
             </h4>
 
@@ -985,7 +985,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               conditions of employment.
             </div>
           </div>
-          <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} />
+          {/* <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} />
           <div className=" m-12 flex flex-row justify-center self-center">
             <CheckBox
               disabled={scrollComplete2}
@@ -1002,7 +1002,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             margin={'my-20'}
           />
 
-          <EmployeeOpportunitiesDisclosure setScrollState={setScrollComplete} />
+          {/* <EmployeeOpportunitiesDisclosure setScrollState={setScrollComplete} />
           <div className=" m-12 flex flex-row justify-center self-center">
             <CheckBox
               disabled={scrollComplete}
@@ -1010,7 +1010,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               isChecked={checkBoxAgree2}
             />
             I acknowledge that I have read and understood American Medical
-            Associates's Equal Employee Opportunities.
+            Associates's Equal Employee Opportunities.*/}
           </div>
           <div className=" flex w-full grid-cols-2 items-center justify-center">
             <div className=" flex w-full flex-col items-center justify-center">
