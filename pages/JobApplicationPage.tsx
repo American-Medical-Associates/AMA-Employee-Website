@@ -493,7 +493,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           APPLICATION OF EMPLOYMENT
         </h1>
 
-        <h5 className=" mb-5 text-center text-xl font-bold">
+        {/* <h5 className=" mb-5 text-center text-xl font-bold">
           Please Answer All Questions. Resumes Are Not A Substitute For A
           Completed Application.
         </h5>
@@ -509,7 +509,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           LAW. THIS MEANS THAT REGARDLESS OF ANY PROVISION IN THIS APPLICATION,
           IF HIRED, THE COMPANY OR I MAY TERMINATE THE EMPLOYMENT RELATIONSHIP
           AT ANY TIME, FOR ANY REASON, WITH OR WITHOUT CAUSE OR NOTICE.
-        </p>
+        </p> */}
 
         <div className=" w-fill flex grid-cols-2 flex-row">
           <div className=" flex w-[50%] flex-col  ">
