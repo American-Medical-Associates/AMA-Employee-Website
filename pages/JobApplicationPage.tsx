@@ -787,7 +787,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
-            <EducationBox
+            {/* <EducationBox
               highSchoolState={setHighSchoolState}
               highSchoolValue={highSchoolState}
               highSchoolCourseOfStudyState={setHighSchoolCourseOfStudyState}
@@ -954,7 +954,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               ReferenceCompanyState4={setReferenceCompanyState4}
               ReferencePhoneNumberValue4={referencePhoneNumberState4}
               ReferencePhoneNumberState4={setReferencePhoneNumberState4}
-            />
+            /> */}
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Acknowledgment
             </h4>
