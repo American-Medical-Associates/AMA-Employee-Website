@@ -492,7 +492,7 @@ const JobApplicationPage: NextPage<{}> = () => {
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT
         </h1>
-        <div className=" mt-8 flex flex-col justify-center text-center ">
+        <div className=" mt-8 flex w-full flex-col justify-center text-center ">
           <h5 className=" mb-5 text-center text-xl font-bold">
             Please Answer All Questions. Resumes Are Not A Substitute For A
             Completed Application.
