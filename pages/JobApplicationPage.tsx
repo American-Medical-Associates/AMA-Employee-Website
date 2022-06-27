@@ -747,7 +747,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             </h5>
             <RadioButton answerState={setRadio5} /> */}
 
-            <h5 className=" my-5 text-lg">
+            {/* <h5 className=" my-5 text-lg">
               Have you ever been convicted of a crime?
             </h5>
             <RadioButton answerState={setRadio7} />
@@ -783,7 +783,8 @@ const JobApplicationPage: NextPage<{}> = () => {
               lineHight={'h-[10px]'}
               lineWidth={'w-[60%]'}
               margin={'my-20'}
-            /> */}
+            />
+           */}
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
