@@ -486,7 +486,7 @@ const JobApplicationPage: NextPage<{}> = () => {
   }
 
   return (
-    <div className=" mx-6  flex w-full flex-1 flex-col">
+    <div className=" flex  w-full flex-1 flex-col">
       <Header />
       <main className=" flex w-full flex-col text-center ">
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
@@ -513,7 +513,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           </p>
         </div>
 
-        <div className=" w-fill flex grid-cols-2 flex-row">
+        <div className=" w-fill flex flex-row md:grid-cols-2">
           <div className=" flex w-[50%] flex-col  ">
             <div className=" my-12">
               <TextInput
