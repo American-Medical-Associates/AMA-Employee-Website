@@ -575,7 +575,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             />
           </div> */}
           <div className=" flex w-[50%] flex-col ">
-            <div className="  my-12 flex w-full">
+            {/* <div className="  my-12 flex w-full">
               <TextInput
                 widthPercentage="w-[80%]"
                 placeHolder="Last Name"
@@ -629,7 +629,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                   <option value="Portfolio">None</option>,
                 ]}
               />
-            </div>
+            </div> */}
             <div className="  my-12 flex w-full"></div>
           </div>
         </div>
