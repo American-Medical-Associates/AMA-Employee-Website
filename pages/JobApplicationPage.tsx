@@ -660,7 +660,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             lineWidth={'w-[60%]'}
             margin={'my-20'}
           />
-          <div className=" flex flex-col items-center justify-center">
+          <div className=" flex flex-col items-center justify-center px-[40px]">
             <h3 className=" mb-10 text-center text-4xl text-[#4e4e4e]">
               Legal Acknowledgment
             </h3>
