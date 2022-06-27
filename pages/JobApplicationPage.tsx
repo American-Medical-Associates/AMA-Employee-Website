@@ -492,7 +492,7 @@ const JobApplicationPage: NextPage<{}> = () => {
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT
         </h1>
-        <div className=" mt-8 px-60 text-center">
+        <div className=" mt-8 px-10 text-center md:px-60">
           <h5 className=" mb-5 text-center text-xl font-bold">
             Please Answer All Questions. Resumes Are Not A Substitute For A
             Completed Application.
@@ -787,7 +787,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Education
             </h4>
-            {/* <EducationBox
+            <EducationBox
               highSchoolState={setHighSchoolState}
               highSchoolValue={highSchoolState}
               highSchoolCourseOfStudyState={setHighSchoolCourseOfStudyState}
@@ -838,8 +838,8 @@ const JobApplicationPage: NextPage<{}> = () => {
               }
               tradeHonorsReceivedState={setTradeHonorsReceivedState}
               tradeHonorsReceivedValue={tradeHonorsReceivedState}
-            /> */}
-            {/* <WorkHistory
+            />
+            <WorkHistory
               setSelectedDateStart1={setSelectedDateStart1}
               selectedDateStart1={selectedDateStart1}
               selectedDateEnd1={selectedDateEnd1}
@@ -906,8 +906,8 @@ const JobApplicationPage: NextPage<{}> = () => {
               dutiesState3={setDutiesState3}
               mayWeContactState3={setMayWeContactState3}
               mayWeContactValue3={mayWeContactState3}
-            /> */}
-            {/* <Reference
+            />
+            <Reference
               ReferenceNameValue={referenceNameState}
               ReferenceNameState={setReferenceNameState}
               ReferencePositionValue={referencePositionState}
@@ -954,7 +954,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               ReferenceCompanyState4={setReferenceCompanyState4}
               ReferencePhoneNumberValue4={referencePhoneNumberState4}
               ReferencePhoneNumberState4={setReferencePhoneNumberState4}
-            /> */}
+            />
             <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
               Acknowledgment
             </h4>
@@ -984,7 +984,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               conditions of employment.
             </div>
           </div>
-          {/* <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} /> */}
+          <APPLICANTCERTIFICATION setScrollState={setScrollComplete2} />
           <div className=" m-12 flex flex-row justify-center self-center">
             <CheckBox
               disabled={scrollComplete2}
