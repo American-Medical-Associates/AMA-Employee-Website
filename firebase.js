@@ -289,7 +289,7 @@ export async function submitResume({
         previouslyExternOrContractor: previouslyExternOrContractor,
         convictedOfACrimeBox: convictedOfACrimeBox,
         canYouWorkOvertime: canYouWorkOvertime,
-        archived: false,
+        archive: false,
         reasonForImmigrationBox: reasonForImmigrationBox,
         timestamp: serverTimestamp(),
       },
