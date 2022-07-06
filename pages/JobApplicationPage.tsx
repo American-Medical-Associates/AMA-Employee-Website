@@ -13,6 +13,8 @@ import AddressInput from '../components/AddressInput'
 import EducationBox from '../components/EducationBox'
 import WorkHistory from '../components/WorkHistory'
 import Reference from '../components/Refrences'
+import { auth, functions } from '../firebase'
+import { httpsCallable, getFunctions } from 'firebase/functions'
 import APPLICANTCERTIFICATION from '../components/APPLICANTCERTIFICATION'
 import { NextPage } from 'next'
 import { Router, useRouter } from 'next/router'
@@ -176,6 +178,8 @@ const JobApplicationPage: NextPage<{}> = () => {
   const [convictedOfACrimeBox, setConvictedOfACrimeBox] = useState('')
   const [canYouWorkOvertime, setCanYouWorkOvertime] = useState(null)
   const [immigrationBox, setImmigrationBox] = useState('')
+  const sendMessage = httpsCallable(functions, 'sendMessage')
+  const currentDate = new Date()
   const checkForInput: any = () => {
     if (
       !firstName ||
@@ -357,6 +361,30 @@ const JobApplicationPage: NextPage<{}> = () => {
           canYouWorkOvertime: canYouWorkOvertime,
           reasonForImmigrationBox: immigrationBox,
         })
+          .then(() => {
+            sendMessage({
+              message: ` Hello ${firstName}, Thank you for applying to American Medical Associates for the position of ${positionApplyingfor}. We will reach out as soon as possible!`,
+              phone: `+1${phoneNumber}`,
+            })
+              .then((result) => {
+                console.log(result)
+              })
+              .catch((e) => {
+                console.log(e)
+              })
+          })
+          .then(() => {
+            sendMessage({
+              message: `${firstName}  ${lastName}, Submitted an application for ${positionApplyingfor} on ${currentDate}`,
+              phone: `+15204294899`,
+            })
+              .then((result) => {
+                console.log(result)
+              })
+              .catch((e) => {
+                console.log(e)
+              })
+          })
         router.push('/Success')
       } catch (e) {
         alert(e)

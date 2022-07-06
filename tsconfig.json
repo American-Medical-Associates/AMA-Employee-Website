@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/RoundAddButton.js", "components/Datepicker.js", "components/AddressInput.js", "components/ApplicationItem.js", "components/ApplicationItem.js", "components/Header.js", "firebase.js", "firebase.js"],
   "exclude": ["node_modules"]
 }

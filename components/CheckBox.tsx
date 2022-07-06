@@ -8,6 +8,7 @@ const CheckBox: React.FC<{
   return (
     <div className=" px-5">
       <input
+        checked={isChecked}
         disabled={disabled}
         onChange={() => {
           console.log(isChecked)

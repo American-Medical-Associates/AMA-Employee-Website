@@ -12,6 +12,7 @@ import {
   LoginIcon,
   HomeIcon,
   InboxInIcon,
+  MailIcon,
 } from '@heroicons/react/outline'
 // import Box from './box'
 import { getAuth, signOut } from 'firebase/auth'
@@ -64,7 +65,7 @@ const Header = () => {
                   }
                   text={'Home'}
                   onClick={() => {
-                    router.push('/')
+                    router.push('/Login')
                   }}
                 />,
                 <MenuItem
@@ -74,6 +75,15 @@ const Header = () => {
                   text={'Resumes'}
                   onClick={() => {
                     router.push('/SubmitedResumes')
+                  }}
+                />,
+                <MenuItem
+                  icon={
+                    <MailIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text={'Messaging'}
+                  onClick={() => {
+                    router.push('/MassMessagePage')
                   }}
                 />,
 

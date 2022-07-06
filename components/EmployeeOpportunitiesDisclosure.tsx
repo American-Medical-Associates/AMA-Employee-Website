@@ -38,13 +38,13 @@ const EmployeeOpportunitiesDisclosure: React.FC<{
               and advance in employment applicants and employees without regard
               to their race, color, religion, sex, sexual orientation, gender
               identity, national origin or protected veteran status. American
-              Medical Associates is also subject to certain governmental
-              recordkeeping and reporting requirements. In order to comply with
-              these requirements, we invite you to check the appropriate boxes
-              below. Submission of this information is voluntary and refusal to
-              provide it will not subject you to any adverse treatment. The
-              information you provide will be kept confidential and will only be
-              used in ways that are consistent with the law.
+              Medical Associates is also subject to certain governmental record
+              keeping and reporting requirements. In order to comply with these
+              requirements, we invite you to check the appropriate boxes below.
+              Submission of this information is voluntary and refusal to provide
+              it will not subject you to any adverse treatment. The information
+              you provide will be kept confidential and will only be used in
+              ways that are consistent with the law.
             </p>
             <h3 className=" my-10  text-left text-xl font-bold">
               Race/Ethnicity Definitions
