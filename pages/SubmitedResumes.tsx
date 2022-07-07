@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Head from 'next/head'
-import { getResumes, archiveItem } from '../firebase'
+import { getResumes, archiveItem, isAdmin } from '../firebase'
 import ListItem from '../components/ListItem'
 import { ReactDOM } from 'react'
 import classnames from 'classnames'
 import ApplicationItem from '../components/ApplicationItem'
 import Image from 'next/image'
 import MainButton from '../components/MainButton'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import ItemPicker from '../components/ItemPicker'
 import LineDivider from '../components/lineDiveider'
 
@@ -21,6 +21,21 @@ const SubmitedResumes: React.FC<{}> = () => {
   const [numPages, setNumPages] = useState(1)
   const [pageNumber, setPageNumber] = useState(1)
   const [showArchived, setShowArchived] = useState(false)
+  const [isAdminState, setIsAdminState] = useState(null)
+
+  useEffect(() => {
+    const getAdmin = () => {
+      isAdmin({ adminState: setIsAdminState })
+      console.log(isAdminState)
+      return Promise.resolve(isAdminState)
+    }
+
+    getAdmin().then(() => {
+      if (isAdminState == false) {
+        router.push('/Login')
+      }
+    })
+  }, [isAdminState])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {

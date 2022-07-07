@@ -521,7 +521,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           APPLICATION OF EMPLOYMENT
         </h1>
         <h2 className=" mt-8 text-3xl text-rose-500">
-          * DOSE NOT WORK ON MICROSOFT EDGE
+          * DOES NOT WORK ON MICROSOFT EDGE
         </h2>
         <div className=" mt-8 px-10 text-center md:px-60">
           <h5 className=" mb-5 text-center text-xl font-bold">

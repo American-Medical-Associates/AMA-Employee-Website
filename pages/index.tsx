@@ -32,31 +32,8 @@ const Home: NextPage = () => {
       <Header />
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <h1>{auth.currentUser?.email}</h1>
         <TensorFlowBert />
-        <MainButton
-          buttonText="send text"
-          onClick={async () => {
-            // await addDoc(collection(db, 'test'), {
-            //   text: true,
-            //   phone1: '16233133383',
-            //   number2: '15204294899',
-            // })
-            sendMessage({ message: 'hello', phone: '+16233133383' })
-              .then((result) => {
-                console.log(result)
-              })
-              .catch((e) => {
-                console.log(e)
-              })
-            // helloWorld()
-            //   .then((result) => {
-            //     console.log(result)
-            //   })
-            //   .catch((e) => {
-            //     console.log(e)
-            //   })
-          }}
-        />
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">

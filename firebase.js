@@ -324,7 +324,7 @@ export async function AddToStorageAndToDB({
 }
 export function isAdmin({ adminState }) {
   onSnapshot(doc(db, 'users', auth.currentUser?.email), (doc) => {
-    adminState(doc.get('adminUser'))
+    adminState(doc.get('isAuthUser'))
   })
 }
 export function SignInToAccount({ email, password }) {
