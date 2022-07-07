@@ -50,21 +50,21 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               and drug testing consistent with the Company's policies and
               applicable federal, state, and local law. If employed by the
               Company, I understand and agree that the Company, to the extent
-              pinnated by federal, state, and local Jaw, may exercise its right,
-              without prior warning , or notice, to conduct investigations of
-              property (including, but not limited to, files, lockers, desks,
-              vehicle, and computers) and, in certain circumstances, my personal
-              property. I understand and agree that as a condition of employment
-              and to the extent permitted by federal, state, and local law, I
-              may be required to sign a confidentiality, restrictive covenant,
-              and/or conflict of interest statement. I certify that all the
-              information on this application, my resume, or any supporting
-              documents I may present during any interview is and will be
-              complete and accurate to the best of my knowledge. I understand
-              that any falsification, misrepresentation, or omission of any
-              information may result in disqualification from consideration for
-              employment or, if employed, disciplinary action, up to and
-              Including immediate dismissal.
+              permitted by federal, state, and local Law, may exercise its
+              right, without prior warning , or notice, to conduct
+              investigations of property (including, but not limited to, files,
+              lockers, desks, vehicle, and computers) and, in certain
+              circumstances, my personal property. I understand and agree that
+              as a condition of employment and to the extent permitted by
+              federal, state, and local law, I may be required to sign a
+              confidentiality, restrictive covenant, and/or conflict of interest
+              statement. I certify that all the information on this application,
+              my resume, or any supporting documents I may present during any
+              interview is and will be complete and accurate to the best of my
+              knowledge. I understand that any falsification, misrepresentation,
+              or omission of any information may result in disqualification from
+              consideration for employment or, if employed, disciplinary action,
+              up to and Including immediate dismissal.
             </p>
             {/* <h3 className=" my-10  text-left text-xl font-bold">
               Veteran Status Definitions
