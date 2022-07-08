@@ -27,7 +27,7 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               Pre-Offer Invitation to Self-Identify - Race/Ethnicity, Sex, and
               Veteran Status
             </h3> */}
-            <p className=" object-contain text-left">APPLICANT CERTIFICATION</p>
+
             {/* <h3 className=" my-10  text-left text-xl font-bold">
               Race/Ethnicity Definitions
             </h3> */}
@@ -50,7 +50,7 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               and drug testing consistent with the Company's policies and
               applicable federal, state, and local law. If employed by the
               Company, I understand and agree that the Company, to the extent
-              permitted by federal, state, and local Law, may exercise its
+              permitted by federal, state, and local law, may exercise its
               right, without prior warning , or notice, to conduct
               investigations of property (including, but not limited to, files,
               lockers, desks, vehicle, and computers) and, in certain
@@ -64,7 +64,7 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
               knowledge. I understand that any falsification, misrepresentation,
               or omission of any information may result in disqualification from
               consideration for employment or, if employed, disciplinary action,
-              up to and Including immediate dismissal.
+              up to and including immediate dismissal.
             </p>
             {/* <h3 className=" my-10  text-left text-xl font-bold">
               Veteran Status Definitions
@@ -72,17 +72,17 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
             <p className=" my-5 underline">
               THIS COMPANY IS AN AT-WILL EMPLOYER AS ALLOWED BY APPLICABLE STATE
               LAW. THIS MEANS THAT REGARDLESS OF ANY PROVISION IN THIS
-              APPLICATION. IF HIRED, THE COMPANY OR I MAY TERMINATE THE
+              APPLICATION, IF HIRED, THE COMPANY OR I MAY TERMINATE THE
               EMPLOYMENT RELATIONSHIP AT ANY TIME, FOR ANY REASON. WITH OR
               WITHOUT CAUSE OR NOTICE. NOTHING IN THIS APPLICATION OR IN ANY
-              DOCUMENT OR STATEMENT. WRITTEN OR ORAL, SHALL LIMIT THE RIGHT TQ
+              DOCUMENT OR STATEMENT, WRITTEN OR ORAL, SHALL LIMIT THE RIGHT TQ
               TERMINATE EMPLOYMENT AT-WILL. NO OFFICER, EMPLOYEE OR
               REPRESENTATIVE OF THE COMPANY IS AUTHORIZED TO ENTER INTO AN
               AGREEMENT-EXPRESS OR IMPLIED-WITH ME OR ANY APPLICANT FOR
               EMPLOYMENT FOR A SPECIFIED PERIOD OF TIME UNLESS SUCH AN AGREEMENT
               IS IN A WRITTEN CONTRACT SIGNED BY THE CHIEF OPERATING OFFICER OF
-              THE COMPANY.IF HIRED, I AGREE TO CONFORM TO THE RULES AND
-              REGULATIONS OF THE COMPANY. AND I UNDERSTAND THAT THE COMPANY HAS
+              THE COMPANY. IF HIRED, I AGREE TO CONFORM TO THE RULES AND
+              REGULATIONS OF THE COMPANY AND I UNDERSTAND THAT THE COMPANY HAS
               COMPLETE DISCRETION TO MODIFY SUCH RULES AND REGULATIONS AT ANY
               TIME, EXCEPT THAT IT WILL NOT MODIFY ITS POLICY OF EMPLOYMENT
               AT-WILL.

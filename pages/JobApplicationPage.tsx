@@ -713,7 +713,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 <option value="In 1-2 weeks">In 1-2 weeks</option>,
                 <option value="In 3-4 weeks">In 3-4 weeks</option>,
                 <option value="In 5-12 weeks">In 5-12 weeks</option>,
-                <option value="More than 12 weeks">More then 12 weeks</option>,
+                <option value="More than 12 weeks">More than 12 weeks</option>,
               ]}
             />
             <div className=" mt-5 flex items-center justify-center">
