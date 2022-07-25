@@ -10,6 +10,7 @@ import { httpsCallable, getFunctions } from 'firebase/functions'
 import { PhoneIcon } from '@heroicons/react/outline'
 import classnames from 'classnames'
 import CheckBox from '../components/CheckBox'
+import { useRouter } from 'next/router'
 
 const MassMessagePage: NextPage<{}> = () => {
   const [xlsxDoc, setXlsxDoc] = useState<Array<string>>([])
@@ -33,6 +34,7 @@ const MassMessagePage: NextPage<{}> = () => {
   const currentDate = new Date()
   var month = currentDate.getMonth() + 1
   var day = currentDate.getDay()
+  const router = useRouter()
 
   const [refresh, setRefresh] = useState(false)
   useEffect(() => {
@@ -165,13 +167,13 @@ const MassMessagePage: NextPage<{}> = () => {
   const sendMessage = () => {
     patients.forEach((item) => {
       if (item) {
-        var message = `Hello ${item[1]} I hope you enjoyed your visit! If you enjoyed your visit please leave a google review with this link. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
+        var message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
         if (leaveAReviewMessageCheckBox) {
-          message = `Hello ${item[1]} I hope you enjoyed your visit! If you enjoyed your visit please leave a google review with this link. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
+          message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
         }
 
         if (sendBalance) {
-          message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[37]}, please be prepared to settle it before your appointment today.`
+          message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[37]}, please be prepared to pay your balance before your next appointment.`
         }
         if (customCheckBox && customMessage != null) {
           message = `Hello ${item[1]}, ${customMessage}`
@@ -207,6 +209,13 @@ const MassMessagePage: NextPage<{}> = () => {
         className=" flex  h-full w-full flex-col items-center p-10
       "
       >
+        <MainButton
+          buttonText="Email"
+          onClick={() => {
+            router.push('/EmailPage')
+          }}
+        />
+
         <h3 className=" text-xl">
           Upload a Spread sheet to send texts to them.
         </h3>

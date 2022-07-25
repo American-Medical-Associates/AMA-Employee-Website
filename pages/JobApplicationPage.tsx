@@ -208,7 +208,8 @@ const JobApplicationPage: NextPage<{}> = () => {
       !referenceNameState ||
       !referenceNameValue2 ||
       !referencePhoneNumberState ||
-      !referencePhoneNumberValue2
+      !referencePhoneNumberValue2 ||
+      !previouslyApplied
     ) {
       alert('Please make sure all the fields are filled out')
     } else if (phoneNumber.length != 10) {

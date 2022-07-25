@@ -21,6 +21,7 @@ import {
   collection,
   setDoc,
   doc,
+  where,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -30,6 +31,7 @@ import {
 } from 'firebase/auth'
 import { emit } from 'process'
 import { async } from '@firebase/util'
+import { Faxes } from './pages/Faxes'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyBCwzGo9wi9_EnYzIGBcxUQyS59uEoNXAU',
@@ -364,4 +366,72 @@ export async function archiveItem({ collections, docs, archiveBool }) {
     },
     { merge: true }
   )
+}
+export const SearchForApplicationsArchived = ({
+  ApplicantArray,
+  Application,
+}) => {
+  try {
+    onSnapshot(
+      query(
+        collection(db, 'applications'),
+        where('email', '>=', Application),
+        where('archive', '==', 'true')
+      ),
+      (querySnapshot) => {
+        const quantitysnap = []
+
+        querySnapshot.forEach((snap) => {
+          quantitysnap.push(snap.data())
+
+          // key: snap.id;
+        })
+        ApplicantArray(quantitysnap)
+
+        console.log(' fireeee x' + quantitysnap)
+      }
+    )
+  } catch (e) {
+    e
+  }
+}
+export function SearchForApplicationsNOTArchived({
+  ApplicantArray,
+  Application,
+}) {
+  try {
+    onSnapshot(
+      query(collection(db, 'applications'), where('email', '>=', Application)),
+      (querySnapshot) => {
+        const quantitysnap = []
+
+        querySnapshot.forEach((snap) => {
+          quantitysnap.push(snap.data())
+
+          // key: snap.id;
+        })
+        ApplicantArray(quantitysnap)
+
+        // console.log(' fireeee x  ' + quantitysnap)
+      }
+    )
+  } catch (e) {
+    e
+  }
+}
+export function getFaxes({ singleFax }) {
+  try {
+    onSnapshot(query(collection(db, 'faxes')), (querySnapshot) => {
+      const quantitysnap = []
+      querySnapshot.forEach((snap) => {
+        const snaps = quantitysnap.push(snap.get('fax'))
+        singleFax(snaps)
+
+        // key: snap.id;
+      })
+      // setFax(quantitysnap)
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }

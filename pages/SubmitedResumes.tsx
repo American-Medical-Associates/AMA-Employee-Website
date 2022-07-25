@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Head from 'next/head'
-import { getResumes, archiveItem, isAdmin } from '../firebase'
+import {
+  getResumes,
+  archiveItem,
+  isAdmin,
+  SearchForApplicationsNOTArchived,
+} from '../firebase'
 import ListItem from '../components/ListItem'
 import { ReactDOM } from 'react'
 import classnames from 'classnames'
@@ -11,6 +16,7 @@ import MainButton from '../components/MainButton'
 import Router, { useRouter } from 'next/router'
 import ItemPicker from '../components/ItemPicker'
 import LineDivider from '../components/lineDiveider'
+import SearchComponent from '../components/searchComponent'
 
 const SubmitedResumes: React.FC<{}> = () => {
   const [application, setApplication] = useState(Array)
@@ -22,6 +28,8 @@ const SubmitedResumes: React.FC<{}> = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const [showArchived, setShowArchived] = useState(false)
   const [isAdminState, setIsAdminState] = useState(null)
+  const [applicationSearch, setApplicationSearch] = useState<string>('')
+  const [searched, setSearched] = useState<Array<any>>(Array)
 
   useEffect(() => {
     const getAdmin = () => {
@@ -45,28 +53,78 @@ const SubmitedResumes: React.FC<{}> = () => {
   }, [])
 
   useEffect(() => {
-    getResumes({ applicationtState: setApplication })
-  }, [])
-  //   console.log(application)
+    var searchedApplication: Array<any> = []
+    searchedApplication = []
+    setSearched([])
+    if (applicationSearch == null || applicationSearch == '') {
+      setApplication([])
+      getResumes({ applicationtState: setApplication })
+      setSearched([])
+    } else {
+      // SearchForApplicationsNOTArchived({
+      //   ApplicantArray: setApplication,
+      //   Application: applicationSearch,
+      // })
 
-  const list = application.map((item: any) => {
-    // console.log('hiii ' + item.email)
-    // console.log(height)
-    if (item.archive == showArchived) {
-      return (
-        <div
-          key={item.phoneNumber}
-          onClick={() => {
-            setApplicationDetails({ item })
-            console.log(applicationDetails?.item?.selectedDateStart1)
-          }}
-          className=" w-30% m-5 cursor-pointer rounded-[30px] bg-[#ebebebc6] p-4 text-center shadow-xl duration-500 hover:scale-[110%]"
-        >
-          <h1 className=" text-lg text-[#707070]">{item.email}</h1>
-        </div>
-      )
+      application.map((item: any) => {
+        const emailString: string = JSON.stringify(item.email) as string
+        // if (applicationSearch.length > 1) {
+        if (emailString.includes(applicationSearch) == true) {
+          searchedApplication.push(item)
+        }
+        // }
+      })
+      // if (searchedApplication != null || searchedApplication != []) {
+      setSearched(searchedApplication)
+      console.log(application)
+      // }
     }
-  })
+  }, [applicationSearch])
+  //   console.log(application)
+  const maping = () => {
+    if (applicationSearch == null || applicationSearch == '') {
+      const list = application.map((item: any) => {
+        // console.log('hiii ' + item.email)
+        // console.log(height)
+        if (item.archive == showArchived) {
+          return (
+            <div
+              key={item.phoneNumber}
+              onClick={() => {
+                setApplicationDetails({ item })
+                console.log('hiiiii' + item)
+              }}
+              className=" m-5 cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+            >
+              <h1 className=" text-center text-lg text-[#707070]">
+                {item.email}
+              </h1>
+            </div>
+          )
+        }
+      })
+      return list
+    } else {
+      const list = searched.map((item: any) => {
+        console.log(item)
+        return (
+          <div
+            key={item.phoneNumber}
+            onClick={() => {
+              setApplicationDetails({ item })
+            }}
+            className=" m-5 cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+          >
+            <h1 className=" text-center text-lg text-[#707070]">
+              {item.email}
+            </h1>
+          </div>
+        )
+      })
+      return list
+    }
+  }
+
   const isPDf = () => {
     if (applicationDetails?.item?.resumeFileType == 'pdf') {
       return (
@@ -159,7 +217,7 @@ const SubmitedResumes: React.FC<{}> = () => {
             <div className=" flex w-[50%] flex-col items-center justify-center">
               <ApplicationItem
                 name="Full Name:"
-                Item={applicationDetails?.item?.fullName}
+                Item={applicationDetails?.item?.fullLegalName}
               />
               <ApplicationItem
                 name="Email:"
@@ -410,13 +468,13 @@ const SubmitedResumes: React.FC<{}> = () => {
                 name="Disability Status:"
                 Item={applicationDetails?.item?.DisabilityStatus}
               /> */}
-              <ApplicationItem
+              {/* <ApplicationItem
                 name="Authorize to Receive Texts About Job:"
                 Item={
                   applicationDetails?.item
                     ?.consent_to_receiving_text_messages_throughout_your_application_process
                 }
-              />
+              /> */}
 
               <ApplicationItem
                 name="Current extern or Contractor:"
@@ -770,7 +828,7 @@ const SubmitedResumes: React.FC<{}> = () => {
           <div className=" flex items-center justify-center justify-self-center">
             <ApplicationItem
               name="Signature"
-              Item={applicationDetails?.item?.fullName}
+              Item={applicationDetails?.item?.fullLegalName}
             />
           </div>
         </div>
@@ -813,10 +871,17 @@ const SubmitedResumes: React.FC<{}> = () => {
         <div className=" flex h-[80vh] w-[25%] flex-col">
           <div className=" flex flex-col items-center justify-center">
             {showArchiveList()}
+            <SearchComponent
+              placeHolder="Search For Applications"
+              value={applicationSearch}
+              onChange={(text: any) => {
+                setApplicationSearch(text.target.value)
+              }}
+            />
             <LineDivider
               lineHight="h-[10px]"
               lineWidth="w-[50px]"
-              lineColor="#737272f"
+              lineColor="#0F100F2F"
             />
           </div>
           <div
@@ -824,7 +889,7 @@ const SubmitedResumes: React.FC<{}> = () => {
               `flex h-[80vh] w-[full] flex-col  overflow-y-auto `
             )}
           >
-            {list}
+            {maping()}
           </div>
         </div>
         <div className="flex w-[75%] flex-col justify-center  p-[20px]">
