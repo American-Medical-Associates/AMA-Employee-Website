@@ -173,7 +173,9 @@ const MassMessagePage: NextPage<{}> = () => {
         }
 
         if (sendBalance) {
-          message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[37]}, please be prepared to pay your balance before your next appointment.`
+          if (item[37] > 0) {
+            message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[37]}, please be prepared to pay your balance before your next appointment.`
+          }
         }
         if (customCheckBox && customMessage != null) {
           message = `Hello ${item[1]}, ${customMessage}`
