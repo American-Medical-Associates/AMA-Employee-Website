@@ -33,7 +33,8 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1>{auth.currentUser?.email}</h1>
-        <TensorFlowBert />
+        <h1>Home Page!</h1>
+        {/* <TensorFlowBert /> */}
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center border-t">
