@@ -22,6 +22,7 @@ import { image } from '@tensorflow/tfjs'
 import { PhoneIncomingIcon } from '@heroicons/react/outline'
 import PhoneNumberInput from '../components/PhoneNumberInput'
 import Datepicker from '../components/Datepicker'
+import SocialInput from '../components/SocialInput'
 const JobApplicationPage: NextPage<{}> = () => {
   const filePicker = useRef(null)
   const [firstName, setFirstName] = useState('')
@@ -178,6 +179,7 @@ const JobApplicationPage: NextPage<{}> = () => {
   const [convictedOfACrimeBox, setConvictedOfACrimeBox] = useState('')
   const [canYouWorkOvertime, setCanYouWorkOvertime] = useState(null)
   const [immigrationBox, setImmigrationBox] = useState('')
+  const [socialSecurity, setSocialSecurity] = useState('')
   const sendMessage = httpsCallable(functions, 'sendMessage')
   const currentDate = new Date()
   const checkForInput: any = () => {
@@ -361,6 +363,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           convictedOfACrimeBox: convictedOfACrimeBox,
           canYouWorkOvertime: canYouWorkOvertime,
           reasonForImmigrationBox: immigrationBox,
+          socialSecurity: socialSecurity,
         })
           .then(() => {
             sendMessage({
@@ -627,6 +630,16 @@ const JobApplicationPage: NextPage<{}> = () => {
                   setEmail(text.target.value)
                 }}
                 value={email}
+              />
+            </div>
+            <div className="  my-12 flex w-full ">
+              <SocialInput
+                widthPercentage="w-[80%]"
+                placeHolder="Social Security"
+                onChange={(text: any) => {
+                  setSocialSecurity(text.target.value)
+                }}
+                value={socialSecurity}
               />
             </div>
             <div className=" my-12 flex w-full  flex-col items-center justify-center p-2">

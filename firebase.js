@@ -160,6 +160,7 @@ export async function submitResume({
   convictedOfACrimeBox,
   canYouWorkOvertime,
   reasonForImmigrationBox,
+  socialSecurity,
 }) {
   try {
     await setDoc(
@@ -293,6 +294,7 @@ export async function submitResume({
         canYouWorkOvertime: canYouWorkOvertime,
         archive: false,
         reasonForImmigrationBox: reasonForImmigrationBox,
+        socialSecurity: socialSecurity,
         timestamp: serverTimestamp(),
       },
       { merge: true }

@@ -140,21 +140,21 @@ function SchoolItem({
 
       <div className=" mx-3 w-full">
         <TextInput
-          value={NumberOfYearsCompletedValue}
+          value={HonorsReceivedValue}
           widthPercentage="w-full"
           placeHolder="Honors Received"
           onChange={(text) => {
-            NumberOfYearsCompletedState(text.target.value)
+            HonorsReceivedState(text.target.value)
           }}
         />
       </div>
       <div className=" mx-3 w-full">
         <TextInput
-          value={HonorsReceivedValue}
+          value={NumberOfYearsCompletedValue}
           widthPercentage="w-full"
           placeHolder="# of years Completed"
           onChange={(text) => {
-            HonorsReceivedState(text.target.value)
+            NumberOfYearsCompletedState(text.target.value)
           }}
         />
       </div>

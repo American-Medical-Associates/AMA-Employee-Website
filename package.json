@@ -18,6 +18,7 @@
     "firebase-tools": "^11.1.0",
     "fs": "^0.0.1-security",
     "geckodriver": "^3.0.2",
+    "jspdf": "^2.5.1",
     "mocha": "^10.0.0",
     "net": "^1.0.2",
     "next": "latest",

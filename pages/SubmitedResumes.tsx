@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Header from '../components/Header'
 import Head from 'next/head'
 import {
@@ -17,9 +17,11 @@ import Router, { useRouter } from 'next/router'
 import ItemPicker from '../components/ItemPicker'
 import LineDivider from '../components/lineDiveider'
 import SearchComponent from '../components/searchComponent'
+import { jsPDF } from 'jspdf'
+import { async } from '@firebase/util'
 
 const SubmitedResumes: React.FC<{}> = () => {
-  const [application, setApplication] = useState(Array)
+  const [application, setApplication] = useState<Array<any>>(Array)
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
   const [applicationDetails, setApplicationDetails] = useState<any>(null)
@@ -30,6 +32,9 @@ const SubmitedResumes: React.FC<{}> = () => {
   const [isAdminState, setIsAdminState] = useState(null)
   const [applicationSearch, setApplicationSearch] = useState<string>('')
   const [searched, setSearched] = useState<Array<any>>(Array)
+  const pdf = new jsPDF()
+  const pdfRef = useRef(null)
+  const [overflow, setOverflow] = useState('overflow-auto')
 
   useEffect(() => {
     const getAdmin = () => {
@@ -201,13 +206,51 @@ const SubmitedResumes: React.FC<{}> = () => {
     } else {
       console.log(applicationDetails)
       return (
-        <div className="  h-[80vh] w-full  overflow-auto rounded-[20px] bg-[#ebebebc6] p-[40px] text-center shadow-xl">
+        <div
+          ref={pdfRef}
+          className={classnames(
+            `h-[80vh] w-full ${overflow}  rounded-[20px] bg-[#ebebebc6] p-[40px] text-center shadow-xl`
+          )}
+        >
           <div className=" flex flex-col items-center  justify-center">
             <MainButton
               buttonText=" See The Application "
               buttonWidth="w-[3 0%]"
               onClick={() => {
                 router.push('/JobApplicationPage')
+              }}
+            />
+            <MainButton
+              buttonText="Export as PDF"
+              onClick={async () => {
+                setOverflow('')
+                const content: any = pdfRef.current
+                var y = 15
+                const pageHeight = pdf.internal.pageSize.height
+
+                await pdf
+                  .html(content, {
+                    callback: function (doc) {
+                      doc.save(`${applicationDetails.item.fullLegalName}.pdf`)
+                    },
+                    width: 210, // <- here
+                    windowWidth: 1000,
+
+                    // <- here
+                  })
+                  .then(() => {
+                    setOverflow('overflow-auto')
+                  })
+                // for (const key in applicationDetails.item) {
+                //   pdf.text(`${key}: ${applicationDetails.item[key]}`, 15, y)
+                //   if (y >= pageHeight) {
+                //     pdf.addPage()
+                //     y = 15
+                //   } else {
+                //     y = y + 15
+                //   }
+                // }
+                // pdf.save(`${applicationDetails.item.fullLegalName}.pdf`)
               }}
             />
             {archiveButton()}
@@ -825,6 +868,7 @@ const SubmitedResumes: React.FC<{}> = () => {
                 </div>
               </div>
             )}
+
           <div className=" flex items-center justify-center justify-self-center">
             <ApplicationItem
               name="Signature"
@@ -871,6 +915,7 @@ const SubmitedResumes: React.FC<{}> = () => {
         <div className=" flex h-[80vh] w-[25%] flex-col">
           <div className=" flex flex-col items-center justify-center">
             {showArchiveList()}
+
             <SearchComponent
               placeHolder="Search For Applications"
               value={applicationSearch}
