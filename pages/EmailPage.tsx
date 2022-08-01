@@ -9,7 +9,7 @@ const EmailPage: NextPage<{}> = () => {
         // ref={filePicker}
         type="file"
         widthPercentage="w-[50%]"
-        placeHolder="Upload a Spread Sheet"
+        placeHolder="Upload a Pdf"
         onChange={(text: any) => {
           //   uploadimage({ e: text })
         }}
