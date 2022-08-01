@@ -31,7 +31,7 @@ const SubmitedResumes: React.FC<{}> = () => {
   const [showArchived, setShowArchived] = useState(false)
   const [isAdminState, setIsAdminState] = useState(null)
   const [applicationSearch, setApplicationSearch] = useState<string>('')
-  const [searched, setSearched] = useState<Array<any>>(Array)
+  const [searched, setSearched] = useState<Array<any>>([])
   const pdf = new jsPDF()
   const pdfRef = useRef(null)
   const [overflow, setOverflow] = useState('overflow-auto')
@@ -59,9 +59,14 @@ const SubmitedResumes: React.FC<{}> = () => {
 
   useEffect(() => {
     var searchedApplication: Array<any> = []
-    searchedApplication = []
+    // searchedApplication = []
     setSearched([])
-    if (applicationSearch == null || applicationSearch == '') {
+    setApplication([])
+    if (
+      applicationSearch == null ||
+      applicationSearch == '' ||
+      applicationSearch.length < 1
+    ) {
       setApplication([])
       getResumes({ applicationtState: setApplication })
       setSearched([])
@@ -70,6 +75,9 @@ const SubmitedResumes: React.FC<{}> = () => {
       //   ApplicantArray: setApplication,
       //   Application: applicationSearch,
       // })
+      setApplication([])
+      getResumes({ applicationtState: setApplication })
+      setSearched([])
 
       application.map((item: any) => {
         const emailString: string = JSON.stringify(item.email) as string
@@ -87,7 +95,11 @@ const SubmitedResumes: React.FC<{}> = () => {
   }, [applicationSearch])
   //   console.log(application)
   const maping = () => {
-    if (applicationSearch == null || applicationSearch == '') {
+    if (
+      applicationSearch == null ||
+      applicationSearch == '' ||
+      applicationSearch.length < 1
+    ) {
       const list = application.map((item: any) => {
         // console.log('hiii ' + item.email)
         // console.log(height)
@@ -99,9 +111,9 @@ const SubmitedResumes: React.FC<{}> = () => {
                 setApplicationDetails({ item })
                 console.log('hiiiii' + item)
               }}
-              className=" m-5 cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+              className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
             >
-              <h1 className=" text-center text-lg text-[#707070]">
+              <h1 className="  text-center text-lg text-[#707070]">
                 {item.email}
               </h1>
             </div>
@@ -118,7 +130,7 @@ const SubmitedResumes: React.FC<{}> = () => {
             onClick={() => {
               setApplicationDetails({ item })
             }}
-            className=" m-5 cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+            className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
           >
             <h1 className=" text-center text-lg text-[#707070]">
               {item.email}
@@ -926,6 +938,19 @@ const SubmitedResumes: React.FC<{}> = () => {
                 ACCURATE, AND COMPLETE. DO NOT SIGN UNTIL YOU HAVE READ ALL OF
                 THE INFORMATION CONTAINED IN THE APPLICATION.
               </p>
+              <p className=" my-9 px-40 text-center">
+                <span className=" font-bold">
+                  Digital Signature Acknowledgement:
+                </span>
+                <span> By clicking the</span>
+                <span className=" font-bold">"SUBMIT"</span> button, you are
+                signing your employment application electronically. You agree
+                that by typing your full name, this action has the same legal
+                validity and effect as your handwritten signature on the
+                employment application and that it has the same meaning as your
+                handwritten signature.
+              </p>
+
               <ApplicationItem
                 name="Signature"
                 Item={applicationDetails?.item?.fullLegalName}
@@ -968,8 +993,8 @@ const SubmitedResumes: React.FC<{}> = () => {
       </Head>
       <Header />
 
-      <main className=" flex grid-cols-2 justify-center">
-        <div className=" flex h-[80vh] w-[25%] flex-col">
+      <main className=" flex grid-cols-2 justify-center overflow-y-clip">
+        <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">
           <div className=" flex flex-col items-center justify-center">
             {showArchiveList()}
 
@@ -980,19 +1005,14 @@ const SubmitedResumes: React.FC<{}> = () => {
                 setApplicationSearch(text.target.value)
               }}
             />
+
             <LineDivider
               lineHight="h-[10px]"
               lineWidth="w-[50px]"
               lineColor="#0F100F2F"
             />
           </div>
-          <div
-            className={classnames(
-              `flex h-[80vh] w-[full] flex-col  overflow-y-auto `
-            )}
-          >
-            {maping()}
-          </div>
+          <div className={`flex w-full flex-col `}>{maping()}</div>
         </div>
         <div className="flex w-[75%] flex-col justify-center  p-[20px]">
           {details()}

@@ -635,7 +635,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             <div className="  my-12 flex w-full ">
               <SocialInput
                 widthPercentage="w-[80%]"
-                placeHolder="Social Security"
+                placeHolder="Social Security Number"
                 onChange={(text: any) => {
                   setSocialSecurity(text.target.value)
                 }}
@@ -1161,6 +1161,17 @@ const JobApplicationPage: NextPage<{}> = () => {
               />
             </div>
           </div> */}
+          <p className=" px-40 text-center">
+            <span className=" font-bold">
+              Digital Signature Acknowledgement:
+            </span>
+            <span> By clicking the</span>
+            <span className=" font-bold">"SUBMIT"</span> button, you are signing
+            your employment application electronically. You agree that by typing
+            your full name, this action has the same legal validity and effect
+            as your handwritten signature on the employment application and that
+            it has the same meaning as your handwritten signature.
+          </p>
           <TextInput
             placeHolder="Signature (Legal Name)"
             type="name"
