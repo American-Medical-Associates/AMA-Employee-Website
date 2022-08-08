@@ -153,7 +153,7 @@ function ReferenceItem({
         <TextInput
           value={ReferenceWorkRelationshipValue}
           widthPercentage="w-full"
-          placeHolder="Work RelationShip"
+          placeHolder="Work Relationship"
           onChange={(text) => {
             ReferenceWorkRelationshipState(text.target.value)
           }}

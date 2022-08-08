@@ -40,6 +40,7 @@ const SubmitedResumes: React.FC<{}> = () => {
     const getAdmin = () => {
       isAdmin({ adminState: setIsAdminState })
       console.log(isAdminState)
+      console.log('not admin')
       return Promise.resolve(isAdminState)
     }
 

@@ -9,7 +9,7 @@ export default function TextInput({
   ref,
 }: {
   placeHolder: string
-  widthPercentage: string
+  widthPercentage?: string
   onChange: any
   type?: string
   value?: any

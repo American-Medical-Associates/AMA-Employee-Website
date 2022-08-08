@@ -437,3 +437,87 @@ export function getFaxes({ singleFax }) {
     console.log(error)
   }
 }
+export async function addSpravatoTracking({
+  email,
+  lastName,
+  firstName,
+  DOB,
+  MA,
+  dateReceived,
+  dateAdministered,
+  phoneNumber,
+  dose,
+  dateOrdered,
+  numberOfDevices,
+}) {
+  await setDoc(
+    doc(db, 'spravato', email),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      MA: MA,
+      dose: dose,
+      dateAdministered: dateAdministered,
+      dateReceived: dateReceived,
+      dateOrdered: dateOrdered,
+      DOB: DOB,
+      spravatoTracking: 'spravatoTracking',
+      numberOfDevices: numberOfDevices,
+      dateAddedToDB: serverTimestamp(),
+    },
+    { merge: true }
+  ).then(async () => {
+    await setDoc(
+      doc(
+        db,
+        'companys',
+        'AMA',
+        'patients',
+        email,
+        'spravatoTracking',
+        dateAdministered.toString()
+      ),
+
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        MA: MA,
+        dose: dose,
+        dateAdministered: dateAdministered,
+        dateReceived: dateReceived,
+        dateOrdered: dateOrdered,
+        DOB: DOB,
+        spravatoTracking: 'spravatoTracking',
+        numberOfDevices: numberOfDevices,
+        dateAddedToDB: serverTimestamp(),
+      },
+      { merge: true }
+    )
+  })
+}
+export async function addNewPatient({
+  email,
+  lastName,
+  firstName,
+  phoneNumber,
+  DOB,
+  address,
+}) {
+  await setDoc(
+    doc(db, 'companys', 'AMA', 'patients', email),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      DOB: DOB,
+      address: address,
+      dateAdded: serverTimestamp(),
+    },
+    { merge: true }
+  )
+}
