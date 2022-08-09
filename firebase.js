@@ -451,7 +451,7 @@ export async function addSpravatoTracking({
   numberOfDevices,
 }) {
   await setDoc(
-    doc(db, 'spravato', email),
+    doc(db, 'spravato', dateAdministered.toString()),
     {
       firstName: firstName,
       lastName: lastName,
@@ -510,6 +510,7 @@ export async function addNewPatient({
   await setDoc(
     doc(db, 'companys', 'AMA', 'patients', email),
     {
+      fullName: lastName + ', ' + firstName,
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -520,4 +521,55 @@ export async function addNewPatient({
     },
     { merge: true }
   )
+}
+
+export function patientSearchListAMA({ patientArray }) {
+  try {
+    onSnapshot(
+      query(
+        collection(db, 'companys', 'AMA', 'patients')
+        // where('fullName', '>=', searchName)
+      ),
+
+      (querySnapshot) => {
+        const quantitysnap = []
+
+        querySnapshot.forEach((snap) => {
+          quantitysnap.push(snap.data())
+
+          // key: snap.id;
+        })
+        patientArray(quantitysnap)
+
+        // console.log(' fireeee x  ' + quantitysnap)
+      }
+    )
+  } catch (e) {
+    e
+  }
+}
+export function GetSpravatoTracking({}) {
+  try {
+    onSnapshot(
+      query(
+        collection(db, 'companys', 'AMA', 'patients')
+        // where('fullName', '>=', searchName)
+      ),
+
+      (querySnapshot) => {
+        const quantitysnap = []
+
+        querySnapshot.forEach((snap) => {
+          quantitysnap.push(snap.data())
+
+          // key: snap.id;
+        })
+        SpravatotrackingArray(quantitysnap)
+
+        // console.log(' fireeee x  ' + quantitysnap)
+      }
+    )
+  } catch (e) {
+    e
+  }
 }

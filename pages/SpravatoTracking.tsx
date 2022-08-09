@@ -7,8 +7,10 @@ import TextInput from '../components/TextInput'
 import { addSpravatoTracking } from '../firebase'
 import DateInput from '../components/DateInput'
 import PhoneNumberInput from '../components/PhoneNumberInput'
+import { useRouter } from 'next/router'
 
 const SpravatoTracking: NextPage<{}> = () => {
+  const router = useRouter()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [DOB, setDOB] = useState('')
@@ -117,6 +119,18 @@ const SpravatoTracking: NextPage<{}> = () => {
             <MainButton
               buttonText="Add Spravato Tracking"
               onClick={() => {
+                if (
+                  firstName == '' ||
+                  lastName == '' ||
+                  DOB == '' ||
+                  phoneNumber == '' ||
+                  email == '' ||
+                  dose == '' ||
+                  numberOfDevices == '' ||
+                  Ma == ''
+                ) {
+                  alert('Please make sure all felids are filled out.')
+                }
                 addSpravatoTracking({
                   email: email,
                   MA: Ma,
@@ -130,6 +144,19 @@ const SpravatoTracking: NextPage<{}> = () => {
                   phoneNumber: phoneNumber,
                   numberOfDevices: numberOfDevices,
                 })
+                  .then(() => {
+                    setEmail('')
+                    setMa('')
+                    setDose('')
+                    setFirstName('')
+                    setLastName('')
+                    setDOB('')
+                    setPhoneNumber('')
+                    setNumberOfDevices('')
+                  })
+                  .then(() => {
+                    router.push('/Spravato')
+                  })
               }}
             />
           </div>
