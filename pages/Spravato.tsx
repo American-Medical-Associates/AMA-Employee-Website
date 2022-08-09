@@ -33,8 +33,10 @@ const Spravato: NextPage<{}> = () => {
           <h1 className="mx-5  text-center text-lg text-[#707070]">
             {item.lastName}
           </h1>
-          <h1 className="  text-center text-lg text-[#707070]">{item.email}</h1>
-          <h1 className="  text-center text-lg text-[#707070]">
+          <h1 className="mx-5  text-center text-lg text-[#707070]">
+            {item.email}
+          </h1>
+          <h1 className=" mx-5 text-center text-lg text-[#707070]">
             {item.dateAdministeredString}
           </h1>
         </div>

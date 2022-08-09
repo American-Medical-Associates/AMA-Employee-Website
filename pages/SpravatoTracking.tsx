@@ -69,14 +69,7 @@ const SpravatoTracking: NextPage<{}> = () => {
               setEmail(text.target.value)
             }}
           />
-          <TextInput
-            placeHolder="Dose"
-            widthPercentage="w-[60%]"
-            value={dose}
-            onChange={(text: any) => {
-              setDose(text.target.value)
-            }}
-          />
+
           <div className=" my-10">
             <h4 className=" mb-5 text-center">Date Ordered</h4>
             <Datepicker
@@ -99,6 +92,14 @@ const SpravatoTracking: NextPage<{}> = () => {
               setSelectedDate={setDateReceived}
             />
           </div>
+          <TextInput
+            placeHolder="Dose"
+            widthPercentage="w-[60%]"
+            value={dose}
+            onChange={(text: any) => {
+              setDose(text.target.value)
+            }}
+          />
           <div className=" my-10">
             <h4 className=" mb-5 text-center">Date Administered</h4>
             <Datepicker
