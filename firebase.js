@@ -460,8 +460,11 @@ export async function addSpravatoTracking({
       MA: MA,
       dose: dose,
       dateAdministered: dateAdministered,
+      dateAdministeredString: dateAdministered.toString(),
       dateReceived: dateReceived,
+      dateReceivedString: dateReceived.toString(),
       dateOrdered: dateOrdered,
+      dateOrderedString: dateOrdered.toString(),
       DOB: DOB,
       spravatoTracking: 'spravatoTracking',
       numberOfDevices: numberOfDevices,
@@ -488,8 +491,11 @@ export async function addSpravatoTracking({
         MA: MA,
         dose: dose,
         dateAdministered: dateAdministered,
+        dateAdministeredString: dateAdministered.toString(),
         dateReceived: dateReceived,
+        dateReceivedString: dateReceived.toString(),
         dateOrdered: dateOrdered,
+        dateOrderedString: dateOrdered.toString(),
         DOB: DOB,
         spravatoTracking: 'spravatoTracking',
         numberOfDevices: numberOfDevices,
@@ -548,11 +554,11 @@ export function patientSearchListAMA({ patientArray }) {
     e
   }
 }
-export function GetSpravatoTracking({}) {
+export function GetSpravatoTracking({ SpravatoTrackingArray }) {
   try {
     onSnapshot(
       query(
-        collection(db, 'companys', 'AMA', 'patients')
+        collection(db, 'spravato')
         // where('fullName', '>=', searchName)
       ),
 
@@ -564,7 +570,7 @@ export function GetSpravatoTracking({}) {
 
           // key: snap.id;
         })
-        SpravatotrackingArray(quantitysnap)
+        SpravatoTrackingArray(quantitysnap)
 
         // console.log(' fireeee x  ' + quantitysnap)
       }
