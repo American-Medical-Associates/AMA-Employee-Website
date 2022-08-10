@@ -11,6 +11,7 @@ import { PhoneIcon } from '@heroicons/react/outline'
 import classnames from 'classnames'
 import CheckBox from '../components/CheckBox'
 import { useRouter } from 'next/router'
+import SearchComponent from '../components/searchComponent'
 
 const MassMessagePage: NextPage<{}> = () => {
   const [xlsxDoc, setXlsxDoc] = useState<Array<string>>([])
@@ -37,6 +38,9 @@ const MassMessagePage: NextPage<{}> = () => {
   const router = useRouter()
 
   const [refresh, setRefresh] = useState(false)
+  const [searched, setSearched] = useState('')
+  const [searchedPatients, setSearchedPatients] = useState<Array<any>>([])
+
   useEffect(() => {
     if (leaveAReviewMessageCheckBox || sendBalance || customCheckBox) {
       if (patients.length > 0) {
@@ -79,7 +83,21 @@ const MassMessagePage: NextPage<{}> = () => {
     }
   }, [selectAll])
 
-  const list = xlsxDoc.map((item: any, index: any) => {
+  useEffect(() => {
+    var searchedName: Array<any> = []
+    if (searched != '') {
+      xlsxDoc.map((item: any) => {
+        if (item[3].toLowerCase().includes(searched.toLowerCase())) {
+          searchedName.push(item)
+        }
+      })
+      setSearchedPatients(searchedName)
+    } else {
+      setSearchedPatients(xlsxDoc)
+    }
+  }, [searched])
+
+  const list = searchedPatients.map((item: any, index: any) => {
     const indexItem = patients.indexOf(item)
 
     if (indexItem != -1) {
@@ -95,7 +113,7 @@ const MassMessagePage: NextPage<{}> = () => {
             `m-5 flex w-[60%] cursor-pointer flex-row items-center justify-center rounded-[30px] bg-[#0008ff] p-4 px-5 text-center shadow-xl duration-500 hover:scale-[110%]`
           )}
         >
-          <h1 className=" text-lg text-[#ffff]">{item[1]}</h1>
+          <h1 className=" text-lg text-[#ffffff]">{item[1]}</h1>
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[3]} </h1>
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[16]} </h1>
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[31]} </h1>
@@ -231,6 +249,16 @@ const MassMessagePage: NextPage<{}> = () => {
             uploadimage({ e: text })
           }}
         />
+        <div className=" my-5 flex w-full items-center justify-center ">
+          <SearchComponent
+            value={searched}
+            widthPercentage="w-[100%]"
+            placeHolder="Search Patient"
+            onChange={(text: any) => {
+              setSearched(text.target.value)
+            }}
+          />
+        </div>
         {xlsxDoc.length != 0 && (
           <div>
             {customCheckBox && (
