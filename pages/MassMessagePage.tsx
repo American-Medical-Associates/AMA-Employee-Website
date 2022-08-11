@@ -95,7 +95,7 @@ const MassMessagePage: NextPage<{}> = () => {
     } else {
       setSearchedPatients(xlsxDoc)
     }
-  }, [searched])
+  }, [searched, xlsxDoc])
 
   const list = searchedPatients.map((item: any, index: any) => {
     const indexItem = patients.indexOf(item)
