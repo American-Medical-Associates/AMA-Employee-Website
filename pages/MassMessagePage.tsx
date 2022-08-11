@@ -112,7 +112,7 @@ const MassMessagePage: NextPage<{}> = () => {
     if (indexItem != -1) {
       return (
         <div
-          key={item[16]}
+          key={item[0]}
           onClick={() => {
             patients.splice(indexItem, 1)
             console.log(patients)
@@ -133,7 +133,7 @@ const MassMessagePage: NextPage<{}> = () => {
     } else {
       return (
         <div
-          key={item[16]}
+          key={item[0]}
           onClick={async () => {
             await patients.push(item)
             setRefresh(!refresh)
@@ -176,20 +176,21 @@ const MassMessagePage: NextPage<{}> = () => {
         const duplicateArray: Array<any> = []
         // data.forEach((item1, index) => {
         //console.log(item1[16])
+        console.log(data.length)
+        //@ts-ignore
 
-        data.forEach((item1) => {
-          duplicateArray.forEach((item) => {
-            if (!item.includes(item1[16]) || item == null) {
-              duplicateArray.push(item1)
-            }
-          })
-          // })
-          // if (!duplicateArray.includes(item1[16])) {
-          //   duplicateArray.push(item1)
-          // }
+        let stringArray = data.map(JSON.stringify)
+        let uniqueStringArray = new Set(stringArray)
+        console.log(uniqueStringArray)
+        uniqueStringArray.forEach((item) => {
+          if (!duplicateArray.includes(item)) {
+            duplicateArray.push(item)
+          }
         })
-
-        setXlsxDoc(data)
+        //@ts-ignore
+        let uniqueArray = Array.from(duplicateArray, JSON.parse)
+        console.log(uniqueArray.length)
+        setXlsxDoc(uniqueArray)
         // var worksheet = XLSX.utils.aoa_to_sheet(data as any)
         // var new_workbook = XLSX.utils.book_new()
         // const name: string = data
