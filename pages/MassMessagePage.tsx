@@ -92,8 +92,10 @@ const MassMessagePage: NextPage<{}> = () => {
         }
       })
       setSearchedPatients(searchedName)
+      searchedName = []
     } else {
       setSearchedPatients(xlsxDoc)
+      searchedName = []
     }
   }, [searched, xlsxDoc])
 
