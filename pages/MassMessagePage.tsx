@@ -85,6 +85,7 @@ const MassMessagePage: NextPage<{}> = () => {
 
   useEffect(() => {
     var searchedName: Array<any> = []
+    setSearchedPatients([])
     if (searched != '') {
       xlsxDoc.map((item: any) => {
         if (item[3].toLowerCase().includes(searched.toLowerCase())) {
@@ -94,8 +95,13 @@ const MassMessagePage: NextPage<{}> = () => {
       setSearchedPatients(searchedName)
       searchedName = []
     } else {
-      setSearchedPatients(xlsxDoc)
+      // while (searchedPatients.length > 0) {
+      //   searchedPatients.pop()
+      // }
+      setSearchedPatients([])
+      console.log(searchedPatients)
       searchedName = []
+      setSearchedPatients(xlsxDoc)
     }
   }, [searched, xlsxDoc])
 
@@ -105,7 +111,7 @@ const MassMessagePage: NextPage<{}> = () => {
     if (indexItem != -1) {
       return (
         <div
-          key={item[1]}
+          key={item[16]}
           onClick={() => {
             patients.splice(indexItem, 1)
             console.log(patients)
@@ -126,7 +132,7 @@ const MassMessagePage: NextPage<{}> = () => {
     } else {
       return (
         <div
-          key={item[1]}
+          key={item[16]}
           onClick={async () => {
             await patients.push(item)
             setRefresh(!refresh)
@@ -165,7 +171,15 @@ const MassMessagePage: NextPage<{}> = () => {
           } as any)
           .splice(1)
         console.log(data)
-        setXlsxDoc(data)
+        // remove duplicates
+        let uniqueData = data.filter((item, index) => {
+          return data.indexOf(item[16]) === index
+        })
+        if (data === uniqueData) {
+          console.log('SAME')
+        }
+
+        setXlsxDoc(uniqueData)
         // var worksheet = XLSX.utils.aoa_to_sheet(data as any)
         // var new_workbook = XLSX.utils.book_new()
         // const name: string = data

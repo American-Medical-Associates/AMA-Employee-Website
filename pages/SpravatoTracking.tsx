@@ -22,6 +22,7 @@ const SpravatoTracking: NextPage<{}> = () => {
   const [dateReceived, setDateReceived] = useState(new Date())
   const [dateAdministered, setDateAdministered] = useState(new Date())
   const [Ma, setMa] = useState('')
+  const [lotNumber, setLotNumber] = useState('')
   //ma as mulitiple choice
   return (
     <div>
@@ -67,6 +68,14 @@ const SpravatoTracking: NextPage<{}> = () => {
             value={email}
             onChange={(text: any) => {
               setEmail(text.target.value)
+            }}
+          />
+          <TextInput
+            placeHolder="Lot Number"
+            widthPercentage="w-[60%]"
+            value={lotNumber}
+            onChange={(text: any) => {
+              setLotNumber(text.target.value)
             }}
           />
 
@@ -144,6 +153,7 @@ const SpravatoTracking: NextPage<{}> = () => {
                   DOB: DOB,
                   phoneNumber: phoneNumber,
                   numberOfDevices: numberOfDevices,
+                  lotNumber: lotNumber,
                 })
                   .then(() => {
                     setEmail('')
@@ -154,6 +164,7 @@ const SpravatoTracking: NextPage<{}> = () => {
                     setDOB('')
                     setPhoneNumber('')
                     setNumberOfDevices('')
+                    setLotNumber('')
                   })
                   .then(() => {
                     router.push('/Spravato')

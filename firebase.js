@@ -449,6 +449,7 @@ export async function addSpravatoTracking({
   dose,
   dateOrdered,
   numberOfDevices,
+  lotNumber,
 }) {
   await setDoc(
     doc(db, 'spravato', dateAdministered.toString()),
@@ -468,6 +469,7 @@ export async function addSpravatoTracking({
       DOB: DOB,
       spravatoTracking: 'spravatoTracking',
       numberOfDevices: numberOfDevices,
+      lotNumber: lotNumber,
       dateAddedToDB: serverTimestamp(),
     },
     { merge: true }
