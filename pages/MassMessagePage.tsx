@@ -106,6 +106,7 @@ const MassMessagePage: NextPage<{}> = () => {
   }, [searched, xlsxDoc])
 
   const list = searchedPatients.map((item: any, index: any) => {
+    const duplicateArray = []
     const indexItem = patients.indexOf(item)
 
     if (indexItem != -1) {
@@ -172,14 +173,23 @@ const MassMessagePage: NextPage<{}> = () => {
           .splice(1)
         console.log(data)
         // remove duplicates
-        let uniqueData = data.filter((item, index) => {
-          return data.indexOf(item[16]) === index
-        })
-        if (data === uniqueData) {
-          console.log('SAME')
-        }
+        const duplicateArray: Array<any> = []
+        // data.forEach((item1, index) => {
+        //console.log(item1[16])
 
-        setXlsxDoc(uniqueData)
+        data.forEach((item1) => {
+          duplicateArray.forEach((item) => {
+            if (!item.includes(item1[16]) || item == null) {
+              duplicateArray.push(item1)
+            }
+          })
+          // })
+          // if (!duplicateArray.includes(item1[16])) {
+          //   duplicateArray.push(item1)
+          // }
+        })
+
+        setXlsxDoc(data)
         // var worksheet = XLSX.utils.aoa_to_sheet(data as any)
         // var new_workbook = XLSX.utils.book_new()
         // const name: string = data
