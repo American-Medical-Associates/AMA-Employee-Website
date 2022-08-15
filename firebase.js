@@ -450,6 +450,7 @@ export async function addSpravatoTracking({
   dateOrdered,
   numberOfDevices,
   lotNumber,
+  snNumber,
 }) {
   await setDoc(
     doc(db, 'spravato', dateAdministered.toString()),
@@ -470,6 +471,7 @@ export async function addSpravatoTracking({
       spravatoTracking: 'spravatoTracking',
       numberOfDevices: numberOfDevices,
       lotNumber: lotNumber,
+      snNumber: snNumber,
       dateAddedToDB: serverTimestamp(),
     },
     { merge: true }
@@ -502,6 +504,62 @@ export async function addSpravatoTracking({
         spravatoTracking: 'spravatoTracking',
         numberOfDevices: numberOfDevices,
         dateAddedToDB: serverTimestamp(),
+      },
+      { merge: true }
+    )
+  })
+}
+export async function editSpravatoTracking({
+  lastName,
+  firstName,
+
+  MA,
+  dateAdministeredString,
+  phoneNumber,
+  dose,
+  numberOfDevices,
+  lotNumber,
+  snNumber,
+  email,
+}) {
+  await setDoc(
+    doc(db, 'spravato', dateAdministeredString),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      MA: MA,
+      dose: dose,
+
+      numberOfDevices: numberOfDevices,
+      lotNumber: lotNumber,
+      snNumber: snNumber,
+      dateEdited: serverTimestamp(),
+    },
+    { merge: true }
+  ).then(async () => {
+    await setDoc(
+      doc(
+        db,
+        'companys',
+        'AMA',
+        'patients',
+        email,
+        'spravatoTracking',
+        dateAdministeredString
+      ),
+
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phoneNumber: phoneNumber,
+        MA: MA,
+        dose: dose,
+
+        numberOfDevices: numberOfDevices,
+        dateEdited: serverTimestamp(),
       },
       { merge: true }
     )
