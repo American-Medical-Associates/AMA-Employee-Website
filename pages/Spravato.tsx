@@ -118,7 +118,7 @@ const Spravato: NextPage<{}> = () => {
                       dose: dose,
                       firstName: firstName,
                       lastName: lastName,
-                      DOB: DOB,
+
                       phoneNumber: phoneNumber,
                       numberOfDevices: numberOfDevices,
                       lotNumber: lotNumber,
