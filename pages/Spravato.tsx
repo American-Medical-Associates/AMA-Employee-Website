@@ -188,7 +188,7 @@ const Spravato: NextPage<{}> = () => {
                   value={phoneNumber}
                   type={'text'}
                 />
-                <h3>SN Number</h3>
+                {/* <h3>SN Number</h3>
                 <TextInput
                   widthPercentage="w-[60%]"
                   placeHolder={item.snNumber}
@@ -197,7 +197,7 @@ const Spravato: NextPage<{}> = () => {
                   }}
                   value={snNumber}
                   type={'text'}
-                />
+                /> */}
                 <h3>Dose</h3>
                 <TextInput
                   widthPercentage="w-[60%]"
