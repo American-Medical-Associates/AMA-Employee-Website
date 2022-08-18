@@ -547,7 +547,7 @@ export async function editSpravatoTracking({
         'patients',
         email,
         'spravatoTracking',
-        dateAdministeredString
+        snNumber
       ),
 
       {
