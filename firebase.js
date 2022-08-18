@@ -453,7 +453,7 @@ export async function addSpravatoTracking({
   snNumber,
 }) {
   await setDoc(
-    doc(db, 'spravato', dateAdministered.toString()),
+    doc(db, 'spravato', snNumber),
     {
       firstName: firstName,
       lastName: lastName,
@@ -484,7 +484,7 @@ export async function addSpravatoTracking({
         'patients',
         email,
         'spravatoTracking',
-        dateAdministered.toString()
+        snNumber
       ),
 
       {
@@ -523,7 +523,7 @@ export async function editSpravatoTracking({
   email,
 }) {
   await setDoc(
-    doc(db, 'spravato', dateAdministeredString),
+    doc(db, 'spravato', snNumber),
     {
       firstName: firstName,
       lastName: lastName,
@@ -534,7 +534,7 @@ export async function editSpravatoTracking({
 
       numberOfDevices: numberOfDevices,
       lotNumber: lotNumber,
-      snNumber: snNumber,
+      // snNumber: snNumber,
       dateEdited: serverTimestamp(),
     },
     { merge: true }
