@@ -307,25 +307,44 @@ const MassMessagePage: NextPage<{}> = () => {
             )}
 
             <div className="flex w-full  flex-row items-center justify-center">
-              <h6 className=" mr-15">Select All </h6>
-
               <CheckBox isChecked={selectAll} checkedState={setSelectAll} />
-              <h6 className=" mr-15">Custom Message </h6>
+              <h6 className=" mr-15">Select All </h6>
 
               <CheckBox
                 isChecked={customCheckBox}
                 checkedState={setCustomCheckBox}
               />
-              <h6 className=" mr-15">Leave A Review Message </h6>
+              <h6 className=" mr-15">Custom Message </h6>
 
               <CheckBox
                 isChecked={leaveAReviewMessageCheckBox}
                 checkedState={setLeaveAReviewMessageCheckBox}
               />
-              <h6 className=" mr-15">Send Balance Message </h6>
+              <h6 className=" mr-15">Leave A Review Message </h6>
 
               <CheckBox isChecked={sendBalance} checkedState={setSendBalance} />
+              <h6 className=" mr-15">Send Balance Message </h6>
             </div>
+
+            {leaveAReviewMessageCheckBox && (
+              <div className="flex w-full  flex-row items-center justify-center">
+                <h1>
+                  Message Preview: `Thank You "patientName" for visiting
+                  American Medical Associates. Please let us know how we did by
+                  clicking the link below.
+                  Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
+                </h1>
+              </div>
+            )}
+            {sendBalance && (
+              <div className="flex w-full  flex-row items-center justify-center">
+                <h1>
+                  `Hello "Patient Name", your current balance with AMERICAN
+                  MEDICAL ASSOCIATES is $"Personal Balance", please be prepared
+                  to pay your balance before your next appointment.`
+                </h1>
+              </div>
+            )}
           </div>
         )}
 
