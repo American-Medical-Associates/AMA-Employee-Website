@@ -110,6 +110,15 @@ const Header = () => {
                     router.push('/Spravato')
                   }}
                 />,
+                <MenuItem
+                  icon={
+                    <BookOpenIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text={'PatientManagment'}
+                  onClick={() => {
+                    router.push('/PatientManagment')
+                  }}
+                />,
 
                 <MenuItem
                   icon={

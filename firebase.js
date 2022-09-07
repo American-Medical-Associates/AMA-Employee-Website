@@ -572,9 +572,10 @@ export async function addNewPatient({
   phoneNumber,
   DOB,
   address,
+  company,
 }) {
   await setDoc(
-    doc(db, 'companys', 'AMA', 'patients', email),
+    doc(db, 'companys', company, 'patients', email),
     {
       fullName: lastName + ', ' + firstName,
       firstName: firstName,
@@ -589,11 +590,11 @@ export async function addNewPatient({
   )
 }
 
-export function patientSearchListAMA({ patientArray }) {
+export function patientSearchListAMA({ patientArray, company }) {
   try {
     onSnapshot(
       query(
-        collection(db, 'companys', 'AMA', 'patients')
+        collection(db, 'companys', company, 'patients')
         // where('fullName', '>=', searchName)
       ),
 
@@ -618,7 +619,8 @@ export function GetSpravatoTracking({ SpravatoTrackingArray }) {
   try {
     onSnapshot(
       query(
-        collection(db, 'spravato')
+        collection(db, 'spravato'),
+        orderBy('dateAdministered', 'asc')
         // where('fullName', '>=', searchName)
       ),
 
@@ -638,4 +640,10 @@ export function GetSpravatoTracking({ SpravatoTrackingArray }) {
   } catch (e) {
     e
   }
+}
+export function getCompany({ setCompany, setCompanyDispatch }) {
+  onSnapshot(doc(db, 'users', auth.currentUser.email), (doc) => {
+    // setCompanyDB(doc.get("company"));
+    setCompanyDispatch(setCompany(doc.get('company')))
+  })
 }

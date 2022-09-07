@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import { MenuItem } from '../components/MenuItem'
 import { useRouter } from 'next/router'
-import { ClipboardListIcon, PencilIcon } from '@heroicons/react/outline'
+import {
+  ClipboardListIcon,
+  PencilIcon,
+  ChartBarIcon,
+} from '@heroicons/react/outline'
 import { editSpravatoTracking, GetSpravatoTracking } from '../firebase'
 import TextInput from '../components/TextInput'
 import Datepicker from '../components/Datepicker'
@@ -388,7 +392,7 @@ const Spravato: NextPage<{}> = () => {
       <main className=" mt-8">
         <h1 className=" text-center text-4xl text-[#0008ff]">Spravato</h1>
         <div className=" mt-10 flex flex-row ">
-          <div className=" mx-10 flex h-20 w-[23%] ">
+          <div className=" mx-10 flex h-20 w-[23%] flex-col ">
             <MenuItem
               icon={
                 <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
@@ -396,6 +400,15 @@ const Spravato: NextPage<{}> = () => {
               text="Spravato Tracking Sheet"
               onClick={() => {
                 router.push('/SpravatoTracking')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ChartBarIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+              }
+              text="Spravato Analytics"
+              onClick={() => {
+                router.push('/SpravtoAnalytics')
               }}
             />
           </div>

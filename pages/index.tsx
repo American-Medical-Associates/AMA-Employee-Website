@@ -7,21 +7,29 @@ import Image from 'next/image'
 import Header from '../components/Header'
 import MainButton from '../components/MainButton'
 import TensorFlowBert from '../components/TensorFlowBert'
-import { auth, functions } from '../firebase'
+import { auth, functions, getCompany } from '../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 // import { sendMessage } from '../components/TwilloMessage'
 import { db } from '../firebase'
 import { useRouter } from 'next/router'
+import { setCompany } from '../redux/slices/companySlice'
+import { useDispatch } from 'react-redux'
 const Home: NextPage = () => {
   // const functions = getFunctions()
   const sendMessage = httpsCallable(functions, 'sendMessage')
   const helloWorld = httpsCallable(functions, 'helloWorld')
   const router = useRouter()
+  const dispatch = useDispatch()
   useEffect(() => {
     if (auth.currentUser?.email == null) {
       router.push('/Login')
     }
   }, [])
+  useEffect(() => {
+    if (auth.currentUser?.email != null) {
+      getCompany({ setCompany: setCompany, setCompanyDispatch: dispatch })
+    }
+  }, [auth.currentUser?.email])
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">

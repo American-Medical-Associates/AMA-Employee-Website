@@ -6,6 +6,8 @@ import TextInput from './TextInput'
 import PhoneNumberInput from './PhoneNumberInput'
 import MainButton from './MainButton'
 import { addNewPatient, patientSearchListAMA } from '../firebase'
+import { selectCompany } from '../redux/slices/companySlice'
+import { useSelector } from 'react-redux'
 
 const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [showAddNewUser, setShowAddNewUser] = useState(false)
@@ -19,9 +21,13 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [DOB, setDOB] = useState('')
   const [patientListArray, setPatientListArray] = useState<Array<any>>(Array)
   const [searched, setSearched] = useState<any>(null)
+  const company = useSelector(selectCompany)
 
   useEffect(() => {
-    patientSearchListAMA({ patientArray: setPatientListArray })
+    patientSearchListAMA({
+      patientArray: setPatientListArray,
+      company: company,
+    })
   }, [])
 
   useEffect(() => {
@@ -191,6 +197,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
                   DOB: DOB,
                   phoneNumber: phoneNumber,
                   address: address,
+                  company: company,
                 })
                 setEmail('')
                 setFirstName('')
@@ -220,8 +227,8 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
               className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in"
             />
           </div>
-          <div className=" mx-10 mt-5 w-full text-center text-2xl">
-            Patients
+          <div className=" mx-10 mt-5 w-full ">
+            <h3 className="w-full text-center text-2xl">Patients</h3>
           </div>
           <div className=" mx-10 mt-5 flex w-full justify-end">
             <XIcon
@@ -232,6 +239,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
             />
           </div>
         </div>
+        <h3 className="text-md w-full text-center text-[#0b7ee9]">{company}</h3>
         {showAddPatientOrSearch()}
       </div>
     </div>

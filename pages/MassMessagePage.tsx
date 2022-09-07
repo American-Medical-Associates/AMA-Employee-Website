@@ -40,7 +40,10 @@ const MassMessagePage: NextPage<{}> = () => {
   const [refresh, setRefresh] = useState(false)
   const [searched, setSearched] = useState('')
   const [searchedPatients, setSearchedPatients] = useState<Array<any>>([])
-
+  //1. The first useEffect hook is used to check if the user has selected an option for the message.
+  //If the user has selected an option for the message,
+  //then the button becomes enabled.
+  //If the user has not selected an option for the message, then the button is disabled.
   useEffect(() => {
     if (leaveAReviewMessageCheckBox || sendBalance || customCheckBox) {
       if (patients.length > 0) {
