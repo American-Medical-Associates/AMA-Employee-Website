@@ -3,7 +3,7 @@ import AddressInput from '../AddressInput'
 import DateInput from '../DateInput'
 import PhoneNumberInput from '../PhoneNumberInput'
 import TextInput from '../TextInput'
-import FullNameField from './fullNameField'
+import FullNameField from '../formComponents/FullNameField'
 
 const FullPersonalInfo: React.FC<{
   firstName: string

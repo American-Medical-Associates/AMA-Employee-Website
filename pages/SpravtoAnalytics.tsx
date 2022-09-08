@@ -183,25 +183,28 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   //2. add how many spravatos they have administered
   //3. get the percentage of spravatos they have administered
 
-  const maSpravatoArray: any = []
+  const maSpravatoArray: any = {}
   spravatoTrackingArray.map((spravatoTracking) => {
-    if (!maSpravatoArray.includes(spravatoTracking.MA)) {
-      maSpravatoArray.push({ ma: spravatoTracking.MA, numberOfSpravatos: 1 })
+    if (!maSpravatoArray.includes(spravatoTracking.MA.trim())) {
+      maSpravatoArray.push({
+        ma: spravatoTracking.MA.trim(),
+        numberOfSpravatos: 1,
+      })
     } else {
       maSpravatoArray.map((maSpravato: any) => {
-        if (maSpravato.ma == spravatoTracking.MA) {
+        if (maSpravato.ma == spravatoTracking.MA.trim()) {
           maSpravato.numberOfSpravatos = maSpravato.numberOfSpravatos + 1
         }
       })
     }
   })
-  const datForMA = maSpravatoArray.map((maSpravato: any) => {
+  const dataForMA = maSpravatoArray.map((maSpravato: any) => {
     return {
       ma: maSpravato.ma,
       numberOfSpravatos: maSpravato.numberOfSpravatos,
     }
   })
-
+  console.log(dataForMA)
   //   const maSpravatoPercentageArray = []
   //   maSpravatoArray.map((ma: any) => {
   //     var maSpravatoNumber = 0
@@ -275,7 +278,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
               )}
               {maSpravatoPercentage && (
                 <PieGraph
-                  data={datForMA}
+                  data={dataForMA}
                   day={day}
                   week={week}
                   month={month}

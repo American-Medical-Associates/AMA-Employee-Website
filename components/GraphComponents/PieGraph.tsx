@@ -38,7 +38,7 @@ const PieGraph: React.FC<{
       <div className="flex flex-row items-center justify-center">
         <PieChart width={400} height={400}>
           <Pie
-            dataKey="ma"
+            dataKey="numberOfSpravatos"
             isAnimationActive={true}
             data={data}
             cx="50%"
@@ -46,6 +46,15 @@ const PieGraph: React.FC<{
             outerRadius={80}
             fill="#8884d8"
             label
+          />
+          <Pie
+            dataKey="numberOfSpravatos"
+            data={data}
+            cx={500}
+            cy={200}
+            innerRadius={40}
+            outerRadius={80}
+            fill="#82ca9d"
           />
 
           <Tooltip />
