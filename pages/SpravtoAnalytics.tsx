@@ -183,7 +183,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   //2. add how many spravatos they have administered
   //3. get the percentage of spravatos they have administered
 
-  const maSpravatoArray: any = {}
+  const maSpravatoArray: any = []
   spravatoTrackingArray.map((spravatoTracking) => {
     if (!maSpravatoArray.includes(spravatoTracking.MA.trim())) {
       maSpravatoArray.push({
