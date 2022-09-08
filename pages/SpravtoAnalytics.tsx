@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Header from '../components/Header'
 
-import { GetSpravatoTracking } from '../firebase'
+import { auth, GetSpravatoTracking } from '../firebase'
 import { MenuItem } from '../components/MenuItem'
 import { UserIcon } from '@heroicons/react/outline'
 import Segment from '../components/GraphComponents/segment'
@@ -10,6 +10,7 @@ import BarGraph from '../components/GraphComponents/BarGraph'
 import { data } from '@tensorflow/tfjs'
 import Datepicker from '../components/Datepicker'
 import PieGraph from '../components/GraphComponents/PieGraph'
+import { useRouter } from 'next/router'
 const SpravtoAnalytics: NextPage<{}> = () => {
   const [spravatoTrackingArray, setSpravatoTrackingArray] = useState<
     Array<any>
@@ -23,6 +24,12 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   const [numberOfSpravatos, setNumberOfSpravatos] = useState(true)
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [maSpravatoPercentage, setmaSpravatoPercentage] = useState(false)
+  const router = useRouter()
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/login')
+    }
+  }, [])
 
   var weekNumber = 0
   var monthNumber = 0
@@ -235,7 +242,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
                   setNumberOfSpravatos(true)
                 }}
               />
-              <MenuItem
+              {/* <MenuItem
                 icon={
                   <UserIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
@@ -243,7 +250,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
                 onClick={() => {
                   setmaSpravatoPercentage(true), setNumberOfSpravatos(false)
                 }}
-              />
+              /> */}
               {/* <MenuItem
                 icon={
                   <UserIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
