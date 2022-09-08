@@ -9,6 +9,7 @@ import Segment from '../components/GraphComponents/segment'
 import BarGraph from '../components/GraphComponents/BarGraph'
 import { data } from '@tensorflow/tfjs'
 import Datepicker from '../components/Datepicker'
+import PieGraph from '../components/GraphComponents/PieGraph'
 const SpravtoAnalytics: NextPage<{}> = () => {
   const [spravatoTrackingArray, setSpravatoTrackingArray] = useState<
     Array<any>
@@ -177,6 +178,43 @@ const SpravtoAnalytics: NextPage<{}> = () => {
       }
     })
   }
+  //1.get all the ma's that have administered spravato
+  //2. get the number of spravatos administered by each ma
+  //2. add how many spravatos they have administered
+  //3. get the percentage of spravatos they have administered
+
+  const maSpravatoArray: any = []
+  spravatoTrackingArray.map((spravatoTracking) => {
+    if (!maSpravatoArray.includes(spravatoTracking.MA)) {
+      maSpravatoArray.push({ ma: spravatoTracking.MA, numberOfSpravatos: 1 })
+    } else {
+      maSpravatoArray.map((maSpravato: any) => {
+        if (maSpravato.ma == spravatoTracking.MA) {
+          maSpravato.numberOfSpravatos = maSpravato.numberOfSpravatos + 1
+        }
+      })
+    }
+  })
+  const datForMA = maSpravatoArray.map((maSpravato: any) => {
+    return {
+      ma: maSpravato.ma,
+      numberOfSpravatos: maSpravato.numberOfSpravatos,
+    }
+  })
+
+  //   const maSpravatoPercentageArray = []
+  //   maSpravatoArray.map((ma: any) => {
+  //     var maSpravatoNumber = 0
+  //     spravatoTrackingArray.map((spravatoTracking) => {
+  //       if (spravatoTracking.MA == ma) {
+  //         maSpravatoNumber = maSpravatoNumber + 1
+  //       }
+  //     })
+  //     return {
+  //       maName: ma,
+  //       maSpravatoPercentage: (maSpravatoNumber / totalDayNumber) * 100,
+  //     }
+  //   })
 
   return (
     <div>
@@ -236,9 +274,21 @@ const SpravtoAnalytics: NextPage<{}> = () => {
                 />
               )}
               {maSpravatoPercentage && (
-                <p className="text-2xl font-bold">
-                  MA's Spravato Percentage coming soon
-                </p>
+                <PieGraph
+                  data={datForMA}
+                  day={day}
+                  week={week}
+                  month={month}
+                  year={year}
+                  all={all}
+                  setDay={setDay}
+                  setWeek={setWeek}
+                  setMonth={setMonth}
+                  setYear={setYear}
+                  setAll={setAll}
+                  curentTimeFrame={PickedDate(selectedDate)}
+                  totalForTimeFrame={totalDayNumber}
+                />
               )}
             </div>
           </div>

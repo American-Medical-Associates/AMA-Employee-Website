@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import FullPersonalInfo from '../components/formComponents/fullPersonalInfo'
+//import FullPersonalInfo from '../components/formComponents/fullPersonalInfo'
 import Header from '../components/Header'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {
@@ -20,7 +20,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     <div>
       <Header />
       <h1>New Patient Packet</h1>
-      <FullPersonalInfo
+      {/* <FullPersonalInfo
         lastName={lastName}
         setFirstName={setFirstName}
         firstName={firstName}
@@ -41,7 +41,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         phoneNumberState={setPhoneNumberValue}
         emailState={setEmailValue}
         emailValue={emailValue}
-      />
+      /> */}
     </div>
   )
 }
