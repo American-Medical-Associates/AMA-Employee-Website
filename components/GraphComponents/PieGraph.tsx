@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+//@ts-ignore
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts'
 import { selectDate } from '../../redux/slices/companySlice'
 import Datepicker from '../Datepicker'
@@ -36,29 +37,31 @@ const PieGraph: React.FC<{
   return (
     <div>
       <div className="flex flex-row items-center justify-center">
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="numberOfSpravatos"
-            isAnimationActive={true}
-            data={data}
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-            fill="#8884d8"
-            label
-          />
-          <Pie
-            dataKey="numberOfSpravatos"
-            data={data}
-            cx={500}
-            cy={200}
-            innerRadius={40}
-            outerRadius={80}
-            fill="#82ca9d"
-          />
+        {data.length > 0 && (
+          <PieChart width={400} height={400}>
+            <Pie
+              dataKey="numberOfSpravatos"
+              isAnimationActive={true}
+              data={data}
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#8884d8"
+              label
+            />
+            <Pie
+              dataKey="numberOfSpravatos"
+              data={data}
+              cx={500}
+              cy={200}
+              innerRadius={40}
+              outerRadius={80}
+              fill="#82ca9d"
+            />
 
-          <Tooltip />
-        </PieChart>
+            <Tooltip />
+          </PieChart>
+        )}
         <div>
           <h6>
             <span className="text-blue-500">{curentTimeFrame}</span> Total:

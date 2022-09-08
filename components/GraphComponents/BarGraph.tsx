@@ -1,16 +1,7 @@
 import React, { useState } from 'react'
-import {
-  BarChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Bar,
-  ResponsiveContainer,
-} from 'recharts'
-import { selectDate } from '../../redux/slices/companySlice'
-import Datepicker from '../Datepicker'
+//@ts-ignore
+import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts'
+
 import Segment from './segment'
 
 const BarGraph: React.FC<{
@@ -45,23 +36,25 @@ const BarGraph: React.FC<{
   return (
     <div>
       <div className="flex flex-row items-center justify-center">
-        <BarChart
-          width={900}
-          height={500}
-          data={data}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-        >
-          <CartesianGrid strokeDasharray="4 4" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="numberOfSpravato" fill="#8884d8" />
-        </BarChart>
+        {data && (
+          <BarChart
+            width={900}
+            height={500}
+            data={data}
+            margin={{
+              top: 10,
+              right: 30,
+              left: 0,
+              bottom: 0,
+            }}
+          >
+            <CartesianGrid strokeDasharray="4 4" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="numberOfSpravato" fill="#8884d8" />
+          </BarChart>
+        )}
         <div>
           <h6>
             <span className="text-blue-500">{curentTimeFrame}</span> Total:

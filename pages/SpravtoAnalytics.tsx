@@ -114,7 +114,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
     }
   }
 
-  var data = null
+  var data: any = null
 
   if (day) {
     totalDayNumber = 0
@@ -259,7 +259,8 @@ const SpravtoAnalytics: NextPage<{}> = () => {
               </div>
             </div>
             <div className="flex w-[75%] flex-col items-center justify-center">
-              {numberOfSpravatos && (
+              {numberOfSpravatos && data != undefined && data != null && (
+                //@ts-ignore
                 <BarGraph
                   data={data}
                   day={day}
