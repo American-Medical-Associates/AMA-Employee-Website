@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/RoundAddButton.js", "components/Datepicker.js", "components/AddressInput.js", "components/ApplicationItem.js", "components/ApplicationItem.js", "components/Header.js", "firebase.js", "firebase.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/RoundAddButton.js", "components/Datepicker.js", "components/AddressInput.js", "components/ApplicationItem.js", "components/ApplicationItem.js", "components/Header.js", "firebase.js", "firebase.js", "components/GraphComponents/BarGraph.js", "components/GraphComponents/PieGraph.js", "pages/SpravtoAnalytics.js", "pages/PatientManagment.js"],
   "exclude": ["node_modules"]
 }

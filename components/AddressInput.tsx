@@ -25,10 +25,10 @@ const AddressInput: React.FC<{
   USStateValue,
 }) => {
   return (
-    <div className=" my-12">
+    <div className=" my-12 flex w-full flex-col items-center justify-center ">
       <TextInput
         type="Address"
-        widthPercentage="w-[80%]"
+        widthPercentage="w-[50%]"
         placeHolder="Address"
         onChange={(text: any) => {
           addressState(text.target.value)
@@ -37,14 +37,14 @@ const AddressInput: React.FC<{
       />
       <TextInput
         type="Address 2"
-        widthPercentage="w-[50%]"
+        widthPercentage="w-[40%]"
         placeHolder="Address 2"
         onChange={(text: any) => {
           addressState2(text.target.value)
         }}
         value={addressValue2}
       />
-      <div className=" flex grid-cols-2">
+      <div className="flex w-full flex-col items-center justify-center md:flex-row">
         <TextInput
           widthPercentage="w-[50%]"
           placeHolder="City"
@@ -55,7 +55,7 @@ const AddressInput: React.FC<{
         />
 
         <TextInput
-          widthPercentage="w-[60%]"
+          widthPercentage="w-[50%]"
           placeHolder="State"
           onChange={(text: any) => {
             USStateState(text.target.value)
@@ -64,7 +64,7 @@ const AddressInput: React.FC<{
         />
       </div>
       <TextInput
-        widthPercentage="w-[60%]"
+        widthPercentage="w-[50%]"
         placeHolder="Zip Code"
         onChange={(text: any) => {
           zipCodeState(text.target.value)

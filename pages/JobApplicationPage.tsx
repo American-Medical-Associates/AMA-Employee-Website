@@ -188,6 +188,11 @@ const JobApplicationPage: NextPage<{}> = () => {
       !lastName ||
       !phoneNumber ||
       !email ||
+      !addressState ||
+      !addressState2 ||
+      !city ||
+      !state ||
+      !zipCode ||
       // !profileLink ||
       // !linkType ||
       !aboutYou ||
@@ -235,6 +240,12 @@ const JobApplicationPage: NextPage<{}> = () => {
           email: email,
         })
         submitResume({
+          applicantAddress1: addressState,
+          applicantAddress2: addressState2,
+          applicantCity: city,
+          applicantState: state,
+          applicantZip: zipCode,
+
           email: email,
           firstName: firstName,
           lastName: lastName,
@@ -447,6 +458,7 @@ const JobApplicationPage: NextPage<{}> = () => {
         </div>
       )
   }
+
   const showPreviouslyExternOrContractor = () => {
     if (radio4 == 'Yes')
       return (
@@ -701,7 +713,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           />
           <LineDivider
             lineColor={'bg-[#ABABAB]'}
-            lineHight={'h-[10px]'}
+            lineHeight={'h-[10px]'}
             lineWidth={'w-[60%]'}
             margin={'my-20'}
           />
@@ -799,7 +811,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             {showConvictedOfACrime()}
             <LineDivider
               lineColor={'bg-[#ABABAB]'}
-              lineHight={'h-[10px]'}
+              lineHeight={'h-[10px]'}
               lineWidth={'w-[60%]'}
               margin={'my-20'}
             />
@@ -825,7 +837,7 @@ const JobApplicationPage: NextPage<{}> = () => {
             {showTerminatedTextBox()}
             <LineDivider
               lineColor={'bg-[#ABABAB]'}
-              lineHight={'h-[10px]'}
+              lineHeight={'h-[10px]'}
               lineWidth={'w-[60%]'}
               margin={'my-20'}
             />
@@ -1041,7 +1053,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           </div>
           <LineDivider
             lineColor={'bg-[#ABABAB]'}
-            lineHight={'h-[10px]'}
+            lineHeight={'h-[10px]'}
             lineWidth={'w-[60%]'}
             margin={'my-20'}
           />

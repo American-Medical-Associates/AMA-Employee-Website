@@ -547,6 +547,26 @@ const SubmitedResumes: React.FC<{}> = () => {
                     ?.consent_to_receiving_text_messages_throughout_your_application_process
                 }
               /> */}
+                <ApplicationItem
+                  name="Address 1:"
+                  Item={applicationDetails?.item?.applicantAddress1}
+                />
+                <ApplicationItem
+                  name="Address 2:"
+                  Item={applicationDetails?.item?.applicantAddress2}
+                />
+                <ApplicationItem
+                  name="City:"
+                  Item={applicationDetails?.item?.applicantCity}
+                />
+                <ApplicationItem
+                  name="State:"
+                  Item={applicationDetails?.item?.applicantState}
+                />
+                <ApplicationItem
+                  name="Zip Code:"
+                  Item={applicationDetails?.item?.applicantZipCode}
+                />
 
                 <ApplicationItem
                   name="Current extern or Contractor:"
@@ -1008,7 +1028,7 @@ const SubmitedResumes: React.FC<{}> = () => {
             />
 
             <LineDivider
-              lineHight="h-[10px]"
+              lineHeight="h-[10px]"
               lineWidth="w-[50px]"
               lineColor="#0F100F2F"
             />

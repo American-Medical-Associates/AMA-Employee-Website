@@ -3,14 +3,14 @@ import classnames from 'classnames'
 
 const LineDivider: React.FC<{
   lineWidth: string
-  lineHight: string
+  lineHeight: string
   lineColor: string
   margin?: string
-}> = ({ lineWidth, lineHight, margin, lineColor }) => {
+}> = ({ lineWidth, lineHeight, margin, lineColor }) => {
   return (
     <div
       className={classnames(
-        ` rounded-[30px] ${lineWidth} ${margin} ${lineHight} ${lineColor}`
+        ` rounded-[30px] ${lineWidth} ${margin} ${lineHeight} ${lineColor}`
       )}
     ></div>
   )

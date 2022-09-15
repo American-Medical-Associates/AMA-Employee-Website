@@ -2,7 +2,9 @@ import React from 'react'
 import MainButton from '../components/MainButton'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 import { auth, functions } from '../firebase'
+import { useRouter } from 'next/router'
 const PatientManagment = () => {
+  const router = useRouter()
   //use selenium to add patient information to eclinic database
   const addPatientToEclincical = httpsCallable(
     functions,
@@ -14,9 +16,11 @@ const PatientManagment = () => {
       <MainButton
         buttonText="Add Patient"
         onClick={() => {
-          addPatientToEclincical().then((result) => {
-            alert('Successfully added patient to eclinic')
-          })
+          // addPatientToEclincical().then((result) => {
+          //   alert('Successfully added patient to eclinic')
+
+          router.push('/NewPatientPacket')
+          // })
         }}
       />
     </div>
