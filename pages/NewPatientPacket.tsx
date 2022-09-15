@@ -24,8 +24,15 @@ import AdvancedDirectivesLivingWill from '../components/formComponents/AdvancedD
 import NoticeOfPrivacyPractices from '../components/formComponents/NoticeOfPrivacyPractices'
 import HIPPAconsentForm from '../components/formComponents/HIPPAconsentForm'
 import FINANCIALPOLICY from '../components/formComponents/FINANCIALPOLICY'
+import MainButton from '../components/MainButton'
+import { submitNewPatientPacketAndCreateNewPatient } from '../firebase'
+
+import { useSelector } from 'react-redux'
+import { selectCompany } from '../redux/slices/companySlice'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {
+  const router = useRouter()
+  const company = useSelector(selectCompany)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [addressValue, setAddressValue] = useState('')
@@ -241,7 +248,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   return (
     <div className=" mb-10">
       <Header />
-      <h1>New Patient Packet</h1>
+      <h1 className=" my-20 w-full text-center text-4xl">New Patient Packet</h1>
       <FullPersonalInfo
         lastName={lastName}
         setFirstName={setFirstName}
@@ -1350,6 +1357,172 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
         ]}
       />
+      <div className=" mt-20 flex items-center justify-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-3/4"
+          lineHeight="h-[10px]"
+        />
+      </div>
+      <div className=" mt-10 flex items-center justify-center">
+        <MainButton
+          onClick={async () => {
+            submitNewPatientPacketAndCreateNewPatient({
+              firstName: firstName,
+              lastName: lastName,
+              addressValue: addressValue,
+              addressValue2: addressValue2,
+              cityValue: cityValue,
+              USStateValue: USStateValue,
+              zipCodeValue: zipCodeValue,
+              BirthDateValue: BirthDateValue,
+              phoneNumberValue: phoneNumberValue,
+              emailValue: emailValue,
+              socialValue: socialValue,
+              isCheckedMale: isCheckedMale,
+              isCheckedFemale: isCheckedFemale,
+              isCheckedOther: isCheckedOther,
+              pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+              preferredName: preferredName,
+              single: single,
+              married: married,
+              divorced: divorced,
+              widowed: widowed,
+              separated: separated,
+              withPartner: withPartner,
+              MayWeTakeYourPicture: MayWeTakeYourPicture,
+              pictureOfTheirFace: pictureOfTheirFace,
+              Ethnicity: Ethnicity,
+              nameOfEmergencyContact: nameOfEmergencyContact,
+              EmergencyContactRelationShip: EmergencyContactRelationShip,
+              EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+              HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+              howDoTheyWishToPay: howDoTheyWishToPay,
+              primaryInsurance: primaryInsurance,
+              primaryInsuranceID: primaryInsuranceID,
+              primaryInsuranceGroup: primaryInsuranceGroup,
+              primaryInsurancePhone: primaryInsurancePhone,
+              primaryInsuranceAddress1: primaryInsuranceAddress1,
+              primaryInsuranceAddress2: primaryInsuranceAddress2,
+              primaryInsuranceCity: primaryInsuranceCity,
+              primaryInsuranceState: primaryInsuranceState,
+              primaryInsuranceZip: primaryInsuranceZip,
+              primarySubscribersName: primarySubscribersName,
+              secondaryInsurance: secondaryInsurance,
+              secondaryInsuranceID: secondaryInsuranceID,
+              secondaryInsuranceGroup: secondaryInsuranceGroup,
+              secondaryInsurancePhone: secondaryInsurancePhone,
+              secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+              secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+              secondaryInsuranceCity: secondaryInsuranceCity,
+              secondaryInsuranceState: secondaryInsuranceState,
+              secondaryInsuranceZip: secondaryInsuranceZip,
+              secondarySubscribersName: secondarySubscribersName,
+              primaryPictureOfInsuranceCardFront:
+                primaryPictureOfInsuranceCardFront,
+              secondaryPictureOfInsuranceCardFront:
+                secondaryPictureOfInsuranceCardFront,
+              retailPharmacyName: retailPharmacyName,
+              retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+              retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+              retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+              retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+              mailOrderPharmacyName: mailOrderPharmacyName,
+              mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+              mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+              mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+              mailOrderPharmacyCity: mailOrderPharmacyCity,
+              mailOrderPharmacyState: mailOrderPharmacyState,
+              mailOrderPharmacyZip: mailOrderPharmacyZip,
+              areYouAllergicToLatex: areYouAllergicToLatex,
+              areYouAllergicToSelfish: areYouAllergicToSelfish,
+              areYouAllergicToIodine: areYouAllergicToIodine,
+              PatientDrugAllergies: PatientDrugAllergies,
+              dateOfLastPAP: dateOfLastPAP,
+              wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+              dateOfLastMammogram: dateOfLastMammogram,
+              wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+              dateOfLastPSA: dateOfLastPSA,
+              wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+              allMajorIllnesses: allMajorIllnesses,
+              allMajorSurgeriesAndHospitalizations:
+                allMajorSurgeriesAndHospitalizations,
+              boneDensityScreening: boneDensityScreening,
+              BoneDensityScreeningDate: BoneDensityScreeningDate,
+              wasBoneDensityScreeningNormalOrAbnormal:
+                wasBoneDensityScreeningNormalOrAbnormal,
+              colonoscopyScreening: colonoscopyScreening,
+              dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+              wasColonoscopyScreeningNormalOrAbnormal:
+                wasColonoscopyScreeningNormalOrAbnormal,
+              allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+              haveTheyEverSmoked: haveTheyEverSmoked,
+              howManyPacksPerDay: howManyPacksPerDay,
+              anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+              describeOtherTobaccoUse: describeOtherTobaccoUse,
+              doYouDrinkCoffee: doYouDrinkCoffee,
+              howManyCupsPerDay: howManyCupsPerDay,
+              doYouDrinkAlcohol: doYouDrinkAlcohol,
+              howManyDrinksPerWeek: howManyDrinksPerWeek,
+              doYoCurrentlyUseRecreationalDrugs:
+                doYoCurrentlyUseRecreationalDrugs,
+              describeRecreationalDrugUse: describeRecreationalDrugUse,
+              doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+              describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+              doYouFeelDepressed: doYouFeelDepressed,
+              doYouCryFrequently: doYouCryFrequently,
+              doYouHaveLittleInterestInDoingThings:
+                doYouHaveLittleInterestInDoingThings,
+              doYouFeelHopelessDownOrDepressed:
+                doYouFeelHopelessDownOrDepressed,
+              doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+                doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+              doYouFeelTiredOrHaveLittleEnergy:
+                doYouFeelTiredOrHaveLittleEnergy,
+              doYouHavAPoorAppetiteOrOverEating:
+                doYouHavAPoorAppetiteOrOverEating,
+              doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+              troubleConcentrating: troubleConcentrating,
+              doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+              thoughtsYouWouldBeBetterOffDead: thoughtsYouWouldBeBetterOffDead,
+              isStressAMajorProblem: isStressAMajorProblem,
+              doYouPanicWhenStressed: doYouPanicWhenStressed,
+              haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+              familyMedicalAlcoholismAddiction:
+                familyMedicalAlcoholismAddiction,
+              familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+              familyMedicalCancer: familyMedicalCancer,
+              familyMedicalDiabetes: familyMedicalDiabetes,
+              familyMedicalHeartAttack: familyMedicalHeartAttack,
+              familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+              familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+              familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+              familyMedicalMentalIllness: familyMedicalMentalIllness,
+              familyMedicalStroke: familyMedicalStroke,
+              familyMedicalTuberculosis: familyMedicalTuberculosis,
+              isYourMotherStillLiving: isYourMotherStillLiving,
+              isYourFatherStillLiving: isYourFatherStillLiving,
+              listOfAllCurrentMedications: listOfAllCurrentMedications,
+              patientMedicalReviewSignature: patientMedicalReviewSignature,
+              patientMedicalReviewSignatureDate:
+                patientMedicalReviewSignatureDate,
+              PatientMedicalReviewSignatureCheckBox:
+                PatientMedicalReviewSignatureCheckBox,
+              AdvancedDirectives: AdvancedDirectives,
+              hippa: hippa,
+              financialPolicySignature: financialPolicySignature,
+              financialPolicySignatureCheckBox:
+                financialPolicySignatureCheckBox,
+              financialPolicySignatureDate: financialPolicySignatureDate,
+              companyID: company,
+            }).then(() => {
+              alert('Thank you for your submission')
+            })
+          }}
+          buttonText="Submit"
+          buttonWidth="w-1/2"
+        />
+      </div>
     </div>
   )
 }
