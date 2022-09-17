@@ -791,10 +791,10 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   financialPolicySignature,
   financialPolicySignatureCheckBox,
   financialPolicySignatureDate,
-  companyID,
+  company,
 }) {
-  setDoc(
-    collection(db, 'NewPatientPacket'),
+  await setDoc(
+    doc(db, 'companys', company, 'NewPatientPacket', emailValue),
     {
       firstName: firstName,
       lastName: lastName,
@@ -819,7 +819,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       separated: separated,
       withPartner: withPartner,
       MayWeTakeYourPicture: MayWeTakeYourPicture,
-      pictureOfTheirFace: pictureOfTheirFace,
+
       Ethnicity: Ethnicity,
       nameOfEmergencyContact: nameOfEmergencyContact,
       EmergencyContactRelationShip: EmergencyContactRelationShip,
@@ -940,14 +940,14 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   )
     .then(async () => {
       await setDoc(
-        doc(db, 'companys', 'AMA', 'patients', email),
+        doc(db, 'companys', company, 'patients', emailValue),
         {
           fullName: lastName + ', ' + firstName,
           firstName: firstName,
           lastName: lastName,
-          email: email,
-          phoneNumber: phoneNumber,
-          DOB: DOB,
+          email: emailValue,
+          phoneNumber: phoneNumberValue,
+          DOB: BirthDateValue,
           address1: addressValue,
           address2: addressValue2,
           city: cityValue,
@@ -970,7 +970,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
             withPartner: withPartner,
           },
           MayWeTakeYourPicture: MayWeTakeYourPicture,
-          pictureOfTheirFace: pictureOfTheirFace,
+
           Ethnicity: Ethnicity,
           nameOfEmergencyContact: nameOfEmergencyContact,
           EmergencyContactRelationShip,
@@ -1027,7 +1027,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
         doc(
           db,
           'companys',
-          companyID,
+          company,
           'patients',
           emailValue,
           'NewPatientPacket',
@@ -1182,7 +1182,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           doc(
             db,
             'companys',
-            companyID,
+            company,
             'patients',
             emailValue,
             'patientMedicalHistory',
@@ -1269,4 +1269,154 @@ export async function submitNewPatientPacketAndCreateNewPatient({
         )
       })
     })
+}
+export async function AddPictureOfPatientFaceToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(storage, `NewPatientPacket/${emailValue}/patientFace`)
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        {
+          pictureOfTheirFace: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', company, 'patients', emailValue),
+            {
+              pictureOfTheirFace: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+              db,
+              'companys',
+              company,
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              pictureOfTheirFace: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
+}
+export async function AddPictureOfPatientInsuranceToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(
+    storage,
+    `NewPatientPacket/${emailValue}/PrimaryInsuranceCard`
+  )
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        {
+          primaryPictureOfInsuranceCardFront: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', company, 'patients', emailValue),
+            {
+              primaryPictureOfInsuranceCardFront: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+              db,
+              'companys',
+              company,
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              primaryPictureOfInsuranceCardFront: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
+}
+export async function AddPictureOfDriverLicenseToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(storage, `NewPatientPacket/${emailValue}/DriverLicense`)
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        {
+          pictureOfFrontOfDriverLicense: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', company, 'patients', emailValue),
+            {
+              pictureOfFrontOfDriverLicense: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+              db,
+              'companys',
+              company,
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              pictureOfFrontOfDriverLicense: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
 }

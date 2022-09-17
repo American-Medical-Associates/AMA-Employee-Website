@@ -7,7 +7,8 @@ const TakeAPictureCustom: React.FC<{
   text: string
   picture: any
   setPicture: any
-}> = ({ text, picture, setPicture }) => {
+  key: number
+}> = ({ text, picture, setPicture, key }) => {
   const [pictureUpload, setPictureUpload] = useState(false)
   const uploadimage = ({ e }: { e: any }) => {
     try {
@@ -49,7 +50,7 @@ const TakeAPictureCustom: React.FC<{
           }}
         />
       )}
-      <Camera picture={picture} setPicture={setPicture} />
+      <Camera key={key} picture={picture} setPicture={setPicture} />
     </div>
   )
 }

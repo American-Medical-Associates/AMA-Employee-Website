@@ -69,7 +69,7 @@ const FullPersonalInfo: React.FC<{
         zipCodeState={zipCodeState}
       />
       <DateInput
-        placeHolder="Date of Birth"
+        placeHolder="Date of Birth (MM/DD/YYYY)"
         widthPercentage="w-1/2"
         onChange={(text: any) => {
           BirthDateState(text.target.value)
