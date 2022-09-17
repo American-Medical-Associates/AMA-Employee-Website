@@ -794,7 +794,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   company,
 }) {
   await setDoc(
-    doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+    doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
     {
       firstName: firstName,
       lastName: lastName,
@@ -940,7 +940,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   )
     .then(async () => {
       await setDoc(
-        doc(db, 'companys', company, 'patients', emailValue),
+        doc(db, 'companys', 'AMA', 'patients', emailValue),
         {
           fullName: lastName + ', ' + firstName,
           firstName: firstName,
@@ -1027,7 +1027,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
         doc(
           db,
           'companys',
-          company,
+          'AMA',
           'patients',
           emailValue,
           'NewPatientPacket',
@@ -1182,7 +1182,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           doc(
             db,
             'companys',
-            company,
+            'AMA',
             'patients',
             emailValue,
             'patientMedicalHistory',
@@ -1283,7 +1283,7 @@ export async function AddPictureOfPatientFaceToStorageAndToDB({
       const download = await getDownloadURL(imageRef)
       console.log('good')
       await setDoc(
-        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
         {
           pictureOfTheirFace: download,
         },
@@ -1291,7 +1291,7 @@ export async function AddPictureOfPatientFaceToStorageAndToDB({
       )
         .then(async () => {
           await setDoc(
-            doc(db, 'companys', company, 'patients', emailValue),
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
             {
               pictureOfTheirFace: download,
             },
@@ -1304,7 +1304,7 @@ export async function AddPictureOfPatientFaceToStorageAndToDB({
               db,
               db,
               'companys',
-              company,
+              'AMA',
               'patients',
               emailValue,
               'NewPatientPacket',
@@ -1335,7 +1335,7 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
       const download = await getDownloadURL(imageRef)
       console.log('good')
       await setDoc(
-        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
         {
           primaryPictureOfInsuranceCardFront: download,
         },
@@ -1343,7 +1343,7 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
       )
         .then(async () => {
           await setDoc(
-            doc(db, 'companys', company, 'patients', emailValue),
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
             {
               primaryPictureOfInsuranceCardFront: download,
             },
@@ -1356,7 +1356,7 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
               db,
               db,
               'companys',
-              company,
+              'AMA',
               'patients',
               emailValue,
               'NewPatientPacket',
@@ -1384,7 +1384,7 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
       const download = await getDownloadURL(imageRef)
       console.log('good')
       await setDoc(
-        doc(db, 'companys', company, 'NewPatientPacket', emailValue),
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
         {
           pictureOfFrontOfDriverLicense: download,
         },
@@ -1392,7 +1392,7 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
       )
         .then(async () => {
           await setDoc(
-            doc(db, 'companys', company, 'patients', emailValue),
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
             {
               pictureOfFrontOfDriverLicense: download,
             },
@@ -1405,7 +1405,7 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
               db,
               db,
               'companys',
-              company,
+              'AMA',
               'patients',
               emailValue,
               'NewPatientPacket',

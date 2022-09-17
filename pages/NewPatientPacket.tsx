@@ -1399,574 +1399,343 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <MainButton
           onClick={async () => {
             //make felids are filled out
-            if (firstName === '') {
-              alert('Please enter your first name')
-              return
-            } else if (lastName === '') {
-              alert('Please enter your last name')
-              return
-            } else if (BirthDateValue === '') {
-              alert('Please enter your birth date')
-              return
-            } else if (phoneNumberValue === '') {
-              alert('Please enter your phone number')
-              return
-            } else if (emailValue === '') {
-              alert('Please enter your email')
-              return
-            } else if (addressValue === '') {
-              alert('Please enter your address')
-              return
-            } else if (cityValue === '') {
-              alert('Please enter your city')
-              return
-            } else if (USStateValue === '') {
-              alert('Please enter your state')
-              return
-            } else if (zipCodeValue === '') {
-              alert('Please enter your zip code')
-              return
-            } else if (socialValue === '') {
-              alert('Please enter your social security number')
-              return
-            } else if (
-              isCheckedMale === false ||
-              isCheckedFemale == false ||
-              isCheckedOther == false
-            ) {
-              alert('Please declare your gender by checking the box')
-              return
-            } else if (preferredName === '') {
-              alert('Please enter your preferred name')
-              return
-            } else if (nameOfEmergencyContact === '') {
-              alert('Please enter the name of your emergency contact')
-              return
-            } else if (EmergencyContactRelationShip === '') {
-              alert('Please enter the relationship of your emergency contact')
-              return
-            } else if (EmergencyContactPhoneNumber === '') {
-              alert('Please enter the phone number of your emergency contact')
-              return
-            } else if (HowDidTheyHearAboutUs === '') {
-              alert('Please enter how you heard about us')
-              return
-            } else if (howDoTheyWishToPay === '') {
-              alert(
-                'Please enter how you wish to pay, out of pocket or insurance'
-              )
-              return
-            } else if (howDoTheyWishToPay === 'insurance') {
-              if (primaryInsurance === '') {
-                alert('Please enter your insurance name')
-                return
-              } else if (primaryInsuranceID === '') {
-                alert('Please enter your insurance policy number')
-                return
-              } else if (primaryInsuranceGroup === '') {
-                alert('Please enter your insurance group number')
-                return
-              } else if (primaryInsuranceAddress1 === '') {
-                alert('Please enter your insurance address')
-                return
-              } else if (primaryInsuranceCity === '') {
-                alert('Please enter your insurance city')
-                return
-              } else if (primaryInsuranceState === '') {
-                alert('Please enter your insurance state')
-                return
-              } else if (primaryInsuranceZip === '') {
-                alert('Please enter your insurance zip code')
-                return
-              } else if (primarySubscribersName === '') {
-                alert('Please enter your insurance subscribers name')
-                return
-              } else if (primaryPictureOfInsuranceCardFront === '') {
-                alert('Please upload a picture of your insurance card front')
-                return
-              } else if (retailPharmacyName === '') {
-                alert('Please enter your retail pharmacy name')
-                return
-              } else if (
-                retailPharmacyCrossStreet1 === '' ||
-                retailPharmacyCrossStreet2 === ''
-              ) {
-                alert('Please enter your retail pharmacy cross street')
-                return
-              } else if (retailPharmacyPhoneNumber === '') {
-                alert('Please enter your retail pharmacy phone number')
-                return
-              } else if (areYouAllergicToLatex === '') {
-                alert('Please enter if you are allergic to latex')
-                return
-              } else if (areYouAllergicToSelfish === '') {
-                alert('Please enter if you are allergic to shellfish')
-                return
-              } else if (areYouAllergicToIodine === '') {
-                alert('Please enter if you are allergic to iodine')
-                return
-                // if patient drug allergies are not empty array
-              } else if (PatientDrugAllergies.length < 1) {
-                alert('Please enter your drug allergies, if none enter none')
-                return
-              } else if (allMajorIllnesses.length < 1) {
-                alert('Please enter your major illnesses, if none enter none')
-                return
-              } else if (allMajorSurgeriesAndHospitalizations.length < 1) {
-                alert(
-                  'Please enter your major surgeries and hospitalizations, if none enter none'
-                )
-                return
-              } else if (boneDensityScreening === '') {
-                alert('Please enter if you have had a bone density screening')
-                return
-              } else if (boneDensityScreening === 'Yes') {
-                if (BoneDensityScreeningDate === '') {
-                  alert('Please enter the date of your bone density screening')
-                  return
-                } else if (wasBoneDensityScreeningNormalOrAbnormal === '') {
-                  alert(
-                    'Please enter if your bone density screening was normal or abnormal'
-                  )
-                  return
-                }
-              } else if (colonoscopyScreening === '') {
-                alert('Please enter if you have had any of the following')
-                return
-              } else if (colonoscopyScreening === 'Yes') {
-                if (dateOfLastColonoscopyScreening === '') {
-                  alert('Please enter the date of your colonoscopy screening')
-                  return
-                } else if (wasColonoscopyScreeningNormalOrAbnormal === '') {
-                  alert(
-                    'Please enter if your colonoscopy screening was normal or abnormal'
-                  )
-                  return
-                }
-              } else if (haveTheyEverSmoked === '') {
-                alert('Please enter if you have ever smoked')
-                return
-              } else if (haveTheyEverSmoked === 'Yes') {
-                if (howManyPacksPerDay === '') {
-                  alert('Please enter how many cigarettes you smoke per day')
-                  return
-                }
-              } else if (anyOtherTobaccoOrEcigarettes === '') {
-                alert(
-                  'Please enter if you have ever used any other tobacco or ecigarettes'
-                )
-                return
-              } else if (anyOtherTobaccoOrEcigarettes === 'Yes') {
-                if (describeOtherTobaccoUse === '') {
-                  alert(
-                    'Please described what other tobacco products you have used'
-                  )
-                  return
-                }
-              } else if (doYouDrinkCoffee === '') {
-                alert('Please enter if you drink coffee')
-                return
-              } else if (doYouDrinkCoffee === 'Yes') {
-                if (howManyCupsPerDay === '') {
-                  alert(
-                    'Please enter how many cups of coffee you drink per day'
-                  )
-                  return
-                }
-              } else if (doYouDrinkAlcohol === '') {
-                alert('Please enter if you drink alcohol')
-                return
-              } else if (doYouDrinkAlcohol === 'Yes') {
-                if (howManyDrinksPerWeek === '') {
-                  alert('Please enter how many drinks you have per week')
-                  return
-                }
-              } else if (doYoCurrentlyUseRecreationalDrugs === '') {
-                alert('Please enter if you currently use recreational drugs')
-                return
-              } else if (doYoCurrentlyUseRecreationalDrugs === 'Yes') {
-                if (describeRecreationalDrugUse === '') {
-                  alert('Please enter what recreational drugs you use')
-                  return
-                }
-              } else if (doYouUseIllegaLStreetDrugs === '') {
-                alert('Please enter if you use illegal street drugs')
-                return
-              } else if (doYouUseIllegaLStreetDrugs === 'Yes') {
-                if (describeIllegalStreetDrugUse === '') {
-                  alert('Please enter what illegal street drugs you use')
-                  return
-                }
-              } else if (doYouFeelDepressed === '') {
-                alert('Please answer the question do you feel depressed')
-                return
-              } else if (doYouFeelDepressed === 'Yes') {
-                if (doYouCryFrequently === '') {
-                  alert('Please answer the question do you cry frequently')
-                  return
-                } else if (doYouHaveLittleInterestInDoingThings === '') {
-                  alert(
-                    'Please answer the question do you have little interest in doing things'
-                  )
-                  return
-                } else if (doYouFeelHopelessDownOrDepressed === '') {
-                  alert(
-                    'Please answer the question do you feel hopeless, down or depressed'
-                  )
-                  return
-                } else if (
-                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch === ''
-                ) {
-                  alert(
-                    'Please answer the question do you have trouble falling asleep or sleeping too much'
-                  )
-                  return
-                } else if (doYouFeelTiredOrHaveLittleEnergy === '') {
-                  alert(
-                    'Please answer the question do you feel tired or have little energy'
-                  )
-                  return
-                } else if (doYouHavAPoorAppetiteOrOverEating === '') {
-                  alert(
-                    'Please answer the question do you have a poor appetite or over eating'
-                  )
-                  return
-                } else if (doYouFeelBadAboutYourself === '') {
-                  alert(
-                    'Please answer the question do you feel bad about yourself'
-                  )
-                  return
-                } else if (troubleConcentrating === '') {
-                  alert(
-                    'Please answer the question do you have trouble concentrating'
-                  )
-                  return
-                } else if (doYouMoveOrSpeakSlowly === '') {
-                  alert(
-                    'Please answer the question do you move or speak slowly'
-                  )
-                  return
-                } else if (thoughtsYouWouldBeBetterOffDead === '') {
-                  alert(
-                    'Please answer the question do you have thoughts that you would be better off dead'
-                  )
-                  return
-                } else if (isStressAMajorProblem === '') {
-                  alert('Please answer the question is stress a major problem')
-                  return
-                } else if (doYouPanicWhenStressed === '') {
-                  alert('Please answer the question do you panic when stressed')
-                  return
-                } else if (haveYouEverAttemptedSuicide === '') {
-                  alert('Please answer the question have you ever attempted ')
-                  return
-                }
-              } else if (patientMedicalReviewSignature == '') {
-                alert(
-                  'Please enter your signature for the medical review portion'
-                )
-                return
-              } else if (patientMedicalReviewSignatureDate == '') {
-                alert(
-                  'Please enter the date under the signature page for the medical review portion'
-                )
-                return
-              } else if (PatientMedicalReviewSignatureCheckBox == false) {
-                alert(
-                  'Please check the box to confirm your signature in the medical review portion'
-                )
-                return
-              } else if (AdvancedDirectives?.healthCarePowerOfAttorney == '') {
-                alert(
-                  'Please enter if you have a health care power of attorney'
-                )
-                return
-              } else if (
-                AdvancedDirectives?.healthCarePowerOfAttorney == 'Yes'
-              ) {
-                if (AdvancedDirectives?.healthCarePowerOfAttorneyName == '') {
-                  alert(
-                    'Please enter the name of your health care power of attorney'
-                  )
-                  return
-                } else if (
-                  AdvancedDirectives?.healthCarePowerOfAttorneyAddress == ''
-                ) {
-                  alert(
-                    'Please enter the address of your health care power of attorney'
-                  )
-                  return
-                } else if (
-                  AdvancedDirectives?.healthCarePowerOfAttorneyPhoneNumber == ''
-                ) {
-                  alert(
-                    'Please enter the phone number of your health care power of attorney'
-                  )
-                  return
-                }
-              } else if (AdvancedDirectives?.livingWill == '') {
-                alert('Please enter if you have a living will')
-                return
-              } else if (AdvancedDirectives?.livingWill == 'Yes') {
-                if (AdvancedDirectives?.livingWillName == '') {
-                  alert('Please enter the name of your living will')
-                  return
-                } else if (AdvancedDirectives?.livingWillAddress == '') {
-                  alert('Please enter the address of your living will')
-                  return
-                } else if (AdvancedDirectives?.livingWillPhoneNumber == '') {
-                  alert('Please enter the phone number of your living will')
-                  return
-                }
-              } else if (
-                AdvancedDirectives?.doYouHaveAnyOtherAdvancedDirectives == ''
-              ) {
-                alert('Please enter if you have any other advanced directives')
-                return
-              } else if (
-                AdvancedDirectives?.doYouHaveAnyOtherAdvancedDirectives == 'Yes'
-              ) {
-                if (AdvancedDirectives?.healthCarePowerOfAttorneyName == '') {
-                  alert('Please enter what other advanced directives you have')
-                  return
-                }
-              } else if (AdvancedDirectives?.doYouHaveALivingWill == '') {
-                alert('Please enter if you have a living will')
-                return
-              } else if (
-                AdvancedDirectives?.preHospitalMedicalDirectives == ''
-              ) {
-                alert(
-                  'Please enter if you have pre hospital medical directives'
-                )
-                return
-              } else if (AdvancedDirectives?.date == '') {
-                alert('Please enter the date')
-                return
-              } else if (AdvancedDirectives?.signature == '') {
-                alert('Please enter your signature for the advanced directives')
-
-                return
-              } else if (
-                AdvancedDirectives?.agreeThatTheirSignatureIsValid == false
-              ) {
-                alert(
-                  'Please check the box to confirm your signature for the advanced directives'
-                )
-
-                return
-              } else if (hippa?.name === '') {
-                alert('Please enter a name for the HIPPA portion')
-                return
-              } else if (hippa?.relationShip === '') {
-                alert('Please enter a relationship for the HIPPA portion')
-                return
-              } else if (hippa?.hippaSignature === '') {
-                alert('Please enter a signature for the HIPPA portion')
-                return
-              } else if (hippa?.signatureDate === '') {
-                alert('Please enter a date for the HIPPA portion')
-                return
-              } else if (hippa?.signatureCheckBoxConsent === false) {
-                alert(
-                  'Please check the box to confirm your signature for the HIPPA portion'
-                )
-                return
-              } else if (financialPolicySignature === '') {
-                alert('Please enter your signature for the financial policy')
-                return
-              } else if (financialPolicySignatureDate === '') {
-                alert(
-                  'Please enter the date under the signature page for the financial policy'
-                )
-                return
-              } else if (financialPolicySignatureCheckBox === false) {
-                alert(
-                  'Please check the box to confirm your signature for the financial policy'
-                )
-                return
-              } else {
-                submitNewPatientPacketAndCreateNewPatient({
-                  firstName: firstName,
-                  lastName: lastName,
-                  addressValue: addressValue,
-                  addressValue2: addressValue2,
-                  cityValue: cityValue,
-                  USStateValue: USStateValue,
-                  zipCodeValue: zipCodeValue,
-                  BirthDateValue: BirthDateValue,
-                  phoneNumberValue: phoneNumberValue,
+            // if (firstName === '') {
+            //   alert('Please enter your first name')
+            //   return
+            // } else if (lastName === '') {
+            //   alert('Please enter your last name')
+            //   return
+            // } else if (BirthDateValue === '') {
+            //   alert('Please enter your birth date')
+            //   return
+            // } else if (phoneNumberValue === '') {
+            //   alert('Please enter your phone number')
+            //   return
+            // } else if (emailValue === '') {
+            //   alert('Please enter your email')
+            //   return
+            // } else if (addressValue === '') {
+            //   alert('Please enter your address')
+            //   return
+            // } else if (cityValue === '') {
+            //   alert('Please enter your city')
+            //   return
+            // } else if (USStateValue === '') {
+            //   alert('Please enter your state')
+            //   return
+            // } else if (zipCodeValue === '') {
+            //   alert('Please enter your zip code')
+            //   return
+            // } else if (socialValue === '') {
+            //   alert('Please enter your social security number')
+            //   return
+            // } else if (preferredName === '') {
+            //   alert('Please enter your preferred name')
+            //   return
+            // } else if (nameOfEmergencyContact === '') {
+            //   alert('Please enter the name of your emergency contact')
+            //   return
+            // } else if (EmergencyContactRelationShip === '') {
+            //   alert('Please enter the relationship of your emergency contact')
+            //   return
+            // } else if (EmergencyContactPhoneNumber === '') {
+            //   alert('Please enter the phone number of your emergency contact')
+            //   return
+            // } else if (HowDidTheyHearAboutUs === '') {
+            //   alert('Please enter how you heard about us')
+            //   return
+            // } else if (howDoTheyWishToPay === '') {
+            //   alert(
+            //     'Please enter how you wish to pay, out of pocket or insurance'
+            //   )
+            //   return
+            // } else if (howDoTheyWishToPay === 'insurance') {
+            //   if (primaryInsurance === '') {
+            //     alert('Please enter your insurance name')
+            //     return
+            //   } else if (primaryInsuranceID === '') {
+            //     alert('Please enter your insurance policy number')
+            //     return
+            //   } else if (primaryInsuranceGroup === '') {
+            //     alert('Please enter your insurance group number')
+            //     return
+            //   } else if (primaryInsuranceAddress1 === '') {
+            //     alert('Please enter your insurance address')
+            //     return
+            //   } else if (primaryInsuranceCity === '') {
+            //     alert('Please enter your insurance city')
+            //     return
+            //   } else if (primaryInsuranceState === '') {
+            //     alert('Please enter your insurance state')
+            //     return
+            //   } else if (primaryInsuranceZip === '') {
+            //     alert('Please enter your insurance zip code')
+            //     return
+            //   } else if (primarySubscribersName === '') {
+            //     alert('Please enter your insurance subscribers name')
+            //     return
+            //   } else if (primaryPictureOfInsuranceCardFront === '') {
+            //     alert('Please upload a picture of your insurance card front')
+            //     return
+            //   } else if (retailPharmacyName === '') {
+            //     alert('Please enter your retail pharmacy name')
+            //     return
+            //   } else if (
+            //     retailPharmacyCrossStreet1 === '' ||
+            //     retailPharmacyCrossStreet2 === ''
+            //   ) {
+            //     alert('Please enter your retail pharmacy cross street')
+            //     return
+            //   } else if (retailPharmacyPhoneNumber === '') {
+            //     alert('Please enter your retail pharmacy phone number')
+            //     return
+            //   } else if (areYouAllergicToLatex === '') {
+            //     alert('Please enter if you are allergic to latex')
+            //     return
+            //   } else if (areYouAllergicToSelfish === '') {
+            //     alert('Please enter if you are allergic to shellfish')
+            //     return
+            //   } else if (areYouAllergicToIodine === '') {
+            //     alert('Please enter if you are allergic to iodine')
+            //     return
+            //     // if patient drug allergies are not empty array
+            //   } else if (PatientDrugAllergies.length < 1) {
+            //     alert('Please enter your drug allergies, if none enter none')
+            //     return
+            //   } else if (allMajorIllnesses.length < 1) {
+            //     alert('Please enter your major illnesses, if none enter none')
+            //     return
+            //   } else if (allMajorSurgeriesAndHospitalizations.length < 1) {
+            //     alert(
+            //       'Please enter your major surgeries and hospitalizations, if none enter none'
+            //     )
+            //     return
+            //   } else if (boneDensityScreening === '') {
+            //     alert('Please enter if you have had a bone density screening')
+            //     return
+            //   } else if (boneDensityScreening === 'Yes') {
+            //     if (BoneDensityScreeningDate === '') {
+            //       alert('Please enter the date of your bone density screening')
+            //       return
+            //     } else if (wasBoneDensityScreeningNormalOrAbnormal === '') {
+            //       alert(
+            //         'Please enter if your bone density screening was normal or abnormal'
+            //       )
+            //       return
+            //     }
+            //   } else if (colonoscopyScreening === '') {
+            //     alert('Please enter if you have had any of the following')
+            //     return
+            //   } else if (colonoscopyScreening === 'Yes') {
+            //     if (dateOfLastColonoscopyScreening === '') {
+            //       alert('Please enter the date of your colonoscopy screening')
+            //       return
+            //     } else if (wasColonoscopyScreeningNormalOrAbnormal === '') {
+            //       alert(
+            //         'Please enter if your colonoscopy screening was normal or abnormal'
+            //       )
+            //       return
+            //     }
+            //   } else if (haveTheyEverSmoked === '') {
+            //     alert('Please enter if you have ever smoked')
+            //     return
+            //   } else if (haveTheyEverSmoked === 'Yes') {
+            //     if (howManyPacksPerDay === '') {
+            //       alert('Please enter how many cigarettes you smoke per day')
+            //       return
+            //     }
+            //   } else if (anyOtherTobaccoOrEcigarettes === '') {
+            //     alert(
+            //       'Please enter if you have ever used any other tobacco or ecigarettes'
+            //     )
+            //     return
+            //   } else if (anyOtherTobaccoOrEcigarettes === 'Yes') {
+            //     if (describeOtherTobaccoUse === '') {
+            //       alert(
+            //         'Please described what other tobacco products you have used'
+            //       )
+            //       return
+            //     }
+            //   } else {
+            submitNewPatientPacketAndCreateNewPatient({
+              firstName: firstName,
+              lastName: lastName,
+              addressValue: addressValue,
+              addressValue2: addressValue2,
+              cityValue: cityValue,
+              USStateValue: USStateValue,
+              zipCodeValue: zipCodeValue,
+              BirthDateValue: BirthDateValue,
+              phoneNumberValue: phoneNumberValue,
+              emailValue: emailValue,
+              socialValue: socialValue,
+              isCheckedMale: isCheckedMale,
+              isCheckedFemale: isCheckedFemale,
+              isCheckedOther: isCheckedOther,
+              pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+              preferredName: preferredName,
+              single: single,
+              married: married,
+              divorced: divorced,
+              widowed: widowed,
+              separated: separated,
+              withPartner: withPartner,
+              MayWeTakeYourPicture: MayWeTakeYourPicture,
+              pictureOfTheirFace: pictureOfTheirFace,
+              Ethnicity: Ethnicity,
+              nameOfEmergencyContact: nameOfEmergencyContact,
+              EmergencyContactRelationShip: EmergencyContactRelationShip,
+              EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+              HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+              howDoTheyWishToPay: howDoTheyWishToPay,
+              primaryInsurance: primaryInsurance,
+              primaryInsuranceID: primaryInsuranceID,
+              primaryInsuranceGroup: primaryInsuranceGroup,
+              primaryInsurancePhone: primaryInsurancePhone,
+              primaryInsuranceAddress1: primaryInsuranceAddress1,
+              primaryInsuranceAddress2: primaryInsuranceAddress2,
+              primaryInsuranceCity: primaryInsuranceCity,
+              primaryInsuranceState: primaryInsuranceState,
+              primaryInsuranceZip: primaryInsuranceZip,
+              primarySubscribersName: primarySubscribersName,
+              secondaryInsurance: secondaryInsurance,
+              secondaryInsuranceID: secondaryInsuranceID,
+              secondaryInsuranceGroup: secondaryInsuranceGroup,
+              secondaryInsurancePhone: secondaryInsurancePhone,
+              secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+              secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+              secondaryInsuranceCity: secondaryInsuranceCity,
+              secondaryInsuranceState: secondaryInsuranceState,
+              secondaryInsuranceZip: secondaryInsuranceZip,
+              secondarySubscribersName: secondarySubscribersName,
+              primaryPictureOfInsuranceCardFront:
+                primaryPictureOfInsuranceCardFront,
+              secondaryPictureOfInsuranceCardFront:
+                secondaryPictureOfInsuranceCardFront,
+              retailPharmacyName: retailPharmacyName,
+              retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+              retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+              retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+              retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+              mailOrderPharmacyName: mailOrderPharmacyName,
+              mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+              mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+              mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+              mailOrderPharmacyCity: mailOrderPharmacyCity,
+              mailOrderPharmacyState: mailOrderPharmacyState,
+              mailOrderPharmacyZip: mailOrderPharmacyZip,
+              areYouAllergicToLatex: areYouAllergicToLatex,
+              areYouAllergicToSelfish: areYouAllergicToSelfish,
+              areYouAllergicToIodine: areYouAllergicToIodine,
+              PatientDrugAllergies: PatientDrugAllergies,
+              dateOfLastPAP: dateOfLastPAP,
+              wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+              dateOfLastMammogram: dateOfLastMammogram,
+              wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+              dateOfLastPSA: dateOfLastPSA,
+              wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+              allMajorIllnesses: allMajorIllnesses,
+              allMajorSurgeriesAndHospitalizations:
+                allMajorSurgeriesAndHospitalizations,
+              boneDensityScreening: boneDensityScreening,
+              BoneDensityScreeningDate: BoneDensityScreeningDate,
+              wasBoneDensityScreeningNormalOrAbnormal:
+                wasBoneDensityScreeningNormalOrAbnormal,
+              colonoscopyScreening: colonoscopyScreening,
+              dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+              wasColonoscopyScreeningNormalOrAbnormal:
+                wasColonoscopyScreeningNormalOrAbnormal,
+              allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+              haveTheyEverSmoked: haveTheyEverSmoked,
+              howManyPacksPerDay: howManyPacksPerDay,
+              anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+              describeOtherTobaccoUse: describeOtherTobaccoUse,
+              doYouDrinkCoffee: doYouDrinkCoffee,
+              howManyCupsPerDay: howManyCupsPerDay,
+              doYouDrinkAlcohol: doYouDrinkAlcohol,
+              howManyDrinksPerWeek: howManyDrinksPerWeek,
+              doYoCurrentlyUseRecreationalDrugs:
+                doYoCurrentlyUseRecreationalDrugs,
+              describeRecreationalDrugUse: describeRecreationalDrugUse,
+              doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+              describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+              doYouFeelDepressed: doYouFeelDepressed,
+              doYouCryFrequently: doYouCryFrequently,
+              doYouHaveLittleInterestInDoingThings:
+                doYouHaveLittleInterestInDoingThings,
+              doYouFeelHopelessDownOrDepressed:
+                doYouFeelHopelessDownOrDepressed,
+              doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+                doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+              doYouFeelTiredOrHaveLittleEnergy:
+                doYouFeelTiredOrHaveLittleEnergy,
+              doYouHavAPoorAppetiteOrOverEating:
+                doYouHavAPoorAppetiteOrOverEating,
+              doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+              troubleConcentrating: troubleConcentrating,
+              doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+              thoughtsYouWouldBeBetterOffDead: thoughtsYouWouldBeBetterOffDead,
+              isStressAMajorProblem: isStressAMajorProblem,
+              doYouPanicWhenStressed: doYouPanicWhenStressed,
+              haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+              familyMedicalAlcoholismAddiction:
+                familyMedicalAlcoholismAddiction,
+              familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+              familyMedicalCancer: familyMedicalCancer,
+              familyMedicalDiabetes: familyMedicalDiabetes,
+              familyMedicalHeartAttack: familyMedicalHeartAttack,
+              familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+              familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+              familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+              familyMedicalMentalIllness: familyMedicalMentalIllness,
+              familyMedicalStroke: familyMedicalStroke,
+              familyMedicalTuberculosis: familyMedicalTuberculosis,
+              isYourMotherStillLiving: isYourMotherStillLiving,
+              isYourFatherStillLiving: isYourFatherStillLiving,
+              listOfAllCurrentMedications: listOfAllCurrentMedications,
+              patientMedicalReviewSignature: patientMedicalReviewSignature,
+              patientMedicalReviewSignatureDate:
+                patientMedicalReviewSignatureDate,
+              PatientMedicalReviewSignatureCheckBox:
+                PatientMedicalReviewSignatureCheckBox,
+              AdvancedDirectives: AdvancedDirectives,
+              hippa: hippa,
+              financialPolicySignature: financialPolicySignature,
+              financialPolicySignatureCheckBox:
+                financialPolicySignatureCheckBox,
+              financialPolicySignatureDate: financialPolicySignatureDate,
+              company: company,
+            })
+              .then(() => {
+                AddPictureOfPatientFaceToStorageAndToDB({
+                  selectedFile: primaryPictureOfInsuranceCardFront,
                   emailValue: emailValue,
-                  socialValue: socialValue,
-                  isCheckedMale: isCheckedMale,
-                  isCheckedFemale: isCheckedFemale,
-                  isCheckedOther: isCheckedOther,
-                  pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
-                  preferredName: preferredName,
-                  single: single,
-                  married: married,
-                  divorced: divorced,
-                  widowed: widowed,
-                  separated: separated,
-                  withPartner: withPartner,
-                  MayWeTakeYourPicture: MayWeTakeYourPicture,
-                  pictureOfTheirFace: pictureOfTheirFace,
-                  Ethnicity: Ethnicity,
-                  nameOfEmergencyContact: nameOfEmergencyContact,
-                  EmergencyContactRelationShip: EmergencyContactRelationShip,
-                  EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
-                  HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
-                  howDoTheyWishToPay: howDoTheyWishToPay,
-                  primaryInsurance: primaryInsurance,
-                  primaryInsuranceID: primaryInsuranceID,
-                  primaryInsuranceGroup: primaryInsuranceGroup,
-                  primaryInsurancePhone: primaryInsurancePhone,
-                  primaryInsuranceAddress1: primaryInsuranceAddress1,
-                  primaryInsuranceAddress2: primaryInsuranceAddress2,
-                  primaryInsuranceCity: primaryInsuranceCity,
-                  primaryInsuranceState: primaryInsuranceState,
-                  primaryInsuranceZip: primaryInsuranceZip,
-                  primarySubscribersName: primarySubscribersName,
-                  secondaryInsurance: secondaryInsurance,
-                  secondaryInsuranceID: secondaryInsuranceID,
-                  secondaryInsuranceGroup: secondaryInsuranceGroup,
-                  secondaryInsurancePhone: secondaryInsurancePhone,
-                  secondaryInsuranceAddress1: secondaryInsuranceAddress1,
-                  secondaryInsuranceAddress2: secondaryInsuranceAddress2,
-                  secondaryInsuranceCity: secondaryInsuranceCity,
-                  secondaryInsuranceState: secondaryInsuranceState,
-                  secondaryInsuranceZip: secondaryInsuranceZip,
-                  secondarySubscribersName: secondarySubscribersName,
-                  primaryPictureOfInsuranceCardFront:
-                    primaryPictureOfInsuranceCardFront,
-                  secondaryPictureOfInsuranceCardFront:
-                    secondaryPictureOfInsuranceCardFront,
-                  retailPharmacyName: retailPharmacyName,
-                  retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
-                  retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
-                  retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
-                  retailPharmacyFaxNumber: retailPharmacyFaxNumber,
-                  mailOrderPharmacyName: mailOrderPharmacyName,
-                  mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
-                  mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
-                  mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
-                  mailOrderPharmacyCity: mailOrderPharmacyCity,
-                  mailOrderPharmacyState: mailOrderPharmacyState,
-                  mailOrderPharmacyZip: mailOrderPharmacyZip,
-                  areYouAllergicToLatex: areYouAllergicToLatex,
-                  areYouAllergicToSelfish: areYouAllergicToSelfish,
-                  areYouAllergicToIodine: areYouAllergicToIodine,
-                  PatientDrugAllergies: PatientDrugAllergies,
-                  dateOfLastPAP: dateOfLastPAP,
-                  wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
-                  dateOfLastMammogram: dateOfLastMammogram,
-                  wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
-                  dateOfLastPSA: dateOfLastPSA,
-                  wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
-                  allMajorIllnesses: allMajorIllnesses,
-                  allMajorSurgeriesAndHospitalizations:
-                    allMajorSurgeriesAndHospitalizations,
-                  boneDensityScreening: boneDensityScreening,
-                  BoneDensityScreeningDate: BoneDensityScreeningDate,
-                  wasBoneDensityScreeningNormalOrAbnormal:
-                    wasBoneDensityScreeningNormalOrAbnormal,
-                  colonoscopyScreening: colonoscopyScreening,
-                  dateOfLastColonoscopyScreening:
-                    dateOfLastColonoscopyScreening,
-                  wasColonoscopyScreeningNormalOrAbnormal:
-                    wasColonoscopyScreeningNormalOrAbnormal,
-                  allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
-                  haveTheyEverSmoked: haveTheyEverSmoked,
-                  howManyPacksPerDay: howManyPacksPerDay,
-                  anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
-                  describeOtherTobaccoUse: describeOtherTobaccoUse,
-                  doYouDrinkCoffee: doYouDrinkCoffee,
-                  howManyCupsPerDay: howManyCupsPerDay,
-                  doYouDrinkAlcohol: doYouDrinkAlcohol,
-                  howManyDrinksPerWeek: howManyDrinksPerWeek,
-                  doYoCurrentlyUseRecreationalDrugs:
-                    doYoCurrentlyUseRecreationalDrugs,
-                  describeRecreationalDrugUse: describeRecreationalDrugUse,
-                  doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
-                  describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
-                  doYouFeelDepressed: doYouFeelDepressed,
-                  doYouCryFrequently: doYouCryFrequently,
-                  doYouHaveLittleInterestInDoingThings:
-                    doYouHaveLittleInterestInDoingThings,
-                  doYouFeelHopelessDownOrDepressed:
-                    doYouFeelHopelessDownOrDepressed,
-                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
-                    doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
-                  doYouFeelTiredOrHaveLittleEnergy:
-                    doYouFeelTiredOrHaveLittleEnergy,
-                  doYouHavAPoorAppetiteOrOverEating:
-                    doYouHavAPoorAppetiteOrOverEating,
-                  doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
-                  troubleConcentrating: troubleConcentrating,
-                  doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
-                  thoughtsYouWouldBeBetterOffDead:
-                    thoughtsYouWouldBeBetterOffDead,
-                  isStressAMajorProblem: isStressAMajorProblem,
-                  doYouPanicWhenStressed: doYouPanicWhenStressed,
-                  haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
-                  familyMedicalAlcoholismAddiction:
-                    familyMedicalAlcoholismAddiction,
-                  familyMedicalBleedingDisorders:
-                    familyMedicalBleedingDisorders,
-                  familyMedicalCancer: familyMedicalCancer,
-                  familyMedicalDiabetes: familyMedicalDiabetes,
-                  familyMedicalHeartAttack: familyMedicalHeartAttack,
-                  familyMedicalHighBloodPressure:
-                    familyMedicalHighBloodPressure,
-                  familyMedicalHighCholesterol: familyMedicalHighCholesterol,
-                  familyMedicalKidneyDisease: familyMedicalKidneyDisease,
-                  familyMedicalMentalIllness: familyMedicalMentalIllness,
-                  familyMedicalStroke: familyMedicalStroke,
-                  familyMedicalTuberculosis: familyMedicalTuberculosis,
-                  isYourMotherStillLiving: isYourMotherStillLiving,
-                  isYourFatherStillLiving: isYourFatherStillLiving,
-                  listOfAllCurrentMedications: listOfAllCurrentMedications,
-                  patientMedicalReviewSignature: patientMedicalReviewSignature,
                   patientMedicalReviewSignatureDate:
                     patientMedicalReviewSignatureDate,
-                  PatientMedicalReviewSignatureCheckBox:
-                    PatientMedicalReviewSignatureCheckBox,
-                  AdvancedDirectives: AdvancedDirectives,
-                  hippa: hippa,
-                  financialPolicySignature: financialPolicySignature,
-                  financialPolicySignatureCheckBox:
-                    financialPolicySignatureCheckBox,
-                  financialPolicySignatureDate: financialPolicySignatureDate,
                   company: company,
                 })
-                  .then(() => {
-                    AddPictureOfPatientFaceToStorageAndToDB({
-                      selectedFile: primaryPictureOfInsuranceCardFront,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
-                    AddPictureOfPatientInsuranceToStorageAndToDB({
-                      selectedFile: primaryPictureOfInsuranceCardFront,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
-                    AddPictureOfDriverLicenseToStorageAndToDB({
-                      selectedFile: pictureOfFrontOfDriverLicense,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
-                  })
-                  .then(() => {
-                    alert('Thank you for your submission')
-                  })
-              }
-            }
+              })
+              .then(() => {
+                AddPictureOfPatientInsuranceToStorageAndToDB({
+                  selectedFile: primaryPictureOfInsuranceCardFront,
+                  emailValue: emailValue,
+                  patientMedicalReviewSignatureDate:
+                    patientMedicalReviewSignatureDate,
+                  company: company,
+                })
+              })
+              .then(() => {
+                AddPictureOfDriverLicenseToStorageAndToDB({
+                  selectedFile: pictureOfFrontOfDriverLicense,
+                  emailValue: emailValue,
+                  patientMedicalReviewSignatureDate:
+                    patientMedicalReviewSignatureDate,
+                  company: company,
+                })
+              })
+              .then(() => {
+                alert('Thank you for your submission')
+              })
           }}
           buttonText="Submit"
           buttonWidth="w-1/2"
