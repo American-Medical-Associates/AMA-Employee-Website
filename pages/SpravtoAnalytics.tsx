@@ -27,7 +27,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   const router = useRouter()
   useEffect(() => {
     if (!auth.currentUser?.email) {
-      router.push('/login')
+      router.push('/Login')
     }
   }, [])
 
