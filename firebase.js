@@ -935,6 +935,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       financialPolicySignatureCheckBox: financialPolicySignatureCheckBox,
       financialPolicySignatureDate: financialPolicySignatureDate,
       dateAdded: serverTimestamp(),
+      company: 'AMA',
     },
     { merge: true }
   )
@@ -954,6 +955,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           state: USStateValue,
           zip: zipCodeValue,
           socialSecurity: socialValue,
+          company: 'AMA',
           gender: {
             isCheckedFemale: isCheckedFemale,
             isCheckedMale: isCheckedMale,
@@ -1056,6 +1058,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           widowed: widowed,
           separated: separated,
           withPartner: withPartner,
+          company: 'AMA',
           MayWeTakeYourPicture: MayWeTakeYourPicture,
           pictureOfTheirFace: pictureOfTheirFace,
           Ethnicity: Ethnicity,
@@ -1189,6 +1192,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
             'allPatientMedicalHistory'
           ),
           {
+            company: 'AMA',
             areYouAllergicToLatex: areYouAllergicToLatex,
             areYouAllergicToSelfish: areYouAllergicToSelfish,
             areYouAllergicToIodine: areYouAllergicToIodine,

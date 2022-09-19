@@ -29,6 +29,7 @@ const TakeAPictureCustom: React.FC<{
       alert(e + 'please upload your Resume')
     }
   }
+
   return (
     <div className=" my-10 flex flex-col items-center justify-center">
       <h3 className="text-center text-2xl text-[#616161]">{text}</h3>
@@ -50,7 +51,7 @@ const TakeAPictureCustom: React.FC<{
           }}
         />
       )}
-      <Camera key={key} picture={picture} setPicture={setPicture} />
+      {/* <Camera key={key} picture={picture} setPicture={setPicture} /> */}
     </div>
   )
 }

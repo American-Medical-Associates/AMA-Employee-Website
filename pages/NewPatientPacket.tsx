@@ -1708,7 +1708,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             })
               .then(() => {
                 AddPictureOfPatientFaceToStorageAndToDB({
-                  selectedFile: primaryPictureOfInsuranceCardFront,
+                  selectedFile: pictureOfTheirFace,
                   emailValue: emailValue,
                   patientMedicalReviewSignatureDate:
                     patientMedicalReviewSignatureDate,
