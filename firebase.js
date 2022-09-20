@@ -1306,7 +1306,7 @@ export async function AddPictureOfPatientFaceToStorageAndToDB({
           await setDoc(
             doc(
               db,
-              db,
+
               'companys',
               'AMA',
               'patients',
@@ -1421,6 +1421,26 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
             { merge: true }
           )
         })
+    }
+  )
+}
+export function GetNewPatientPacketSubmissions({
+  company,
+  NewPatientPacketsState,
+}) {
+  onSnapshot(
+    query(
+      collection(db, 'companys', 'AMA', 'NewPatientPacket')
+      //orderBy('timestamp', 'desc')
+    ),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      NewPatientPacketsState(arrays)
+      console.log(arrays)
     }
   )
 }

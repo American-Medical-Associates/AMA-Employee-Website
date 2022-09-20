@@ -34,6 +34,7 @@ import {
 
 import { useSelector } from 'react-redux'
 import { selectCompany } from '../redux/slices/companySlice'
+import Head from 'next/head'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {
   const router = useRouter()
@@ -273,6 +274,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
 
   return (
     <div className=" mb-10">
+      <Head>
+        <title>AMA</title>
+        <link rel="icon" href="/American Medical Associates.png" />
+      </Head>
       <Header />
       <h1 className=" my-20 w-full text-center text-4xl">New Patient Packet</h1>
       <FullPersonalInfo

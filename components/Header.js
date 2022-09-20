@@ -15,6 +15,7 @@ import {
   MailIcon,
   BookOpenIcon,
   UsersIcon,
+  ClipboardIcon,
 } from '@heroicons/react/outline'
 // import Box from './box'
 import { getAuth, signOut } from 'firebase/auth'
@@ -112,11 +113,11 @@ const Header = () => {
                 />,
                 <MenuItem
                   icon={
-                    <BookOpenIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ClipboardIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
-                  text={'PatientManagment'}
+                  text={'Resources'}
                   onClick={() => {
-                    router.push('/PatientManagment')
+                    router.push('/Resources')
                   }}
                 />,
 

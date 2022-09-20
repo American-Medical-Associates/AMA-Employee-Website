@@ -227,7 +227,7 @@ const SubmitedResumes: React.FC<{}> = () => {
           <div className=" flex flex-col items-center  justify-center">
             <MainButton
               buttonText=" See The Application "
-              buttonWidth="w-[3 0%]"
+              buttonWidth="w-[30%]"
               onClick={() => {
                 router.push('/JobApplicationPage')
               }}
