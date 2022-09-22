@@ -48,6 +48,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [zipCodeValue, setZipCodeValue] = useState('')
   const [BirthDateValue, setBirthDateValue] = useState('')
   const [phoneNumberValue, setPhoneNumberValue] = useState('')
+  const [homePhone, setHomePhone] = useState('')
   const [emailValue, setEmailValue] = useState('')
   const [socialValue, setSocialValue] = useState('')
   const [isCheckedMale, setIsCheckedMale] = useState(false)
@@ -301,6 +302,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         phoneNumberState={setPhoneNumberValue}
         emailState={setEmailValue}
         emailValue={emailValue}
+      />
+      <TextInput
+        placeHolder="Home Phone Number"
+        value={homePhone}
+        onChange={(text: any) => setHomePhone(text.target.value)}
+        widthPercentage="w-1/2"
       />
       <SocialInput
         placeHolder="Social Security Number"
@@ -1572,7 +1579,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               zipCodeValue: zipCodeValue,
               BirthDateValue: BirthDateValue,
               phoneNumberValue: phoneNumberValue,
-              emailValue: emailValue,
+              emailValue: emailValue.trim(),
               socialValue: socialValue,
               isCheckedMale: isCheckedMale,
               isCheckedFemale: isCheckedFemale,
