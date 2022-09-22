@@ -31,6 +31,7 @@ const FormSubmissions: NextPage<{}> = () => {
     })
     console.log('submissions', submissions)
   }, [])
+  useEffect(() => {}, [])
 
   useEffect(() => {
     var searchResults: any = []
@@ -56,7 +57,7 @@ const FormSubmissions: NextPage<{}> = () => {
     return (
       <div
         onClick={() => {
-          setSelectedPacket([submission])
+          setSelectedPacket(submission)
           console.log('selectedPacket', selectedPacket)
         }}
         className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
@@ -68,42 +69,132 @@ const FormSubmissions: NextPage<{}> = () => {
     )
   })
 
-  const fullPacket = selectedPacket.map((submission: any) => {
-    //map through each submission object and add it to the pdf
+  const packets = Object.keys(selectedPacket).map((item: any) => {
+    //make the first letter of the key uppercase
+    const capitalLetters = item.charAt(0).toUpperCase() + item.slice(1)
+    var keyWithSpaces = capitalLetters.replace(/([A-Z])/g, ' $1').trim()
 
-    return Object.keys(submission).map((key: string) => {
-      var keyWithSpaces = key.replace(/([A-Z])/g, ' $1').trim()
-      console.log('keyWithSpaces', submission[key])
-      if (
-        typeof submission[key] == 'object' &&
-        typeof submission[key] != 'undefined' &&
-        key != 'dateAdded'
-      ) {
-        return Object.keys(submission[key]).map((key1: string) => {
-          var keyWithSpaces1 = key1.replace(/([A-Z])/g, ' $1').trim()
-          if (
-            submission[key][key1] != undefined &&
-            submission[key][key1] != null
-          ) {
+    if (
+      typeof selectedPacket[item] == 'object' ||
+      Array.isArray(typeof selectedPacket[item]) //   keyWithSpaces == 'list Of All Current Medications'
+    ) {
+      return (
+        <div className="my-10  rounded-[30px] bg-[#e7e7e779]  p-5">
+          <p className="  text-center text-2xl font-bold text-[#525252] underline">
+            {keyWithSpaces.toString()}:
+          </p>
+          {Object.keys(selectedPacket[item]).map((item2: any) => {
+            const capitalLetters2 =
+              item2.charAt(0).toUpperCase() + item2.slice(1)
+            const keyWithSpaces2 = capitalLetters2
+              .replace(/([A-Z])/g, ' $1')
+              .trim()
+            if (
+              typeof selectedPacket[item][item2] == 'object' ||
+              Array.isArray(selectedPacket[item][item2])
+            ) {
+              return (
+                <div className=" my-10 rounded-[30px] bg-[#d0d0d0a7]">
+                  {Object.keys(selectedPacket[item][item2]).map(
+                    (item3: any, index: number) => {
+                      if (Array.isArray(selectedPacket[item][item2])) {
+                        return (
+                          <div className="flex flex-col">
+                            {/* <p className="text-center text-lg font-bold text-[#525252]">
+                              {item3}
+                            </p> */}
+                            <p className="text-center text-lg font-bold text-[#d9ff32]">
+                              {selectedPacket[item][item2][item3]}
+                            </p>
+                          </div>
+                        )
+                      } else {
+                        return (
+                          <div>
+                            {Object.keys(
+                              selectedPacket[item][item2][item3]
+                            ).map((item4: any, index: number) => {
+                              return (
+                                <div className="  flex flex-col items-center justify-center">
+                                  <h1 className=" "> {[item4]}:</h1>
+
+                                  <p className=" text-[#5b46ff]">
+                                    {selectedPacket[item][item2][item3][
+                                      item4
+                                    ].toString()}
+                                  </p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        )
+                      }
+                    }
+                  )}
+                </div>
+              )
+            }
+            if (keyWithSpaces == 'Hippa') {
+              return (
+                <div className=" my-3 flex flex-col items-center justify-center ">
+                  <h1 className=" "> {keyWithSpaces2}:</h1>
+
+                  <p className=" text-[#5b46ff]">
+                    {selectedPacket[item][item2].toString()}
+                  </p>
+                </div>
+              )
+            }
+            if (keyWithSpaces == 'Advanced Directives') {
+              return (
+                <div className="flex flex-col items-center justify-center">
+                  <h1 className=" "> {keyWithSpaces2}:</h1>
+
+                  <p className=" text-[#5b46ff]">
+                    {selectedPacket[item][item2].toString()}
+                  </p>
+                </div>
+              )
+            }
             return (
-              <div className=" flex flex-col items-center justify-center">
-                <h1 className=" text-lg text-[#753bc0]">{keyWithSpaces1}</h1>
-                <h1 className=" text-lg text-[#52ceff]">
-                  {submission[key][key1]}
-                </h1>
+              <div className="  flex flex-col items-center justify-center">
+                <p className=" text-[#444af5]">
+                  {selectedPacket[item][item2].toString()}
+                </p>
               </div>
             )
-          }
-        })
-      } else {
-        return (
-          <div className=" my-4 flex flex-col items-center justify-center">
-            <h1 className=" font-bold">{keyWithSpaces}:</h1>
-            <p className=" text-[blue]">{submission[key].toString()}</p>
-          </div>
-        )
-      }
-    })
+          })}
+        </div>
+      )
+    }
+    if (keyWithSpaces.includes('Picture')) {
+      return (
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="mt-10 text-center text-2xl font-bold text-[#525252] underline ">
+            {keyWithSpaces}:
+          </h1>
+          <MainButton
+            buttonText={keyWithSpaces}
+            onClick={() => {
+              //open the image in a new tab
+              window.open(selectedPacket[item])
+            }}
+          />
+        </div>
+      )
+    }
+
+    return (
+      <div className=" my-4 flex flex-col items-center justify-center">
+        {/* <h1 className=" font-bold">{keyWithSpaces}:</h1> */}
+        <p className=" mt-10 text-center text-2xl font-bold text-[#525252] underline">
+          {keyWithSpaces.toString()}:
+        </p>
+        <p className=" text-2xl text-[#444af5]">
+          {selectedPacket[item].toString()}
+        </p>
+      </div>
+    )
   })
 
   const pdfExport = () => {
@@ -111,7 +202,7 @@ const FormSubmissions: NextPage<{}> = () => {
     var y = 10
     var page = 1
 
-    submissionSearchResults.forEach((submission: any) => {
+    selectedPacket.forEach((submission: any) => {
       //map through each submission object and add it to the pdf
       Object.keys(submission).forEach((key: string) => {
         //search the Key for capital letters and add a space before them unless two capital letters are next to each other
@@ -153,16 +244,10 @@ const FormSubmissions: NextPage<{}> = () => {
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
       <Header />
-      <main className=" my-5 flex grid-cols-2 justify-center overflow-y-clip">
+      <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">
           <div className=" flex flex-col items-center justify-center">
             {/* {showArchiveList()} */}
-            <MainButton
-              buttonText="Export PDF"
-              onClick={() => {
-                pdfExport()
-              }}
-            />
 
             <SearchComponent
               placeHolder="Search For Submissions"
@@ -182,8 +267,16 @@ const FormSubmissions: NextPage<{}> = () => {
             {listOfSubmissions}
           </div>
         </div>
-        <div className="flex h-[80vh]  w-[75%] flex-col justify-center overflow-y-auto  p-[20px]">
-          {fullPacket}
+        <div className="flex  w-[75%] flex-col items-center justify-center   p-[20px]">
+          {/* {fullPacket} */}
+          <MainButton
+            buttonText="Export PDF"
+            onClick={() => {
+              pdfExport()
+            }}
+            buttonWidth="w-[200px]"
+          />
+          {packets}
         </div>
       </main>
     </div>

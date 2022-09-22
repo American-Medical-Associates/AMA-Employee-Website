@@ -31,7 +31,7 @@ const UserCreatedListFromInputBox: React.FC<{
   const whatTheUserHasAdded = list.map((item) => {
     if (showDateField) {
       //format the date with slashes after 2 digits
-      const dateWithSlashes = item.date.replace(
+      const dateWithSlashes = item.twoItems.date.replace(
         /(\d{2})(\d{2})(\d{4})/,
         '$1/$2/$3'
       )
@@ -39,7 +39,9 @@ const UserCreatedListFromInputBox: React.FC<{
       return (
         <div className=" ml-[5%] flex items-center justify-center md:flex-col ">
           <div className=" mt-5 flex w-full items-center justify-center rounded-[30px]  bg-[#e9e7e7b1] md:flex-col ">
-            <p className="mx-10 my-3 text-2xl text-[#616161]">{item.input}</p>
+            <p className="mx-10 my-3 text-2xl text-[#616161]">
+              {item.twoItems.input}
+            </p>
             <p className="mx-10 my-3 text-2xl text-[#616161]">
               {dateWithSlashes}
             </p>
@@ -64,16 +66,16 @@ const UserCreatedListFromInputBox: React.FC<{
         <div className=" ml-[5%]  flex items-center justify-center  ">
           <div className=" mt-5 flex w-full flex-col items-center justify-center  rounded-[30px] bg-[#e9e7e7b1] md:flex-row ">
             <p className="mx-10 my-3 text-[#616161] md:text-2xl">
-              {item.DrugName}
+              {item.drug.DrugName}
             </p>
             <p className="mx-10 my-3 text-[#616161] md:text-2xl">
-              {item.DrugDose}
+              {item.drug.DrugDose}
             </p>
             <p className="mx-10 my-3 text-[#616161] md:text-2xl">
-              {item.DrugFrequency}
+              {item.drug.DrugFrequency}
             </p>
             <p className="mx-10 my-3 text-[#616161] md:text-2xl">
-              {item.PrescribePhysician}
+              {item.drug.PrescribePhysician}
             </p>
           </div>
           <div className="mx-3 mt-5 flex items-center justify-center ">
@@ -176,10 +178,12 @@ const UserCreatedListFromInputBox: React.FC<{
               alert('Please fill all fields')
             } else {
               list.push({
-                DrugName: drugNameInput,
-                DrugDose: drugDoseInput,
-                DrugFrequency: drugFrequencyInput,
-                PrescribePhysician: prescribePhysician,
+                drug: {
+                  DrugName: drugNameInput,
+                  DrugDose: drugDoseInput,
+                  DrugFrequency: drugFrequencyInput,
+                  PrescribePhysician: prescribePhysician,
+                },
               })
             }
             setRefresh(!refresh)
@@ -197,7 +201,7 @@ const UserCreatedListFromInputBox: React.FC<{
                 inputBox !== null &&
                 date !== null
               ) {
-                list.push({ input: inputBox, date: date })
+                list.push({ twoItems: { input: inputBox, date: date } })
                 setInputBox('')
                 setDate('')
               } else {
