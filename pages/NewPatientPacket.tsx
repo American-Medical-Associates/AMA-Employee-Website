@@ -1579,6 +1579,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               zipCodeValue: zipCodeValue,
               BirthDateValue: BirthDateValue,
               phoneNumberValue: phoneNumberValue,
+              homePhone: homePhone,
               emailValue: emailValue.trim(),
               socialValue: socialValue,
               isCheckedMale: isCheckedMale,
