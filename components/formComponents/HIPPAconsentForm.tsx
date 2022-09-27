@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PhoneNumberInput from '../PhoneNumberInput'
 import TextInput from '../TextInput'
 import Signature from './Signature'
 
@@ -17,15 +18,23 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
   const [signatureDate, setSignatureDate] = useState('')
   const [signatureCheckBoxConsent, setSignatureCheckBoxConsent] =
     useState(false)
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [phoneNumber2, setPhoneNumber2] = useState('')
+  const [phoneNumber3, setPhoneNumber3] = useState('')
+  const [phoneNumber4, setPhoneNumber4] = useState('')
   useEffect(() => {
     HippaConsentFormState({
       name: name,
+      phoneNumber: phoneNumber,
       relationShip: relationShip,
       name2: name2,
+      phoneNumber2: phoneNumber2,
       relationShip2: relationShip2,
       name3: name3,
+      phoneNumber3: phoneNumber3,
       relationShip3: relationShip3,
       name4: name4,
+      phoneNumber4: phoneNumber4,
       relationShip4: relationShip4,
       hippaSignature: hippaSignature,
       signatureDate: signatureDate,
@@ -61,7 +70,7 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
         used within this office. However, we are not obliged to alter internal
         policies to conform to your request.
       </p>
-      <p className=" text-lg">
+      <p className=" mt-10 text-lg">
         My protected health information may be released to the following people:
       </p>
       <p className="mb-5 mt-10">Person One</p>
@@ -71,6 +80,14 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
         widthPercentage="w-full"
         onChange={(text: any) => {
           setName(text.target.value)
+        }}
+      />
+      <PhoneNumberInput
+        placeHolder="Phone Number"
+        value={phoneNumber}
+        widthPercentage="w-full"
+        onChange={(text: any) => {
+          setPhoneNumber(text.target.value)
         }}
       />
       <TextInput
@@ -90,6 +107,14 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
           setName2(text.target.value)
         }}
       />
+      <PhoneNumberInput
+        placeHolder="Phone Number"
+        value={phoneNumber2}
+        widthPercentage="w-full"
+        onChange={(text: any) => {
+          setPhoneNumber2(text.target.value)
+        }}
+      />
       <TextInput
         placeHolder="Relationship"
         value={relationShip2}
@@ -107,6 +132,14 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
           setName3(text.target.value)
         }}
       />
+      <PhoneNumberInput
+        placeHolder="Phone Number"
+        value={phoneNumber3}
+        widthPercentage="w-full"
+        onChange={(text: any) => {
+          setPhoneNumber3(text.target.value)
+        }}
+      />
       <TextInput
         placeHolder="Relationship"
         value={relationShip3}
@@ -122,6 +155,14 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
         widthPercentage="w-full"
         onChange={(text: any) => {
           setName4(text.target.value)
+        }}
+      />
+      <PhoneNumberInput
+        placeHolder="Phone Number"
+        value={phoneNumber4}
+        widthPercentage="w-full"
+        onChange={(text: any) => {
+          setPhoneNumber4(text.target.value)
         }}
       />
       <TextInput
