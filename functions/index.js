@@ -141,14 +141,22 @@ exports.addPatientToEclinicalPuppeteer = functions
       headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     })
+    function sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+
+    // const browser = await puppeteer.launch({
+    //   headless: false,
+    //   args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    // });
     const page = await browser.newPage()
     await page.goto(
       'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp'
     )
 
     await page.type('#doctorID', 'zachrizzo')
-    await sleep(5000)
-    functions.logger.log('typed in doctor id')
+    await sleep(1000)
+
     await page.click('#nextStep')
 
     // const imageBuffer = await page.screenshot()
@@ -161,36 +169,216 @@ exports.addPatientToEclinicalPuppeteer = functions
     // await page.waitForSelector('#passwordField')
     // await page.type('#passwordField', 'Karen013074!')
     await sleep(1000)
-    functions.logger.log('clicking login')
 
-    await sleep(10000)
     await Promise.all([page.click('#Login'), page.waitForNavigation()])
-    await page.click('#jellybean-panelLink65')
-    await sleep(5000)
-    // const nameSearch = await page.evaluate(() => {
-    //   return document.querySelector('id="searchText"')
-    // })
-    await page.type(
-      '#patient-lookup-screen-detview > div > div.col-sm-7 > div:nth-child(1) > div > div > div > div.col-sm-7.nopadding.pr10 > div > input',
-      'rizzo,zach'
+    await sleep(10000)
+
+    await page.click(
+      '#JellyBeanCountCntrl > div.lookup-toogle > div.dropdown.pull-left.lookdropdown'
     )
+    await sleep(5000)
+
+    await page.type('#searchText', `${data.lastName}, ${data.firstName}`)
     await sleep(1000)
-    functions.logger.log('typed in patient name')
-    await page.type('#patientSearchIpt3', '05221999')
+
+    await page.type('#patientSearchIpt3', data.BirthDateValue)
     await sleep(2000)
     await page.click(
-      '#rule-table2 > tbody > tr:nth-child(2) > td:nth-child(5) > span > span'
+      '#rule-table2 > tbody > tr.ng-scope.highlight > td.w17p.patientName > span > span'
     )
-    functions.logger.log('clicked patient')
+
     await sleep(5000)
-    await page.click(
-      '#phub_dialog > div > div.modal-content > div > div.modal-body > div > div.modal-body-content > div > div.modal-body-content-left > div > div.modal-body-content-left-top > div > div.modal-body-content-left-top-right > div > span:nth-child(2)'
+    await page.waitForSelector(
+      '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
     )
-    await sleep(2000)
-    await page.type('#ptcellphone', '16233133389')
+    await page.click(
+      '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
+    )
+    await sleep(5000)
+    ////////////////// add patient info/////////////////////
+
+    //add preferred name
+    const preferredNameInput = await page.$('#ptpname')
+    await preferredNameInput.click({ clickCount: 3 })
+    await preferredNameInput.type(data.preferredName)
     await sleep(1000)
+
+    //add cell phone
+    const cellPhone = await page.$('#ptcellphone')
+    await cellPhone.click({ clickCount: 3 })
+    await page.type('#ptcellphone', data.phoneNumberValue)
+    await sleep(1000)
+
+    //add home phone
+    // const homePhone = await page.$("#pthomephone");
+    // await homePhone.click({ clickCount: 3 });
+    // await page.type("#pthomephone", data);
+    // await sleep(5000);
+
+    ///add email
+    const email = await page.$('#ptemail')
+    await email.click({ clickCount: 3 })
+    await page.type('#ptemail', data.emailValue)
+    await sleep(500)
+    //add preferred name
+    const preferredName = await page.$('#ptpreferredname')
+    await preferredName.click({ clickCount: 3 })
+    await page.type('#ptpreferredname', data.preferredName)
+    await sleep(500)
+    //add address
+    const address = await page.$('#ptaddress')
+    await address.click({ clickCount: 3 })
+    await page.type('#ptaddress', data.addressValue)
+    await sleep(500)
+    //add address 2
+    const address2 = await page.$('#ptaddress2')
+    await address2.click({ clickCount: 3 })
+    await page.type('#ptaddress2', data.addressValue2)
+    await sleep(500)
+    //add city
+    const city = await page.$('#ptcity')
+    await city.click({ clickCount: 3 })
+    await page.type('#ptcity', data.cityValue)
+    await sleep(500)
+    //add state
+    const state = await page.$('#ptstate')
+    await state.click({ clickCount: 3 })
+    await page.type('#patient-demographicsIpt8', data.USStateValue)
+    await sleep(500)
+    //add zip
+    await page.type('#ptzip', data.zipCodeValue)
+    await sleep(500)
+    //add date of birth
+    //add slashes to date of birth
+    const dateOfBirthWithSlashes = data.BirthDateValue.replace(
+      /(\d{2})(\d{2})(\d{4})/,
+      '$1/$2/$3'
+    )
+    console.log(dateOfBirthWithSlashes)
+
+    const dateofbirthInput = await page.$('#dateofbirth')
+    await dateofbirthInput.click({ clickCount: 3 })
+    await page.type('#dateofbirth', dateOfBirthWithSlashes)
+    //SSN
+    const ssnInput = await page.$('#ptssn')
+    await ssnInput.click({ clickCount: 3 })
+    await page.type('#ptssn', data.socialValue)
+    await sleep(500)
+    //select Sex
+    if (data.isCheckedMale) {
+      await page.select('#ptsex', 'Male')
+    }
+    if (data.isCheckedFemale) {
+      await page.select('#ptsex', 'Female')
+    }
+    if (data.isCheckedOther) {
+      await page.select('#ptsex', 'Unknown')
+    }
+    await sleep(5000)
+
+    //add emergency contact
+    await page.click('#patient-demographicsBtn18')
+    await sleep(1000)
+    await page.type('#relation', data.EmergencyContactRelationShip)
+    await sleep(1000)
+
+    if (data.nameOfEmergencyContact.includes(' ')) {
+      await page.type('#lname', data.nameOfEmergencyContact.split(' ')[1])
+      await page.type('#fname', data.nameOfEmergencyContact.split(' ')[0])
+      await sleep(1000)
+    } else {
+      await page.type('#fname', data.nameOfEmergencyContact)
+      await page.type('#lname', data.nameOfEmergencyContact)
+    }
+
+    await sleep(1000)
+    const emergencyContactPhone = await page.$('#homephone')
+    await emergencyContactPhone.click({ clickCount: 3 })
+    await page.type('#homephone', data.EmergencyContactPhoneNumber)
+    await sleep(1000)
+    await page.click('#selectContact-modalBtn2')
+    await sleep(1000)
+
+    // select PCP
+    await page.click(
+      '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(2) > div > div > div > button'
+    )
+    await sleep(3000)
+    await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
+    await sleep(2000)
+    await page.click('#ProviderLookupPickListTbl1 > tbody > tr:nth-child(1)')
+    await sleep(2000)
+    await page.click('#ProviderLookupPickListBtn5')
+    await sleep(1000)
+    //referring provider
+    await page.click(
+      '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button'
+    )
+    await sleep(3000)
+    await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
+    await sleep(2000)
+    await page.click('#ProviderLookupPickListTbl1 > tbody > tr:nth-child(1)')
+    await sleep(2000)
+    await page.click('#ProviderLookupPickListBtn5')
+    await sleep(1000)
+    //referring pr
+    await page.click('#listAllProvider_renproviderInfo > button')
+    await sleep(1000)
+    await page.click('#provider-lookupLink1ngR9')
+    //Marital Status
+    if (data.married) {
+      await page.select('#ptmaritalstatus', 'Married')
+    }
+    if (data.single) {
+      await page.select('#ptmaritalstatus', 'Single')
+    }
+    if (data.divorced) {
+      await page.select('#ptmaritalstatus', 'Divorced')
+    }
+    if (data.widowed) {
+      await page.select('#ptmaritalstatus', 'Widowed')
+    }
+    if (data.separated) {
+      await page.select('#ptmaritalstatus', 'Legally Separated')
+    }
+    if (data.maritalStatusOther) {
+      await page.select('#ptmaritalstatus', 'Unknown')
+    }
+    if (data.withPartner) {
+      await page.select('#ptmaritalstatus', 'Partner')
+    }
+    await sleep(1000)
+
+    //select Race
+    await page.click('#patient-demographicsBtn38')
+    await sleep(2000)
+    //race Search
+    await page.type('#frmLanguageListIpt2', data.Ethnicity)
+    await sleep(1000)
+    await page.click('#langTable > tbody > tr:nth-child(1) > td.w15 > input')
+    await sleep(1000)
+    await page.click('#frmLanguageListBtn5')
+    await sleep(3000)
+    //sef pay
+    await page.click('#patient-demographicsIpt15')
+    await sleep(1000)
+    //#add check for facility
+    //additional  info
+    await page.click('#patient-demographicsBtn46')
+    await sleep(5000)
+    const defaultFacility = await page.$(
+      '#infofacility > div > form > div > div > div> input'
+    )
+    await defaultFacility.click({ clickCount: 3 })
+    await sleep(1000)
+    await page.click('#listAllFacility_infofacility > button')
+    await sleep(1000)
+    await page.click('#facility-lookupLink1ngR0')
+    await sleep(3000)
+    await page.click('#patientdemographics-AddInformationBtn14')
+    await sleep(3000)
+    // click ok button
     await page.click('#patient-demographicsBtn56')
     await sleep(5000)
-
     await browser.close()
   })

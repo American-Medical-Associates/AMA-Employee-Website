@@ -11,6 +11,9 @@ import { jsPDF } from 'jspdf'
 import MainButton from '../components/MainButton'
 import { Page } from 'react-pdf'
 import TextInput from '../components/TextInput'
+import { auth, functions } from '../firebase'
+import { httpsCallable, getFunctions } from 'firebase/functions'
+import { Firestore } from 'firebase/firestore'
 
 const FormSubmissions: NextPage<{}> = () => {
   const [submissions, setSubmissions] = useState<Array<any>>([])
@@ -29,7 +32,10 @@ const FormSubmissions: NextPage<{}> = () => {
   const [searchFormAnswersResults, setSearchFormAnswersResults] = useState<
     Array<any>
   >([])
-
+  const addPatientToEclinicalPuppeteer = httpsCallable(
+    functions,
+    'addPatientToEclinicalPuppeteer'
+  )
   //search form submissions
   useEffect(() => {
     if (searchFormAnswers.length > 0) {
@@ -444,6 +450,73 @@ const FormSubmissions: NextPage<{}> = () => {
                   setSearchFormAnswers(text.target.value)
                 }}
               /> */}
+              <p>Only for front desk</p>
+              <MainButton
+                buttonText="Add to ECW"
+                onClick={() => {
+                  addPatientToEclinicalPuppeteer({
+                    //@ts-ignore
+                    firstName: selectedPacket.firstName,
+                    //@ts-ignore
+                    lastName: selectedPacket.lastName,
+                    //@ts-ignore
+                    BirthDateValue: selectedPacket.BirthDateValue,
+                    //@ts-ignore
+                    preferredName: selectedPacket.preferredName,
+                    //@ts-ignore
+                    phoneNumberValue: selectedPacket.phoneNumberValue,
+                    //@ts-ignore
+                    emailValue: selectedPacket.emailValue,
+                    //@ts-ignore
+                    addressValue: selectedPacket.addressValue,
+                    //@ts-ignore
+                    addressValue2: selectedPacket.addressValue2,
+                    //@ts-ignore
+                    cityValue: selectedPacket.cityValue,
+                    //@ts-ignore
+                    USStateValue: selectedPacket.USStateValue,
+                    //@ts-ignore
+                    zipCodeValue: selectedPacket.zipCodeValue,
+                    //@ts-ignore
+                    socialValue: selectedPacket.socialValue,
+                    //@ts-ignore
+                    isCheckedMale: selectedPacket.isCheckedMale,
+                    //@ts-ignore
+                    isCheckedFemale: selectedPacket.isCheckedFemale,
+                    //@ts-ignore
+                    isCheckedOther: selectedPacket.isCheckedOther,
+                    //@ts-ignore
+                    EmergencyContactRelationShip:
+                      //@ts-ignore
+                      selectedPacket.EmergencyContactRelationShip,
+                    //@ts-ignore
+                    nameOfEmergencyContact:
+                      //@ts-ignore
+                      selectedPacket.nameOfEmergencyContact,
+                    //@ts-ignore
+                    EmergencyContactPhoneNumber:
+                      //@ts-ignore
+                      selectedPacket.EmergencyContactPhoneNumber,
+                    //@ts-ignore
+                    married: selectedPacket.married,
+                    //@ts-ignore
+                    single: selectedPacket.single,
+                    //@ts-ignore
+                    divorced: selectedPacket.divorced,
+                    //@ts-ignore
+                    widowed: selectedPacket.widowed,
+                    //@ts-ignore
+                    maritalStatusOther: selectedPacket.maritalStatusOther,
+                    //@ts-ignore
+                    separated: selectedPacket.separated,
+                    //@ts-ignore
+                    withPartner: selectedPacket.withPartner,
+                    //@ts-ignore
+                    Ethnicity: selectedPacket.Ethnicity,
+                    //@ts-ignore
+                  })
+                }}
+              />
               <MainButton
                 buttonText="Export PDF"
                 onClick={async () => {
