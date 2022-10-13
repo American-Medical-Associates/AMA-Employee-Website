@@ -454,6 +454,31 @@ const FormSubmissions: NextPage<{}> = () => {
               <MainButton
                 buttonText="Add to ECW"
                 onClick={() => {
+                  console.log('firstname', selectedPacket.firstName)
+                  console.log('last', selectedPacket.lastName)
+                  console.log('b', selectedPacket.BirthDateValue)
+                  console.log('s', selectedPacket.socialValue)
+                  console.log(selectedPacket.addressValue)
+                  console.log(selectedPacket.cityValue)
+                  console.log(selectedPacket.USStateValue)
+                  console.log(selectedPacket.zipCodeValue)
+                  console.log(selectedPacket.phoneNumberValue)
+                  console.log(selectedPacket.emailValue)
+                  console.log(selectedPacket.isCheckedMale)
+                  console.log(selectedPacket.isCheckedFemale)
+                  console.log(selectedPacket.isCheckedOther)
+                  console.log(selectedPacket.EmergencyContactRelationShip)
+                  console.log(selectedPacket.nameOfEmergencyContact)
+                  console.log(selectedPacket.EmergencyContactPhoneNumber)
+                  console.log(selectedPacket.married)
+                  console.log(selectedPacket.single)
+                  console.log(selectedPacket.divorced)
+                  console.log(selectedPacket.widowed)
+
+                  console.log(selectedPacket.separated)
+                  console.log(selectedPacket.withPartner)
+                  console.log(selectedPacket.Ethnicity)
+
                   addPatientToEclinicalPuppeteer({
                     //@ts-ignore
                     firstName: selectedPacket.firstName,
@@ -506,7 +531,7 @@ const FormSubmissions: NextPage<{}> = () => {
                     //@ts-ignore
                     widowed: selectedPacket.widowed,
                     //@ts-ignore
-                    maritalStatusOther: selectedPacket.maritalStatusOther,
+
                     //@ts-ignore
                     separated: selectedPacket.separated,
                     //@ts-ignore

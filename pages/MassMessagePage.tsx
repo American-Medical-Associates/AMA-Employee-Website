@@ -214,10 +214,11 @@ const MassMessagePage: NextPage<{}> = () => {
       </div>
     )
   })
+  var message = ''
   const sendMessage = () => {
     patients.forEach((item) => {
       if (item) {
-        var message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
+        message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
         if (leaveAReviewMessageCheckBox) {
           message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
         }
@@ -231,26 +232,26 @@ const MassMessagePage: NextPage<{}> = () => {
           message = `Hello ${item[1]}, ${customMessage}`
         }
 
-        if (item[16] != null) {
+        if (item[16] == null) {
           console.log(item[16])
 
           sendMessageFunction({
             message: message,
             phone: `+1${item[16].replaceAll('-', '')}`,
+          }).catch((e) => {
+            console.log(e)
           })
-            .then((result) => {
-              listOfMessageSent.push(
-                `${patients.length} patients were sent messages on ${currentDate}`
-              )
-              setRefresh(!refresh)
-              console.log(result)
-            })
-
-            .catch((e) => {
-              console.log(e)
-            })
         }
       }
+    })
+    sendMessageFunction({
+      message: `${patients.length} texts were sent to patients on ${currentDate}`,
+      phone: `+16024882542`,
+    }).then(() => {
+      listOfMessageSent.push(
+        `${patients.length} patients were sent messages on ${currentDate}`
+      )
+      setRefresh(!refresh)
     })
   }
   return (
