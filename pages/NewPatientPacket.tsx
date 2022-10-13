@@ -789,45 +789,53 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             text="Have  you had a Bone Density screening?"
             CheckState={setBoneDensityScreening}
           />,
-          <DateInput
-            placeHolder="Date of Last Bone Density Screening (mmddyyyy)"
-            widthPercentage="w-1/2"
-            onChange={(text: any) => {
-              setBoneDensityScreeningDate(text.target.value)
-            }}
-            value={BoneDensityScreeningDate}
-          />,
-          <CustomCheckBoxFeild
-            title="Was the Bone Density Screening Normal?"
-            checkBoxValues={wasBoneDensityScreeningNormalOrAbnormal}
-            allowMultipleCheckBoxes={false}
-            checkBoxTitles={['Normal', 'Abnormal']}
-            setCheckBoxValues={setWasBoneDensityScreeningNormalOrAbnormal}
-            marginLeft="ml-[25%]"
-            howManyCheckBoxes={2}
-          />,
+          boneDensityScreening == 'Yes' && (
+            <DateInput
+              placeHolder="Date of Last Bone Density Screening (mmddyyyy)"
+              widthPercentage="w-1/2"
+              onChange={(text: any) => {
+                setBoneDensityScreeningDate(text.target.value)
+              }}
+              value={BoneDensityScreeningDate}
+            />
+          ),
+          boneDensityScreening == 'Yes' && (
+            <CustomCheckBoxFeild
+              title="Was the Bone Density Screening Normal?"
+              checkBoxValues={wasBoneDensityScreeningNormalOrAbnormal}
+              allowMultipleCheckBoxes={false}
+              checkBoxTitles={['Normal', 'Abnormal']}
+              setCheckBoxValues={setWasBoneDensityScreeningNormalOrAbnormal}
+              marginLeft="ml-[25%]"
+              howManyCheckBoxes={2}
+            />
+          ),
           <CustomYesOrNo
             marginLeft="ml-[25%]"
             text="Have you had a Colonoscopy screening?"
             CheckState={setColonoscopyScreening}
           />,
-          <DateInput
-            placeHolder="Date of Last Colonoscopy (mmddyyyy)"
-            widthPercentage="w-1/2"
-            onChange={(text: any) => {
-              setDateOfLastColonoscopyScreening(text.target.value)
-            }}
-            value={dateOfLastColonoscopyScreening}
-          />,
-          <CustomCheckBoxFeild
-            title="Was the Colonoscopy Normal?"
-            checkBoxValues={wasColonoscopyScreeningNormalOrAbnormal}
-            allowMultipleCheckBoxes={false}
-            checkBoxTitles={['Normal', 'Abnormal']}
-            setCheckBoxValues={setWasColonoscopyScreeningNormalOrAbnormal}
-            marginLeft="ml-[25%]"
-            howManyCheckBoxes={2}
-          />,
+          colonoscopyScreening == 'Yes' && (
+            <DateInput
+              placeHolder="Date of Last Colonoscopy (mmddyyyy)"
+              widthPercentage="w-1/2"
+              onChange={(text: any) => {
+                setDateOfLastColonoscopyScreening(text.target.value)
+              }}
+              value={dateOfLastColonoscopyScreening}
+            />
+          ),
+          colonoscopyScreening == 'Yes' && (
+            <CustomCheckBoxFeild
+              title="Was the Colonoscopy Normal?"
+              checkBoxValues={wasColonoscopyScreeningNormalOrAbnormal}
+              allowMultipleCheckBoxes={false}
+              checkBoxTitles={['Normal', 'Abnormal']}
+              setCheckBoxValues={setWasColonoscopyScreeningNormalOrAbnormal}
+              marginLeft="ml-[25%]"
+              howManyCheckBoxes={2}
+            />
+          ),
         ]}
       />
       <SectionWithTitle
@@ -1410,6 +1418,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       <div className=" mt-10 flex items-center justify-center">
         <MainButton
           onClick={async () => {
+            //TODO: Ask Jasmine if she wants to require medications, drug allergies, all Surgeries, major illneses. as of now we ask for them to put none if its none do we want that?
             //make felids are filled out
             if (firstName === '') {
               alert('Please enter your first name')
