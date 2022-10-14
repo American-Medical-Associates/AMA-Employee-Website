@@ -232,7 +232,7 @@ const MassMessagePage: NextPage<{}> = () => {
           message = `Hello ${item[1]}, ${customMessage}`
         }
 
-        if (item[16] == null) {
+        if (item[16] != null) {
           console.log(item[16])
 
           sendMessageFunction({
