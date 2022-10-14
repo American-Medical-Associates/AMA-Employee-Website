@@ -246,7 +246,7 @@ const MassMessagePage: NextPage<{}> = () => {
     })
     sendMessageFunction({
       message: `${patients.length} texts were sent to patients on ${currentDate}`,
-      phone: `+16024882542`,
+      phone: '+16024482542',
     }).then(() => {
       listOfMessageSent.push(
         `${patients.length} patients were sent messages on ${currentDate}`
