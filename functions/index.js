@@ -213,22 +213,22 @@ exports.addPatientToEclinicalPuppeteer = functions
       const preferredNameInput = await page.$('#ptpname')
       await preferredNameInput.click({ clickCount: 3 })
       await preferredNameInput.type(data.preferredName)
-      await sleep(1000)
+      await sleep(500)
       console.log('added preferred name')
 
       //add cell phone
       const cellPhone = await page.$('#ptcellphone')
       await cellPhone.click({ clickCount: 3 })
       await page.type('#ptcellphone', data.phoneNumberValue)
-      await sleep(1000)
+      await sleep(500)
       console.log('added cell phone')
 
       //add home phone
-      const homePhone = await page.$('#pthomephone')
-      await homePhone.click({ clickCount: 3 })
-      await page.type('#pthomephone', data)
-      await sleep(5000)
-      console.log('adding home phone')
+      // const homePhone = await page.$('#pthomephone')
+      // await homePhone.click({ clickCount: 3 })
+      // await page.type('#pthomephone', data)
+      // await sleep(5000)
+      // console.log('adding home phone')
 
       //add email
       const email = await page.$('#ptemail')
@@ -296,29 +296,32 @@ exports.addPatientToEclinicalPuppeteer = functions
         await page.select('#ptsex', 'Unknown')
       }
       await sleep(5000)
-
+      //TODO: fix emergency contact
       //add emergency contact
-      await page.click('#patient-demographicsBtn18')
-      await sleep(1000)
-      await page.type('#relation', data.EmergencyContactRelationShip)
-      await sleep(1000)
+      // await page.click('#patient-demographicsBtn18')
+      // await sleep(1000)
+      // // await page.type(
+      // //   '#onadd > div.pad20.nopadtop.nopadbot > div.det-view.custfild > form > div:nth-child(2) > div:nth-child(1) > div.col-sm-4.nopadright > div > input',
+      // //   data.EmergencyContactRelationShip
+      // // )
+      // await sleep(1000)
 
-      if (data.nameOfEmergencyContact.includes(' ')) {
-        await page.type('#lname', data.nameOfEmergencyContact.split(' ')[1])
-        await page.type('#fname', data.nameOfEmergencyContact.split(' ')[0])
-        await sleep(1000)
-      } else {
-        await page.type('#fname', data.nameOfEmergencyContact)
-        await page.type('#lname', data.nameOfEmergencyContact)
-      }
+      // if (data.nameOfEmergencyContact.includes(' ')) {
+      //   await page.type('#lname', data.nameOfEmergencyContact.split(' ')[1])
+      //   await page.type('#fname', data.nameOfEmergencyContact.split(' ')[0])
+      //   await sleep(1000)
+      // } else {
+      //   await page.type('#fname', data.nameOfEmergencyContact)
+      //   await page.type('#lname', data.nameOfEmergencyContact)
+      // }
 
-      await sleep(1000)
-      const emergencyContactPhone = await page.$('#homephone')
-      await emergencyContactPhone.click({ clickCount: 3 })
-      await page.type('#homephone', data.EmergencyContactPhoneNumber)
-      await sleep(1000)
-      await page.click('#selectContact-modalBtn2')
-      await sleep(1000)
+      // await sleep(1000)
+      // const emergencyContactPhone = await page.$('#homephone')
+      // await emergencyContactPhone.click({ clickCount: 3 })
+      // await page.type('#homephone', data.EmergencyContactPhoneNumber)
+      // await sleep(1000)
+      // await page.click('#selectContact-modalBtn2')
+      // await sleep(1000)
 
       // select PCP
       await page.click(
@@ -331,6 +334,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       await sleep(3000)
       await page.click('#ProviderLookupPickListBtn5')
       await sleep(2000)
+      console.log('added PCP')
       //referring provider
       await page.click(
         '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button'
@@ -342,10 +346,12 @@ exports.addPatientToEclinicalPuppeteer = functions
       await sleep(3000)
       await page.click('#ProviderLookupPickListBtn5')
       await sleep(2000)
+      console.log('added referring provider')
       //referring pr
       await page.click('#listAllProvider_renproviderInfo > button')
       await sleep(1000)
       await page.click('#provider-lookupLink1ngR9')
+      console.log('clicked on referring provider')
       //Marital Status
       if (data.married) {
         await page.select('#ptmaritalstatus', 'Married')
@@ -373,6 +379,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       //select Race
       await page.click('#patient-demographicsBtn38')
       await sleep(2000)
+      console.log('clicked Race')
       //race Search
       await page.type('#frmLanguageListIpt2', data.Ethnicity)
       await sleep(1000)
@@ -397,10 +404,30 @@ exports.addPatientToEclinicalPuppeteer = functions
       await page.click('#facility-lookupLink1ngR0')
       await sleep(3000)
       await page.click('#patientdemographics-AddInformationBtn14')
-      await sleep(3000)
+      await sleep(2000)
+
+      console.log('added additional info ')
+      try {
+        page.on('dialog', async (dialog) => {
+          console.log(dialog.message())
+          console.log('in dialog')
+          await dialog.accept()
+        })
+      } catch (error) {
+        null
+      }
+      try {
+        page.on('dialog', async (dialog) => {
+          console.log(dialog.message())
+          console.log('in dialog')
+          await dialog.accept()
+        })
+      } catch (error) {
+        null
+      }
       // click ok button
-      // await page.click("#patient-demographicsBtn56");
-      await sleep(5000)
+      await page.click('#patient-demographicsBtn56')
+
       console.log('done, added patient')
       await browser.close()
     } catch (error) {
