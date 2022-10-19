@@ -135,14 +135,14 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
                   message: message,
                 })
                 alert('Appointment Booked')
-                // sendMessageFunction({
-                //   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}`,
-                //   phone: '+16024482542',
-                // })
-                // sendMessageFunction({
-                //   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}`,
-                //   phone: '+14806006604',
-                // })
+                sendMessageFunction({
+                  message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}`,
+                  phone: '+16024482542',
+                })
+                sendMessageFunction({
+                  message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}`,
+                  phone: '+14806006604',
+                })
                 sendMessageFunction({
                   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}`,
                   phone: '+16233133383',

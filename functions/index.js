@@ -411,20 +411,22 @@ exports.addPatientToEclinicalPuppeteer = functions
         page.on('dialog', async (dialog) => {
           console.log(dialog.message())
           console.log('in dialog')
-          await dialog.accept()
+          if (dialog.message()) {
+            await dialog.accept()
+          }
         })
       } catch (error) {
         null
       }
-      try {
-        page.on('dialog', async (dialog) => {
-          console.log(dialog.message())
-          console.log('in dialog')
-          await dialog.accept()
-        })
-      } catch (error) {
-        null
-      }
+      // try {
+      //   page.on('dialog', async (dialog) => {
+      //     console.log(dialog.message())
+      //     console.log('in dialog')
+      //     await dialog.accept()
+      //   })
+      // } catch (error) {
+      //   null
+      // }
       // click ok button
       await sleep(1000)
       await page.click('#patient-demographicsBtn56')

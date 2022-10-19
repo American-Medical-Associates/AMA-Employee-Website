@@ -247,12 +247,19 @@ const MassMessagePage: NextPage<{}> = () => {
     sendMessageFunction({
       message: `${patients.length} texts were sent to patients on ${currentDate}`,
       phone: '+16024482542',
-    }).then(() => {
-      listOfMessageSent.push(
-        `${patients.length} patients were sent messages on ${currentDate}`
-      )
-      setRefresh(!refresh)
     })
+      .then(() => {
+        listOfMessageSent.push(
+          `${patients.length} patients were sent messages on ${currentDate}`
+        )
+        setRefresh(!refresh)
+      })
+      .then(() => {
+        sendMessageFunction({
+          message: `${patients.length} texts were sent to patients on ${currentDate}`,
+          phone: '+16233133383',
+        })
+      })
   }
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
