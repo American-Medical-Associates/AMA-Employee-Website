@@ -11,7 +11,7 @@ function LargeTextBox({
   placeHolder: string
   widthPercentage: string
   onChange: any
-  heightPercentage: string
+  heightPercentage?: string
   value: any
   ref?: any
 }) {

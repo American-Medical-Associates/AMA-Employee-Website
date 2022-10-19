@@ -279,7 +279,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header />
+      <Header selectCompany={'AMA'} />
       <h1 className=" my-20 w-full text-center text-4xl">New Patient Packet</h1>
       <FullPersonalInfo
         lastName={lastName}
@@ -303,7 +303,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         emailState={setEmailValue}
         emailValue={emailValue}
       />
-      <TextInput
+      <PhoneNumberInput
         placeHolder="Home Phone Number"
         value={homePhone}
         onChange={(text: any) => setHomePhone(text.target.value)}

@@ -1012,7 +1012,7 @@ const SubmitedResumes: React.FC<{}> = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header />
+      <Header selectCompany={'AMA'} />
 
       <main className=" flex grid-cols-2 justify-center overflow-y-clip">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">

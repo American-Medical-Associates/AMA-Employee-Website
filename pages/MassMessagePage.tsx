@@ -12,7 +12,7 @@ import classnames from 'classnames'
 import CheckBox from '../components/CheckBox'
 import { useRouter } from 'next/router'
 import SearchComponent from '../components/searchComponent'
-
+//TODO: MAKE USE MESSAGE AUTHERIZATION IS WORKING
 const MassMessagePage: NextPage<{}> = () => {
   const [xlsxDoc, setXlsxDoc] = useState<Array<string>>([])
   const [homePhone, setHomePhone] = useState('')
@@ -256,7 +256,7 @@ const MassMessagePage: NextPage<{}> = () => {
   }
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
-      <Header />
+      <Header selectCompany={'AMA'} />
 
       <main
         className=" flex  h-full w-full flex-col items-center p-10

@@ -1448,3 +1448,66 @@ export function GetNewPatientPacketSubmissions({
     }
   )
 }
+export function BookAnAppointment({
+  firstName,
+  lastName,
+  phoneNumber,
+  email,
+  date,
+  time,
+  message,
+}) {
+  setDoc(
+    doc(db, 'companys', 'Vitalize Infusion', 'BookedAppointments', email),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      date: date,
+      time: time,
+      dateToString: date.toDateString(),
+      message: message,
+      timestamp: serverTimestamp(),
+      company: 'Vitalize Infusion',
+    },
+    { merge: true }
+  )
+    .then(() => {
+      //add a patient to the database
+      setDoc(
+        doc(db, 'companys', 'Vitalize Infusion', 'patients', email),
+        {
+          firstName: firstName,
+          lastName: lastName,
+          phoneNumber: phoneNumber,
+          email: email,
+          timestamp: serverTimestamp(),
+          company: 'Vitalize Infusion',
+        },
+        { merge: true }
+      )
+    })
+    .then(() => {
+      //add to patients booked appointments
+      setDoc(
+        doc(
+          db,
+          'companys',
+          'Vitalize Infusion',
+          'patients',
+          email,
+          'BookedAppointments',
+          date.toDateString()
+        ),
+        {
+          date: date,
+          time: time,
+          dateToString: date.toDateString(),
+          message: message,
+          timestamp: serverTimestamp(),
+          company: 'Vitalize Infusion',
+        },
+        { merge: true }
+      )
+    })
+}

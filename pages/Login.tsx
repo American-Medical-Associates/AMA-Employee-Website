@@ -25,7 +25,7 @@ const Login: NextPage<{}> = () => {
   }, [])
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header />
+      <Header selectCompany={'AMA'} />
       <div className=" w- m-10 flex h-[200px] w-full justify-center">
         <Image
           src={'/American Medical Associates.png'}

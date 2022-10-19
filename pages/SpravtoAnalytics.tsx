@@ -228,7 +228,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header />
+      <Header selectCompany={'AMA'} />
       <div className="flex flex-col">
         <div className="flex h-[80vh] flex-col">
           <div className="flex flex-row p-10 ">

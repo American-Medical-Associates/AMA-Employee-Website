@@ -37,7 +37,7 @@ const Home: NextPage = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header />
+      <Header selectCompany={'AMA'} />
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1>{auth.currentUser?.email}</h1>

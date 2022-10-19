@@ -350,7 +350,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       //referring pr
       await page.click('#listAllProvider_renproviderInfo > button')
       await sleep(1000)
-      await page.click('#provider-lookupLink1ngR9')
+      await page.click('#provider-lookupLink1ngR11')
       console.log('clicked on referring provider')
       //Marital Status
       if (data.married) {
@@ -426,8 +426,9 @@ exports.addPatientToEclinicalPuppeteer = functions
         null
       }
       // click ok button
+      await sleep(1000)
       await page.click('#patient-demographicsBtn56')
-
+      await sleep(3000)
       console.log('done, added patient')
       await browser.close()
     } catch (error) {

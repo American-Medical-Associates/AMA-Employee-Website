@@ -27,7 +27,7 @@ const SpravatoTracking: NextPage<{}> = () => {
   //ma as mulitiple choice
   return (
     <div>
-      <Header />
+      <Header selectCompany={'AMA'} />
       <main className=" mt-10">
         <div className="flex flex-col items-center justify-center">
           <TextInput

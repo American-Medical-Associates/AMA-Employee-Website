@@ -24,7 +24,7 @@ import { auth, isAdmin } from '../firebase'
 import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
 
-const Header = () => {
+const Header = ({ selectCompany }) => {
   const [isUserAdmin, setIsUserAdmin] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
   const [showPatientLookup, setShowPatientLookup] = useState(false)
@@ -183,13 +183,30 @@ const Header = () => {
           //   router.push('/')
           // }}
         >
-          <Image
-            src="/American Medical Associates.png"
-            alt="Logo.png"
-            height={50}
-            width={50}
-          />
-          <h1 className=" ml-7 text-center text-4xl text-[#377adf]">AMA</h1>
+          {selectCompany == 'AMA' && (
+            <div className="flex items-start justify-start text-center">
+              <Image
+                src="/American Medical Associates.png"
+                alt="Logo.png"
+                height={50}
+                width={50}
+              />
+              <h1 className=" ml-7 text-center text-4xl text-[#377adf]">AMA</h1>
+            </div>
+          )}
+          {selectCompany == 'Vitalize' && (
+            <div className=" flex items-start justify-start text-center">
+              <Image
+                src="/VITALIZE NATION.png"
+                alt="Logo.png"
+                height={50}
+                width={65}
+              />
+              <h1 className=" ml-7 text-center text-4xl text-[#377adf]">
+                Vitalize Nation
+              </h1>
+            </div>
+          )}
         </div>
         <div></div>
 
