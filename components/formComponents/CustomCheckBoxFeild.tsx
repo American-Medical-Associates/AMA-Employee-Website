@@ -5,6 +5,7 @@ import TextInput from '../TextInput'
 import CustomCheckBox from './CustomCheckBox'
 
 const CustomCheckBoxFeild: React.FC<{
+  id?: string
   checkBoxTitles: Array<string>
   title?: string
   marginLeft?: string
@@ -15,6 +16,7 @@ const CustomCheckBoxFeild: React.FC<{
   refresh?: boolean
   setRefresh?: Function
 }> = ({
+  id,
   checkBoxTitles,
   title,
   marginLeft,

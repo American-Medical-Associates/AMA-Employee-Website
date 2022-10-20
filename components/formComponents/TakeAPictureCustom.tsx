@@ -8,7 +8,8 @@ const TakeAPictureCustom: React.FC<{
   picture: any
   setPicture: any
   key: number
-}> = ({ text, picture, setPicture, key }) => {
+  id?: string
+}> = ({ text, picture, setPicture, key, id }) => {
   const [pictureUpload, setPictureUpload] = useState(false)
   const uploadimage = ({ e }: { e: any }) => {
     try {
@@ -31,7 +32,7 @@ const TakeAPictureCustom: React.FC<{
   }
 
   return (
-    <div className=" my-10 flex flex-col items-center justify-center">
+    <div id={id} className=" my-10 flex flex-col items-center justify-center">
       <h3 className="text-center text-2xl text-[#616161]">{text}</h3>
       <MainButton
         buttonText="upload picture"

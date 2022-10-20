@@ -1,6 +1,7 @@
 import React from 'react'
 import CustomCheckBox from './CustomCheckBox'
 const MartialStatus: React.FC<{
+  id?: string
   isCheckedSingle: boolean
   checkedStateSingle: Function
   isCheckedMarried: boolean
@@ -26,6 +27,7 @@ const MartialStatus: React.FC<{
   checkedStateSeparated,
   isCheckedWithPartner,
   checkedStateWithPartner,
+  id,
 }) => {
   //make sure two boxes are not checked at the same time
   if (isCheckedSingle) {
@@ -81,6 +83,7 @@ const MartialStatus: React.FC<{
       <div className=" flex flex-col ">
         <h3 className="my-5 ml-5 text-2xl text-[#616161]">Marital Status</h3>
         <CustomCheckBox
+          id={id}
           isChecked={isCheckedSingle}
           checkedState={checkedStateSingle}
           text="Single"

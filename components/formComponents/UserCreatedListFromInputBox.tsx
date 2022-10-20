@@ -12,6 +12,7 @@ const UserCreatedListFromInputBox: React.FC<{
   showDateField?: boolean
   dateFieldPlaceHolder?: string
   showAddDrugFields?: boolean
+  id?: string
 }> = ({
   list,
   inputBoxPlaceHolder,
@@ -19,6 +20,7 @@ const UserCreatedListFromInputBox: React.FC<{
   showDateField,
   dateFieldPlaceHolder,
   showAddDrugFields,
+  id,
 }) => {
   const [inputBox, setInputBox] = useState('')
   const [date, setDate] = useState('')
@@ -37,7 +39,10 @@ const UserCreatedListFromInputBox: React.FC<{
       )
 
       return (
-        <div className=" ml-[5%] flex items-center justify-center md:flex-col ">
+        <div
+          id={id}
+          className=" ml-[5%] flex items-center justify-center md:flex-col "
+        >
           <div className=" mt-5 flex w-full items-center justify-center rounded-[30px]  bg-[#e9e7e7b1] md:flex-col ">
             <p className="mx-10 my-3 text-2xl text-[#616161]">
               {item.twoItems.input}

@@ -4,7 +4,8 @@ const CustomYesOrNo: React.FC<{
   CheckState: Function
   marginLeft?: string
   text: string
-}> = ({ text, CheckState, marginLeft }) => {
+  id?: string
+}> = ({ text, CheckState, marginLeft, id }) => {
   const [yesLocal, setYesLocal] = useState(false)
   const [noLocal, setNoLocal] = useState(false)
   useEffect(() => {
@@ -19,7 +20,7 @@ const CustomYesOrNo: React.FC<{
   }, [yesLocal, noLocal])
 
   return (
-    <div className={` flex items-start justify-start ${marginLeft}`}>
+    <div id={id} className={` flex items-start justify-start ${marginLeft}`}>
       <div className=" flex flex-col ">
         <h3 className={`my-5 ml-5 text-2xl text-[#616161]`}>{text}</h3>
         <CustomCheckBox

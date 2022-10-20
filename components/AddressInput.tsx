@@ -12,6 +12,7 @@ const AddressInput: React.FC<{
   zipCodeValue: String
   USStateState: any
   USStateValue: String
+  id?: string
 }> = ({
   addressValue,
   addressValue2,
@@ -23,9 +24,13 @@ const AddressInput: React.FC<{
   zipCodeValue,
   USStateState,
   USStateValue,
+  id,
 }) => {
   return (
-    <div className=" my-12 flex w-full flex-col items-center justify-center ">
+    <div
+      id={id}
+      className=" my-12 flex w-full flex-col items-center justify-center "
+    >
       <TextInput
         type="Address"
         widthPercentage="w-[50%]"

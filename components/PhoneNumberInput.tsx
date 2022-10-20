@@ -5,18 +5,11 @@ const PhoneNumberInput: React.FC<{
   placeHolder: string
   widthPercentage?: string
   onChange: any
-
+  id?: string
   value?: string | undefined
   ref?: any
   valueState?: any
-}> = ({
-  placeHolder,
-  widthPercentage,
-  onChange,
-  value,
-
-  ref,
-}) => {
+}> = ({ placeHolder, widthPercentage, onChange, value, id, ref }) => {
   const [valueState, setValueState] = useState(value)
   const useFormat: boolean = true
   useEffect(() => {
@@ -39,6 +32,7 @@ const PhoneNumberInput: React.FC<{
   return (
     <div className=" my-5 flex w-full items-center justify-center ">
       <input
+        id={id}
         ref={ref}
         maxLength={10}
         value={valueState}

@@ -122,6 +122,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [areYouAllergicToLatex, setAreYouAllergicToLatex] = useState('')
   const [areYouAllergicToSelfish, setAreYouAllergicToSelfish] = useState('')
   const [areYouAllergicToIodine, setAreYouAllergicToIodine] = useState('')
+  const [doYouHaveAnyDrugAllergies, setDoYouHaveAnyDrugAllergies] = useState('')
   const [PatientDrugAllergies, setPatientDrugAllergies] = useState([])
   const [dateOfLastPAP, setDateOfLastPAP] = useState('')
   const [wasPapNormalOrAbnormal, setWasPapNormalOrAbnormal] = useState('')
@@ -130,7 +131,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     useState('')
   const [dateOfLastPSA, setDateOfLastPSA] = useState('')
   const [wasPSANormalOrAbnormal, setWasPSANormalOrAbnormal] = useState('')
+  const [
+    doYouHaveAHistoryOfAnyMajorIllness,
+    setDoYouHaveAHistoryOfAnyMajorIllness,
+  ] = useState('')
   const [allMajorIllnesses, setAllMajorIllnesses] = useState([])
+  const [doYouHaveAHistoryOfSurgeries, setDoYouHaveAHistoryOfSurgeries] =
+    useState('')
   const [
     allMajorSurgeriesAndHospitalizations,
     setAllMajorSurgeriesAndHospitalizations,
@@ -275,13 +282,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
 
   const firstNameRef = useRef(null)
   const lastNameRef = useRef(null)
-  const phoneNumberRef: any = useRef('')
-
-  const scrollTo = (ref: any) => {
-    if (ref && ref.current /* + other conditions */) {
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
+  const phoneNumberRef: any = useRef<HTMLInputElement>(null)
 
   return (
     <div className=" mb-10">
@@ -314,11 +315,11 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         emailValue={emailValue}
       />
       <PhoneNumberInput
-        ref={scrollTo}
         placeHolder="Home Phone Number"
         value={homePhone}
         onChange={(text: any) => setHomePhone(text.target.value)}
         widthPercentage="w-1/2"
+        id={'homePhone'}
       />
       <SocialInput
         placeHolder="Social Security Number"
@@ -327,8 +328,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         onChange={(text: any) => {
           setSocialValue(text.target.value)
         }}
+        id={'social'}
       />
       <SexCheckBox
+        id="sexCheckBox"
         isCheckedMale={isCheckedMale}
         checkedStateMale={setIsCheckedMale}
         isCheckedFemale={isCheckedFemale}
@@ -337,12 +340,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         checkedStateOther={setIsCheckedOther}
       />
       <TakeAPictureCustom
+        id="takeAPictureOfDriverLicense"
         text="Take A Picture Of The Front Of Your Driver License"
         picture={pictureOfFrontOfDriverLicense}
         setPicture={setPictureOfFrontOfDriverLicense}
         key={1}
       />
       <TextInput
+        id="preferredName"
         placeHolder="Preferred Name"
         widthPercentage="w-1/2"
         onChange={(text: any) => {
@@ -351,6 +356,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         value={preferredName}
       />
       <MartialStatus
+        id="martialStatus"
         isCheckedSingle={single}
         checkedStateSingle={setSingle}
         isCheckedMarried={married}
@@ -368,14 +374,17 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         marginLeft="pl-[25%]"
         text="May we take your Picture for your Electronic Medical Record?"
         CheckState={setMayWeTakeYourPicture}
+        id="mayWeTakeYourPicture"
       />
       <TakeAPictureCustom
         text="Take A Picture Of You"
         picture={pictureOfTheirFace}
         setPicture={setPictureOfTheirFace}
         key={2}
+        id="pictureOfTheirFace"
       />
       <CustomCheckBoxFeild
+        id="Ethnicity"
         checkBoxValues={Ethnicity}
         allowMultipleCheckBoxes={false}
         title="Ethnicity"
@@ -400,6 +409,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         BgColor="bg-[#e9e7e7b1]"
         children={[
           <TextInput
+            id="emergencyContactName"
             placeHolder="Name of Emergency Contact"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -408,6 +418,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={nameOfEmergencyContact}
           />,
           <TextInput
+            id="emergencyContactRelationship"
             placeHolder="Relationship"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -416,6 +427,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={EmergencyContactRelationShip}
           />,
           <PhoneNumberInput
+            id="emergencyContactPhoneNumber"
             placeHolder="Phone Number"
             widthPercentage="w-1/2"
             value={EmergencyContactPhoneNumber}
@@ -426,6 +438,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         ]}
       />
       <CustomCheckBoxFeild
+        id="howDidYouHearAboutUs"
         checkBoxValues={HowDidTheyHearAboutUs}
         allowMultipleCheckBoxes={false}
         title="How did you hear about us?"
@@ -445,6 +458,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         howManyCheckBoxes={0}
       />
       <CustomCheckBoxFeild
+        id="howDoTheyWishToPay"
         checkBoxValues={howDoTheyWishToPay}
         allowMultipleCheckBoxes={false}
         marginLeft="ml-[25%]"
@@ -460,6 +474,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           BgColor="bg-[#e9e7e7b1]"
           children={[
             <TextInput
+              id="insuranceName"
               placeHolder="Primary Insurance"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -468,6 +483,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={primaryInsurance}
             />,
             <TextInput
+              id="insurancePolicyNumber"
               placeHolder="Primary Insurance ID"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -476,6 +492,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={primaryInsuranceID}
             />,
             <TextInput
+              id="insuranceGroupNumber"
               placeHolder="Primary Insurance Group"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -484,6 +501,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={primaryInsuranceGroup}
             />,
             <TextInput
+              id="insurancePhoneNumber"
               placeHolder="primary Insurance Phone Number"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -493,6 +511,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <div className=" flex w-full items-center justify-center">
               <AddressInput
+                id="insuranceAddress"
                 addressValue={primaryInsuranceAddress1}
                 addressState={setPrimaryInsuranceAddress1}
                 addressState2={setPrimaryInsuranceAddress2}
@@ -506,6 +525,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />
             </div>,
             <TextInput
+              id="subscriberName"
               placeHolder="Subscriber Name"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -515,6 +535,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <div className=" flex w-full items-center justify-center ">
               <TakeAPictureCustom
+                id="insuranceCardPicture"
                 text="Take A Picture Of Your Insurance Card (Front)"
                 picture={primaryPictureOfInsuranceCardFront}
                 setPicture={setPrimaryPictureOfInsuranceCardFront}
@@ -600,6 +621,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         BgColor="bg-[#e9e7e7b1]"
         children={[
           <TextInput
+            id="pharmacyName"
             placeHolder="Retail Pharmacy Name"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -611,6 +633,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <h4 className=" text-center">Retail Pharmacy Cross Streets</h4>
             <div className="flex w-full flex-col items-center justify-center md:flex-row">
               <TextInput
+                id="pharmacyCrossStreet1"
                 placeHolder="Street 1"
                 widthPercentage="w-3/4"
                 onChange={(text: any) => {
@@ -619,6 +642,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={retailPharmacyCrossStreet1}
               />
               <TextInput
+                id="pharmacyCrossStreet2"
                 placeHolder="Street 2"
                 widthPercentage="w-3/4"
                 onChange={(text: any) => {
@@ -629,6 +653,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             </div>
           </div>,
           <PhoneNumberInput
+            id="pharmacyPhoneNumber"
             placeHolder="Retail Pharmacy Phone Number"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -637,6 +662,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={retailPharmacyPhoneNumber}
           />,
           <PhoneNumberInput
+            id="pharmacyFaxNumber"
             placeHolder="Retail Pharmacy Fax Number"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -694,25 +720,37 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         BgColor="bg-[#ffffff]"
         children={[
           <CustomYesOrNo
+            id="allergicToLatex"
             marginLeft="pl-[5%]"
             text="Allergic to Latex?"
             CheckState={setAreYouAllergicToLatex}
           />,
           <CustomYesOrNo
+            id="allergicToShellfish"
             marginLeft="pl-[5%]"
-            text="Allergic to Selfish?"
+            text="Allergic to Shellfish?"
             CheckState={setAreYouAllergicToSelfish}
           />,
           <CustomYesOrNo
+            id="allergicToIodine"
             marginLeft="pl-[5%]"
             text="Allergic to Iodine?"
             CheckState={setAreYouAllergicToIodine}
           />,
-          <UserCreatedListFromInputBox
-            title="Please type each individual drug you are allergic to and press add item to add it to the list."
-            list={PatientDrugAllergies}
-            inputBoxPlaceHolder="Drug Allergies"
+          <CustomYesOrNo
+            id="doYouHaveDrugAllergies?"
+            marginLeft="pl-[5%]"
+            text="Do you have any medication or drug allergies?"
+            CheckState={setDoYouHaveAnyDrugAllergies}
           />,
+          doYouHaveAnyDrugAllergies === 'Yes' && (
+            <UserCreatedListFromInputBox
+              id="drugAllergies"
+              title="Please type each individual drug you are allergic to and press add item to add it to the list."
+              list={PatientDrugAllergies}
+              inputBoxPlaceHolder="Drug Allergies"
+            />
+          ),
         ]}
       />
       <SectionWithTitle
@@ -779,29 +817,49 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
         ]}
       />
-      <UserCreatedListFromInputBox
-        title='Please list All Major Illnesses individually and press "Add Item" to add it to the list.'
-        inputBoxPlaceHolder="Major Illnesses"
-        list={allMajorIllnesses}
+      <CustomYesOrNo
+        id="doYouHaveAnyMajorIllnesses"
+        marginLeft="ml-[25%]"
+        text="Do you have a history or currently have any major illnesses?"
+        CheckState={setDoYouHaveAHistoryOfAnyMajorIllness}
       />
-      <UserCreatedListFromInputBox
-        title='Please list All Surgeries individually and press "Add Item" to add it to the list.'
-        inputBoxPlaceHolder="Surgeries and Hospitalizations"
-        showDateField={true}
-        list={allMajorSurgeriesAndHospitalizations}
-        dateFieldPlaceHolder="Date of Surgery or Hospitalizations (mmddyyyy)"
+      {doYouHaveAHistoryOfAnyMajorIllness === 'Yes' && (
+        <UserCreatedListFromInputBox
+          id="majorIllnesses"
+          title='Please list all major illnesses individually and press "Add Item" to add it to the list.'
+          inputBoxPlaceHolder="Major Illnesses"
+          list={allMajorIllnesses}
+        />
+      )}
+      <CustomYesOrNo
+        id="doYouHaveAnySurgeries"
+        marginLeft="ml-[25%]"
+        text="Do you have a history of any major surgeries or Hospitalizations?"
+        CheckState={setDoYouHaveAHistoryOfSurgeries}
       />
+      {doYouHaveAHistoryOfSurgeries === 'Yes' && (
+        <UserCreatedListFromInputBox
+          id="majorSurgeries"
+          title='Please list All Surgeries individually and press "Add Item" to add it to the list.'
+          inputBoxPlaceHolder="Surgeries and Hospitalizations"
+          showDateField={true}
+          list={allMajorSurgeriesAndHospitalizations}
+          dateFieldPlaceHolder="Date of Surgery or Hospitalizations (mmddyyyy)"
+        />
+      )}
       <SectionWithTitle
         subTitle="Select What Screenings you have had."
         BgColor="bg-[#e9e7e7b1]"
         children={[
           <CustomYesOrNo
+            id="haveYouHadBoneDensityScreening"
             marginLeft="ml-[25%]"
             text="Have  you had a Bone Density screening?"
             CheckState={setBoneDensityScreening}
           />,
           boneDensityScreening == 'Yes' && (
             <DateInput
+              id="dateOfBoneDensityScreening"
               placeHolder="Date of Last Bone Density Screening (mmddyyyy)"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -812,6 +870,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           ),
           boneDensityScreening == 'Yes' && (
             <CustomCheckBoxFeild
+              id="boneDensityScreeningResults"
               title="Was the Bone Density Screening Normal?"
               checkBoxValues={wasBoneDensityScreeningNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
@@ -822,12 +881,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />
           ),
           <CustomYesOrNo
+            id="haveYouHadColonoscopy"
             marginLeft="ml-[25%]"
             text="Have you had a Colonoscopy screening?"
             CheckState={setColonoscopyScreening}
           />,
           colonoscopyScreening == 'Yes' && (
             <DateInput
+              id="dateOfColonoscopyScreening"
               placeHolder="Date of Last Colonoscopy (mmddyyyy)"
               widthPercentage="w-1/2"
               onChange={(text: any) => {
@@ -838,6 +899,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           ),
           colonoscopyScreening == 'Yes' && (
             <CustomCheckBoxFeild
+              id="colonoscopyScreeningResults"
               title="Was the Colonoscopy Normal?"
               checkBoxValues={wasColonoscopyScreeningNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
@@ -945,10 +1007,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             setCheckBoxValues={setAllMedicalHistoryOfDisease}
           />,
           <CustomYesOrNo
+            id="haveYouEverSmoked"
             text="Have you ever Smoked?"
             CheckState={setHaveTheyEverSmoked}
           />,
           <TextInput
+            id="howManyPacksPerDay"
             placeHolder="If Yes, how many packs per day?"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -957,10 +1021,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={howManyPacksPerDay}
           />,
           <CustomYesOrNo
+            id="otherTabaccoUse"
             text="any other tobacco, vap or e-cig products?"
             CheckState={setAnyOtherTobaccoOrEcigarettes}
           />,
           <TextInput
+            id="describeOtherTobaccoUse"
             placeHolder="If yes, please describe."
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -969,10 +1035,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={describeOtherTobaccoUse}
           />,
           <CustomYesOrNo
+            id="doYouUseRecreationalDrugs"
             text="Have you ever used recreational drugs?"
             CheckState={setDoYoCurrentlyUseRecreationalDrugs}
           />,
           <TextInput
+            id="describeRecreationalDrugUse"
             placeHolder="If yes, please describe."
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -981,10 +1049,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={describeRecreationalDrugUse}
           />,
           <CustomYesOrNo
+            id="doYouDrinkAlcohol"
             text="do you drink alcohol"
             CheckState={setDoYouDrinkAlcohol}
           />,
           <TextInput
+            id="howManyDrinksPerWeek"
             placeHolder="If yes, how many drinks per week?"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -993,10 +1063,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={howManyDrinksPerWeek}
           />,
           <CustomYesOrNo
+            id="doYouDrinkCoffee"
             text="Do you drink Caffinated Beverages | coffee?"
             CheckState={setDoYouDrinkCoffee}
           />,
           <TextInput
+            id="howManyCupsPerDay"
             placeHolder="If yes, how many cups per day?"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -1005,10 +1077,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             value={howManyCupsPerDay}
           />,
           <CustomYesOrNo
+            id="doYouUseIllegaLStreetDrugs"
             text="Do you use illegal street drugs?"
             CheckState={setDoYouUseIllegaLStreetDrugs}
           />,
           <TextInput
+            id="describeIllegalStreetDrugUse"
             placeHolder="If yes, please describe."
             widthPercentage="w-1/2"
             onChange={(text: any) => {
@@ -1024,6 +1098,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         BgColor="bg-[#e9e7e7b1]"
         children={[
           <CustomYesOrNo
+            id="doYouFeelDepressed"
             text="Do you feel depressed?"
             CheckState={setDoYouFeelDepressed}
           />,
@@ -1031,10 +1106,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             {doYouFeelDepressed == 'Yes' && (
               <div>
                 <CustomYesOrNo
+                  id="doYouCryFrequently"
                   text="Do you Cry Frequently?"
                   CheckState={setDoYouCryFrequently}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouHaveLittleInterest"
                   title="Do you have little interest or pleasure in doing things?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1047,6 +1124,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouFeelHopeless"
                   title="Do you feel down, depressed, or hopeless?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1059,6 +1137,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouHaveTroubleFallingAsleep"
                   title="Do you have trouble falling or staying asleep, or sleeping too much?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1075,6 +1154,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouFeelTired"
                   title="Do you feel tired or have little energy?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1087,6 +1167,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouHavAPoorAppetite"
                   title="Do you have poor appetite or overeating?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1099,6 +1180,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouFeelBadAboutYourself"
                   title="Do you feel bad about yourself or that you are a failure or have let yourself or your family down?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1111,6 +1193,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="troubleConcentrating"
                   title="Do you have trouble concentrating on things, such as reading the newspaper or watching television?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1123,6 +1206,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="doYouMoveOrSpeakSlowly"
                   title="Do you move or speak so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1135,6 +1219,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   allowMultipleCheckBoxes={false}
                 />
                 <CustomCheckBoxFeild
+                  id="thoughtsYouWouldBeBetterOffDead"
                   title="Do you have thoughts that you would be better off dead, or of hurting yourself?"
                   checkBoxTitles={[
                     'Not at all',
@@ -1148,14 +1233,17 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 />
 
                 <CustomYesOrNo
+                  id="isStressAMajorProblemForYou"
                   text="Is stress a major problem for you?"
                   CheckState={setIsStressAMajorProblem}
                 />
                 <CustomYesOrNo
+                  id="doYouPanicWhenStressed"
                   text="Do you panic when stressed?"
                   CheckState={setDoYouPanicWhenStressed}
                 />
                 <CustomYesOrNo
+                  id="HaveYouAttemptedSuicide"
                   text="Have you ever attempted suicide or seriously thought about hurting yourself?"
                   CheckState={setHaveYouEverAttemptedSuicide}
                 />
@@ -1445,15 +1533,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               return
             } else if (phoneNumberValue === '') {
               alert('Please enter your phone number')
-              //scroll to phone number
-              phoneNumberRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center',
-              })
+              //scroll to phone number feild
+              router.push('/NewPatientPacket/#cellPhone')
               return
             } else if (emailValue === '') {
               alert('Please enter your email')
+              router.push('/NewPatientPacket/#email')
               return
             } else if (addressValue === '') {
               alert('Please enter your address')
@@ -1469,180 +1554,285 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               return
             } else if (socialValue === '') {
               alert('Please enter your social security number')
+              router.push('/NewPatientPacket/#social')
               return
             } else if (preferredName === '') {
               alert('Please enter your preferred name')
+              router.push('/NewPatientPacket/#preferredName')
               return
             } else if (nameOfEmergencyContact === '') {
               alert('Please enter the name of your emergency contact')
+              router.push('/NewPatientPacket/#emergencyContactName')
               return
             } else if (EmergencyContactRelationShip === '') {
               alert('Please enter the relationship of your emergency contact')
+              router.push('/NewPatientPacket/#emergencyContactRelationship')
               return
             } else if (EmergencyContactPhoneNumber === '') {
               alert('Please enter the phone number of your emergency contact')
+              router.push('/NewPatientPacket/#emergencyContactPhoneNumber')
               return
             } else if (HowDidTheyHearAboutUs === '') {
               alert('Please enter how you heard about us')
+              router.push('/NewPatientPacket/#howDidYouHearAboutUs')
               return
             } else if (howDoTheyWishToPay === '') {
               alert(
                 'Please enter how you wish to pay, out of pocket or insurance'
               )
+              router.push('/NewPatientPacket/#howDoTheyWishToPay')
               return
-            } else if (howDoTheyWishToPay === 'insurance') {
-              if (primaryInsurance === '') {
-                alert('Please enter your insurance name')
-                return
-              } else if (primaryInsuranceID === '') {
-                alert('Please enter your insurance policy number')
-                return
-              } else if (primaryInsuranceGroup === '') {
-                alert('Please enter your insurance group number')
-                return
-              } else if (primaryInsuranceAddress1 === '') {
-                alert('Please enter your insurance address')
-                return
-              } else if (primaryInsuranceCity === '') {
-                alert('Please enter your insurance city')
-                return
-              } else if (primaryInsuranceState === '') {
-                alert('Please enter your insurance state')
-                return
-              } else if (primaryInsuranceZip === '') {
-                alert('Please enter your insurance zip code')
-                return
-              } else if (primarySubscribersName === '') {
-                alert('Please enter your insurance subscribers name')
-                return
-              } else if (primaryPictureOfInsuranceCardFront === '') {
-                alert('Please upload a picture of your insurance card front')
-                return
-              } else if (retailPharmacyName === '') {
-                alert('Please enter your retail pharmacy name')
-                return
-              }
+            } else if (
+              primaryInsurance === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance name')
+              router.push('/NewPatientPacket/#insuranceName')
+              return
+            } else if (
+              primaryInsuranceID === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance policy number')
+              router.push('/NewPatientPacket/#insurancePolicyNumber')
+              return
+            } else if (
+              primaryInsurancePhone === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance phone number')
+              router.push('/NewPatientPacket/#insurancePhoneNumber')
+              return
+            } else if (
+              primaryInsuranceGroup === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance group number')
+              router.push('/NewPatientPacket/#insuranceGroupNumber')
+              return
+            } else if (
+              primaryInsuranceAddress1 === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance address')
+              router.push('/NewPatientPacket/#insuranceAddress')
+              return
+            } else if (
+              primaryInsuranceCity === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance city')
+              router.push('/NewPatientPacket/#insuranceAddress')
+              return
+            } else if (
+              primaryInsuranceState === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance state')
+              router.push('/NewPatientPacket/#insuranceAddress')
+              return
+            } else if (
+              primaryInsuranceZip === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance zip code')
+              router.push('/NewPatientPacket/#insuranceAddress')
+              return
+            } else if (
+              primarySubscribersName === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please enter your insurance subscribers name')
+              router.push('/NewPatientPacket/#subscriberName')
+              return
+            } else if (
+              primaryPictureOfInsuranceCardFront === '' &&
+              howDoTheyWishToPay === 'insurance'
+            ) {
+              alert('Please upload a picture of your insurance card front')
+              router.push('/NewPatientPacket/#insuranceCardPicture')
+              return
+            } else if (retailPharmacyName === '') {
+              alert('Please enter your retail pharmacy name')
+              router.push('/NewPatientPacket/#pharmacyName')
+              return
             } else if (
               retailPharmacyCrossStreet1 === '' ||
               retailPharmacyCrossStreet2 === ''
             ) {
               alert('Please enter your retail pharmacy cross street')
+              router.push('/NewPatientPacket/#pharmacyCrossStreet1')
               return
             } else if (retailPharmacyPhoneNumber === '') {
               alert('Please enter your retail pharmacy phone number')
+              router.push('/NewPatientPacket/#pharmacyPhoneNumber')
               return
             } else if (areYouAllergicToLatex === '') {
               alert('Please enter if you are allergic to latex')
+              router.push('/NewPatientPacket/#allergicToLatex')
               return
             } else if (areYouAllergicToSelfish === '') {
               alert('Please enter if you are allergic to shellfish')
+              router.push('/NewPatientPacket/#allergicToShellfish')
               return
             } else if (areYouAllergicToIodine === '') {
               alert('Please enter if you are allergic to iodine')
+              router.push('/NewPatientPacket/#allergicToIodine')
               return
               // if patient drug allergies are not empty array
-            } else if (PatientDrugAllergies.length < 1) {
-              alert('Please enter your drug allergies, if none enter none')
+            } else if (doYouHaveAnyDrugAllergies === '') {
+              alert('Please enter if you have any drug allergies')
+              router.push('/NewPatientPacket/#doYouHaveDrugAllergies')
+            } else if (
+              doYouHaveAnyDrugAllergies === 'Yes' &&
+              PatientDrugAllergies.length < 1
+            ) {
+              alert('Please enter your drug allergies')
+              router.push('/NewPatientPacket/#drugAllergies')
               return
-            } else if (allMajorIllnesses.length < 1) {
-              alert('Please enter your major illnesses, if none enter none')
+            } else if (doYouHaveAHistoryOfAnyMajorIllness === '') {
+              alert('Please enter if you have a history of any major illness')
+              router.push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
+            } else if (
+              allMajorIllnesses.length < 1 &&
+              doYouHaveAHistoryOfAnyMajorIllness === 'Yes'
+            ) {
+              alert('Please enter your major illnesses')
+              router.push('/NewPatientPacket/#majorIllnesses')
               return
-            } else if (allMajorSurgeriesAndHospitalizations.length < 1) {
+            } else if (doYouHaveAHistoryOfSurgeries === '') {
               alert(
-                'Please enter your major surgeries and hospitalizations, if none enter none'
+                'Please enter if you have a history of surgeries or hospitalizations'
               )
+              router.push('/NewPatientPacket/#doYouHaveAnySurgeries')
+            } else if (
+              allMajorSurgeriesAndHospitalizations.length < 1 &&
+              doYouHaveAHistoryOfSurgeries === 'Yes'
+            ) {
+              alert('Please enter your major surgeries and hospitalizations')
+              router.push('/NewPatientPacket/#majorSurgeries')
               return
             } else if (boneDensityScreening === '') {
               alert('Please enter if you have had a bone density screening')
+              router.push('/NewPatientPacket/#haveYouHadBoneDensityScreening')
               return
-            } else if (boneDensityScreening === 'Yes') {
-              if (BoneDensityScreeningDate === '') {
-                alert('Please enter the date of your bone density screening')
-                return
-              } else if (wasBoneDensityScreeningNormalOrAbnormal === '') {
-                alert(
-                  'Please enter if your bone density screening was normal or abnormal'
-                )
-                return
-              }
+            } else if (
+              BoneDensityScreeningDate === '' &&
+              boneDensityScreening === 'Yes'
+            ) {
+              alert('Please enter the date of your bone density screening')
+              router.push('/NewPatientPacket/#dateOfBoneDensityScreening')
+              return
+            } else if (
+              wasBoneDensityScreeningNormalOrAbnormal === '' &&
+              boneDensityScreening === 'Yes'
+            ) {
+              alert(
+                'Please enter if your bone density screening was normal or abnormal'
+              )
+              router.push('/NewPatientPacket/#boneDensityScreeningResults')
+              return
             } else if (colonoscopyScreening === '') {
               alert('Please enter if you have had any of the following')
+              router.push('/NewPatientPacket/#haveYouHadColonoscopy')
               return
-            } else if (colonoscopyScreening === 'Yes') {
-              if (dateOfLastColonoscopyScreening === '') {
-                alert('Please enter the date of your colonoscopy screening')
-                return
-              } else if (wasColonoscopyScreeningNormalOrAbnormal === '') {
-                alert(
-                  'Please enter if your colonoscopy screening was normal or abnormal'
-                )
-                return
-              }
+            } else if (
+              dateOfLastColonoscopyScreening === '' &&
+              colonoscopyScreening === 'Yes'
+            ) {
+              alert('Please enter the date of your colonoscopy screening')
+              router.push('/NewPatientPacket/#dateOfColonoscopyScreening')
+              return
+            } else if (
+              wasColonoscopyScreeningNormalOrAbnormal === '' &&
+              colonoscopyScreening === 'Yes'
+            ) {
+              alert(
+                'Please enter if your colonoscopy screening was normal or abnormal'
+              )
+              router.push('/NewPatientPacket/#colonoscopyScreeningResults')
+              return
             } else if (haveTheyEverSmoked === '') {
               alert('Please enter if you have ever smoked')
+              router.push('/NewPatientPacket/#haveYouEverSmoked')
               return
             } else if (
               haveTheyEverSmoked === 'Yes' &&
               howManyPacksPerDay === ''
             ) {
               alert('Please enter how many packs per day')
+              router.push('/NewPatientPacket/#howManyPacksPerDay')
               return
             } else if (anyOtherTobaccoOrEcigarettes === '') {
               alert('Please enter if you have used any other tobacco')
+              router.push('/NewPatientPacket/#otherTabaccoUse')
               return
             } else if (
               anyOtherTobaccoOrEcigarettes === 'Yes' &&
               describeOtherTobaccoUse === ''
             ) {
               alert('Please enter what other smoking products you have used')
+              router.push('/NewPatientPacket/#describeOtherTobaccoUse')
               return
             } else if (doYoCurrentlyUseRecreationalDrugs === '') {
               alert('Please enter if you currently use recreational drugs')
+              router.push('/NewPatientPacket/#doYouUseRecreationalDrugs')
               return
             } else if (
               doYoCurrentlyUseRecreationalDrugs === 'Yes' &&
               describeRecreationalDrugUse === ''
             ) {
               alert('Please enter what recreational drugs you use')
+              router.push('/NewPatientPacket/#describeRecreationalDrugUse')
               return
             } else if (doYouDrinkAlcohol === '') {
               alert('Please enter if you drink alcohol')
+              router.push('/NewPatientPacket/#doYouDrinkAlcohol')
               return
             } else if (
               doYouDrinkAlcohol === 'Yes' &&
               howManyDrinksPerWeek === ''
             ) {
               alert('Please enter how many drinks per week')
+              router.push('/NewPatientPacket/#howManyDrinksPerWeek')
               return
             } else if (doYouDrinkCoffee === '') {
               alert('Please enter if you drink coffee')
+              router.push('/NewPatientPacket/#doYouDrinkCoffee')
               return
             } else if (doYouDrinkCoffee === 'Yes' && howManyCupsPerDay === '') {
               alert('Please enter how many cups of coffee per day')
+              router.push('/NewPatientPacket/#howManyCupsPerDay')
               return
             } else if (doYouUseIllegaLStreetDrugs === '') {
               alert('Please enter if you use illegal street drugs')
+              router.push('/NewPatientPacket/#doYouUseIllegaLStreetDrugs')
               return
             } else if (
               doYouUseIllegaLStreetDrugs === 'Yes' &&
               describeIllegalStreetDrugUse === ''
             ) {
               alert('Please enter what illegal street drugs you use')
+              router.push('/NewPatientPacket/#describeIllegalStreetDrugUse')
               return
             } else if (doYouFeelDepressed === '') {
               alert('Please enter if you feel depressed')
+              router.push('/NewPatientPacket/#doYouFeelDepressed')
               return
             } else if (doYouFeelDepressed === 'Yes') {
               if (doYouCryFrequently === '') {
                 alert('Please enter if you cry frequently')
+                router.push('/NewPatientPacket/#doYouCryFrequently')
                 return
               } else if (doYouHaveLittleInterestInDoingThings == '') {
                 alert(
                   'Please enter if you have little interest in doing things'
                 )
+                router.push('/NewPatientPacket/#doYouHaveLittleInterest')
                 return
               } else if (doYouFeelHopelessDownOrDepressed === '') {
                 alert('Please enter if you feel hopeless down or depressed')
+                router.push('/NewPatientPacket/#doYouFeelHopeless')
                 return
               } else if (
                 doYouHaveTroubleFallingAsleepOrSleepingTooMuch === ''
@@ -1650,34 +1840,46 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 alert(
                   'Please enter if you have trouble falling asleep or sleeping too much'
                 )
+                router.push('/NewPatientPacket/#doYouHaveTroubleSleeping')
                 return
               } else if (doYouFeelTiredOrHaveLittleEnergy === '') {
                 alert('Please enter if you feel tired or have little energy')
+                router.push('/NewPatientPacket/#doYouFeelTired')
                 return
               } else if (doYouHavAPoorAppetiteOrOverEating === '') {
                 alert('Please enter if you have a poor appetite or over eating')
+                router.push('/NewPatientPacket/#doYouHavAPoorAppetite')
                 return
               } else if (doYouFeelBadAboutYourself === '') {
                 alert('Please enter if you feel bad about yourself')
+                router.push('/NewPatientPacket/#doYouFeelBadAboutYourself')
                 return
               } else if (troubleConcentrating === '') {
                 alert('please enter if you have trouble concentrating')
+                router.push('/NewPatientPacket/#troubleConcentrating')
                 return
               } else if (doYouMoveOrSpeakSlowly === '') {
                 alert('Please enter if you move or speak slowly')
+                router.push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
                 return
               } else if (thoughtsYouWouldBeBetterOffDead === '') {
                 alert(
                   'Please enter if you have thoughts you would be better off dead'
                 )
+                router.push(
+                  '/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead'
+                )
                 return
               } else if (haveYouEverAttemptedSuicide === '') {
                 alert('Please enter if you have ever attempted suicide ')
+                router.push('/NewPatientPacket/#HaveYouAttemptedSuicide')
                 return
               } else if (isStressAMajorProblem === '') {
                 alert('Please enter if stress is a major problem for you')
+                router.push('/NewPatientPacket/#isStressAMajorProblemForYou')
               } else if (doYouPanicWhenStressed === '') {
                 alert('Please enter if you panic when stressed')
+                router.push('/NewPatientPacket/#doYouPanicWhenStressed')
               } else {
                 submitNewPatientPacketAndCreateNewPatient({
                   firstName: firstName,

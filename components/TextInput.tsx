@@ -7,6 +7,7 @@ export default function TextInput({
   type,
   value,
   ref,
+  id,
 }: {
   placeHolder: string
   widthPercentage?: string
@@ -14,10 +15,11 @@ export default function TextInput({
   type?: string
   value?: any
   ref?: any
+  id?: string
   //   text: string
 }) {
   return (
-    <div className=" my-5 flex w-full items-center justify-center ">
+    <div id={id} className=" my-5 flex w-full items-center justify-center ">
       <input
         ref={ref}
         value={value}

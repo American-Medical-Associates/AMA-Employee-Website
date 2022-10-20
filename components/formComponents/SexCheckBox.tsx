@@ -7,6 +7,7 @@ const SexCheckBox: React.FC<{
   checkedStateFemale: Function
   isCheckedOther: boolean
   checkedStateOther: Function
+  id?: string
 }> = ({
   isCheckedMale,
   checkedStateMale,
@@ -14,6 +15,7 @@ const SexCheckBox: React.FC<{
   checkedStateFemale,
   isCheckedOther,
   checkedStateOther,
+  id,
 }) => {
   if (isCheckedFemale) {
     checkedStateMale(false)
@@ -33,6 +35,7 @@ const SexCheckBox: React.FC<{
       <div className=" flex flex-col ">
         <h3 className="my-5 ml-5 text-2xl text-[#616161]">Gender</h3>
         <CustomCheckBox
+          id={id}
           isChecked={isCheckedMale}
           checkedState={checkedStateMale}
           text="Male"

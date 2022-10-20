@@ -7,10 +7,11 @@ const CustomCheckBox: React.FC<{
   checkedState?: Function
   text: string
   doYouWantToSetCheckToBoxValue?: boolean
-}> = ({ isChecked, checkedState, text, doYouWantToSetCheckToBoxValue }) => {
+  id?: string
+}> = ({ isChecked, checkedState, text, doYouWantToSetCheckToBoxValue, id }) => {
   return (
     <div className=" my-[1px] flex grid-cols-2 flex-row">
-      <div>
+      <div id={id}>
         <CheckBox isChecked={isChecked} checkedState={checkedState} />
       </div>
       <div className=" ml-3 flex min-w-full flex-row items-center justify-start  text-left ">
