@@ -280,10 +280,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
 
   const [refresh, setRefresh] = useState(false)
 
-  const firstNameRef = useRef(null)
-  const lastNameRef = useRef(null)
-  const phoneNumberRef: any = useRef<HTMLInputElement>(null)
-
   return (
     <div className=" mb-10">
       <Head>
@@ -1540,6 +1536,30 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert('Please enter your email')
               router.push('/NewPatientPacket/#email')
               return
+            } else if (
+              !emailValue.toLowerCase().includes('@gmail.com') ||
+              !emailValue.toLowerCase().includes('@yahoo.com') ||
+              !emailValue.toLowerCase().includes('@hotmail.com') ||
+              !emailValue.toLowerCase().includes('@outlook.com') ||
+              !emailValue.toLowerCase().includes('@aol.com') ||
+              !emailValue.toLowerCase().includes('@icloud.com') ||
+              !emailValue.toLowerCase().includes('@msn.com') ||
+              !emailValue.toLowerCase().includes('@live.com') ||
+              !emailValue.toLowerCase().includes('@ymail.com') ||
+              !emailValue.toLowerCase().includes('@mail.com') ||
+              !emailValue.toLowerCase().includes('@inbox.com') ||
+              !emailValue.toLowerCase().includes('@protonmail.com') ||
+              !emailValue.toLowerCase().includes('@zoho.com') ||
+              !emailValue.toLowerCase().includes('@gmx.com') ||
+              !emailValue.toLowerCase().includes('@cox.net') ||
+              !emailValue.toLowerCase().includes('@comcast.net') ||
+              !emailValue.toLowerCase().includes('@rediffmail.com') ||
+              !emailValue.toLowerCase().includes('@aim.com') ||
+              !emailValue.toLowerCase().includes('@live.ca') ||
+              !emailValue.toLowerCase().includes('@facebook.com')
+            ) {
+              alert('Please enter a valid email')
+              router.push('/NewPatientPacket/#email')
             } else if (addressValue === '') {
               alert('Please enter your address')
               return
