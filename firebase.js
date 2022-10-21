@@ -1463,6 +1463,7 @@ export function BookAnAppointment({
       firstName: firstName,
       lastName: lastName,
       phoneNumber: phoneNumber,
+      email: email,
       date: date,
       time: time,
       dateToString: date.toDateString(),
@@ -1504,10 +1505,29 @@ export function BookAnAppointment({
           time: time,
           dateToString: date.toDateString(),
           message: message,
+          email: email,
           timestamp: serverTimestamp(),
           company: 'Vitalize Infusion',
         },
         { merge: true }
       )
     })
+}
+//get booked appointments
+export function GetBookedAppointments({ BookedAppointmentsState }) {
+  onSnapshot(
+    query(
+      collection(db, 'companys', 'Vitalize Infusion', 'BookedAppointments')
+      //orderBy('timestamp', 'desc')
+    ),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      BookedAppointmentsState(arrays)
+      console.log(arrays)
+    }
+  )
 }

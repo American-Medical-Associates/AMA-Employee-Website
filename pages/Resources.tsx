@@ -60,6 +60,15 @@ const Resources: NextPage<{}> = () => {
                 }}
               />
             </div>
+            <MenuItem
+              icon={
+                <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+              }
+              text="Booked Appointments"
+              onClick={() => {
+                router.push('/BookedAppointments')
+              }}
+            />
           </div>
           <div className="h-[80vh] w-[75%] "></div>
         </div>
