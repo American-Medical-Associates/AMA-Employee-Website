@@ -1513,6 +1513,42 @@ export function BookAnAppointment({
       )
     })
 }
+//book an appointment
+export function BookAnAppointmentToTrackUserInput({
+  firstName,
+  lastName,
+  phoneNumber,
+  email,
+  date,
+  time,
+  message,
+  randomNumber,
+}) {
+  setDoc(
+    doc(
+      db,
+      'companys',
+      'Vitalize Infusion',
+      'BookedAppointments',
+      `test-${randomNumber}`
+    ),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      email: email,
+      date: date,
+      time: time,
+      dateToString: date.toDateString(),
+      message: message,
+      timestamp: serverTimestamp(),
+      company: 'Vitalize Infusion',
+      isThisATest: true,
+    },
+    { merge: true }
+  )
+}
+
 //get booked appointments
 export function GetBookedAppointments({ BookedAppointmentsState }) {
   onSnapshot(
@@ -1529,5 +1565,28 @@ export function GetBookedAppointments({ BookedAppointmentsState }) {
       BookedAppointmentsState(arrays)
       console.log(arrays)
     }
+  )
+}
+//add a support ticket
+export function AddSupportTicket({
+  subject,
+  message,
+  company,
+  firstName,
+  lastName,
+}) {
+  setDoc(
+    doc(db, 'companys', 'SupportTickets', subject),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
+      company: company,
+      message: message,
+      email: auth.currentUser.email,
+      timestamp: serverTimestamp(),
+      company: company,
+    },
+    { merge: true }
   )
 }

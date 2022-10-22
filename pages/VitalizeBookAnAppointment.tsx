@@ -8,7 +8,10 @@ import Datepicker from '../components/Datepicker'
 import { TimeSelector } from '../components/formComponents/TimeSelector'
 import MainButton from '../components/MainButton'
 import LargeTextBox from '../components/LargeTextBox'
-import { BookAnAppointment } from '../firebase'
+import {
+  BookAnAppointment,
+  BookAnAppointmentToTrackUserInput,
+} from '../firebase'
 import { auth, functions } from '../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 
@@ -22,22 +25,19 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
   const [message, setMessage] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
   const sendMessageFunction = httpsCallable(functions, 'sendMessage')
+  const [randomNumber, setRandomNumber] = useState('')
   //console.log date
   useEffect(() => {
     console.log(date.getDay())
   }, [date])
   //convert time to 12 hour format
-
-  const convertTime = (time: string) => {
-    let hours = parseInt(time.split(':')[0])
-    let minutes = parseInt(time.split(':')[1])
-    let ampm = hours >= 12 ? 'pm' : 'am'
-    hours = hours % 12
-    hours = hours ? hours : 12
-    minutes = minutes < 10 ? 0 + minutes : minutes
-    let strTime = hours + ':' + minutes + ' ' + ampm
-    return strTime
-  }
+  useEffect(() => {
+    if (randomNumber == '') {
+      //random Number
+      setRandomNumber(Math.floor(Math.random() * 1000000000).toString())
+      //convert to String
+    }
+  }, [randomNumber])
 
   return (
     <div className=" mb-10">
@@ -49,6 +49,19 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
           widthPercentage="w-1/2"
           onChange={(text: any) => {
             setFirstName(text.target.value)
+
+            //@ts-ignore
+            BookAnAppointmentToTrackUserInput({
+              firstName: text.target.value,
+              lastName: lastName,
+
+              phoneNumber: phoneNumber,
+              email: email,
+              date: date,
+              time: time,
+              message: message,
+              randomNumber: randomNumber,
+            })
           }}
           value={firstName}
         />
@@ -57,6 +70,17 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
           widthPercentage="w-1/2"
           onChange={(text: any) => {
             setLastName(text.target.value)
+            BookAnAppointmentToTrackUserInput({
+              firstName: firstName,
+              lastName: text.target.value,
+
+              phoneNumber: phoneNumber,
+              email: email,
+              date: date,
+              time: time,
+              message: message,
+              randomNumber: randomNumber,
+            })
           }}
           value={lastName}
         />
@@ -65,6 +89,17 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
           widthPercentage="w-1/2"
           onChange={(text: any) => {
             setPhoneNumber(text.target.value)
+            BookAnAppointmentToTrackUserInput({
+              firstName: firstName,
+              lastName: lastName,
+
+              phoneNumber: text.target.value,
+              email: email,
+              date: date,
+              time: time,
+              message: message,
+              randomNumber: randomNumber,
+            })
           }}
           value={phoneNumber}
         />
@@ -73,6 +108,17 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
           widthPercentage="w-1/2"
           onChange={(text: any) => {
             setEmail(text.target.value)
+            BookAnAppointmentToTrackUserInput({
+              firstName: firstName,
+              lastName: lastName,
+
+              phoneNumber: phoneNumber,
+              email: text.target.value,
+              date: date,
+              time: time,
+              message: message,
+              randomNumber: randomNumber,
+            })
           }}
           value={email}
         />
@@ -81,6 +127,17 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
           widthPercentage="w-1/2"
           onChange={(text: any) => {
             setMessage(text.target.value)
+            BookAnAppointmentToTrackUserInput({
+              firstName: firstName,
+              lastName: lastName,
+
+              phoneNumber: phoneNumber,
+              email: email,
+              date: date,
+              time: time,
+              message: text.target.value,
+              randomNumber: randomNumber,
+            })
           }}
           value={message}
         />
