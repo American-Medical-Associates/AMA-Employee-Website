@@ -146,6 +146,8 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
         <p className=" my-3">Select a time between 9:00am and 4:30pm Mon-Fri</p>
         <p>For Saturdays please select a time between 10:00am an 2:30pm</p>
         <TimeSelector setTime={setTime} time={time} />
+        <p className=" font-semibold">Address:</p>
+        <p>1915 E Chandler Blvd, Ste 1, Chandler, AZ 85225</p>
 
         <p>For any questions call 480-590-5075</p>
         <MainButton
