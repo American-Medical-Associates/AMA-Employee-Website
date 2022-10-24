@@ -194,18 +194,18 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
                   message: message,
                 })
                 alert('Appointment Booked')
-                // sendMessageFunction({
-                //   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
-                //   phone: '+16024482542',
-                // })
-                // sendMessageFunction({
-                //   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
-                //   phone: '+14806006604',
-                // })
-                // sendMessageFunction({
-                //   message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
-                //   phone: '+16233133383',
-                // })
+                sendMessageFunction({
+                  message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
+                  phone: '+16024482542',
+                })
+                sendMessageFunction({
+                  message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
+                  phone: '+14806006604',
+                })
+                sendMessageFunction({
+                  message: `${firstName} ${lastName} Booked an appointment from facebook add for ${date} at ${time}. There Phone Number is ${phoneNumber} and their email is ${email}. This is the message they left: ${message}`,
+                  phone: '+16233133383',
+                })
 
                 //claear all fields
                 setFirstName('')
