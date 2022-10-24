@@ -234,6 +234,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [familyMedicalTuberculosis, setFamilyMedicalTuberculosis] = useState([])
   const [isYourMotherStillLiving, setIsYourMotherStillLiving] = useState('')
   const [isYourFatherStillLiving, setIsYourFatherStillLiving] = useState('')
+  const [areYouTakingAnyMedications, setAreYouTakingAnyMedications] =
+    useState('')
   const [listOfAllCurrentMedications, setListOfAllCurrentMedications] =
     useState([])
   const [patientMedicalReviewSignature, setPatientMedicalReviewSignature] =
@@ -1421,11 +1423,19 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         title="Medications"
         subTitle="Please list all medications you are currently taking."
         children={[
-          <UserCreatedListFromInputBox
-            title="Please type all medications you are currently taking individually then click add item to add them to the list."
-            showAddDrugFields={true}
-            list={listOfAllCurrentMedications}
+          <CustomYesOrNo
+            text="Are you currently taking any medications?"
+            CheckState={setAreYouTakingAnyMedications}
+            id="AreYouTakingAnyMedications"
           />,
+          areYouTakingAnyMedications === 'Yes' && (
+            <UserCreatedListFromInputBox
+              title="Please type all medications you are currently taking individually then click add item to add them to the list."
+              showAddDrugFields={true}
+              list={listOfAllCurrentMedications}
+              id="listOfAllCurrentMedications"
+            />
+          ),
         ]}
       />
       <Signature
@@ -1536,31 +1546,37 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert('Please enter your email')
               router.push('/NewPatientPacket/#email')
               return
-            } else if (
-              !emailValue.toLowerCase().includes('@gmail.com') ||
-              !emailValue.toLowerCase().includes('@yahoo.com') ||
-              !emailValue.toLowerCase().includes('@hotmail.com') ||
-              !emailValue.toLowerCase().includes('@outlook.com') ||
-              !emailValue.toLowerCase().includes('@aol.com') ||
-              !emailValue.toLowerCase().includes('@icloud.com') ||
-              !emailValue.toLowerCase().includes('@msn.com') ||
-              !emailValue.toLowerCase().includes('@live.com') ||
-              !emailValue.toLowerCase().includes('@ymail.com') ||
-              !emailValue.toLowerCase().includes('@mail.com') ||
-              !emailValue.toLowerCase().includes('@inbox.com') ||
-              !emailValue.toLowerCase().includes('@protonmail.com') ||
-              !emailValue.toLowerCase().includes('@zoho.com') ||
-              !emailValue.toLowerCase().includes('@gmx.com') ||
-              !emailValue.toLowerCase().includes('@cox.net') ||
-              !emailValue.toLowerCase().includes('@comcast.net') ||
-              !emailValue.toLowerCase().includes('@rediffmail.com') ||
-              !emailValue.toLowerCase().includes('@aim.com') ||
-              !emailValue.toLowerCase().includes('@live.ca') ||
-              !emailValue.toLowerCase().includes('@facebook.com')
-            ) {
-              alert('Please enter a valid email')
-              router.push('/NewPatientPacket/#email')
-            } else if (addressValue === '') {
+            }
+            // else if (
+            //   emailValue.toLowerCase().includes('@gmail.com') === false ||
+            //   emailValue.toLowerCase().includes('@yahoo.com') === false
+            //   // (emailValue.toLowerCase().includes('@hotmail.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@outlook.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@aol.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@icloud.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@msn.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@live.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@ymail.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@mail.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@inbox.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@protonmail.com') ===
+            //   //     false &&
+            //   //   emailValue.toLowerCase().includes('@zoho.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@gmx.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@cox.net') === false &&
+            //   //   emailValue.toLowerCase().includes('@comcast.net') === false &&
+            //   //   emailValue.toLowerCase().includes('@rediffmail.com') ===
+            //   //     false &&
+            //   //   emailValue.toLowerCase().includes('@aim.com') === false &&
+            //   //   emailValue.toLowerCase().includes('@live.ca') === false &&
+            //   //   emailValue.toLowerCase().includes('@facebook.com'))
+            // ) {
+            //   alert('Please enter a valid email')
+            //   alert(emailValue.toLowerCase().includes('@gmail.com'))
+            //   // alert(emailValue)
+            //   // router.push('/NewPatientPacket/#email')
+            // } else
+            if (addressValue === '') {
               alert('Please enter your address')
               return
             } else if (cityValue === '') {
@@ -1900,6 +1916,15 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               } else if (doYouPanicWhenStressed === '') {
                 alert('Please enter if you panic when stressed')
                 router.push('/NewPatientPacket/#doYouPanicWhenStressed')
+              } else if (areYouTakingAnyMedications == '') {
+                alert('Please select wether you are taking any medications.')
+                router.push('/NewPatientPacket/#AreYouTakingAnyMedications')
+              } else if (
+                areYouTakingAnyMedications == 'Yes' &&
+                listOfAllCurrentMedications.length < 1
+              ) {
+                alert('Please list the medications you are taking.')
+                router.push('/NewPatientPacket/#listOfAllCurrentMedications')
               } else {
                 submitNewPatientPacketAndCreateNewPatient({
                   firstName: firstName,

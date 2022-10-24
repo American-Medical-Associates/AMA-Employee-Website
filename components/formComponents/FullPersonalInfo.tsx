@@ -91,6 +91,7 @@ const FullPersonalInfo: React.FC<{
           emailState(text.target.value)
         }}
         value={emailValue}
+        id="email"
       />
     </div>
   )
