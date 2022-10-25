@@ -127,7 +127,7 @@ const Header = ({ selectCompany }) => {
                   }
                   text={'Support'}
                   onClick={() => {
-                    router.push('/TechSupport')
+                    router.push('/techSupportPages/TechSupport')
                   }}
                 />,
 

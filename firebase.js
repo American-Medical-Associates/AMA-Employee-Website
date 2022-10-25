@@ -938,6 +938,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       financialPolicySignatureDate: financialPolicySignatureDate,
       dateAdded: serverTimestamp(),
       company: 'AMA',
+      archived: false,
     },
     { merge: true }
   )
@@ -1568,24 +1569,81 @@ export function GetBookedAppointments({ BookedAppointmentsState }) {
   )
 }
 //add a support ticket
-export function AddSupportTicket({
+export async function AddSupportTicket({
   subject,
   message,
   company,
   firstName,
-  lastName,
+
+  urgent,
+  whatKindOfIssueIsIt,
+  urgentCallBackPhoneNumber,
+  ticketNumber,
 }) {
-  setDoc(
-    doc(db, 'companys', 'SupportTickets', subject),
+  await setDoc(
+    doc(db, 'SupportTickets', ticketNumber),
     {
       firstName: firstName,
-      lastName: lastName,
-      phoneNumber: phoneNumber,
+
       company: company,
       message: message,
+      urgent: urgent,
+      subject: subject,
+      ticketNumber: ticketNumber,
+      whatKindOfIssueIsIt: whatKindOfIssueIsIt,
+      urgentCallBackPhoneNumber: urgentCallBackPhoneNumber,
       email: auth.currentUser.email,
       timestamp: serverTimestamp(),
       company: company,
+    },
+    { merge: true }
+  )
+}
+export async function AddScreenShotForSupportTicketsStorageAndDB({
+  selectedFile,
+  ticketNumber,
+  subject,
+}) {
+  const imageRef = ref(
+    storage,
+    `SupportTickets/${ticketNumber}${subject}/ScreenShot`
+  )
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+
+      await setDoc(
+        doc(db, 'SupportTickets', ticketNumber),
+        {
+          screenShot: download,
+        },
+        { merge: true }
+      )
+    }
+  )
+}
+export async function GetSupportTickets({ supportTicketsState }) {
+  onSnapshot(
+    query(
+      collection(db, 'SupportTickets')
+      //orderBy('timestamp', 'desc')
+    ),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      supportTicketsState(arrays)
+      console.log(arrays)
+    }
+  )
+}
+export async function AddNPToArchive({ email, archiveState }) {
+  await setDoc(
+    doc(db, 'companys', 'AMA', 'NewPatientPacket', email),
+    {
+      archived: archiveState,
     },
     { merge: true }
   )

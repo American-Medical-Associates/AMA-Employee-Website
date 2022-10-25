@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import Head from 'next/head'
 import LineDivider from '../components/lineDiveider'
 import SearchComponent from '../components/searchComponent'
-import { GetNewPatientPacketSubmissions } from '../firebase'
+import { AddNPToArchive, GetNewPatientPacketSubmissions } from '../firebase'
 import { useSelector } from 'react-redux'
 import { selectCompany } from '../redux/slices/companySlice'
 import { jsPDF } from 'jspdf'
@@ -32,6 +32,7 @@ const FormSubmissions: NextPage<{}> = () => {
   const [searchFormAnswersResults, setSearchFormAnswersResults] = useState<
     Array<any>
   >([])
+  const [showArchived, setShowArchived] = useState(false)
   const addPatientToEclinicalPuppeteer = httpsCallable(
     functions,
     'addPatientToEclinicalPuppeteer'
@@ -47,6 +48,7 @@ const FormSubmissions: NextPage<{}> = () => {
 
       Object.keys(selectedPacket).map((item: any) => {
         console.log('sdfsdfsdf', item)
+
         if (
           item
             .toLowerCase()
@@ -73,7 +75,6 @@ const FormSubmissions: NextPage<{}> = () => {
     })
     console.log('submissions', submissions)
   }, [])
-  useEffect(() => {}, [])
 
   useEffect(() => {
     var searchResults: any = []
@@ -98,19 +99,39 @@ const FormSubmissions: NextPage<{}> = () => {
     }
   }, [submissions, SearchInputForNewPatientPacket])
   const listOfSubmissions = submissionSearchResults.map((submission: any) => {
-    return (
-      <div
-        onClick={() => {
-          setSelectedPacket(submission)
-          console.log('selectedPacket', selectedPacket)
-        }}
-        className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
-      >
-        <h1 className=" text-center text-lg text-[#707070]">
-          {submission.emailValue}
-        </h1>
-      </div>
-    )
+    if (showArchived == true) {
+      if (submission.archived == true) {
+        return (
+          <div
+            onClick={() => {
+              setSelectedPacket(submission)
+              console.log('selectedPacket', selectedPacket)
+            }}
+            className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+          >
+            <h1 className=" text-center text-lg text-[#707070]">
+              {submission.emailValue}
+            </h1>
+          </div>
+        )
+      }
+    } else if (showArchived == false) {
+      if (submission.archived == false || submission.archived == undefined) {
+        return (
+          <div
+            onClick={() => {
+              setSelectedPacket(submission)
+              console.log('selectedPacket', selectedPacket)
+            }}
+            className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+          >
+            <h1 className=" text-center text-lg text-[#707070]">
+              {submission.emailValue}
+            </h1>
+          </div>
+        )
+      }
+    }
   })
   const packetsSearched = Object.keys(searchFormAnswersResults).map(
     (item: any) => {
@@ -419,7 +440,22 @@ const FormSubmissions: NextPage<{}> = () => {
       <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">
           <div className=" flex flex-col items-center justify-center">
-            {/* {showArchiveList()} */}
+            {showArchived && (
+              <MainButton
+                buttonText="Hide Archived"
+                onClick={() => {
+                  setShowArchived(false)
+                }}
+              />
+            )}
+            {!showArchived && (
+              <MainButton
+                buttonText="Show Archived"
+                onClick={() => {
+                  setShowArchived(true)
+                }}
+              />
+            )}
 
             <SearchComponent
               placeHolder="Search For Submissions"
@@ -442,7 +478,7 @@ const FormSubmissions: NextPage<{}> = () => {
         <div className="flex  w-[75%] flex-col items-center justify-center   p-[20px]">
           {/* {fullPacket} */}
           {Array.isArray(selectedPacket) == false && (
-            <div className=" flex flex-col items-center justify-center">
+            <div className=" flex flex-row items-center justify-center rounded-[30px] bg-[#e6e6e697] p-3">
               {/* <TextInput
                 placeHolder="Search For Submissions"
                 value={searchFormAnswers}
@@ -450,132 +486,171 @@ const FormSubmissions: NextPage<{}> = () => {
                   setSearchFormAnswers(text.target.value)
                 }}
               /> */}
-              <p>Only for front desk</p>
-              <MainButton
-                buttonText="Add to ECW"
-                onClick={() => {
-                  // console.log('firstname', selectedPacket.firstName)
-                  // console.log('last', selectedPacket.lastName)
-                  // console.log('b', selectedPacket.BirthDateValue)
-                  // console.log('s', selectedPacket.socialValue)
-                  // console.log(selectedPacket.addressValue)
-                  // console.log(selectedPacket.cityValue)
-                  // console.log(selectedPacket.USStateValue)
-                  // console.log(selectedPacket.zipCodeValue)
-                  // console.log(selectedPacket.phoneNumberValue)
-                  // console.log(selectedPacket.emailValue)
-                  // console.log(selectedPacket.isCheckedMale)
-                  // console.log(selectedPacket.isCheckedFemale)
-                  // console.log(selectedPacket.isCheckedOther)
-                  // console.log(selectedPacket.EmergencyContactRelationShip)
-                  // console.log(selectedPacket.nameOfEmergencyContact)
-                  // console.log(selectedPacket.EmergencyContactPhoneNumber)
-                  // console.log(selectedPacket.married)
-                  // console.log(selectedPacket.single)
-                  // console.log(selectedPacket.divorced)
-                  // console.log(selectedPacket.widowed)
+              <div className=" m-3">
+                {!showArchived && (
+                  <MainButton
+                    buttonText="Archive"
+                    onClick={() => {
+                      //add the submission to the archive
 
-                  // console.log(selectedPacket.separated)
-                  // console.log(selectedPacket.withPartner)
-                  // console.log(selectedPacket.Ethnicity)
+                      AddNPToArchive({
+                        //@ts-ignore
+                        email: selectedPacket.emailValue,
+                        archiveState: true,
+                      })
+                    }}
+                  />
+                )}
+                {showArchived && (
+                  <MainButton
+                    buttonText="UnArchive"
+                    onClick={() => {
+                      //add the submission to the archive
 
-                  addPatientToEclinicalPuppeteer({
-                    //@ts-ignore
-                    firstName: selectedPacket.firstName,
-                    //@ts-ignore
-                    lastName: selectedPacket.lastName,
-                    //@ts-ignore
-                    BirthDateValue: selectedPacket.BirthDateValue,
-                    //@ts-ignore
-                    preferredName: selectedPacket.preferredName,
-                    //@ts-ignore
-                    phoneNumberValue: selectedPacket.phoneNumberValue,
-                    //@ts-ignore
-                    emailValue: selectedPacket.emailValue,
-                    //@ts-ignore
-                    addressValue: selectedPacket.addressValue,
-                    //@ts-ignore
-                    addressValue2: selectedPacket.addressValue2,
-                    //@ts-ignore
-                    cityValue: selectedPacket.cityValue,
-                    //@ts-ignore
-                    USStateValue: selectedPacket.USStateValue,
-                    //@ts-ignore
-                    zipCodeValue: selectedPacket.zipCodeValue,
-                    //@ts-ignore
-                    socialValue: selectedPacket.socialValue,
-                    //@ts-ignore
-                    isCheckedMale: selectedPacket.isCheckedMale,
-                    //@ts-ignore
-                    isCheckedFemale: selectedPacket.isCheckedFemale,
-                    //@ts-ignore
-                    isCheckedOther: selectedPacket.isCheckedOther,
-                    //@ts-ignore
-                    EmergencyContactRelationShip:
-                      //@ts-ignore
-                      selectedPacket.EmergencyContactRelationShip,
-                    //@ts-ignore
-                    nameOfEmergencyContact:
-                      //@ts-ignore
-                      selectedPacket.nameOfEmergencyContact,
-                    //@ts-ignore
-                    EmergencyContactPhoneNumber:
-                      //@ts-ignore
-                      selectedPacket.EmergencyContactPhoneNumber,
-                    //@ts-ignore
-                    married: selectedPacket.married,
-                    //@ts-ignore
-                    single: selectedPacket.single,
-                    //@ts-ignore
-                    divorced: selectedPacket.divorced,
-                    //@ts-ignore
-                    widowed: selectedPacket.widowed,
-                    //@ts-ignore
+                      AddNPToArchive({
+                        //@ts-ignore
+                        email: selectedPacket.emailValue,
+                        archiveState: false,
+                      })
+                    }}
+                  />
+                )}
+              </div>
 
-                    //@ts-ignore
-                    separated: selectedPacket.separated,
-                    //@ts-ignore
-                    withPartner: selectedPacket.withPartner,
-                    //@ts-ignore
-                    Ethnicity: selectedPacket.Ethnicity,
-                    //@ts-ignore
-                  })
-                }}
-              />
-              <p className=" text-red-500">
-                Please Only Click once and give it about 5 min to add to
-                Eclinical
-              </p>
-              <MainButton
-                buttonText="Export PDF"
-                onClick={async () => {
-                  var doc = 1
-                  if (Array.isArray(selectedPacket) == false) {
-                    Object.keys(selectedPacket).map(async (item: any) => {
-                      selectedPacket[item]
-                      doc += 1
-                      const content: any = pdfRef.current
-                      var y = 15
-                      const pageHeight = pdf.internal.pageSize.height
-                      if (doc == 2) {
-                        await pdf.html(content, {
-                          callback: function (doc) {
-                            doc.save(`${item.emailValue}.pdf`)
-                          },
-                          width: 210, // <- here
-                          windowWidth: 1000,
-                          margin: 0,
+              {auth.currentUser?.email ==
+                'h.fontaine@americanmedicalassociatesaz.com' ||
+                auth.currentUser?.email ==
+                  'j.cervantes@americanmedicalassociatesaz.com' ||
+                (auth.currentUser?.email == 'juju@gmail.com' && (
+                  <div className=" mx-3">
+                    <MainButton
+                      buttonText="Add to ECW"
+                      onClick={() => {
+                        // console.log('firstname', selectedPacket.firstName)
+                        // console.log('last', selectedPacket.lastName)
+                        // console.log('b', selectedPacket.BirthDateValue)
+                        // console.log('s', selectedPacket.socialValue)
+                        // console.log(selectedPacket.addressValue)
+                        // console.log(selectedPacket.cityValue)
+                        // console.log(selectedPacket.USStateValue)
+                        // console.log(selectedPacket.zipCodeValue)
+                        // console.log(selectedPacket.phoneNumberValue)
+                        // console.log(selectedPacket.emailValue)
+                        // console.log(selectedPacket.isCheckedMale)
+                        // console.log(selectedPacket.isCheckedFemale)
+                        // console.log(selectedPacket.isCheckedOther)
+                        // console.log(selectedPacket.EmergencyContactRelationShip)
+                        // console.log(selectedPacket.nameOfEmergencyContact)
+                        // console.log(selectedPacket.EmergencyContactPhoneNumber)
+                        // console.log(selectedPacket.married)
+                        // console.log(selectedPacket.single)
+                        // console.log(selectedPacket.divorced)
+                        // console.log(selectedPacket.widowed)
 
-                          // <- here
+                        // console.log(selectedPacket.separated)
+                        // console.log(selectedPacket.withPartner)
+                        // console.log(selectedPacket.Ethnicity)
+
+                        addPatientToEclinicalPuppeteer({
+                          //@ts-ignore
+                          firstName: selectedPacket.firstName,
+                          //@ts-ignore
+                          lastName: selectedPacket.lastName,
+                          //@ts-ignore
+                          BirthDateValue: selectedPacket.BirthDateValue,
+                          //@ts-ignore
+                          preferredName: selectedPacket.preferredName,
+                          //@ts-ignore
+                          phoneNumberValue: selectedPacket.phoneNumberValue,
+                          //@ts-ignore
+                          emailValue: selectedPacket.emailValue,
+                          //@ts-ignore
+                          addressValue: selectedPacket.addressValue,
+                          //@ts-ignore
+                          addressValue2: selectedPacket.addressValue2,
+                          //@ts-ignore
+                          cityValue: selectedPacket.cityValue,
+                          //@ts-ignore
+                          USStateValue: selectedPacket.USStateValue,
+                          //@ts-ignore
+                          zipCodeValue: selectedPacket.zipCodeValue,
+                          //@ts-ignore
+                          socialValue: selectedPacket.socialValue,
+                          //@ts-ignore
+                          isCheckedMale: selectedPacket.isCheckedMale,
+                          //@ts-ignore
+                          isCheckedFemale: selectedPacket.isCheckedFemale,
+                          //@ts-ignore
+                          isCheckedOther: selectedPacket.isCheckedOther,
+                          //@ts-ignore
+                          EmergencyContactRelationShip:
+                            //@ts-ignore
+                            selectedPacket.EmergencyContactRelationShip,
+                          //@ts-ignore
+                          nameOfEmergencyContact:
+                            //@ts-ignore
+                            selectedPacket.nameOfEmergencyContact,
+                          //@ts-ignore
+                          EmergencyContactPhoneNumber:
+                            //@ts-ignore
+                            selectedPacket.EmergencyContactPhoneNumber,
+                          //@ts-ignore
+                          married: selectedPacket.married,
+                          //@ts-ignore
+                          single: selectedPacket.single,
+                          //@ts-ignore
+                          divorced: selectedPacket.divorced,
+                          //@ts-ignore
+                          widowed: selectedPacket.widowed,
+                          //@ts-ignore
+
+                          //@ts-ignore
+                          separated: selectedPacket.separated,
+                          //@ts-ignore
+                          withPartner: selectedPacket.withPartner,
+                          //@ts-ignore
+                          Ethnicity: selectedPacket.Ethnicity,
+                          //@ts-ignore
                         })
-                      }
-                    })
-                  }
-                }}
-                buttonWidth="w-[200px]"
-              />
+                      }}
+                    />
+                  </div>
+                ))}
+              <div className=" ml-3">
+                <MainButton
+                  buttonText="Export PDF"
+                  onClick={async () => {
+                    var doc = 1
+                    if (Array.isArray(selectedPacket) == false) {
+                      Object.keys(selectedPacket).map(async (item: any) => {
+                        selectedPacket[item]
+                        doc += 1
+                        const content: any = pdfRef.current
+                        var y = 15
+                        const pageHeight = pdf.internal.pageSize.height
+                        if (doc == 2) {
+                          await pdf.html(content, {
+                            callback: function (doc) {
+                              doc.save(`${item.emailValue}.pdf`)
+                            },
+                            width: 210, // <- here
+                            windowWidth: 1000,
+                            margin: 0,
+
+                            // <- here
+                          })
+                        }
+                      })
+                    }
+                  }}
+                  buttonWidth="w-[200px]"
+                />
+              </div>
             </div>
           )}
+          <p className=" text-red-500">
+            Please Only Click once and give it about 5 min to add to Eclinical
+          </p>
           <div ref={pdfRef}>
             {searchFormAnswers == '' && <div>{packets}</div>}
             {searchFormAnswers != '' && (
