@@ -1624,10 +1624,7 @@ export async function AddScreenShotForSupportTicketsStorageAndDB({
 }
 export async function GetSupportTickets({ supportTicketsState }) {
   onSnapshot(
-    query(
-      collection(db, 'SupportTickets')
-      //orderBy('timestamp', 'desc')
-    ),
+    query(collection(db, 'SupportTickets'), orderBy('timestamp', 'desc')),
     (querySnapshot) => {
       const arrays = []
       querySnapshot.forEach((snap) => {
