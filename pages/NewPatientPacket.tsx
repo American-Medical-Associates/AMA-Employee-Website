@@ -234,8 +234,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [familyMedicalTuberculosis, setFamilyMedicalTuberculosis] = useState([])
   const [isYourMotherStillLiving, setIsYourMotherStillLiving] = useState('')
   const [isYourFatherStillLiving, setIsYourFatherStillLiving] = useState('')
-  const [areYouTakingAnyMedications, setAreYouTakingAnyMedications] =
-    useState('')
+  const [
+    areYouCurrentlyTakingAnyMedications,
+    setAreYouCurrentlyTakingAnyMedications,
+  ] = useState('')
   const [listOfAllCurrentMedications, setListOfAllCurrentMedications] =
     useState([])
   const [patientMedicalReviewSignature, setPatientMedicalReviewSignature] =
@@ -1421,14 +1423,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       />
       <SectionWithTitle
         title="Medications"
-        subTitle="Please list all medications you are currently taking."
         children={[
           <CustomYesOrNo
             text="Are you currently taking any medications?"
-            CheckState={setAreYouTakingAnyMedications}
-            id="AreYouTakingAnyMedications"
+            CheckState={setAreYouCurrentlyTakingAnyMedications}
+            id="areYouCurrentlyTakingAnyMedications"
           />,
-          areYouTakingAnyMedications === 'Yes' && (
+          areYouCurrentlyTakingAnyMedications === 'Yes' && (
             <UserCreatedListFromInputBox
               title="Please type all medications you are currently taking individually then click add item to add them to the list."
               showAddDrugFields={true}
@@ -1546,37 +1547,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert('Please enter your email')
               router.push('/NewPatientPacket/#email')
               return
-            }
-            // else if (
-            //   emailValue.toLowerCase().includes('@gmail.com') === false ||
-            //   emailValue.toLowerCase().includes('@yahoo.com') === false
-            //   // (emailValue.toLowerCase().includes('@hotmail.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@outlook.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@aol.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@icloud.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@msn.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@live.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@ymail.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@mail.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@inbox.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@protonmail.com') ===
-            //   //     false &&
-            //   //   emailValue.toLowerCase().includes('@zoho.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@gmx.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@cox.net') === false &&
-            //   //   emailValue.toLowerCase().includes('@comcast.net') === false &&
-            //   //   emailValue.toLowerCase().includes('@rediffmail.com') ===
-            //   //     false &&
-            //   //   emailValue.toLowerCase().includes('@aim.com') === false &&
-            //   //   emailValue.toLowerCase().includes('@live.ca') === false &&
-            //   //   emailValue.toLowerCase().includes('@facebook.com'))
-            // ) {
-            //   alert('Please enter a valid email')
-            //   alert(emailValue.toLowerCase().includes('@gmail.com'))
-            //   // alert(emailValue)
-            //   // router.push('/NewPatientPacket/#email')
-            // } else
-            if (addressValue === '') {
+            } else if (addressValue === '') {
               alert('Please enter your address')
               return
             } else if (cityValue === '') {
@@ -1591,10 +1562,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             } else if (socialValue === '') {
               alert('Please enter your social security number')
               router.push('/NewPatientPacket/#social')
-              return
-            } else if (preferredName === '') {
-              alert('Please enter your preferred name')
-              router.push('/NewPatientPacket/#preferredName')
               return
             } else if (nameOfEmergencyContact === '') {
               alert('Please enter the name of your emergency contact')
@@ -1855,262 +1822,291 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert('Please enter if you feel depressed')
               router.push('/NewPatientPacket/#doYouFeelDepressed')
               return
-            } else if (doYouFeelDepressed === 'Yes') {
-              if (doYouCryFrequently === '') {
-                alert('Please enter if you cry frequently')
-                router.push('/NewPatientPacket/#doYouCryFrequently')
-                return
-              } else if (doYouHaveLittleInterestInDoingThings == '') {
-                alert(
-                  'Please enter if you have little interest in doing things'
-                )
-                router.push('/NewPatientPacket/#doYouHaveLittleInterest')
-                return
-              } else if (doYouFeelHopelessDownOrDepressed === '') {
-                alert('Please enter if you feel hopeless down or depressed')
-                router.push('/NewPatientPacket/#doYouFeelHopeless')
-                return
-              } else if (
-                doYouHaveTroubleFallingAsleepOrSleepingTooMuch === ''
-              ) {
-                alert(
-                  'Please enter if you have trouble falling asleep or sleeping too much'
-                )
-                router.push('/NewPatientPacket/#doYouHaveTroubleSleeping')
-                return
-              } else if (doYouFeelTiredOrHaveLittleEnergy === '') {
-                alert('Please enter if you feel tired or have little energy')
-                router.push('/NewPatientPacket/#doYouFeelTired')
-                return
-              } else if (doYouHavAPoorAppetiteOrOverEating === '') {
-                alert('Please enter if you have a poor appetite or over eating')
-                router.push('/NewPatientPacket/#doYouHavAPoorAppetite')
-                return
-              } else if (doYouFeelBadAboutYourself === '') {
-                alert('Please enter if you feel bad about yourself')
-                router.push('/NewPatientPacket/#doYouFeelBadAboutYourself')
-                return
-              } else if (troubleConcentrating === '') {
-                alert('please enter if you have trouble concentrating')
-                router.push('/NewPatientPacket/#troubleConcentrating')
-                return
-              } else if (doYouMoveOrSpeakSlowly === '') {
-                alert('Please enter if you move or speak slowly')
-                router.push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
-                return
-              } else if (thoughtsYouWouldBeBetterOffDead === '') {
-                alert(
-                  'Please enter if you have thoughts you would be better off dead'
-                )
-                router.push(
-                  '/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead'
-                )
-                return
-              } else if (haveYouEverAttemptedSuicide === '') {
-                alert('Please enter if you have ever attempted suicide ')
-                router.push('/NewPatientPacket/#HaveYouAttemptedSuicide')
-                return
-              } else if (isStressAMajorProblem === '') {
-                alert('Please enter if stress is a major problem for you')
-                router.push('/NewPatientPacket/#isStressAMajorProblemForYou')
-              } else if (doYouPanicWhenStressed === '') {
-                alert('Please enter if you panic when stressed')
-                router.push('/NewPatientPacket/#doYouPanicWhenStressed')
-              } else if (areYouTakingAnyMedications == '') {
-                alert('Please select wether you are taking any medications.')
-                router.push('/NewPatientPacket/#AreYouTakingAnyMedications')
-              } else if (
-                areYouTakingAnyMedications == 'Yes' &&
-                listOfAllCurrentMedications.length < 1
-              ) {
-                alert('Please list the medications you are taking.')
-                router.push('/NewPatientPacket/#listOfAllCurrentMedications')
-              } else {
-                submitNewPatientPacketAndCreateNewPatient({
-                  firstName: firstName,
-                  lastName: lastName,
-                  addressValue: addressValue,
-                  addressValue2: addressValue2,
-                  cityValue: cityValue,
-                  USStateValue: USStateValue,
-                  zipCodeValue: zipCodeValue,
-                  BirthDateValue: BirthDateValue,
-                  phoneNumberValue: phoneNumberValue,
-                  homePhone: homePhone,
-                  emailValue: emailValue.trim(),
-                  socialValue: socialValue,
-                  isCheckedMale: isCheckedMale,
-                  isCheckedFemale: isCheckedFemale,
-                  isCheckedOther: isCheckedOther,
-                  pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
-                  preferredName: preferredName,
-                  single: single,
-                  married: married,
-                  divorced: divorced,
-                  widowed: widowed,
-                  separated: separated,
-                  withPartner: withPartner,
-                  MayWeTakeYourPicture: MayWeTakeYourPicture,
-                  pictureOfTheirFace: pictureOfTheirFace,
-                  Ethnicity: Ethnicity,
-                  nameOfEmergencyContact: nameOfEmergencyContact,
-                  EmergencyContactRelationShip: EmergencyContactRelationShip,
-                  EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
-                  HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
-                  howDoTheyWishToPay: howDoTheyWishToPay,
-                  primaryInsurance: primaryInsurance,
-                  primaryInsuranceID: primaryInsuranceID,
-                  primaryInsuranceGroup: primaryInsuranceGroup,
-                  primaryInsurancePhone: primaryInsurancePhone,
-                  primaryInsuranceAddress1: primaryInsuranceAddress1,
-                  primaryInsuranceAddress2: primaryInsuranceAddress2,
-                  primaryInsuranceCity: primaryInsuranceCity,
-                  primaryInsuranceState: primaryInsuranceState,
-                  primaryInsuranceZip: primaryInsuranceZip,
-                  primarySubscribersName: primarySubscribersName,
-                  secondaryInsurance: secondaryInsurance,
-                  secondaryInsuranceID: secondaryInsuranceID,
-                  secondaryInsuranceGroup: secondaryInsuranceGroup,
-                  secondaryInsurancePhone: secondaryInsurancePhone,
-                  secondaryInsuranceAddress1: secondaryInsuranceAddress1,
-                  secondaryInsuranceAddress2: secondaryInsuranceAddress2,
-                  secondaryInsuranceCity: secondaryInsuranceCity,
-                  secondaryInsuranceState: secondaryInsuranceState,
-                  secondaryInsuranceZip: secondaryInsuranceZip,
-                  secondarySubscribersName: secondarySubscribersName,
-                  primaryPictureOfInsuranceCardFront:
-                    primaryPictureOfInsuranceCardFront,
-                  secondaryPictureOfInsuranceCardFront:
-                    secondaryPictureOfInsuranceCardFront,
-                  retailPharmacyName: retailPharmacyName,
-                  retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
-                  retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
-                  retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
-                  retailPharmacyFaxNumber: retailPharmacyFaxNumber,
-                  mailOrderPharmacyName: mailOrderPharmacyName,
-                  mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
-                  mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
-                  mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
-                  mailOrderPharmacyCity: mailOrderPharmacyCity,
-                  mailOrderPharmacyState: mailOrderPharmacyState,
-                  mailOrderPharmacyZip: mailOrderPharmacyZip,
-                  areYouAllergicToLatex: areYouAllergicToLatex,
-                  areYouAllergicToSelfish: areYouAllergicToSelfish,
-                  areYouAllergicToIodine: areYouAllergicToIodine,
-                  PatientDrugAllergies: PatientDrugAllergies,
-                  dateOfLastPAP: dateOfLastPAP,
-                  wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
-                  dateOfLastMammogram: dateOfLastMammogram,
-                  wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
-                  dateOfLastPSA: dateOfLastPSA,
-                  wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
-                  allMajorIllnesses: allMajorIllnesses,
-                  allMajorSurgeriesAndHospitalizations:
-                    allMajorSurgeriesAndHospitalizations,
-                  boneDensityScreening: boneDensityScreening,
-                  BoneDensityScreeningDate: BoneDensityScreeningDate,
-                  wasBoneDensityScreeningNormalOrAbnormal:
-                    wasBoneDensityScreeningNormalOrAbnormal,
-                  colonoscopyScreening: colonoscopyScreening,
-                  dateOfLastColonoscopyScreening:
-                    dateOfLastColonoscopyScreening,
-                  wasColonoscopyScreeningNormalOrAbnormal:
-                    wasColonoscopyScreeningNormalOrAbnormal,
-                  allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
-                  haveTheyEverSmoked: haveTheyEverSmoked,
-                  howManyPacksPerDay: howManyPacksPerDay,
-                  anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
-                  describeOtherTobaccoUse: describeOtherTobaccoUse,
-                  doYouDrinkCoffee: doYouDrinkCoffee,
-                  howManyCupsPerDay: howManyCupsPerDay,
-                  doYouDrinkAlcohol: doYouDrinkAlcohol,
-                  howManyDrinksPerWeek: howManyDrinksPerWeek,
-                  doYoCurrentlyUseRecreationalDrugs:
-                    doYoCurrentlyUseRecreationalDrugs,
-                  describeRecreationalDrugUse: describeRecreationalDrugUse,
-                  doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
-                  describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
-                  doYouFeelDepressed: doYouFeelDepressed,
-                  doYouCryFrequently: doYouCryFrequently,
-                  doYouHaveLittleInterestInDoingThings:
-                    doYouHaveLittleInterestInDoingThings,
-                  doYouFeelHopelessDownOrDepressed:
-                    doYouFeelHopelessDownOrDepressed,
-                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
-                    doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
-                  doYouFeelTiredOrHaveLittleEnergy:
-                    doYouFeelTiredOrHaveLittleEnergy,
-                  doYouHavAPoorAppetiteOrOverEating:
-                    doYouHavAPoorAppetiteOrOverEating,
-                  doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
-                  troubleConcentrating: troubleConcentrating,
-                  doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
-                  thoughtsYouWouldBeBetterOffDead:
-                    thoughtsYouWouldBeBetterOffDead,
-                  isStressAMajorProblem: isStressAMajorProblem,
-                  doYouPanicWhenStressed: doYouPanicWhenStressed,
-                  haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
-                  familyMedicalAlcoholismAddiction:
-                    familyMedicalAlcoholismAddiction,
-                  familyMedicalBleedingDisorders:
-                    familyMedicalBleedingDisorders,
-                  familyMedicalCancer: familyMedicalCancer,
-                  familyMedicalDiabetes: familyMedicalDiabetes,
-                  familyMedicalHeartAttack: familyMedicalHeartAttack,
-                  familyMedicalHighBloodPressure:
-                    familyMedicalHighBloodPressure,
-                  familyMedicalHighCholesterol: familyMedicalHighCholesterol,
-                  familyMedicalKidneyDisease: familyMedicalKidneyDisease,
-                  familyMedicalMentalIllness: familyMedicalMentalIllness,
-                  familyMedicalStroke: familyMedicalStroke,
-                  familyMedicalTuberculosis: familyMedicalTuberculosis,
-                  isYourMotherStillLiving: isYourMotherStillLiving,
-                  isYourFatherStillLiving: isYourFatherStillLiving,
-                  listOfAllCurrentMedications: listOfAllCurrentMedications,
-                  patientMedicalReviewSignature: patientMedicalReviewSignature,
-                  patientMedicalReviewSignatureDate:
-                    patientMedicalReviewSignatureDate,
-                  PatientMedicalReviewSignatureCheckBox:
-                    PatientMedicalReviewSignatureCheckBox,
-                  AdvancedDirectives: AdvancedDirectives,
-                  hippa: hippa,
-                  financialPolicySignature: financialPolicySignature,
-                  financialPolicySignatureCheckBox:
-                    financialPolicySignatureCheckBox,
-                  financialPolicySignatureDate: financialPolicySignatureDate,
-                  company: company,
+            } else if (
+              doYouCryFrequently === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you cry frequently')
+              router.push('/NewPatientPacket/#doYouCryFrequently')
+              return
+            } else if (
+              doYouHaveLittleInterestInDoingThings == '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you have little interest in doing things')
+              router.push('/NewPatientPacket/#doYouHaveLittleInterest')
+              return
+            } else if (
+              doYouFeelHopelessDownOrDepressed === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you feel hopeless down or depressed')
+              router.push('/NewPatientPacket/#doYouFeelHopeless')
+              return
+            } else if (
+              doYouHaveTroubleFallingAsleepOrSleepingTooMuch === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert(
+                'Please enter if you have trouble falling asleep or sleeping too much'
+              )
+              router.push('/NewPatientPacket/#doYouHaveTroubleSleeping')
+              return
+            } else if (
+              doYouFeelTiredOrHaveLittleEnergy === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you feel tired or have little energy')
+              router.push('/NewPatientPacket/#doYouFeelTired')
+              return
+            } else if (
+              doYouHavAPoorAppetiteOrOverEating === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you have a poor appetite or over eating')
+              router.push('/NewPatientPacket/#doYouHavAPoorAppetite')
+              return
+            } else if (
+              doYouFeelBadAboutYourself === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you feel bad about yourself')
+              router.push('/NewPatientPacket/#doYouFeelBadAboutYourself')
+              return
+            } else if (
+              troubleConcentrating === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('please enter if you have trouble concentrating')
+              router.push('/NewPatientPacket/#troubleConcentrating')
+              return
+            } else if (
+              doYouMoveOrSpeakSlowly === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you move or speak slowly')
+              router.push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
+              return
+            } else if (
+              thoughtsYouWouldBeBetterOffDead === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert(
+                'Please enter if you have thoughts you would be better off dead'
+              )
+              router.push('/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead')
+              return
+            } else if (
+              haveYouEverAttemptedSuicide === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you have ever attempted suicide ')
+              router.push('/NewPatientPacket/#HaveYouAttemptedSuicide')
+              return
+            } else if (
+              isStressAMajorProblem === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if stress is a major problem for you')
+              router.push('/NewPatientPacket/#isStressAMajorProblemForYou')
+            } else if (
+              doYouPanicWhenStressed === '' &&
+              doYouFeelDepressed === 'Yes'
+            ) {
+              alert('Please enter if you panic when stressed')
+              router.push('/NewPatientPacket/#doYouPanicWhenStressed')
+            }
+            if (areYouCurrentlyTakingAnyMedications == '') {
+              alert('Please select if you are taking any medications')
+              router.push('/NewPatientPacket/#doYouPanicWhenStressed')
+            }
+            if (
+              areYouCurrentlyTakingAnyMedications == 'Yes' &&
+              listOfAllCurrentMedications.length < 1
+            ) {
+              alert('Please enter a list of all current medications')
+            } else {
+              submitNewPatientPacketAndCreateNewPatient({
+                firstName: firstName,
+                lastName: lastName,
+                addressValue: addressValue,
+                addressValue2: addressValue2,
+                cityValue: cityValue,
+                USStateValue: USStateValue,
+                zipCodeValue: zipCodeValue,
+                BirthDateValue: BirthDateValue,
+                phoneNumberValue: phoneNumberValue,
+                homePhone: homePhone,
+                emailValue: emailValue.trim(),
+                socialValue: socialValue,
+                isCheckedMale: isCheckedMale,
+                isCheckedFemale: isCheckedFemale,
+                isCheckedOther: isCheckedOther,
+                pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+                preferredName: preferredName,
+                single: single,
+                married: married,
+                divorced: divorced,
+                widowed: widowed,
+                separated: separated,
+                withPartner: withPartner,
+                MayWeTakeYourPicture: MayWeTakeYourPicture,
+                pictureOfTheirFace: pictureOfTheirFace,
+                Ethnicity: Ethnicity,
+                nameOfEmergencyContact: nameOfEmergencyContact,
+                EmergencyContactRelationShip: EmergencyContactRelationShip,
+                EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+                HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+                howDoTheyWishToPay: howDoTheyWishToPay,
+                primaryInsurance: primaryInsurance,
+                primaryInsuranceID: primaryInsuranceID,
+                primaryInsuranceGroup: primaryInsuranceGroup,
+                primaryInsurancePhone: primaryInsurancePhone,
+                primaryInsuranceAddress1: primaryInsuranceAddress1,
+                primaryInsuranceAddress2: primaryInsuranceAddress2,
+                primaryInsuranceCity: primaryInsuranceCity,
+                primaryInsuranceState: primaryInsuranceState,
+                primaryInsuranceZip: primaryInsuranceZip,
+                primarySubscribersName: primarySubscribersName,
+                secondaryInsurance: secondaryInsurance,
+                secondaryInsuranceID: secondaryInsuranceID,
+                secondaryInsuranceGroup: secondaryInsuranceGroup,
+                secondaryInsurancePhone: secondaryInsurancePhone,
+                secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+                secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+                secondaryInsuranceCity: secondaryInsuranceCity,
+                secondaryInsuranceState: secondaryInsuranceState,
+                secondaryInsuranceZip: secondaryInsuranceZip,
+                secondarySubscribersName: secondarySubscribersName,
+                primaryPictureOfInsuranceCardFront:
+                  primaryPictureOfInsuranceCardFront,
+                secondaryPictureOfInsuranceCardFront:
+                  secondaryPictureOfInsuranceCardFront,
+                retailPharmacyName: retailPharmacyName,
+                retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+                retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+                retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+                retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+                mailOrderPharmacyName: mailOrderPharmacyName,
+                mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+                mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+                mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+                mailOrderPharmacyCity: mailOrderPharmacyCity,
+                mailOrderPharmacyState: mailOrderPharmacyState,
+                mailOrderPharmacyZip: mailOrderPharmacyZip,
+                areYouAllergicToLatex: areYouAllergicToLatex,
+                areYouAllergicToSelfish: areYouAllergicToSelfish,
+                areYouAllergicToIodine: areYouAllergicToIodine,
+                PatientDrugAllergies: PatientDrugAllergies,
+                dateOfLastPAP: dateOfLastPAP,
+                wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+                dateOfLastMammogram: dateOfLastMammogram,
+                wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+                dateOfLastPSA: dateOfLastPSA,
+                wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+                allMajorIllnesses: allMajorIllnesses,
+                allMajorSurgeriesAndHospitalizations:
+                  allMajorSurgeriesAndHospitalizations,
+                boneDensityScreening: boneDensityScreening,
+                BoneDensityScreeningDate: BoneDensityScreeningDate,
+                wasBoneDensityScreeningNormalOrAbnormal:
+                  wasBoneDensityScreeningNormalOrAbnormal,
+                colonoscopyScreening: colonoscopyScreening,
+                dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+                wasColonoscopyScreeningNormalOrAbnormal:
+                  wasColonoscopyScreeningNormalOrAbnormal,
+                allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+                haveTheyEverSmoked: haveTheyEverSmoked,
+                howManyPacksPerDay: howManyPacksPerDay,
+                anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+                describeOtherTobaccoUse: describeOtherTobaccoUse,
+                doYouDrinkCoffee: doYouDrinkCoffee,
+                howManyCupsPerDay: howManyCupsPerDay,
+                doYouDrinkAlcohol: doYouDrinkAlcohol,
+                howManyDrinksPerWeek: howManyDrinksPerWeek,
+                doYoCurrentlyUseRecreationalDrugs:
+                  doYoCurrentlyUseRecreationalDrugs,
+                describeRecreationalDrugUse: describeRecreationalDrugUse,
+                doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+                describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+                doYouFeelDepressed: doYouFeelDepressed,
+                doYouCryFrequently: doYouCryFrequently,
+                doYouHaveLittleInterestInDoingThings:
+                  doYouHaveLittleInterestInDoingThings,
+                doYouFeelHopelessDownOrDepressed:
+                  doYouFeelHopelessDownOrDepressed,
+                doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+                doYouFeelTiredOrHaveLittleEnergy:
+                  doYouFeelTiredOrHaveLittleEnergy,
+                doYouHavAPoorAppetiteOrOverEating:
+                  doYouHavAPoorAppetiteOrOverEating,
+                doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+                troubleConcentrating: troubleConcentrating,
+                doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+                thoughtsYouWouldBeBetterOffDead:
+                  thoughtsYouWouldBeBetterOffDead,
+                isStressAMajorProblem: isStressAMajorProblem,
+                doYouPanicWhenStressed: doYouPanicWhenStressed,
+                haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+                familyMedicalAlcoholismAddiction:
+                  familyMedicalAlcoholismAddiction,
+                familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+                familyMedicalCancer: familyMedicalCancer,
+                familyMedicalDiabetes: familyMedicalDiabetes,
+                familyMedicalHeartAttack: familyMedicalHeartAttack,
+                familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+                familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+                familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+                familyMedicalMentalIllness: familyMedicalMentalIllness,
+                familyMedicalStroke: familyMedicalStroke,
+                familyMedicalTuberculosis: familyMedicalTuberculosis,
+                isYourMotherStillLiving: isYourMotherStillLiving,
+                isYourFatherStillLiving: isYourFatherStillLiving,
+                listOfAllCurrentMedications: listOfAllCurrentMedications,
+                patientMedicalReviewSignature: patientMedicalReviewSignature,
+                patientMedicalReviewSignatureDate:
+                  patientMedicalReviewSignatureDate,
+                PatientMedicalReviewSignatureCheckBox:
+                  PatientMedicalReviewSignatureCheckBox,
+                AdvancedDirectives: AdvancedDirectives,
+                hippa: hippa,
+                financialPolicySignature: financialPolicySignature,
+                financialPolicySignatureCheckBox:
+                  financialPolicySignatureCheckBox,
+                financialPolicySignatureDate: financialPolicySignatureDate,
+                company: company,
+              })
+                .then(() => {
+                  AddPictureOfPatientFaceToStorageAndToDB({
+                    selectedFile: pictureOfTheirFace,
+                    emailValue: emailValue,
+                    patientMedicalReviewSignatureDate:
+                      patientMedicalReviewSignatureDate,
+                    company: company,
+                  })
                 })
-                  .then(() => {
-                    AddPictureOfPatientFaceToStorageAndToDB({
-                      selectedFile: pictureOfTheirFace,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
+                .then(() => {
+                  AddPictureOfPatientInsuranceToStorageAndToDB({
+                    selectedFile: primaryPictureOfInsuranceCardFront,
+                    emailValue: emailValue,
+                    patientMedicalReviewSignatureDate:
+                      patientMedicalReviewSignatureDate,
+                    company: company,
                   })
-                  .then(() => {
-                    AddPictureOfPatientInsuranceToStorageAndToDB({
-                      selectedFile: primaryPictureOfInsuranceCardFront,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
+                })
+                .then(() => {
+                  AddPictureOfDriverLicenseToStorageAndToDB({
+                    selectedFile: pictureOfFrontOfDriverLicense,
+                    emailValue: emailValue,
+                    patientMedicalReviewSignatureDate:
+                      patientMedicalReviewSignatureDate,
+                    company: company,
                   })
-                  .then(() => {
-                    AddPictureOfDriverLicenseToStorageAndToDB({
-                      selectedFile: pictureOfFrontOfDriverLicense,
-                      emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
-                      company: company,
-                    })
-                  })
-                  .then(() => {
-                    alert('Thank you for your submission')
-                  })
-              }
+                })
+                .then(() => {
+                  alert('Thank you for your submission')
+                })
             }
           }}
           buttonText="Submit"
