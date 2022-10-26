@@ -1701,7 +1701,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               doYouHaveAHistoryOfAnyMajorIllness === 'Yes'
             ) {
               alert('Please enter your major illnesses')
-              router.push('/NewPatientPacket/#majorIllnesses')
+              router.push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
               return
             } else if (doYouHaveAHistoryOfSurgeries === '') {
               alert(
@@ -1713,7 +1713,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               doYouHaveAHistoryOfSurgeries === 'Yes'
             ) {
               alert('Please enter your major surgeries and hospitalizations')
-              router.push('/NewPatientPacket/#majorSurgeries')
+              router.push('/NewPatientPacket/#doYouHaveAnySurgeries')
               return
             } else if (boneDensityScreening === '') {
               alert('Please enter if you have had a bone density screening')
@@ -1915,16 +1915,19 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             ) {
               alert('Please enter if you panic when stressed')
               router.push('/NewPatientPacket/#doYouPanicWhenStressed')
-            }
-            if (areYouCurrentlyTakingAnyMedications == '') {
+            } else if (areYouCurrentlyTakingAnyMedications == '') {
               alert('Please select if you are taking any medications')
-              router.push('/NewPatientPacket/#doYouPanicWhenStressed')
-            }
-            if (
+              router.push(
+                '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
+              )
+            } else if (
               areYouCurrentlyTakingAnyMedications == 'Yes' &&
               listOfAllCurrentMedications.length < 1
             ) {
               alert('Please enter a list of all current medications')
+              router.push(
+                '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
+              )
             } else {
               submitNewPatientPacketAndCreateNewPatient({
                 firstName: firstName,

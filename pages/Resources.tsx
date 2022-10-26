@@ -69,6 +69,17 @@ const Resources: NextPage<{}> = () => {
                 router.push('/BookedAppointments')
               }}
             />
+            <div className="mb-5 mt-5">
+              <MenuItem
+                icon={
+                  <ClipboardIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                }
+                text="PDF Signatures"
+                onClick={() => {
+                  router.push('/VitalizeBookAnAppointment')
+                }}
+              />
+            </div>
           </div>
           <div className="h-[80vh] w-[75%] "></div>
         </div>
