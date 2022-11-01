@@ -126,7 +126,7 @@ const CustomCheckBoxFeild: React.FC<{
       <div className=" flex flex-col ">
         <h3 className="my-5 ml-5 text-2xl text-[#616161]">{title}</h3>
         {checkBoxes}
-        {checkBoxValues}
+        {/* {checkBoxValues} */}
         {checkBoxValues == 'Other' && (
           <div className=" flex w-full flex-row justify-between">
             <div className=" mr-3">
@@ -156,7 +156,10 @@ const CustomCheckBoxFeild: React.FC<{
         )}
         {otherValue == checkBoxValues && checkBoxTitles.includes('Other') && (
           <div className=" flex w-full flex-col">
-            <p> Other answer: {checkBoxValues}</p>
+            <p className=" text-2xl">
+              Other answer:
+              <span className=" text-[#3f6efa]"> {checkBoxValues}</span>
+            </p>
           </div>
         )}
       </div>

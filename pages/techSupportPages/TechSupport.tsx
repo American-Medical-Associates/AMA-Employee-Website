@@ -40,7 +40,7 @@ const TechSupport: NextPage<{}> = () => {
                 icon={
                   <ComputerDesktopIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
-                text="Support Ticket"
+                text="Create A Support Ticket"
                 onClick={() => {
                   setShowSupportTicket(true)
                   setShowAnalytics(false)

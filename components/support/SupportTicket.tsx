@@ -15,6 +15,7 @@ import CustomCheckBoxFeild from '../formComponents/CustomCheckBoxFeild'
 import CustomYesOrNo from '../formComponents/CustomYesOrNo'
 import { auth, functions } from '../../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
+import PhoneNumberInput from '../PhoneNumberInput'
 
 const SupportTicket: React.FC<{}> = () => {
   const [subject, setSubject] = useState('')
@@ -67,10 +68,10 @@ const SupportTicket: React.FC<{}> = () => {
       <CustomCheckBoxFeild
         allowMultipleCheckBoxes={false}
         checkBoxTitles={[
-          'Setting up Computer, Printer, Monitor,ect...',
-          'Issue with AMA app, or AMA website',
-          'Issue with Something the the IT department did NOT make. ECW, Microsoft Teams, ect...',
-          'Feature Request',
+          'Setting up computer, printer, monitor,etc...',
+          'Issue with AMA app or AMA website',
+          'Issue with something the the IT department did NOT make (ECW, Microsoft Teams, etc...)',
+          'Feature request',
         ]}
         howManyCheckBoxes={0}
         setCheckBoxValues={setWhatKindOfIssueIsIt}
@@ -87,10 +88,10 @@ const SupportTicket: React.FC<{}> = () => {
       {urgent == 'Yes' && (
         <div className=" flex w-full flex-col items-center justify-center">
           <p className=" my-10 text-red-500">
-            If it is urgent zach will get a text message and get back to you as
+            If it is urgent Zach will get a text message and get back to you as
             soon as possible
           </p>
-          <TextInput
+          <PhoneNumberInput
             placeHolder="Call back number for urgent issues"
             widthPercentage="w-1/2"
             onChange={(text: any) => {
