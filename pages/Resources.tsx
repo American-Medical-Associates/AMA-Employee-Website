@@ -28,27 +28,30 @@ const Resources: NextPage<{}> = () => {
                   router.push('/NewPatientPacket')
                 }}
               />
+              <div className="mt-5">
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="Submissions"
+                  onClick={() => {
+                    router.push('/FormSubmissions')
+                  }}
+                />
+              </div>
             </div>
             <div className="mb-5">
               <MenuItem
                 icon={
                   <ChartBarIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
-                text="Analytics"
+                text=" New Patient Packet Analytics"
                 onClick={() => {
-                  router.push('/NewPatientPacket')
+                  router.push('/NewPatientPacketAnalytics')
                 }}
               />
             </div>
-            <MenuItem
-              icon={
-                <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-              }
-              text="Submissions"
-              onClick={() => {
-                router.push('/FormSubmissions')
-              }}
-            />
+
             <div className="mb-5 mt-5">
               <MenuItem
                 icon={

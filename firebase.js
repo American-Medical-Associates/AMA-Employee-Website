@@ -1673,6 +1673,7 @@ export async function CloseSupportTicket({ ticketNumber, openTicketState }) {
       workingOnTicket: false,
       openTicket: openTicketState,
       whoClosedTicket: auth.currentUser.email,
+      dateTicketWasClosed: serverTimestamp(),
     },
     { merge: true }
   )
