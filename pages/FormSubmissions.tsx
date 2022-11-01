@@ -86,11 +86,15 @@ const FormSubmissions: NextPage<{}> = () => {
       setSubmissionSearchResults(submissions)
     } else {
       submissions.map((submission: any) => {
-        const emailString: string = JSON.stringify(
-          submission.emailValue.toLowerCase()
+        const firstName: string = JSON.stringify(
+          submission.firstName.toLowerCase()
+        ) as string
+        const lastName: string = JSON.stringify(
+          submission.lastName.toLowerCase()
         ) as string
         if (
-          emailString.includes(SearchInputForNewPatientPacket.toLowerCase())
+          firstName.includes(SearchInputForNewPatientPacket.toLowerCase()) ||
+          lastName.includes(SearchInputForNewPatientPacket.toLowerCase())
         ) {
           searchResults.push(submission)
         }
@@ -108,9 +112,10 @@ const FormSubmissions: NextPage<{}> = () => {
               console.log('selectedPacket', selectedPacket)
             }}
             className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+            key={submission.email}
           >
             <h1 className=" text-center text-lg text-[#707070]">
-              {submission.emailValue}
+              {submission.firstName} {submission.lastName}
             </h1>
           </div>
         )
@@ -126,7 +131,7 @@ const FormSubmissions: NextPage<{}> = () => {
             className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
           >
             <h1 className=" text-center text-lg text-[#707070]">
-              {submission.emailValue}
+              {submission.firstName} {submission.lastName}
             </h1>
           </div>
         )
@@ -650,6 +655,9 @@ const FormSubmissions: NextPage<{}> = () => {
           )}
           <p className=" text-red-500">
             Please Only Click once and give it about 5 min to add to Eclinical
+          </p>
+          <p>
+            To Search: Press (CONTROL + F), then type what you are looking for.
           </p>
           <div ref={pdfRef}>
             {searchFormAnswers == '' && <div>{packets}</div>}
