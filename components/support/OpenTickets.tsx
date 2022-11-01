@@ -30,6 +30,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
   const company = useSelector(selectCompany)
   const [writeNotes, setWriteNotes] = useState(false)
   const [notes, setNotes] = useState('')
+  const [selectedTicket, setSelectedTicket] = useState('')
 
   const router = useRouter()
 
@@ -187,17 +188,18 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
               )}
             </div>
             <section className=" mt-10 flex w-full items-center justify-center">
-              {!writeNotes && (
+              {!writeNotes && selectedTicket != ticket.ticketNumber && (
                 <CircularButton
                   icon={
                     <PencilSquareIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   onClick={() => {
                     setWriteNotes(!writeNotes)
+                    setSelectedTicket(ticket.ticketNumber)
                   }}
                 />
               )}
-              {writeNotes && (
+              {writeNotes && selectedTicket == ticket.ticketNumber && (
                 <div className=" flex w-full flex-col items-center justify-center rounded-[25px] bg-[#d6d6d62b]  p-5 ">
                   <div className=" flex w-full justify-end ">
                     <CircularButton
@@ -206,6 +208,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
                       }
                       onClick={() => {
                         setWriteNotes(!writeNotes)
+                        setSelectedTicket('')
                       }}
                     />
                   </div>
@@ -228,6 +231,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
                       }).then(() => {
                         setNotes('')
                         setWriteNotes(!writeNotes)
+                        setSelectedTicket('')
                       })
                     }}
                   />
