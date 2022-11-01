@@ -19,23 +19,23 @@ const MessagingPage: NextPage<{}> = () => {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    if (ChannelID) {
-      getMessages({
-        ChannelID: ChannelID,
-        messagesState: setAllSupportMessages,
-      })
-    }
+    // if (ChannelID) {
+    //   getMessages({
+    //     ChannelID: ChannelID,
+    //     messagesState: setAllSupportMessages,
+    //   })
+    // }
   }, [ChannelID])
 
-  const listOfChannels = ChannelID.map((channel: any) => {
-    return (
-      <div key={channel.id}>
-        <div className="flex flex-col">
-          <h2>{ChannelID.id}</h2>
-        </div>
-      </div>
-    )
-  })
+  // const listOfChannels = ChannelID.map((channel: any) => {
+  //   return (
+  //     <div key={channel.id}>
+  //       <div className="flex flex-col">
+  //         <h2>{ChannelID.id}</h2>
+  //       </div>
+  //     </div>
+  //   )
+  // })
 
   const messages = allSupportMessages.map((message: any) => {
     return (
@@ -51,7 +51,7 @@ const MessagingPage: NextPage<{}> = () => {
         <Header selectCompany={'AMA'} />
       </div>
       <main className=" flex w-full grid-cols-2">
-        <div className=" h-[87vh] w-[25%] flex-col ">{listOfChannels}</div>
+        {/* <div className=" h-[87vh] w-[25%] flex-col ">{listOfChannels}</div> */}
         <div className=" flex w-[75%] grid-rows-2 flex-col">
           <div className=" flex h-[90%] flex-col">{messages}</div>
           <div className=" flex h-[10%] grid-cols-2 items-center justify-start">
