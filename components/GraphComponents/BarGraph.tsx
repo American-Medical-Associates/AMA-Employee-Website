@@ -17,6 +17,7 @@ const BarGraph: React.FC<{
   year: boolean
   all: boolean
   curentTimeFrame: any
+  toolTipText: string
   totalForTimeFrame: number
 }> = ({
   data,
@@ -32,6 +33,7 @@ const BarGraph: React.FC<{
   all,
   curentTimeFrame,
   totalForTimeFrame,
+  toolTipText,
 }) => {
   return (
     <div>
@@ -52,7 +54,7 @@ const BarGraph: React.FC<{
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="numberOfSpravato" fill="#8884d8" />
+            <Bar dataKey={toolTipText} fill="#8884d8" />
           </BarChart>
         )}
         <div>

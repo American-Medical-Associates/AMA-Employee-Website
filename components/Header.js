@@ -7,17 +7,17 @@ import { useRouter } from 'next/router'
 import { MenuItem } from './MenuItem'
 import DropDownMenu from './DropDownMenu'
 import {
-  MenuIcon,
-  LogoutIcon,
-  LoginIcon,
+  Bars3Icon,
+  ArrowLeftOnRectangleIcon,
   HomeIcon,
-  InboxInIcon,
-  MailIcon,
-  BookOpenIcon,
   UsersIcon,
+  InboxArrowDownIcon,
+  ArrowRightOnRectangleIcon,
+  EnvelopeIcon,
+  BookOpenIcon,
   ClipboardIcon,
-  DesktopComputerIcon,
-} from '@heroicons/react/outline'
+  ComputerDesktopIcon,
+} from '@heroicons/react/24/outline'
 // import Box from './box'
 import { getAuth, signOut } from 'firebase/auth'
 import MainButton from './MainButton'
@@ -87,7 +87,7 @@ const Header = ({ selectCompany }) => {
                 />,
                 <MenuItem
                   icon={
-                    <InboxInIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <InboxArrowDownIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text={'Resumes'}
                   onClick={() => {
@@ -96,7 +96,7 @@ const Header = ({ selectCompany }) => {
                 />,
                 <MenuItem
                   icon={
-                    <MailIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <EnvelopeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text={'Messaging'}
                   onClick={() => {
@@ -123,7 +123,7 @@ const Header = ({ selectCompany }) => {
                 />,
                 <MenuItem
                   icon={
-                    <DesktopComputerIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ComputerDesktopIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text={'Support'}
                   onClick={() => {
@@ -133,7 +133,7 @@ const Header = ({ selectCompany }) => {
 
                 <MenuItem
                   icon={
-                    <LogoutIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ArrowRightOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text={'Logout'}
                   onClick={() => {
@@ -165,7 +165,7 @@ const Header = ({ selectCompany }) => {
                 // />,
                 <MenuItem
                   icon={
-                    <LoginIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ArrowLeftOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text={'Login'}
                   onClick={() => {
@@ -222,7 +222,7 @@ const Header = ({ selectCompany }) => {
 
         <div className=" flex justify-end ">
           {/* {openMenu == false && ( */}
-          <MenuIcon
+          <Bars3Icon
             onClick={() => {
               setOpenMenu(!openMenu)
             }}

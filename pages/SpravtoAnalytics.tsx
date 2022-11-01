@@ -4,10 +4,10 @@ import Header from '../components/Header'
 
 import { auth, GetSpravatoTracking } from '../firebase'
 import { MenuItem } from '../components/MenuItem'
-import { UserIcon } from '@heroicons/react/outline'
+import { UserIcon } from '@heroicons/react/24/outline'
 import Segment from '../components/GraphComponents/segment'
 import BarGraph from '../components/GraphComponents/BarGraph'
-import { data } from '@tensorflow/tfjs'
+
 import Datepicker from '../components/Datepicker'
 import PieGraph from '../components/GraphComponents/PieGraph'
 import { useRouter } from 'next/router'
@@ -90,7 +90,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   //number of days in current month
   const daysInMonth = new Date(
     new Date().getFullYear(),
-    new Date().getMonth() + 1,
+    selectedDate.getMonth() + 1,
     0
   ).getDate()
   const daysInMonthArray = []
@@ -141,7 +141,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
 
       return {
         date: day,
-        numberOfSpravato: dayNumber,
+        Number_of_Spravatos: dayNumber,
       }
     })
   }
@@ -163,7 +163,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
 
       return {
         date: month,
-        numberOfSpravato: monthNumber,
+        Number_of_Spravatos: monthNumber,
       }
     })
   }
@@ -181,7 +181,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
 
       return {
         date: year,
-        numberOfSpravato: monthNumber,
+        Number_of_Spravatos: monthNumber,
       }
     })
   }
@@ -195,7 +195,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
     if (!maSpravatoArray.includes(spravatoTracking.MA.trim())) {
       maSpravatoArray.push({
         ma: spravatoTracking.MA.trim(),
-        numberOfSpravatos: 1,
+        Number_of_Spravatos: 1,
       })
     } else {
       maSpravatoArray.map((maSpravato: any) => {
@@ -208,7 +208,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   const dataForMA = maSpravatoArray.map((maSpravato: any) => {
     return {
       ma: maSpravato.ma,
-      numberOfSpravatos: maSpravato.numberOfSpravatos,
+      Number_of_Spravatos: maSpravato.numberOfSpravatos,
     }
   })
   console.log(dataForMA)
@@ -282,6 +282,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
                   setAll={setAll}
                   curentTimeFrame={PickedDate(selectedDate)}
                   totalForTimeFrame={totalDayNumber}
+                  toolTipText="Number_of_Spravatos"
                 />
               )}
               {maSpravatoPercentage && (

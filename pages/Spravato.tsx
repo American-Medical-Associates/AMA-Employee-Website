@@ -4,10 +4,10 @@ import Header from '../components/Header'
 import { MenuItem } from '../components/MenuItem'
 import { useRouter } from 'next/router'
 import {
-  ClipboardListIcon,
+  ClipboardDocumentListIcon,
   PencilIcon,
   ChartBarIcon,
-} from '@heroicons/react/outline'
+} from '@heroicons/react/24/outline'
 import { editSpravatoTracking, GetSpravatoTracking } from '../firebase'
 import TextInput from '../components/TextInput'
 import Datepicker from '../components/Datepicker'
@@ -395,7 +395,7 @@ const Spravato: NextPage<{}> = () => {
           <div className=" mx-10 flex h-20 w-[23%] flex-col ">
             <MenuItem
               icon={
-                <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
               }
               text="Spravato Tracking Sheet"
               onClick={() => {

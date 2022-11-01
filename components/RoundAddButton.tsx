@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import { PlusIcon, MinusIcon } from '@heroicons/react/outline'
+import { PlusIcon, MinusIcon } from '@heroicons/react/24/outline'
 export const RoundAddButton: React.FC<{
   typeOfButton?: string
   onClick: any

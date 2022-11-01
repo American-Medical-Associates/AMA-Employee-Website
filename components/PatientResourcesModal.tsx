@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { XIcon, UserAddIcon } from '@heroicons/react/outline'
+import { XMarkIcon, UserPlusIcon } from '@heroicons/react/24/outline'
 import SearchComponent from './searchComponent'
 import DateInput from './DateInput'
 import TextInput from './TextInput'
@@ -220,7 +220,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
       <div className=" h-[70%] w-[60%] rounded-[30px] bg-[#ffffff] shadow-2xl ">
         <div className="flex h-[15%] grid-rows-3 flex-row  rounded-tr-[30px] rounded-tl-[30px] bg-[#76a3ff] ">
           <div className=" mx-10 mt-5 w-full">
-            <UserAddIcon
+            <UserPlusIcon
               onClick={() => {
                 setShowAddNewUser(!showAddNewUser)
               }}
@@ -231,7 +231,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
             <h3 className="w-full text-center text-2xl">Patients</h3>
           </div>
           <div className=" mx-10 mt-5 flex w-full justify-end">
-            <XIcon
+            <XMarkIcon
               onClick={() => {
                 setClose(false)
               }}

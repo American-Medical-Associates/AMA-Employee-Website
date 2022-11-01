@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import {
   ChartBarIcon,
   ClipboardIcon,
-  ClipboardListIcon,
-} from '@heroicons/react/outline'
+  ClipboardDocumentListIcon,
+} from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
 
 const Resources: NextPage<{}> = () => {
@@ -42,7 +42,7 @@ const Resources: NextPage<{}> = () => {
             </div>
             <MenuItem
               icon={
-                <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
               }
               text="Submissions"
               onClick={() => {
@@ -62,7 +62,7 @@ const Resources: NextPage<{}> = () => {
             </div>
             <MenuItem
               icon={
-                <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
               }
               text="Booked Appointments"
               onClick={() => {

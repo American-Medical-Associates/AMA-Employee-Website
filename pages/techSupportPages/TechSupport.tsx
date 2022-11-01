@@ -1,19 +1,21 @@
 import { NextPage } from 'next'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import { useRouter } from 'next/router'
 import { MenuItem } from '../../components/MenuItem'
 import {
   ClipboardIcon,
   ChartBarIcon,
-  ClipboardListIcon,
-  DesktopComputerIcon,
-  CodeIcon,
-} from '@heroicons/react/outline'
+  ClipboardDocumentListIcon,
+  ComputerDesktopIcon,
+  CodeBracketIcon,
+} from '@heroicons/react/24/outline'
 import SupportTicket from '../../components/support/SupportTicket'
 import SupportAnalytics from '../../components/support/SupportAnalytics'
 import OpenTickets from '../../components/support/OpenTickets'
 import ClosedTickets from '../../components/support/ClosedTickets'
+import { GetSupportTickets } from '../../firebase'
+import Datepicker from '../../components/Datepicker'
 
 const TechSupport: NextPage<{}> = () => {
   const router = useRouter()
@@ -21,6 +23,11 @@ const TechSupport: NextPage<{}> = () => {
   const [showOpenTickets, setShowOpenTickets] = useState(false)
   const [showClosedTickets, setShowClosedTickets] = useState(false)
   const [showAnalytics, setShowAnalytics] = useState(false)
+  const [supportTickets, setSupportTickets] = useState([])
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  useEffect(() => {
+    GetSupportTickets({ supportTicketsState: setSupportTickets })
+  }, [])
   return (
     <div>
       <Header selectCompany={'AMA'} />
@@ -31,7 +38,7 @@ const TechSupport: NextPage<{}> = () => {
             <div className="mb-5">
               <MenuItem
                 icon={
-                  <DesktopComputerIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  <ComputerDesktopIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
                 text="Support Ticket"
                 onClick={() => {
@@ -45,7 +52,7 @@ const TechSupport: NextPage<{}> = () => {
             <div className="mb-5">
               <MenuItem
                 icon={
-                  <CodeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  <CodeBracketIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
                 text="Open Tickets"
                 onClick={() => {
@@ -59,7 +66,7 @@ const TechSupport: NextPage<{}> = () => {
             <div className="mb-5">
               <MenuItem
                 icon={
-                  <ClipboardListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                 }
                 text="Closed Tickets"
                 onClick={() => {
@@ -70,7 +77,7 @@ const TechSupport: NextPage<{}> = () => {
                 }}
               />
             </div>
-            <div className="mb-5">
+            <div className="mb-16">
               <MenuItem
                 icon={
                   <ChartBarIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
@@ -84,12 +91,25 @@ const TechSupport: NextPage<{}> = () => {
                 }}
               />
             </div>
+            {showAnalytics && (
+              <Datepicker
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            )}
           </div>
           <div className="h-[80vh] w-[75%] ">
             {showSupportTicket && <SupportTicket />}
-            {showOpenTickets && <OpenTickets />}
-            {showClosedTickets && <ClosedTickets />}
-            {showAnalytics && <SupportAnalytics />}
+            {showOpenTickets && <OpenTickets supportTickets={supportTickets} />}
+            {showClosedTickets && (
+              <ClosedTickets supportTickets={supportTickets} />
+            )}
+            {showAnalytics && (
+              <SupportAnalytics
+                selectedDate={selectedDate}
+                supportTickets={supportTickets}
+              />
+            )}
           </div>
         </div>
       </main>

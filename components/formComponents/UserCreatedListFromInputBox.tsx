@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import MainButton from '../MainButton'
 import TextInput from '../TextInput'
 
-import { XIcon } from '@heroicons/react/outline'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import DateInput from '../DateInput'
 
 const UserCreatedListFromInputBox: React.FC<{
@@ -52,7 +52,7 @@ const UserCreatedListFromInputBox: React.FC<{
             </p>
           </div>
           <div className="mx-3 mt-5 flex items-center justify-center ">
-            <XIcon
+            <XMarkIcon
               onClick={() => {
                 //get the index of the item
                 const index = list.indexOf(item)
@@ -84,7 +84,7 @@ const UserCreatedListFromInputBox: React.FC<{
             </p>
           </div>
           <div className="mx-3 mt-5 flex items-center justify-center ">
-            <XIcon
+            <XMarkIcon
               onClick={() => {
                 //get the index of the item
                 const index = list.indexOf(item)
@@ -105,7 +105,7 @@ const UserCreatedListFromInputBox: React.FC<{
             <p className="mx-10 my-3 text-2xl text-[#616161]">{item}</p>
           </div>
           <div className="mx-3 mt-5 flex items-center justify-center ">
-            <XIcon
+            <XMarkIcon
               onClick={() => {
                 //get the index of the item
                 const index = list.indexOf(item)

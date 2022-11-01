@@ -1,12 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Fragment } from 'react'
 import { MenuItem } from './MenuItem'
-import {
-  MenuIcon,
-  LogoutIcon,
-  LoginIcon,
-  HomeIcon,
-} from '@heroicons/react/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 const DropDownMenu: React.FC<{
   item: Array<any>
   setOpenMenu: any
@@ -31,7 +26,7 @@ const DropDownMenu: React.FC<{
     >
       <div className=" flex w-full justify-end ">
         <div className=" flex justify-end ">
-          <MenuIcon
+          <Bars3Icon
             onClick={() => {
               setOpenMenu(!openMenu)
             }}

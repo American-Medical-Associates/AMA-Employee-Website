@@ -7,12 +7,12 @@ import Image from 'next/image'
 import Header from '../components/Header'
 import MainButton from '../components/MainButton'
 import TensorFlowBert from '../components/TensorFlowBert'
-import { auth, functions, getCompany } from '../firebase'
+import { auth, functions, getAllUserInfo } from '../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 // import { sendMessage } from '../components/TwilloMessage'
 import { db } from '../firebase'
 import { useRouter } from 'next/router'
-import { setCompany } from '../redux/slices/companySlice'
+import { setCompany, setChannelID } from '../redux/slices/companySlice'
 import { useDispatch } from 'react-redux'
 const Home: NextPage = () => {
   // const functions = getFunctions()
@@ -27,7 +27,11 @@ const Home: NextPage = () => {
   }, [])
   useEffect(() => {
     if (auth.currentUser?.email != null) {
-      getCompany({ setCompany: setCompany, setCompanyDispatch: dispatch })
+      getAllUserInfo({
+        setCompany: setCompany,
+        setChannelID: setChannelID,
+        dispatch: dispatch,
+      })
     }
   }, [auth.currentUser?.email])
 

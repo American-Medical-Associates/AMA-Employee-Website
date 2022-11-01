@@ -32,6 +32,7 @@ import {
 import { emit } from 'process'
 import { async } from '@firebase/util'
 import { Faxes } from './pages/Faxes'
+import { setChannelID } from './redux/slices/companySlice'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyBCwzGo9wi9_EnYzIGBcxUQyS59uEoNXAU',
@@ -652,10 +653,17 @@ export function GetSpravatoTracking({ SpravatoTrackingArray }) {
     e
   }
 }
-export function getCompany({ setCompany, setCompanyDispatch }) {
+// export function getCompany({ setCompany, setCompanyDispatch }) {
+//   onSnapshot(doc(db, 'users', auth.currentUser.email), (doc) => {
+//     // setCompanyDB(doc.get("company"));
+//     setCompanyDispatch(setCompany(doc.get('company')))
+//   })
+// }
+export function getAllUserInfo({ setChannelID, setCompany, dispatch }) {
   onSnapshot(doc(db, 'users', auth.currentUser.email), (doc) => {
     // setCompanyDB(doc.get("company"));
-    setCompanyDispatch(setCompany(doc.get('company')))
+    dispatch(setCompany(doc.get('company')))
+    dispatch(setChannelID(doc.get('channels')))
   })
 }
 
@@ -1581,7 +1589,7 @@ export async function AddSupportTicket({
   ticketNumber,
 }) {
   await setDoc(
-    doc(db, 'SupportTickets', ticketNumber),
+    doc(db, 'supportTickets', ticketNumber),
     {
       firstName: firstName,
 
@@ -1595,6 +1603,7 @@ export async function AddSupportTicket({
       email: auth.currentUser.email,
       timestamp: serverTimestamp(),
       company: company,
+      workingOnTicket: false,
     },
     { merge: true }
   )
@@ -1606,14 +1615,14 @@ export async function AddScreenShotForSupportTicketsStorageAndDB({
 }) {
   const imageRef = ref(
     storage,
-    `SupportTickets/${ticketNumber}${subject}/ScreenShot`
+    `supportTickets/${ticketNumber}${subject}/ScreenShot`
   )
   await uploadString(imageRef, selectedFile, 'data_url').then(
     async (snapshot) => {
       const download = await getDownloadURL(imageRef)
 
       await setDoc(
-        doc(db, 'SupportTickets', ticketNumber),
+        doc(db, 'supportTickets', ticketNumber),
         {
           screenShot: download,
         },
@@ -1624,7 +1633,7 @@ export async function AddScreenShotForSupportTicketsStorageAndDB({
 }
 export async function GetSupportTickets({ supportTicketsState }) {
   onSnapshot(
-    query(collection(db, 'SupportTickets'), orderBy('timestamp', 'desc')),
+    query(collection(db, 'supportTickets'), orderBy('timestamp', 'desc')),
     (querySnapshot) => {
       const arrays = []
       querySnapshot.forEach((snap) => {
@@ -1643,5 +1652,103 @@ export async function AddNPToArchive({ email, archiveState }) {
       archived: archiveState,
     },
     { merge: true }
+  )
+}
+//add person who is working on the support ticket
+export async function AddPersonWorkingOnSupportTicket({ ticketNumber }) {
+  await setDoc(
+    doc(db, 'supportTickets', ticketNumber),
+    {
+      personWorkingOnTicket: auth.currentUser.email,
+      workingOnTicket: true,
+    },
+    { merge: true }
+  )
+}
+//close support ticket
+export async function CloseSupportTicket({ ticketNumber, openTicketState }) {
+  await setDoc(
+    doc(db, 'supportTickets', ticketNumber),
+    {
+      workingOnTicket: false,
+      openTicket: openTicketState,
+      whoClosedTicket: auth.currentUser.email,
+    },
+    { merge: true }
+  )
+}
+//add a note to a support ticket
+export async function AddNoteToSupportTicket({ ticketNumber, note }) {
+  await setDoc(
+    doc(db, 'supportTickets', ticketNumber),
+    {
+      note: note,
+      noteTimestamp: serverTimestamp(),
+      noteBy: auth.currentUser.email,
+    },
+    { merge: true }
+  )
+}
+//add  a message to a support
+export async function CreateChannelMessageToSupport({ company, ticketNumber }) {
+  await setDoc(
+    doc(db, 'Messages', `support-${ticketNumber}`),
+    {
+      messageTimestamp: serverTimestamp(),
+      channelMembers: [
+        auth.currentUser.email,
+        'juju@gmail.com',
+        'z.rizzo@americanmedicalassociatesaz.com',
+      ],
+      channelName: `support-${ticketNumber}`,
+      channelType: 'support',
+      company: company,
+    },
+    { merge: true }
+  )
+    .then(async () => {
+      await setDoc(
+        doc(db, 'users', auth.currentUser.email),
+        {
+          channels: arrayUnion(`support-${ticketNumber}`),
+        },
+        { merge: true }
+      )
+    })
+    .then(async () => {
+      await setDoc(
+        doc(db, 'users', 'juju@gmail.com'),
+        {
+          channels: arrayUnion(`support-${ticketNumber}`),
+        },
+        { merge: true }
+      )
+    })
+    .then(async () => {
+      await setDoc(
+        doc(db, 'users', 'z.rizzo@americanmedicalassociatesaz.com'),
+        {
+          channels: arrayUnion(`support-${ticketNumber}`),
+        },
+        { merge: true }
+      )
+    })
+}
+//get messages for a support ticket
+export async function getMessages({ ChannelID, messagesState }) {
+  onSnapshot(
+    query(
+      collection(db, 'Messages', ChannelID, 'messages'),
+      orderBy('messageTimestamp', 'desc')
+    ),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      messagesState(arrays)
+      console.log(arrays)
+    }
   )
 }

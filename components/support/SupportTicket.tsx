@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import MainButton from '../MainButton'
 import TextInput from '../TextInput'
 import LargeTextBox from '../LargeTextBox'
-import { useSelector } from 'react-redux'
-import { selectCompany } from '../../redux/slices/companySlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectCompany,
+  setSupportTicketNumber,
+} from '../../redux/slices/companySlice'
 import {
   AddScreenShotForSupportTicketsStorageAndDB,
   AddSupportTicket,
@@ -12,6 +15,7 @@ import CustomCheckBoxFeild from '../formComponents/CustomCheckBoxFeild'
 import CustomYesOrNo from '../formComponents/CustomYesOrNo'
 import { auth, functions } from '../../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
+
 const SupportTicket: React.FC<{}> = () => {
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
@@ -23,6 +27,7 @@ const SupportTicket: React.FC<{}> = () => {
   const [firstName, setFirstName] = useState('')
   const ticketNumber = Math.floor(Math.random() * 1000000000).toString()
   const sendMessageFunction = httpsCallable(functions, 'sendMessage')
+  const dispatch = useDispatch()
 
   const uploadimage = ({ e }: { e: any }) => {
     try {
@@ -65,6 +70,7 @@ const SupportTicket: React.FC<{}> = () => {
           'Setting up Computer, Printer, Monitor,ect...',
           'Issue with AMA app, or AMA website',
           'Issue with Something the the IT department did NOT make. ECW, Microsoft Teams, ect...',
+          'Feature Request',
         ]}
         howManyCheckBoxes={0}
         setCheckBoxValues={setWhatKindOfIssueIsIt}
@@ -81,8 +87,8 @@ const SupportTicket: React.FC<{}> = () => {
       {urgent == 'Yes' && (
         <div className=" flex w-full flex-col items-center justify-center">
           <p className=" my-10 text-red-500">
-            If it is zach will get a text message and get back to you as soon as
-            possible
+            If it is urgent zach will get a text message and get back to you as
+            soon as possible
           </p>
           <TextInput
             placeHolder="Call back number for urgent issues"
@@ -134,10 +140,13 @@ const SupportTicket: React.FC<{}> = () => {
           } else if (message == '') {
             alert('Please enter a message')
             return
-          } else if (screenShot == '') {
-            alert('Please upload a screenshot')
-            return
-          } else {
+          }
+          // else
+          // if (screenShot == '') {
+          //   alert('Please upload a screenshot')
+          //   return
+          // }
+          else {
             AddSupportTicket({
               subject: subject,
               message: message,
@@ -150,16 +159,18 @@ const SupportTicket: React.FC<{}> = () => {
               firstName: firstName,
             })
               .then(() => {
-                AddScreenShotForSupportTicketsStorageAndDB({
-                  subject: subject,
-                  ticketNumber: ticketNumber,
-                  selectedFile: screenShot,
-                })
+                if (screenShot != '') {
+                  AddScreenShotForSupportTicketsStorageAndDB({
+                    subject: subject,
+                    ticketNumber: ticketNumber,
+                    selectedFile: screenShot,
+                  })
+                }
               })
               .then(() => {
                 if (urgent == 'Yes') {
                   sendMessageFunction({
-                    phoneNumber: +16233133383,
+                    phone: '+16233133383',
                     message: `${firstName} has a urgent issue with ${whatKindOfIssueIsIt} and the ticket number is ${ticketNumber} please call them back at ${urgentCallBackPhoneNumber}.`,
                   })
                 }
