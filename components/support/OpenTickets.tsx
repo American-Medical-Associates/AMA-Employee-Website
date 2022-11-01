@@ -70,7 +70,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
               <div className=" text-[#4a6ee4] underline">{formattedTime}</div>
             </div>
             <div className=" flex w-[25%] flex-col items-center justify-center  ">
-              {ticket.email == auth.currentUser?.email && (
+              {/* {ticket.email == auth.currentUser?.email && (
                 <MenuItem
                   icon={
                     <PaperAirplaneIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
@@ -85,7 +85,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
                     router.push('/MessagingPage')
                   }}
                 />
-              )}
+              )} */}
             </div>
             <div className="mx-5 flex w-[25%] flex-col items-center justify-center  ">
               {ticket.workingOnTicket == false && (
