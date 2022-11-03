@@ -239,7 +239,10 @@ const FormSubmissions: NextPage<{}> = () => {
           </div>
         )
       }
-      if (keyWithSpaces.includes('Picture')) {
+      if (
+        keyWithSpaces.includes('Picture') ||
+        keyWithSpaces.includes('picture')
+      ) {
         return (
           <div className="flex flex-col items-center justify-center">
             <h1 className="mt-10 text-center text-2xl font-bold text-[#525252] underline ">

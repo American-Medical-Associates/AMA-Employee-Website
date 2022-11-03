@@ -23,7 +23,7 @@ const NewPatientPacketAnalytics: NextPage<{}> = () => {
     <div>
       <Header selectCompany={'AMA'} />
       <main className=" mt-5 flex h-full  w-full flex-col ">
-        <h1 className=" text-center text-2xl ">Tech Support</h1>
+        <h1 className=" text-center text-2xl ">New Patient Packet</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">
           <div className=" h-[80vh] w-[25%] p-5 ">
             <div className="mb-5">

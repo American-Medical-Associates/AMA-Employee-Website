@@ -2081,6 +2081,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 company: company,
               })
                 .then(() => {
+                  alert('Packet uploaded successfully now attaching photos')
+                })
+
+                .then(() => {
                   AddPictureOfPatientFaceToStorageAndToDB({
                     selectedFile: pictureOfTheirFace,
                     emailValue: emailValue,
@@ -2108,7 +2112,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
                 })
                 .then(() => {
-                  alert('Thank you for your submission')
+                  alert('Photos uploaded, thank you for your submission')
                 })
             }
           }}

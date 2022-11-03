@@ -1371,7 +1371,7 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
           await setDoc(
             doc(
               db,
-              db,
+
               'companys',
               'AMA',
               'patients',
@@ -1419,7 +1419,6 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
         .then(async () => {
           await setDoc(
             doc(
-              db,
               db,
               'companys',
               'AMA',
