@@ -1752,3 +1752,82 @@ export async function getMessages({ ChannelID, messagesState }) {
     }
   )
 }
+// add IVinfusionIntakeForm to database
+export async function AddIVinfusionIntakeForm({
+  firstName,
+  lastName,
+  email,
+  phoneNumber,
+  DOB,
+  signature,
+
+  signatureDate,
+  AgreeForDigitalSignature,
+  whatTheyConsentTo,
+}) {
+  await setDoc(
+    doc(db, 'companys', 'Vitalize Nation', 'IVinfusionIntakeForm', email),
+    {
+      firstName: firstName,
+      lastName: lastName,
+      fullName: lastName + ', ' + firstName,
+      email: email,
+      phoneNumber: phoneNumber,
+      DOB: DOB,
+      signature: signature,
+      company: 'Vitalize Nation',
+      signatureDate: signatureDate,
+      AgreeForDigitalSignature: AgreeForDigitalSignature,
+      whatTheyConsentTo: whatTheyConsentTo,
+      timestamp: serverTimestamp(),
+    },
+    { merge: true }
+  )
+    .then(async () => {
+      //add patient to Vitalize Nation
+      await setDoc(
+        doc(db, 'companys', 'Vitalize Nation', 'patients', email),
+        {
+          firstName: firstName,
+          lastName: lastName,
+          fullName: lastName + ', ' + firstName,
+          email: email,
+          phoneNumber: phoneNumber,
+          DOB: DOB,
+          signature: signature,
+          company: 'Vitalize Nation',
+          timestamp: serverTimestamp(),
+        },
+        { merge: true }
+      )
+    })
+    .then(async () => {
+      // add to patients submition collection
+      await setDoc(
+        doc(
+          db,
+          'companys',
+          'Vitalize Nation',
+          'patients',
+          email,
+          'Forms',
+          'IVinfusionIntakeForm'
+        ),
+        {
+          firstName: firstName,
+          lastName: lastName,
+          fullName: lastName + ', ' + firstName,
+          email: email,
+          phoneNumber: phoneNumber,
+          DOB: DOB,
+          signature: signature,
+          company: 'Vitalize Nation',
+          signatureDate: signatureDate,
+          AgreeForDigitalSignature: AgreeForDigitalSignature,
+          whatTheyConsentTo: whatTheyConsentTo,
+          timestamp: serverTimestamp(),
+        },
+        { merge: true }
+      )
+    })
+}

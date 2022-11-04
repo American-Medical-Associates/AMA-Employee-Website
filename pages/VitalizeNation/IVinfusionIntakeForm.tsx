@@ -7,6 +7,8 @@ import DateInput from '../../components/DateInput'
 import MainButton from '../../components/MainButton'
 import PhoneNumberInput from '../../components/PhoneNumberInput'
 import Header from '../../components/Header'
+import Signature from '../../components/formComponents/Signature'
+import { AddIVinfusionIntakeForm } from '../../firebase'
 
 const IVinfusionIntakeForm: NextPage<{}> = () => {
   const router = useRouter()
@@ -16,17 +18,20 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
   const [phone, setPhone] = useState('')
   const [DOB, setDOB] = useState('')
   const [whatTheyConsentTo, setWhatTheyConsentTo] = useState([])
+  const [signature, setSignature] = useState('')
+  const [signatureDate, setSignatureDate] = useState('')
+  const [agreeSignatureIsValid, setAgreeSignatureIsValid] = useState(false)
 
   return (
     <div className=" flex flex-col items-center justify-center">
       <Header selectCompany={'Vitalize'} />
       <main className=" my-16 flex flex-col items-center justify-center">
-        <h1>PATIENT CONSENT FORM </h1>
-        <h2>
+        <h1 className=" my-10 text-2xl font-bold">PATIENT CONSENT FORM </h1>
+        <h2 className=" font-semiboldmy-5 text-center text-xl">
           Intravenous (IV) Infusion/ Intramuscular (IM) OR Subscutaneous (SQ)
           Injection Therapy
         </h2>
-        <p>
+        <p className=" my-5 ">
           This document is intended to serve as confirmation of my informed
           consent for IV/IM/SQ therapy ordered by Ehreema Nadir, MD PLLC - DBA
           Vitalize Med Spa, by a Vitalize Infusion Center Nurse.
@@ -34,8 +39,8 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
         <TextInput
           placeHolder="First Name"
           value={firstName}
-          onChange={() => {
-            setFirstName(firstName)
+          onChange={(text: any) => {
+            setFirstName(text.target.value)
           }}
           id="firstName"
           widthPercentage="w-1/2"
@@ -43,8 +48,8 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
         <TextInput
           placeHolder="Last Name"
           value={lastName}
-          onChange={() => {
-            setLastName(lastName)
+          onChange={(text: any) => {
+            setLastName(text.target.value)
           }}
           id="lastName"
           widthPercentage="w-1/2"
@@ -52,8 +57,8 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
         <DateInput
           placeHolder="Date of Birth"
           value={DOB}
-          onChange={() => {
-            setDOB(DOB)
+          onChange={(text: any) => {
+            setDOB(text.target.value)
           }}
           id="DOB"
           widthPercentage="w-1/2"
@@ -61,8 +66,8 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
         <PhoneNumberInput
           placeHolder="Phone Number"
           value={phone}
-          onChange={() => {
-            setPhone(phone)
+          onChange={(text: any) => {
+            setPhone(text.target.value)
           }}
           id="phone"
           widthPercentage="w-1/2"
@@ -70,8 +75,8 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
         <TextInput
           placeHolder="Email"
           value={email}
-          onChange={() => {
-            setEmail(email)
+          onChange={(text: any) => {
+            setEmail(text.target.value)
           }}
           id="email"
           widthPercentage="w-1/2"
@@ -97,6 +102,15 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
             setCheckBoxValues={setWhatTheyConsentTo}
           />
         </div>
+        <Signature
+          signatureValue={signature}
+          signatureState={setSignature}
+          agreeThatTheirSignatureIsValid={agreeSignatureIsValid}
+          agreeThatTheirSignatureIsValidState={setAgreeSignatureIsValid}
+          date={signatureDate}
+          dateState={setSignatureDate}
+        />
+
         <MainButton
           buttonText="Submit"
           onClick={() => {
@@ -107,12 +121,27 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
               email === '' ||
               phone === '' ||
               DOB === '' ||
-              whatTheyConsentTo.length === 0
+              whatTheyConsentTo.length < 12 ||
+              signature === '' ||
+              signatureDate === '' ||
+              !agreeSignatureIsValid
             ) {
-              alert('Please fill out all the fields')
+              alert('Please fill out all the fields and agree to the signature')
               return
             } else {
-              alert('Thank you for your submission')
+              AddIVinfusionIntakeForm({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                phoneNumber: phone,
+                DOB: DOB,
+                whatTheyConsentTo: whatTheyConsentTo,
+                signature: signature,
+                signatureDate: signatureDate,
+                AgreeForDigitalSignature: agreeSignatureIsValid,
+              }).then(() => {
+                router.push('/VitalizeNation/ThankYouForSubmitting')
+              })
             }
           }}
           buttonWidth="w-1/2"
