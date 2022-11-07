@@ -35,7 +35,7 @@ const Resources: NextPage<{}> = () => {
                   }
                   text="Submissions"
                   onClick={() => {
-                    router.push('/FormSubmissions')
+                    router.push('/NewPatientPacketSubmissions')
                   }}
                 />
               </div>

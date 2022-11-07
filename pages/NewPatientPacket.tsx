@@ -1587,70 +1587,70 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               return
             } else if (
               primaryInsurance === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance name')
               router.push('/NewPatientPacket/#insuranceName')
               return
             } else if (
               primaryInsuranceID === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance policy number')
               router.push('/NewPatientPacket/#insurancePolicyNumber')
               return
             } else if (
               primaryInsurancePhone === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance phone number')
               router.push('/NewPatientPacket/#insurancePhoneNumber')
               return
             } else if (
               primaryInsuranceGroup === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance group number')
               router.push('/NewPatientPacket/#insuranceGroupNumber')
               return
             } else if (
               primaryInsuranceAddress1 === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance address')
               router.push('/NewPatientPacket/#insuranceAddress')
               return
             } else if (
               primaryInsuranceCity === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance city')
               router.push('/NewPatientPacket/#insuranceAddress')
               return
             } else if (
               primaryInsuranceState === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance state')
               router.push('/NewPatientPacket/#insuranceAddress')
               return
             } else if (
               primaryInsuranceZip === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance zip code')
               router.push('/NewPatientPacket/#insuranceAddress')
               return
             } else if (
               primarySubscribersName === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance subscribers name')
               router.push('/NewPatientPacket/#subscriberName')
               return
             } else if (
               primaryPictureOfInsuranceCardFront === '' &&
-              howDoTheyWishToPay === 'insurance'
+              howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please upload a picture of your insurance card front')
               router.push('/NewPatientPacket/#insuranceCardPicture')
