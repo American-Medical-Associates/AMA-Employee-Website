@@ -189,7 +189,6 @@ const JobApplicationPage: NextPage<{}> = () => {
       !phoneNumber ||
       !email ||
       !addressState ||
-      !addressState2 ||
       !city ||
       !state ||
       !zipCode ||
