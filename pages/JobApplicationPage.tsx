@@ -184,38 +184,38 @@ const JobApplicationPage: NextPage<{}> = () => {
   const currentDate = new Date()
   const checkForInput: any = () => {
     if (
-      !firstName ||
-      !lastName ||
-      !phoneNumber ||
-      !email ||
-      !addressState ||
-      !city ||
-      !state ||
-      !zipCode ||
-      // !profileLink ||
-      // !linkType ||
-      !aboutYou ||
-      // !resume ||
-      !radio1 ||
-      !radio2 ||
-      !radio3 ||
-      !radio4 ||
-      !radio6 ||
-      !radio7 ||
-      !fullLegalName ||
-      // !race ||
-      // !gender ||
-      // !veteranStatus ||
-      !statmentOfAvailability ||
-      // !disabilityStatus ||
-      !highSchoolState ||
-      !referenceNameState ||
-      !checkBoxAgree3 ||
-      !referenceNameState ||
-      !referenceNameValue2 ||
-      !referencePhoneNumberState ||
-      !referencePhoneNumberValue2 ||
-      !previouslyApplied
+      !firstName
+      // !lastName ||
+      // !phoneNumber ||
+      // !email ||
+      // !addressState ||
+      // !city ||
+      // !state ||
+      // !zipCode ||
+      // // !profileLink ||
+      // // !linkType ||
+      // !aboutYou ||
+      // // !resume ||
+      // !radio1 ||
+      // !radio2 ||
+      // !radio3 ||
+      // !radio4 ||
+      // !radio6 ||
+      // !radio7 ||
+      // !fullLegalName ||
+      // // !race ||
+      // // !gender ||
+      // // !veteranStatus ||
+      // !statmentOfAvailability ||
+      // // !disabilityStatus ||
+      // !highSchoolState ||
+      // !referenceNameState ||
+      // !checkBoxAgree3 ||
+      // !referenceNameState ||
+      // !referenceNameValue2 ||
+      // !referencePhoneNumberState ||
+      // !referencePhoneNumberValue2 ||
+      // !previouslyApplied
     ) {
       alert('Please make sure all the fields are filled out')
     } else if (phoneNumber.length != 10) {
