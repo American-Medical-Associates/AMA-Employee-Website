@@ -196,7 +196,7 @@ const JobApplicationPage: NextPage<{}> = () => {
       // !profileLink ||
       // !linkType ||
       !aboutYou ||
-      !resume ||
+      // !resume ||
       !radio1 ||
       !radio2 ||
       !radio3 ||
