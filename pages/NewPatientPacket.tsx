@@ -370,12 +370,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         checkedStateWithPartner={setWithPartner}
         isCheckedWithPartner={withPartner}
       />
-      <CustomYesOrNo
-        marginLeft="pl-[25%]"
-        text="May we take your Picture for your Electronic Medical Record?"
-        CheckState={setMayWeTakeYourPicture}
-        id="mayWeTakeYourPicture"
-      />
+      <div className=" w-[80%]">
+        <CustomYesOrNo
+          marginLeft="pl-[30%]"
+          text="May we take your Picture for your Electronic Medical Record?"
+          CheckState={setMayWeTakeYourPicture}
+          id="mayWeTakeYourPicture"
+        />
+      </div>
       <TakeAPictureCustom
         text="Take A Picture Of You"
         picture={pictureOfTheirFace}
@@ -402,7 +404,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         ]}
         howManyCheckBoxes={8}
       />
-      ,
+
       <SectionWithTitle
         title="Emergency Contact"
         subTitle="Please provide the name and phone number of a person we can contact in case of an emergency."
@@ -817,12 +819,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
         ]}
       />
+
       <CustomYesOrNo
         id="doYouHaveAnyMajorIllnesses"
-        marginLeft="ml-[25%]"
+        marginLeft="ml-[30%]"
         text="Do you have a history or currently have any major illnesses?"
         CheckState={setDoYouHaveAHistoryOfAnyMajorIllness}
       />
+
       {doYouHaveAHistoryOfAnyMajorIllness === 'Yes' && (
         <UserCreatedListFromInputBox
           id="majorIllnesses"
@@ -831,12 +835,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           list={allMajorIllnesses}
         />
       )}
+
       <CustomYesOrNo
         id="doYouHaveAnySurgeries"
-        marginLeft="ml-[25%]"
+        marginLeft="ml-[30%]"
         text="Do you have a history of any major surgeries or Hospitalizations?"
         CheckState={setDoYouHaveAHistoryOfSurgeries}
       />
+
       {doYouHaveAHistoryOfSurgeries === 'Yes' && (
         <UserCreatedListFromInputBox
           id="majorSurgeries"
@@ -1542,10 +1548,19 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert('Please enter your phone number')
               //scroll to phone number feild
               router.push('/NewPatientPacket/#cellPhone')
+              //scroll up 200px
+              // window.scrollBy(0, -200)
               return
             } else if (emailValue === '') {
+              router.push('/NewPatientPacket/#email').then(() => {
+                //wait 3sec for page to load
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+                //scroll up 200px
+              })
               alert('Please enter your email')
-              router.push('/NewPatientPacket/#email')
+
               return
             } else if (addressValue === '') {
               alert('Please enter your address')
@@ -1564,8 +1579,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               router.push('/NewPatientPacket/#social')
               return
             } else if (nameOfEmergencyContact === '') {
+              router
+                .push('/NewPatientPacket/#emergencyContactName')
+                .then(() => {
+                  window.scrollBy(0, -1500)
+                })
               alert('Please enter the name of your emergency contact')
-              router.push('/NewPatientPacket/#emergencyContactName')
+              window.scrollBy(0, -1500)
               return
             } else if (EmergencyContactRelationShip === '') {
               alert('Please enter the relationship of your emergency contact')

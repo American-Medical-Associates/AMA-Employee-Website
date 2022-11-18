@@ -124,7 +124,9 @@ const CustomCheckBoxFeild: React.FC<{
   return (
     <div className={`my-10 flex items-start justify-start ${marginLeft}`}>
       <div className=" flex flex-col ">
-        <h3 className="my-5 ml-5 text-2xl text-[#616161]">{title}</h3>
+        <h3 className="my-5 ml-5 text-[#616161]  sm:text-lg md:text-2xl">
+          {title}
+        </h3>
         {checkBoxes}
         {/* {checkBoxValues} */}
         {checkBoxValues == 'Other' && (

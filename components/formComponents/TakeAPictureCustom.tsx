@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Camera from '../camera'
 import MainButton from '../MainButton'
 import TextInput from '../TextInput'
+import Compressor from 'compressorjs'
 
 const TakeAPictureCustom: React.FC<{
   text: string
@@ -11,7 +12,7 @@ const TakeAPictureCustom: React.FC<{
   id?: string
 }> = ({ text, picture, setPicture, key, id }) => {
   const [pictureUpload, setPictureUpload] = useState(false)
-  const [reducedImage, setReducedImage] = useState('')
+
   const uploadimage = ({ e }: { e: any }) => {
     try {
       const reader = new FileReader()
@@ -21,6 +22,19 @@ const TakeAPictureCustom: React.FC<{
         //reduce the size of the image to 1048487 bites
         if (image.size > 1048487) {
           //reduce the size of the image to 1048487 bites
+          // reader.readAsDataURL(image)
+          // reader.onloadend = () =>
+          //   new Compressor(image, {
+          //     quality: 0.6,
+          //     success(result) {
+          //       setPicture(result)
+          //       setPictureUpload(true)
+          //     },
+          //     error(err) {
+          //       alert(err)
+          //     },
+          //   })
+
           const reader = new FileReader()
           reader.readAsDataURL(image)
           reader.onload = (readEvent) => {
@@ -50,16 +64,18 @@ const TakeAPictureCustom: React.FC<{
                 const base64data = reader.result
                 setPicture(base64data as any)
               }
-
-              alert(
-                'image is too big, we are gonna try to reduce this photos size, finish filling out New Patient Packet and notify the front desk to make sure that the photo uploaded properly.'
-              )
             }
           }
+
+          alert(
+            'image is too big, we are gonna try to reduce this photos size, finish filling out New Patient Packet and notify the front desk to make sure that the photo uploaded properly.'
+          )
         } else {
-          reader.readAsDataURL(e.target.files[0])
-          reader.onload = (readEvent) => {
-            setPicture(readEvent!.target?.result as any)
+          //upload the image at its original size
+          reader.readAsDataURL(image)
+          reader.onloadend = () => {
+            setPicture(reader.result)
+            setPictureUpload(true)
           }
         }
       }
@@ -79,15 +95,35 @@ const TakeAPictureCustom: React.FC<{
         buttonWidth="w-20%"
       />
       {pictureUpload && (
-        <TextInput
-          // ref={filePicker}
-          type="file"
-          widthPercentage="w-[50%]"
-          placeHolder="Upload a Resume"
-          onChange={(text: any) => {
-            uploadimage({ e: text })
-          }}
-        />
+        <div className="flex w-full flex-col items-center justify-center">
+          <TextInput
+            // ref={filePicker}
+            type="file"
+            widthPercentage="w-[50%]"
+            placeHolder="Upload a Resume"
+            onChange={(text: any) => {
+              uploadimage({ e: text })
+            }}
+          />
+          {picture && (
+            <div className="flex w-full flex-col items-center justify-center">
+              {/* show the image that was uploaded */}
+              <img
+                src={picture}
+                alt="uploaded"
+                className="h-[50%] w-[50%] object-contain"
+              />
+
+              <MainButton
+                buttonText="Remove"
+                onClick={() => {
+                  setPictureUpload(false)
+                  setPicture('')
+                }}
+              />
+            </div>
+          )}
+        </div>
       )}
       {/* <Camera key={key} picture={picture} setPicture={setPicture} /> */}
     </div>

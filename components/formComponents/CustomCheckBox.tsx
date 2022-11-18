@@ -14,7 +14,7 @@ const CustomCheckBox: React.FC<{
       <div id={id}>
         <CheckBox isChecked={isChecked} checkedState={checkedState} />
       </div>
-      <div className=" ml-3 flex min-w-full flex-row items-center justify-start  text-left ">
+      <div className="  flex  flex-row items-center justify-start  text-left ">
         <p className=" text-left"> {text}</p>
       </div>
     </div>

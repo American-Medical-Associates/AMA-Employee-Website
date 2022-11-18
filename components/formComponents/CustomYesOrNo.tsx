@@ -20,9 +20,11 @@ const CustomYesOrNo: React.FC<{
   }, [yesLocal, noLocal])
 
   return (
-    <div id={id} className={` flex items-start justify-start ${marginLeft}`}>
+    <div id={id} className={` flex   items-start justify-start  ${marginLeft}`}>
       <div className=" flex flex-col ">
-        <h3 className={`my-5 ml-5 text-2xl text-[#616161]`}>{text}</h3>
+        <h3 className={`my-5 ml-5 text-[#616161] sm:text-sm md:text-2xl`}>
+          {text}
+        </h3>
         <CustomCheckBox
           isChecked={yesLocal}
           checkedState={setYesLocal}
