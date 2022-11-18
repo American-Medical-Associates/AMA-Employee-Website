@@ -55,6 +55,7 @@ const FullPersonalInfo: React.FC<{
         setFirstName={setFirstName}
         lastName={lastName}
         setLastName={setLastName}
+        id="fullName"
       />
       <AddressInput
         addressValue={addressValue}
@@ -67,6 +68,7 @@ const FullPersonalInfo: React.FC<{
         cityState={cityState}
         USStateState={USStateState}
         zipCodeState={zipCodeState}
+        id="fullAddress"
       />
       <DateInput
         placeHolder="Date of Birth (MM/DD/YYYY)"
@@ -75,6 +77,7 @@ const FullPersonalInfo: React.FC<{
           BirthDateState(text.target.value)
         }}
         value={BirthDateValue}
+        id="birthDate"
       />
       <PhoneNumberInput
         placeHolder="Phone Number"
