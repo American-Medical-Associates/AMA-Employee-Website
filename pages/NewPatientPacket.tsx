@@ -413,7 +413,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="emergencyContactName"
             placeHolder="Name of Emergency Contact"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setNameOfEmergency(text.target.value)
             }}
@@ -422,7 +422,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="emergencyContactRelationship"
             placeHolder="Relationship"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setEmergencyContactRelationShip(text.target.value)
             }}
@@ -431,7 +431,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="emergencyContactPhoneNumber"
             placeHolder="Phone Number"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             value={EmergencyContactPhoneNumber}
             onChange={(text: any) => {
               setEmergencyContactPhoneNumber(text.target.value)
@@ -478,7 +478,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insuranceName"
               placeHolder="Primary Insurance"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setPrimaryInsurance(text.target.value)
               }}
@@ -487,7 +487,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insurancePolicyNumber"
               placeHolder="Primary Insurance ID"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setPrimaryInsuranceID(text.target.value)
               }}
@@ -496,7 +496,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insuranceGroupNumber"
               placeHolder="Primary Insurance Group"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setPrimaryInsuranceGroup(text.target.value)
               }}
@@ -505,7 +505,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insurancePhoneNumber"
               placeHolder="primary Insurance Phone Number"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setPrimaryInsurancePhone(text.target.value)
               }}
@@ -529,7 +529,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="subscriberName"
               placeHolder="Subscriber Name"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setPrimarySubscribersName(text.target.value)
               }}
@@ -555,7 +555,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           children={[
             <TextInput
               placeHolder="Secondary Insurance"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setSecondaryInsurance(text.target.value)
               }}
@@ -563,7 +563,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance ID"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setSecondaryInsuranceID(text.target.value)
               }}
@@ -571,7 +571,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance Group"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setSecondaryInsuranceGroup(text.target.value)
               }}
@@ -579,7 +579,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance Phone Number"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setSecondaryInsurancePhone(text.target.value)
               }}
@@ -601,7 +601,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             </div>,
             <TextInput
               placeHolder="Subscriber Name"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setSecondarySubscribersName(text.target.value)
               }}
@@ -625,7 +625,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="pharmacyName"
             placeHolder="Retail Pharmacy Name"
-            widthPercentage="w-1/2"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setRetailPharmacyName(text.target.value)
             }}
@@ -637,7 +637,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 id="pharmacyCrossStreet1"
                 placeHolder="Street 1"
-                widthPercentage="w-3/4"
+                widthPercentage="w-full"
                 onChange={(text: any) => {
                   setRetailPharmacyCrossStreet1(text.target.value)
                 }}
@@ -646,7 +646,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 id="pharmacyCrossStreet2"
                 placeHolder="Street 2"
-                widthPercentage="w-3/4"
+                widthPercentage="w-full"
                 onChange={(text: any) => {
                   setRetailPharmacyCrossStreet2(text.target.value)
                 }}
@@ -657,7 +657,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="pharmacyPhoneNumber"
             placeHolder="Retail Pharmacy Phone Number"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setRetailPharmacyPhoneNumber(text.target.value)
             }}
@@ -666,7 +666,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="pharmacyFaxNumber"
             placeHolder="Retail Pharmacy Fax Number"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setRetailPharmacyFaxNumber(text.target.value)
             }}
@@ -681,7 +681,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <TextInput
             placeHolder="Mail Order Pharmacy Name"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setMailOrderPharmacyName(text.target.value)
             }}
@@ -701,7 +701,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
           <PhoneNumberInput
             placeHolder="Mail Order Pharmacy Phone Number"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setMailOrderPharmacyPhoneNumber(text.target.value)
             }}
@@ -712,7 +712,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       <div className=" mt-20 flex items-center justify-center">
         <LineDivider
           lineColor="bg-[#e9e7e7b1]"
-          lineWidth="w-3/4"
+          lineWidth="w-full"
           lineHeight="h-[10px]"
         />
       </div>
@@ -761,7 +761,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <DateInput
             placeHolder="Date of Last Pap Smear (mmddyyyy)"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDateOfLastPAP(text.target.value)
             }}
@@ -779,7 +779,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
           <DateInput
             placeHolder="Date of Last Mammogram (mmddyyyy)"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDateOfLastMammogram(text.target.value)
             }}
@@ -802,7 +802,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <DateInput
             placeHolder="Date of Last PSA (mmddyyyy)"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDateOfLastPSA(text.target.value)
             }}
@@ -896,7 +896,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               id="dateOfColonoscopyScreening"
               placeHolder="Date of Last Colonoscopy (mmddyyyy)"
-              widthPercentage="w-3/4"
+              widthPercentage="w-full"
               onChange={(text: any) => {
                 setDateOfLastColonoscopyScreening(text.target.value)
               }}
@@ -1020,7 +1020,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="howManyPacksPerDay"
             placeHolder="If Yes, how many packs per day?"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setHowManyPacksPerDay(text.target.value)
             }}
@@ -1034,7 +1034,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeOtherTobaccoUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDescribeOtherTobaccoUse(text.target.value)
             }}
@@ -1048,7 +1048,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeRecreationalDrugUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDescribeRecreationalDrugUse(text.target.value)
             }}
@@ -1062,7 +1062,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="howManyDrinksPerWeek"
             placeHolder="If yes, how many drinks per week?"
-            widthPercentage="w-1/2"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setHowManyDrinksPerWeek(text.target.value)
             }}
@@ -1076,7 +1076,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="howManyCupsPerDay"
             placeHolder="If yes, how many cups per day?"
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setHowManyCupsPerDay(text.target.value)
             }}
@@ -1090,7 +1090,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeIllegalStreetDrugUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-3/4"
+            widthPercentage="w-full"
             onChange={(text: any) => {
               setDescribeIllegalStreetDrugUse(text.target.value)
             }}

@@ -9,7 +9,7 @@ const SectionWithTitle: React.FC<{
   return (
     <div className=" mt-20 flex flex-col items-center justify-center ">
       <div
-        className={` flex w-[60%] flex-col items-center justify-center rounded-[30px] p-10 ${BgColor}`}
+        className={` flex w-[60%] flex-col items-center justify-center rounded-[30px] py-10 px-5 ${BgColor}`}
       >
         <h3 className=" text-center text-3xl font-bold text-[#616161]">
           {title}

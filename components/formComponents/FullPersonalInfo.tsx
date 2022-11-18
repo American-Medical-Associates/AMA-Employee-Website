@@ -72,7 +72,7 @@ const FullPersonalInfo: React.FC<{
       />
       <DateInput
         placeHolder="Date of Birth (MM/DD/YYYY)"
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         onChange={(text: any) => {
           BirthDateState(text.target.value)
         }}
@@ -81,7 +81,7 @@ const FullPersonalInfo: React.FC<{
       />
       <PhoneNumberInput
         placeHolder="Phone Number"
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         onChange={(text: any) => {
           phoneNumberState(text.target.value)
         }}
@@ -89,7 +89,7 @@ const FullPersonalInfo: React.FC<{
       />
       <TextInput
         placeHolder="Email"
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         onChange={(text: any) => {
           emailState(text.target.value)
         }}
