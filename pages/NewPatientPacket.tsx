@@ -318,12 +318,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         placeHolder="Home Phone Number"
         value={homePhone}
         onChange={(text: any) => setHomePhone(text.target.value)}
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         id={'homePhone'}
       />
       <SocialInput
         placeHolder="Social Security Number"
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         value={socialValue}
         onChange={(text: any) => {
           setSocialValue(text.target.value)
@@ -349,7 +349,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       <TextInput
         id="preferredName"
         placeHolder="Preferred Name"
-        widthPercentage="w-1/2"
+        widthPercentage="w-3/4"
         onChange={(text: any) => {
           setPreferredName(text.target.value)
         }}
@@ -413,7 +413,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="emergencyContactName"
             placeHolder="Name of Emergency Contact"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setNameOfEmergency(text.target.value)
             }}
@@ -422,7 +422,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="emergencyContactRelationship"
             placeHolder="Relationship"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setEmergencyContactRelationShip(text.target.value)
             }}
@@ -431,7 +431,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="emergencyContactPhoneNumber"
             placeHolder="Phone Number"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             value={EmergencyContactPhoneNumber}
             onChange={(text: any) => {
               setEmergencyContactPhoneNumber(text.target.value)
@@ -478,7 +478,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insuranceName"
               placeHolder="Primary Insurance"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setPrimaryInsurance(text.target.value)
               }}
@@ -487,7 +487,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insurancePolicyNumber"
               placeHolder="Primary Insurance ID"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setPrimaryInsuranceID(text.target.value)
               }}
@@ -496,7 +496,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insuranceGroupNumber"
               placeHolder="Primary Insurance Group"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setPrimaryInsuranceGroup(text.target.value)
               }}
@@ -505,7 +505,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="insurancePhoneNumber"
               placeHolder="primary Insurance Phone Number"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setPrimaryInsurancePhone(text.target.value)
               }}
@@ -529,7 +529,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               id="subscriberName"
               placeHolder="Subscriber Name"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setPrimarySubscribersName(text.target.value)
               }}
@@ -555,7 +555,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           children={[
             <TextInput
               placeHolder="Secondary Insurance"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setSecondaryInsurance(text.target.value)
               }}
@@ -563,7 +563,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance ID"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setSecondaryInsuranceID(text.target.value)
               }}
@@ -571,7 +571,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance Group"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setSecondaryInsuranceGroup(text.target.value)
               }}
@@ -579,7 +579,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <TextInput
               placeHolder="Secondary Insurance Phone Number"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setSecondaryInsurancePhone(text.target.value)
               }}
@@ -601,7 +601,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             </div>,
             <TextInput
               placeHolder="Subscriber Name"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setSecondarySubscribersName(text.target.value)
               }}
@@ -657,7 +657,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="pharmacyPhoneNumber"
             placeHolder="Retail Pharmacy Phone Number"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setRetailPharmacyPhoneNumber(text.target.value)
             }}
@@ -666,7 +666,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <PhoneNumberInput
             id="pharmacyFaxNumber"
             placeHolder="Retail Pharmacy Fax Number"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setRetailPharmacyFaxNumber(text.target.value)
             }}
@@ -681,7 +681,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <TextInput
             placeHolder="Mail Order Pharmacy Name"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setMailOrderPharmacyName(text.target.value)
             }}
@@ -701,7 +701,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
           <PhoneNumberInput
             placeHolder="Mail Order Pharmacy Phone Number"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setMailOrderPharmacyPhoneNumber(text.target.value)
             }}
@@ -761,7 +761,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <DateInput
             placeHolder="Date of Last Pap Smear (mmddyyyy)"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDateOfLastPAP(text.target.value)
             }}
@@ -779,7 +779,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />,
           <DateInput
             placeHolder="Date of Last Mammogram (mmddyyyy)"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDateOfLastMammogram(text.target.value)
             }}
@@ -802,7 +802,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         children={[
           <DateInput
             placeHolder="Date of Last PSA (mmddyyyy)"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDateOfLastPSA(text.target.value)
             }}
@@ -867,7 +867,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               id="dateOfBoneDensityScreening"
               placeHolder="Date of Last Bone Density Screening (mmddyyyy)"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setBoneDensityScreeningDate(text.target.value)
               }}
@@ -896,7 +896,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               id="dateOfColonoscopyScreening"
               placeHolder="Date of Last Colonoscopy (mmddyyyy)"
-              widthPercentage="w-1/2"
+              widthPercentage="w-3/4"
               onChange={(text: any) => {
                 setDateOfLastColonoscopyScreening(text.target.value)
               }}
@@ -1020,7 +1020,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="howManyPacksPerDay"
             placeHolder="If Yes, how many packs per day?"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setHowManyPacksPerDay(text.target.value)
             }}
@@ -1034,7 +1034,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeOtherTobaccoUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDescribeOtherTobaccoUse(text.target.value)
             }}
@@ -1048,7 +1048,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeRecreationalDrugUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDescribeRecreationalDrugUse(text.target.value)
             }}
@@ -1076,7 +1076,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="howManyCupsPerDay"
             placeHolder="If yes, how many cups per day?"
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setHowManyCupsPerDay(text.target.value)
             }}
@@ -1090,7 +1090,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           <TextInput
             id="describeIllegalStreetDrugUse"
             placeHolder="If yes, please describe."
-            widthPercentage="w-1/2"
+            widthPercentage="w-3/4"
             onChange={(text: any) => {
               setDescribeIllegalStreetDrugUse(text.target.value)
             }}
@@ -1537,214 +1537,403 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             //make felids are filled out
             if (firstName === '') {
               alert('Please enter your first name')
-              return
-            } else if (lastName === '') {
-              alert('Please enter your last name')
-              return
-            } else if (BirthDateValue === '') {
-              alert('Please enter your birth date')
-              return
-            } else if (phoneNumberValue === '') {
-              alert('Please enter your phone number')
-              //scroll to phone number feild
-              router.push('/NewPatientPacket/#cellPhone')
-              //scroll up 200px
-              // window.scrollBy(0, -200)
-              return
-            } else if (emailValue === '') {
-              router.push('/NewPatientPacket/#email').then(() => {
-                //wait 3sec for page to load
+              router.push('/NewPatientPacket/#fullName').then(() => {
                 setTimeout(() => {
                   window.scrollBy(0, -150)
                 }, 100)
                 //scroll up 200px
               })
+              return
+            } else if (lastName === '') {
+              router.push('/NewPatientPacket/#fullName').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+                //scroll up 200px
+              })
+              alert('Please enter your last name')
+              return
+            } else if (BirthDateValue === '') {
+              router.push('/NewPatientPacket/#birthDate').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+                //scroll up 200px
+              })
+              alert('Please enter your birth date')
+              return
+            } else if (phoneNumberValue === '') {
+              alert('Please enter your phone number')
+              //scroll to phone number feild
+              router.push('/NewPatientPacket/#cellPhone').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              //scroll up 200px
+              // window.scrollBy(0, -200)
+              return
+            } else if (emailValue === '') {
+              router.push('/NewPatientPacket/#email').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               alert('Please enter your email')
 
               return
             } else if (addressValue === '') {
+              router.push('/NewPatientPacket/#fullAddress').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               alert('Please enter your address')
               return
             } else if (cityValue === '') {
+              router.push('/NewPatientPacket/#email').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               alert('Please enter your city')
               return
             } else if (USStateValue === '') {
+              router.push('/NewPatientPacket/#email').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               alert('Please enter your state')
               return
             } else if (zipCodeValue === '') {
+              router.push('/NewPatientPacket/#email').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               alert('Please enter your zip code')
               return
             } else if (socialValue === '') {
               alert('Please enter your social security number')
-              router.push('/NewPatientPacket/#social')
+              router.push('/NewPatientPacket/#social').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (nameOfEmergencyContact === '') {
               router
                 .push('/NewPatientPacket/#emergencyContactName')
                 .then(() => {
-                  window.scrollBy(0, -1500)
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
                 })
+
               alert('Please enter the name of your emergency contact')
               window.scrollBy(0, -1500)
               return
             } else if (EmergencyContactRelationShip === '') {
               alert('Please enter the relationship of your emergency contact')
-              router.push('/NewPatientPacket/#emergencyContactRelationship')
+              router
+                .push('/NewPatientPacket/#emergencyContactRelationship')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (EmergencyContactPhoneNumber === '') {
               alert('Please enter the phone number of your emergency contact')
-              router.push('/NewPatientPacket/#emergencyContactPhoneNumber')
+              router
+                .push('/NewPatientPacket/#emergencyContactPhoneNumber')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (HowDidTheyHearAboutUs === '') {
               alert('Please enter how you heard about us')
-              router.push('/NewPatientPacket/#howDidYouHearAboutUs')
+              router
+                .push('/NewPatientPacket/#howDidYouHearAboutUs')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (howDoTheyWishToPay === '') {
               alert(
                 'Please enter how you wish to pay, out of pocket or insurance'
               )
-              router.push('/NewPatientPacket/#howDoTheyWishToPay')
+              router.push('/NewPatientPacket/#howDoTheyWishToPay').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryInsurance === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance name')
-              router.push('/NewPatientPacket/#insuranceName')
+              router.push('/NewPatientPacket/#insuranceName').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryInsuranceID === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance policy number')
-              router.push('/NewPatientPacket/#insurancePolicyNumber')
+              router
+                .push('/NewPatientPacket/#insurancePolicyNumber')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               primaryInsurancePhone === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance phone number')
-              router.push('/NewPatientPacket/#insurancePhoneNumber')
+              router
+                .push('/NewPatientPacket/#insurancePhoneNumber')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               primaryInsuranceGroup === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance group number')
-              router.push('/NewPatientPacket/#insuranceGroupNumber')
+              router
+                .push('/NewPatientPacket/#insuranceGroupNumber')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               primaryInsuranceAddress1 === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance address')
-              router.push('/NewPatientPacket/#insuranceAddress')
+              router.push('/NewPatientPacket/#insuranceAddress').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryInsuranceCity === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance city')
-              router.push('/NewPatientPacket/#insuranceAddress')
+              router.push('/NewPatientPacket/#insuranceAddress').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryInsuranceState === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance state')
-              router.push('/NewPatientPacket/#insuranceAddress')
+              router.push('/NewPatientPacket/#insuranceAddress').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryInsuranceZip === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance zip code')
-              router.push('/NewPatientPacket/#insuranceAddress')
+              router.push('/NewPatientPacket/#insuranceAddress').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primarySubscribersName === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please enter your insurance subscribers name')
-              router.push('/NewPatientPacket/#subscriberName')
+              router.push('/NewPatientPacket/#subscriberName').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               primaryPictureOfInsuranceCardFront === '' &&
               howDoTheyWishToPay === 'Insurance'
             ) {
               alert('Please upload a picture of your insurance card front')
-              router.push('/NewPatientPacket/#insuranceCardPicture')
+              router
+                .push('/NewPatientPacket/#insuranceCardPicture')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (retailPharmacyName === '') {
               alert('Please enter your retail pharmacy name')
-              router.push('/NewPatientPacket/#pharmacyName')
+              router.push('/NewPatientPacket/#pharmacyName').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               retailPharmacyCrossStreet1 === '' ||
               retailPharmacyCrossStreet2 === ''
             ) {
               alert('Please enter your retail pharmacy cross street')
-              router.push('/NewPatientPacket/#pharmacyCrossStreet1')
+              router
+                .push('/NewPatientPacket/#pharmacyCrossStreet1')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (retailPharmacyPhoneNumber === '') {
               alert('Please enter your retail pharmacy phone number')
-              router.push('/NewPatientPacket/#pharmacyPhoneNumber')
+              router.push('/NewPatientPacket/#pharmacyPhoneNumber').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (areYouAllergicToLatex === '') {
               alert('Please enter if you are allergic to latex')
-              router.push('/NewPatientPacket/#allergicToLatex')
+              router.push('/NewPatientPacket/#allergicToLatex').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (areYouAllergicToSelfish === '') {
               alert('Please enter if you are allergic to shellfish')
-              router.push('/NewPatientPacket/#allergicToShellfish')
+              router.push('/NewPatientPacket/#allergicToShellfish').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (areYouAllergicToIodine === '') {
               alert('Please enter if you are allergic to iodine')
-              router.push('/NewPatientPacket/#allergicToIodine')
+              router.push('/NewPatientPacket/#allergicToIodine').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
               // if patient drug allergies are not empty array
             } else if (doYouHaveAnyDrugAllergies === '') {
               alert('Please enter if you have any drug allergies')
-              router.push('/NewPatientPacket/#doYouHaveDrugAllergies')
+              router
+                .push('/NewPatientPacket/#doYouHaveDrugAllergies')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (
               doYouHaveAnyDrugAllergies === 'Yes' &&
               PatientDrugAllergies.length < 1
             ) {
               alert('Please enter your drug allergies')
-              router.push('/NewPatientPacket/#drugAllergies')
+              router.push('/NewPatientPacket/#drugAllergies').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (doYouHaveAHistoryOfAnyMajorIllness === '') {
               alert('Please enter if you have a history of any major illness')
-              router.push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
+              router
+                .push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (
               allMajorIllnesses.length < 1 &&
               doYouHaveAHistoryOfAnyMajorIllness === 'Yes'
             ) {
               alert('Please enter your major illnesses')
-              router.push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
+              router
+                .push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (doYouHaveAHistoryOfSurgeries === '') {
               alert(
                 'Please enter if you have a history of surgeries or hospitalizations'
               )
-              router.push('/NewPatientPacket/#doYouHaveAnySurgeries')
+              router
+                .push('/NewPatientPacket/#doYouHaveAnySurgeries')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (
               allMajorSurgeriesAndHospitalizations.length < 1 &&
               doYouHaveAHistoryOfSurgeries === 'Yes'
             ) {
               alert('Please enter your major surgeries and hospitalizations')
-              router.push('/NewPatientPacket/#doYouHaveAnySurgeries')
+              router
+                .push('/NewPatientPacket/#doYouHaveAnySurgeries')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (boneDensityScreening === '') {
               alert('Please enter if you have had a bone density screening')
-              router.push('/NewPatientPacket/#haveYouHadBoneDensityScreening')
+              router
+                .push('/NewPatientPacket/#haveYouHadBoneDensityScreening')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               BoneDensityScreeningDate === '' &&
               boneDensityScreening === 'Yes'
             ) {
               alert('Please enter the date of your bone density screening')
-              router.push('/NewPatientPacket/#dateOfBoneDensityScreening')
+              router
+                .push('/NewPatientPacket/#dateOfBoneDensityScreening')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               wasBoneDensityScreeningNormalOrAbnormal === '' &&
@@ -1753,18 +1942,36 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert(
                 'Please enter if your bone density screening was normal or abnormal'
               )
-              router.push('/NewPatientPacket/#boneDensityScreeningResults')
+              router
+                .push('/NewPatientPacket/#boneDensityScreeningResults')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (colonoscopyScreening === '') {
               alert('Please enter if you have had any of the following')
-              router.push('/NewPatientPacket/#haveYouHadColonoscopy')
+              router
+                .push('/NewPatientPacket/#haveYouHadColonoscopy')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               dateOfLastColonoscopyScreening === '' &&
               colonoscopyScreening === 'Yes'
             ) {
               alert('Please enter the date of your colonoscopy screening')
-              router.push('/NewPatientPacket/#dateOfColonoscopyScreening')
+              router
+                .push('/NewPatientPacket/#dateOfColonoscopyScreening')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               wasColonoscopyScreeningNormalOrAbnormal === '' &&
@@ -1773,95 +1980,179 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert(
                 'Please enter if your colonoscopy screening was normal or abnormal'
               )
-              router.push('/NewPatientPacket/#colonoscopyScreeningResults')
+              router
+                .push('/NewPatientPacket/#colonoscopyScreeningResults')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (haveTheyEverSmoked === '') {
               alert('Please enter if you have ever smoked')
-              router.push('/NewPatientPacket/#haveYouEverSmoked')
+              router.push('/NewPatientPacket/#haveYouEverSmoked').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               haveTheyEverSmoked === 'Yes' &&
               howManyPacksPerDay === ''
             ) {
               alert('Please enter how many packs per day')
-              router.push('/NewPatientPacket/#howManyPacksPerDay')
+              router.push('/NewPatientPacket/#howManyPacksPerDay').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (anyOtherTobaccoOrEcigarettes === '') {
               alert('Please enter if you have used any other tobacco')
-              router.push('/NewPatientPacket/#otherTabaccoUse')
+              router.push('/NewPatientPacket/#otherTabaccoUse').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               anyOtherTobaccoOrEcigarettes === 'Yes' &&
               describeOtherTobaccoUse === ''
             ) {
               alert('Please enter what other smoking products you have used')
-              router.push('/NewPatientPacket/#describeOtherTobaccoUse')
+              router
+                .push('/NewPatientPacket/#describeOtherTobaccoUse')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (doYoCurrentlyUseRecreationalDrugs === '') {
               alert('Please enter if you currently use recreational drugs')
-              router.push('/NewPatientPacket/#doYouUseRecreationalDrugs')
+              router
+                .push('/NewPatientPacket/#doYouUseRecreationalDrugs')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYoCurrentlyUseRecreationalDrugs === 'Yes' &&
               describeRecreationalDrugUse === ''
             ) {
               alert('Please enter what recreational drugs you use')
-              router.push('/NewPatientPacket/#describeRecreationalDrugUse')
+              router
+                .push('/NewPatientPacket/#describeRecreationalDrugUse')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (doYouDrinkAlcohol === '') {
               alert('Please enter if you drink alcohol')
-              router.push('/NewPatientPacket/#doYouDrinkAlcohol')
+              router.push('/NewPatientPacket/#doYouDrinkAlcohol').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               doYouDrinkAlcohol === 'Yes' &&
               howManyDrinksPerWeek === ''
             ) {
               alert('Please enter how many drinks per week')
-              router.push('/NewPatientPacket/#howManyDrinksPerWeek')
+              router
+                .push('/NewPatientPacket/#howManyDrinksPerWeek')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (doYouDrinkCoffee === '') {
               alert('Please enter if you drink coffee')
-              router.push('/NewPatientPacket/#doYouDrinkCoffee')
+              router.push('/NewPatientPacket/#doYouDrinkCoffee').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (doYouDrinkCoffee === 'Yes' && howManyCupsPerDay === '') {
               alert('Please enter how many cups of coffee per day')
-              router.push('/NewPatientPacket/#howManyCupsPerDay')
+              router.push('/NewPatientPacket/#howManyCupsPerDay').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (doYouUseIllegaLStreetDrugs === '') {
               alert('Please enter if you use illegal street drugs')
-              router.push('/NewPatientPacket/#doYouUseIllegaLStreetDrugs')
+              router
+                .push('/NewPatientPacket/#doYouUseIllegaLStreetDrugs')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYouUseIllegaLStreetDrugs === 'Yes' &&
               describeIllegalStreetDrugUse === ''
             ) {
               alert('Please enter what illegal street drugs you use')
-              router.push('/NewPatientPacket/#describeIllegalStreetDrugUse')
+              router
+                .push('/NewPatientPacket/#describeIllegalStreetDrugUse')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (doYouFeelDepressed === '') {
               alert('Please enter if you feel depressed')
-              router.push('/NewPatientPacket/#doYouFeelDepressed')
+              router.push('/NewPatientPacket/#doYouFeelDepressed').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               doYouCryFrequently === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you cry frequently')
-              router.push('/NewPatientPacket/#doYouCryFrequently')
+              router.push('/NewPatientPacket/#doYouCryFrequently').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               doYouHaveLittleInterestInDoingThings == '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you have little interest in doing things')
-              router.push('/NewPatientPacket/#doYouHaveLittleInterest')
+              router
+                .push('/NewPatientPacket/#doYouHaveLittleInterest')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYouFeelHopelessDownOrDepressed === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you feel hopeless down or depressed')
-              router.push('/NewPatientPacket/#doYouFeelHopeless')
+              router.push('/NewPatientPacket/#doYouFeelHopeless').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               doYouHaveTroubleFallingAsleepOrSleepingTooMuch === '' &&
@@ -1870,42 +2161,76 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert(
                 'Please enter if you have trouble falling asleep or sleeping too much'
               )
-              router.push('/NewPatientPacket/#doYouHaveTroubleSleeping')
+              router
+                .push('/NewPatientPacket/#doYouHaveTroubleSleeping')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYouFeelTiredOrHaveLittleEnergy === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you feel tired or have little energy')
-              router.push('/NewPatientPacket/#doYouFeelTired')
+              router.push('/NewPatientPacket/#doYouFeelTired').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
               return
             } else if (
               doYouHavAPoorAppetiteOrOverEating === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you have a poor appetite or over eating')
-              router.push('/NewPatientPacket/#doYouHavAPoorAppetite')
+              router
+                .push('/NewPatientPacket/#doYouHavAPoorAppetite')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYouFeelBadAboutYourself === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you feel bad about yourself')
-              router.push('/NewPatientPacket/#doYouFeelBadAboutYourself')
+              router
+                .push('/NewPatientPacket/#doYouFeelBadAboutYourself')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               troubleConcentrating === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('please enter if you have trouble concentrating')
-              router.push('/NewPatientPacket/#troubleConcentrating')
+              router
+                .push('/NewPatientPacket/#troubleConcentrating')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               doYouMoveOrSpeakSlowly === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you move or speak slowly')
-              router.push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
+              router
+                .push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               thoughtsYouWouldBeBetterOffDead === '' &&
@@ -1914,40 +2239,72 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               alert(
                 'Please enter if you have thoughts you would be better off dead'
               )
-              router.push('/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead')
+              router
+                .push('/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               haveYouEverAttemptedSuicide === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you have ever attempted suicide ')
-              router.push('/NewPatientPacket/#HaveYouAttemptedSuicide')
+              router
+                .push('/NewPatientPacket/#HaveYouAttemptedSuicide')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
               return
             } else if (
               isStressAMajorProblem === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if stress is a major problem for you')
-              router.push('/NewPatientPacket/#isStressAMajorProblemForYou')
+              router
+                .push('/NewPatientPacket/#isStressAMajorProblemForYou')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (
               doYouPanicWhenStressed === '' &&
               doYouFeelDepressed === 'Yes'
             ) {
               alert('Please enter if you panic when stressed')
-              router.push('/NewPatientPacket/#doYouPanicWhenStressed')
+              router
+                .push('/NewPatientPacket/#doYouPanicWhenStressed')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (areYouCurrentlyTakingAnyMedications == '') {
               alert('Please select if you are taking any medications')
-              router.push(
-                '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
-              )
+              router
+                .push('/NewPatientPacket/#areYouCurrentlyTakingAnyMedications')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else if (
               areYouCurrentlyTakingAnyMedications == 'Yes' &&
               listOfAllCurrentMedications.length < 1
             ) {
               alert('Please enter a list of all current medications')
-              router.push(
-                '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
-              )
+              router
+                .push('/NewPatientPacket/#areYouCurrentlyTakingAnyMedications')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
             } else {
               submitNewPatientPacketAndCreateNewPatient({
                 firstName: firstName,

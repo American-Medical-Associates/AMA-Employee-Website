@@ -6,9 +6,10 @@ const FullNameField: React.FC<{
   setFirstName: Function
   lastName: string
   setLastName: Function
-}> = ({ firstName, setFirstName, lastName, setLastName }) => {
+  id?: string
+}> = ({ firstName, setFirstName, lastName, setLastName, id }) => {
   return (
-    <div className=" flex w-full items-center justify-center">
+    <div id={id} className=" flex w-full items-center justify-center">
       <TextInput
         placeHolder="First Name"
         value={firstName}

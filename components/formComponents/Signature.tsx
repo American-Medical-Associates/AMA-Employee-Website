@@ -34,11 +34,11 @@ const Signature: React.FC<{
         placeHolder="Signature"
         value={signatureValue}
         onChange={(e: any) => signatureState(e.target.value)}
-        widthPercentage="w-[50%]"
+        widthPercentage="w-full"
       />
       <DateInput
         placeHolder="Date Signed (MM/DD/YYYY)"
-        widthPercentage="w-[50%]"
+        widthPercentage="w-full"
         value={date}
         onChange={(e: any) => dateState(e.target.value)}
       />

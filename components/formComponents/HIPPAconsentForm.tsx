@@ -55,7 +55,7 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
   ])
 
   return (
-    <div>
+    <div className="flex w-full flex-col justify-center ">
       <p className=" text-center">
         The Health Insurance Portability and Accountability Act (HIPAA) provide
         safeguards to protect your privacy. Patient information will be kept
