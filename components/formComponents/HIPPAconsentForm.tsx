@@ -3,9 +3,10 @@ import PhoneNumberInput from '../PhoneNumberInput'
 import TextInput from '../TextInput'
 import Signature from './Signature'
 
-const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
-  HippaConsentFormState,
-}) => {
+const HIPPAconsentForm: React.FC<{
+  id?: string
+  HippaConsentFormState: any
+}> = ({ HippaConsentFormState, id }) => {
   const [name, setName] = useState('')
   const [relationShip, setRelationShip] = useState('')
   const [name2, setName2] = useState('')
@@ -181,6 +182,7 @@ const HIPPAconsentForm: React.FC<{ HippaConsentFormState: any }> = ({
       </h5>
 
       <Signature
+        id={id}
         signatureState={setHippaSignature}
         dateState={setSignatureDate}
         agreeThatTheirSignatureIsValidState={setSignatureCheckBoxConsent}

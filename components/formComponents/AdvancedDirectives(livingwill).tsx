@@ -7,8 +7,9 @@ import SectionWithTitle from './SectionWithTitle'
 import Signature from './Signature'
 
 const AdvancedDirectivesLivingWill: React.FC<{
+  id?: string
   AdvancedDirectivesLivingWillState: any
-}> = ({ AdvancedDirectivesLivingWillState }) => {
+}> = ({ AdvancedDirectivesLivingWillState, id }) => {
   const [healthCarePowerOfAttorney, setHealthCarePowerOfAttorney] = useState('')
   const [healthCarePowerOfAttorneyName, setHealthCarePowerOfAttorneyName] =
     useState('')
@@ -87,6 +88,7 @@ const AdvancedDirectivesLivingWill: React.FC<{
             }
             date={date}
             dateState={setDate}
+            id={id}
           />,
         ]}
       />

@@ -11,6 +11,7 @@ const Signature: React.FC<{
   agreeThatTheirSignatureIsValidState: Function
   date: string
   dateState: Function
+  id?: string
 }> = ({
   WhatTheyAreSigningFor,
   signatureValue,
@@ -19,9 +20,10 @@ const Signature: React.FC<{
   agreeThatTheirSignatureIsValid,
   date,
   dateState,
+  id,
 }) => {
   return (
-    <div className=" flex flex-col items-center justify-center">
+    <div id={id} className=" flex flex-col items-center justify-center">
       <p className="my-5 mx-20 text-center text-2xl text-[red]">
         {WhatTheyAreSigningFor}
       </p>

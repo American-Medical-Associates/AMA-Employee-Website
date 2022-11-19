@@ -122,7 +122,10 @@ const CustomCheckBoxFeild: React.FC<{
   //if number of columns is not defined then render the checkBoxes in one row
 
   return (
-    <div className={`my-10 flex items-start justify-start ${marginLeft}`}>
+    <div
+      id={id}
+      className={`my-10 flex items-start justify-start ${marginLeft}`}
+    >
       <div className=" flex flex-col ">
         <h3 className="my-5 ml-5 text-[#616161]  sm:text-lg md:text-2xl">
           {title}
