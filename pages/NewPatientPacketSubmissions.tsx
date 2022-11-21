@@ -479,13 +479,23 @@ export default function NewPatientPacketSubmitions() {
               />
               {selectedPacket.pictureOfFrontOfDriverLicense && (
                 <div className="flex flex-col items-center justify-center">
-                  <MainButton
+                  <label className=" text-2xl font-bold">Driver License</label>
+                  <img src={selectedPacket.pictureOfFrontOfDriverLicense} />
+                  {/* <MainButton
                     buttonText="Driver License"
                     onClick={() => {
                       //open the image in a new tab
                       window.open(selectedPacket.pictureOfFrontOfDriverLicense)
                     }}
-                  />
+                  /> */}
+                </div>
+              )}
+              {selectedPacket.pictureOfTheirFace && (
+                <div className="flex flex-col items-center justify-center">
+                  <label className=" text-2xl font-bold">
+                    Picture Of Their Face
+                  </label>
+                  <img src={selectedPacket.pictureOfTheirFace} />
                 </div>
               )}
               <InformationSection
@@ -597,7 +607,11 @@ export default function NewPatientPacketSubmitions() {
               />
               {selectedPacket.primaryPictureOfInsuranceCardFront && (
                 <div className="flex flex-col items-center justify-center">
-                  <MainButton
+                  <label className=" text-2xl font-bold">Insurance Card</label>
+                  <img
+                    src={selectedPacket.primaryPictureOfInsuranceCardFront}
+                  />
+                  {/* <MainButton
                     buttonText="Primary Insurance Card"
                     onClick={() => {
                       //open the image in a new tab
@@ -605,7 +619,7 @@ export default function NewPatientPacketSubmitions() {
                         selectedPacket.primaryPictureOfInsuranceCardFront
                       )
                     }}
-                  />
+                  /> */}
                 </div>
               )}
               {selectedPacket.secondaryPictureOfInsuranceCardFront && (
