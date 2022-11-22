@@ -24,9 +24,9 @@ const Signature: React.FC<{
 }) => {
   return (
     <div id={id} className=" flex flex-col items-center justify-center">
-      <p className="my-5 mx-20 text-center text-2xl text-[red]">
+      <label className="my-5 mx-20 text-center text-2xl text-[red]">
         {WhatTheyAreSigningFor}
-      </p>
+      </label>
       <CustomCheckBox
         isChecked={agreeThatTheirSignatureIsValid}
         checkedState={agreeThatTheirSignatureIsValidState}

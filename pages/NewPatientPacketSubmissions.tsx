@@ -606,35 +606,32 @@ export default function NewPatientPacketSubmitions() {
                 ]}
               />
               {selectedPacket.primaryPictureOfInsuranceCardFront && (
-                <div className="flex flex-col items-center justify-center">
-                  <label className=" text-2xl font-bold">Insurance Card</label>
+                <figure className="flex flex-col items-center justify-center">
+                  <figcaption className=" text-2xl font-bold">
+                    Insurance Card Front
+                  </figcaption>
                   <img
                     src={selectedPacket.primaryPictureOfInsuranceCardFront}
                   />
-                  {/* <MainButton
-                    buttonText="Primary Insurance Card"
-                    onClick={() => {
-                      //open the image in a new tab
-                      window.open(
-                        selectedPacket.primaryPictureOfInsuranceCardFront
-                      )
-                    }}
-                  /> */}
-                </div>
+                </figure>
+              )}
+              {selectedPacket.primaryPictureOfInsuranceCardBack && (
+                <figure className="flex flex-col items-center justify-center">
+                  <figcaption className=" text-2xl font-bold">
+                    Insurance Card Back
+                  </figcaption>
+                  <img src={selectedPacket.primaryPictureOfInsuranceCardBack} />
+                </figure>
               )}
               {selectedPacket.secondaryPictureOfInsuranceCardFront && (
-                <div className="flex flex-col items-center justify-center">
-                  <MainButton
-                    buttonText="Secondary Insurance Card"
-                    onClick={() => {
-                      //open the image in a new tab
-                      window.open(
-                        selectedPacket.secondaryPictureOfInsuranceCardFront
-                      )
-                    }}
-                  />
-                </div>
+                <figure className="flex flex-col items-center justify-center">
+                  <figcaption className=" text-2xl font-bold">
+                    Secondary Insurance Card Front
+                  </figcaption>
+                  <img src={selectedPacket.primaryPictureOfInsuranceCardBack} />
+                </figure>
               )}
+
               <InformationSection
                 title="Retail pharmacy information"
                 contentInSection={[

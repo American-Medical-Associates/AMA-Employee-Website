@@ -28,6 +28,9 @@ import MainButton from '../components/MainButton'
 import {
   AddPictureOfDriverLicenseToStorageAndToDB,
   AddPictureOfPatientFaceToStorageAndToDB,
+  AddPictureOfPatientInsuranceBackToStorageAndToDB,
+  AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB,
+  AddPictureOfPatientInsuranceSecondaryToStorageAndToDB,
   AddPictureOfPatientInsuranceToStorageAndToDB,
   submitNewPatientPacketAndCreateNewPatient,
 } from '../firebase'
@@ -101,9 +104,18 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     setPrimaryPictureOfInsuranceCardFront,
   ] = useState('')
   const [
+    primaryPictureOfInsuranceCardBack,
+    setPrimaryPictureOfInsuranceCardBack,
+  ] = useState('')
+  const [
     secondaryPictureOfInsuranceCardFront,
     setSecondaryPictureOfInsuranceCardFront,
   ] = useState('')
+  const [
+    secondaryPictureOfInsuranceCardBack,
+    setSecondaryPictureOfInsuranceCardBack,
+  ] = useState('')
+
   const [retailPharmacyName, setRetailPharmacyName] = useState('')
   const [retailPharmacyCrossStreet1, setRetailPharmacyCrossStreet1] =
     useState('')
@@ -541,13 +553,20 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 }}
                 value={primarySubscribersName}
               />,
-              <div className=" flex w-full items-center justify-center ">
+              <div className=" flex w-full flex-col items-center justify-center ">
                 <TakeAPictureCustom
                   id="insuranceCardPicture"
                   text="Take A Picture Of Your Insurance Card (Front)"
                   picture={primaryPictureOfInsuranceCardFront}
                   setPicture={setPrimaryPictureOfInsuranceCardFront}
                   key={3}
+                />
+                <TakeAPictureCustom
+                  id="insuranceCardPictureBack"
+                  text="Take A Picture Of Your Insurance Card (Back)"
+                  picture={primaryPictureOfInsuranceCardBack}
+                  setPicture={setPrimaryPictureOfInsuranceCardBack}
+                  key={4}
                 />
               </div>,
             ]}
@@ -613,13 +632,22 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 }}
                 value={secondarySubscribersName}
               />,
-              // <div className=" flex w-full items-center justify-center ">
-              //   <TakeAPictureCustom
-              //     text="Take A Picture Of Your Insurance Card (Front)"
-              //     picture={secondaryPictureOfInsuranceCardFront}
-              //     setPicture={setSecondaryPictureOfInsuranceCardFront}
-              //   />
-              // </div>,
+              <div className="flex w-full flex-col items-center justify-center ">
+                <TakeAPictureCustom
+                  text="Take A Picture Of Your Insurance Card (Front)"
+                  picture={secondaryPictureOfInsuranceCardFront}
+                  setPicture={setSecondaryPictureOfInsuranceCardFront}
+                  key={5}
+                  id="SecondaryInsuranceCardPicture"
+                />
+                <TakeAPictureCustom
+                  text="Take A Picture Of Your Insurance Card (Back)"
+                  picture={secondaryPictureOfInsuranceCardBack}
+                  setPicture={setSecondaryPictureOfInsuranceCardBack}
+                  key={6}
+                  id="SecondaryInsuranceCardPictureBack"
+                />
+              </div>,
             ]}
           />
         )}
@@ -1813,6 +1841,45 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     }, 100)
                   })
                 return
+              } else if (
+                primaryPictureOfInsuranceCardBack === '' &&
+                howDoTheyWishToPay === 'Insurance'
+              ) {
+                alert('Please upload a picture of your insurance card front')
+                router
+                  .push('/NewPatientPacket/#insuranceCardPictureBack')
+                  .then(() => {
+                    setTimeout(() => {
+                      window.scrollBy(0, -150)
+                    }, 100)
+                  })
+                return
+              } else if (
+                secondaryPictureOfInsuranceCardFront === '' &&
+                howDoTheyWishToPay === 'Insurance'
+              ) {
+                alert('Please upload a picture of your insurance card front')
+                router
+                  .push('/NewPatientPacket/#SecondaryInsuranceCardPicture')
+                  .then(() => {
+                    setTimeout(() => {
+                      window.scrollBy(0, -150)
+                    }, 100)
+                  })
+                return
+              } else if (
+                secondaryPictureOfInsuranceCardBack === '' &&
+                howDoTheyWishToPay === 'Insurance'
+              ) {
+                alert('Please upload a picture of your insurance card front')
+                router
+                  .push('/NewPatientPacket/#SecondaryInsuranceCardPictureBack')
+                  .then(() => {
+                    setTimeout(() => {
+                      window.scrollBy(0, -150)
+                    }, 100)
+                  })
+                return
               } else if (retailPharmacyName === '') {
                 alert('Please enter your retail pharmacy name')
                 router.push('/NewPatientPacket/#pharmacyName').then(() => {
@@ -2513,8 +2580,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   secondarySubscribersName: secondarySubscribersName,
                   primaryPictureOfInsuranceCardFront:
                     primaryPictureOfInsuranceCardFront,
+                  primaryPictureOfInsuranceCardBack:
+                    primaryPictureOfInsuranceCardBack,
                   secondaryPictureOfInsuranceCardFront:
                     secondaryPictureOfInsuranceCardFront,
+                  secondaryPictureOfInsuranceCardBack:
+                    secondaryPictureOfInsuranceCardBack,
                   retailPharmacyName: retailPharmacyName,
                   retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                   retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -2635,6 +2706,34 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       company: company,
                     })
                   })
+                  .then(() => {
+                    AddPictureOfPatientInsuranceBackToStorageAndToDB({
+                      selectedFile: primaryPictureOfInsuranceCardBack,
+                      emailValue: emailValue,
+                      patientMedicalReviewSignatureDate:
+                        patientMedicalReviewSignatureDate,
+                      company: company,
+                    })
+                  })
+                  .then(() => {
+                    AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
+                      selectedFile: secondaryPictureOfInsuranceCardFront,
+                      emailValue: emailValue,
+                      patientMedicalReviewSignatureDate:
+                        patientMedicalReviewSignatureDate,
+                      company: company,
+                    })
+                  })
+                  .then(() => {
+                    AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB({
+                      selectedFile: secondaryPictureOfInsuranceCardBack,
+                      emailValue: emailValue,
+                      patientMedicalReviewSignatureDate:
+                        patientMedicalReviewSignatureDate,
+                      company: company,
+                    })
+                  })
+
                   .then(() => {
                     AddPictureOfDriverLicenseToStorageAndToDB({
                       selectedFile: pictureOfFrontOfDriverLicense,

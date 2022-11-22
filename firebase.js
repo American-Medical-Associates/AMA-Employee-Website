@@ -720,7 +720,9 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   secondaryInsuranceZip,
   secondarySubscribersName,
   primaryPictureOfInsuranceCardFront,
+  primaryPictureOfInsuranceCardBack,
   secondaryPictureOfInsuranceCardFront,
+  secondaryPictureOfInsuranceCardBack,
   retailPharmacyName,
   retailPharmacyCrossStreet1,
   retailPharmacyCrossStreet2,
@@ -857,8 +859,10 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       secondaryInsuranceZip: secondaryInsuranceZip,
       secondarySubscribersName: secondarySubscribersName,
       primaryPictureOfInsuranceCardFront: primaryPictureOfInsuranceCardFront,
+      primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
       secondaryPictureOfInsuranceCardFront:
         secondaryPictureOfInsuranceCardFront,
+      secondaryPictureOfInsuranceCardBack: secondaryPictureOfInsuranceCardBack,
       retailPharmacyName: retailPharmacyName,
       retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
       retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -1013,8 +1017,12 @@ export async function submitNewPatientPacketAndCreateNewPatient({
             secondarySubscribersName: secondarySubscribersName,
             primaryPictureOfInsuranceCardFront:
               primaryPictureOfInsuranceCardFront,
+            primaryPictureOfInsuranceCardBack:
+              primaryPictureOfInsuranceCardBack,
             secondaryPictureOfInsuranceCardFront:
               secondaryPictureOfInsuranceCardFront,
+            secondaryPictureOfInsuranceCardBack:
+              secondaryPictureOfInsuranceCardBack,
           },
           PrarmacyInfo: {
             retailPharmacyName: retailPharmacyName,
@@ -1102,8 +1110,11 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           secondarySubscribersName: secondarySubscribersName,
           primaryPictureOfInsuranceCardFront:
             primaryPictureOfInsuranceCardFront,
+          primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
           secondaryPictureOfInsuranceCardFront:
             secondaryPictureOfInsuranceCardFront,
+          secondaryPictureOfInsuranceCardBack:
+            secondaryPictureOfInsuranceCardBack,
           retailPharmacyName: retailPharmacyName,
           retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
           retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -1388,6 +1399,163 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
     }
   )
 }
+export async function AddPictureOfPatientInsuranceBackToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(
+    storage,
+    `NewPatientPacket/${emailValue}/PrimaryInsuranceCardBack`
+  )
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
+        {
+          primaryPictureOfInsuranceCardBack: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
+            {
+              primaryPictureOfInsuranceCardBack: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+
+              'companys',
+              'AMA',
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              primaryPictureOfInsuranceCardBack: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
+}
+export async function AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(
+    storage,
+    `NewPatientPacket/${emailValue}/SecondaryInsuranceCard`
+  )
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
+        {
+          secondaryPictureOfInsuranceCardFront: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
+            {
+              secondaryPictureOfInsuranceCardFront: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+
+              'companys',
+              'AMA',
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              secondaryPictureOfInsuranceCardFront: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
+}
+export async function AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB({
+  selectedFile,
+
+  emailValue,
+  patientMedicalReviewSignatureDate,
+  company,
+}) {
+  const imageRef = ref(
+    storage,
+    `NewPatientPacket/${emailValue}/SecondaryInsuranceCardBack`
+  )
+  await uploadString(imageRef, selectedFile, 'data_url').then(
+    async (snapshot) => {
+      const download = await getDownloadURL(imageRef)
+      console.log('good')
+      await setDoc(
+        doc(db, 'companys', 'AMA', 'NewPatientPacket', emailValue),
+        {
+          secondaryPictureOfInsuranceCardBack: download,
+        },
+        { merge: true }
+      )
+        .then(async () => {
+          await setDoc(
+            doc(db, 'companys', 'AMA', 'patients', emailValue),
+            {
+              secondaryPictureOfInsuranceCardBack: download,
+            },
+            { merge: true }
+          )
+        })
+        .then(async () => {
+          await setDoc(
+            doc(
+              db,
+
+              'companys',
+              'AMA',
+              'patients',
+              emailValue,
+              'NewPatientPacket',
+              patientMedicalReviewSignatureDate
+            ),
+            {
+              secondaryPictureOfInsuranceCardBack: download,
+            },
+            { merge: true }
+          )
+        })
+    }
+  )
+}
+
 export async function AddPictureOfDriverLicenseToStorageAndToDB({
   selectedFile,
 

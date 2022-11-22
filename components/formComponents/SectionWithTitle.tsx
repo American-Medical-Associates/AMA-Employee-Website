@@ -7,7 +7,7 @@ const SectionWithTitle: React.FC<{
   subTitle?: string
 }> = ({ title, children, subTitle, BgColor }) => {
   return (
-    <div className=" mt-20 flex flex-col items-center justify-center ">
+    <section className=" mt-20 flex flex-col items-center justify-center ">
       <div
         className={` flex w-[60%] flex-col items-center justify-center rounded-[30px] py-10 px-5 ${BgColor}`}
       >
@@ -20,7 +20,7 @@ const SectionWithTitle: React.FC<{
           {children}
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 export default SectionWithTitle
