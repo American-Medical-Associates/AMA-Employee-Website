@@ -358,7 +358,7 @@ export function SignInToAccount({ email, password }) {
       // const errorMessage = error.message;
     })
 }
-export function getResumes({ applicationtState }) {
+export function getResumes({ applicationtState: applicationState }) {
   onSnapshot(
     query(collection(db, 'applications'), orderBy('timestamp', 'desc')),
     (querySnapshot) => {
@@ -367,7 +367,7 @@ export function getResumes({ applicationtState }) {
         arrays.push(snap.data())
         // key: snap.id;
       })
-      applicationtState(arrays)
+      applicationState(arrays)
       // console.log(products);
     }
   )
