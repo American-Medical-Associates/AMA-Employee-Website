@@ -195,7 +195,7 @@ const Header = ({ selectCompany }) => {
   // const { data: session } = useSession()
   // console.log(session)
   return (
-    <div className=" w-full">
+    <header className=" w-full">
       <div className=" sticky top-0 z-50 grid  w-full grid-cols-3 flex-row bg-white p-5 shadow-md  md:px-10">
         <div
           ref={ref}
@@ -250,7 +250,7 @@ const Header = ({ selectCompany }) => {
           <PatientResourcesModal setClose={setShowPatientLookup} />
         </div>
       )}
-    </div>
+    </header>
   )
 }
 export default Header

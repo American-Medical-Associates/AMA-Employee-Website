@@ -1854,32 +1854,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     }, 100)
                   })
                 return
-              } else if (
-                secondaryPictureOfInsuranceCardFront === '' &&
-                howDoTheyWishToPay === 'Insurance'
-              ) {
-                alert('Please upload a picture of your insurance card front')
-                router
-                  .push('/NewPatientPacket/#SecondaryInsuranceCardPicture')
-                  .then(() => {
-                    setTimeout(() => {
-                      window.scrollBy(0, -150)
-                    }, 100)
-                  })
-                return
-              } else if (
-                secondaryPictureOfInsuranceCardBack === '' &&
-                howDoTheyWishToPay === 'Insurance'
-              ) {
-                alert('Please upload a picture of your insurance card front')
-                router
-                  .push('/NewPatientPacket/#SecondaryInsuranceCardPictureBack')
-                  .then(() => {
-                    setTimeout(() => {
-                      window.scrollBy(0, -150)
-                    }, 100)
-                  })
-                return
               } else if (retailPharmacyName === '') {
                 alert('Please enter your retail pharmacy name')
                 router.push('/NewPatientPacket/#pharmacyName').then(() => {

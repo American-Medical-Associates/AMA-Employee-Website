@@ -30,7 +30,7 @@ export default function TextInput({
         )}
         onChange={onChange}
         // value={value}
-      />
+      ></input>
     </div>
   )
 }

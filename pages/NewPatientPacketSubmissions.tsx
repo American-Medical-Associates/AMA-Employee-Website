@@ -478,8 +478,10 @@ export default function NewPatientPacketSubmitions() {
                 ]}
               />
               {selectedPacket.pictureOfFrontOfDriverLicense && (
-                <div className="flex flex-col items-center justify-center">
-                  <label className=" text-2xl font-bold">Driver License</label>
+                <figure className="flex flex-col items-center justify-center">
+                  <figcaption className=" text-2xl font-bold">
+                    Driver License
+                  </figcaption>
                   <img src={selectedPacket.pictureOfFrontOfDriverLicense} />
                   {/* <MainButton
                     buttonText="Driver License"
@@ -488,15 +490,15 @@ export default function NewPatientPacketSubmitions() {
                       window.open(selectedPacket.pictureOfFrontOfDriverLicense)
                     }}
                   /> */}
-                </div>
+                </figure>
               )}
               {selectedPacket.pictureOfTheirFace && (
-                <div className="flex flex-col items-center justify-center">
-                  <label className=" text-2xl font-bold">
+                <figure className="flex flex-col items-center justify-center">
+                  <figcaption className=" text-2xl font-bold">
                     Picture Of Their Face
-                  </label>
+                  </figcaption>
                   <img src={selectedPacket.pictureOfTheirFace} />
-                </div>
+                </figure>
               )}
               <InformationSection
                 title="Emergency Contact Information"
