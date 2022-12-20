@@ -2308,6 +2308,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               } else if (boneDensityScreening === '') {
                 setRequiredBoneDensityScreening(true)
                 alert('Please enter if you have had a bone density screening')
+
                 router
                   .push('/NewPatientPacket/#haveYouHadBoneDensityScreening')
                   .then(() => {
