@@ -12,6 +12,9 @@ const Signature: React.FC<{
   date: string
   dateState: Function
   id?: string
+  requiredCheckBox?: boolean
+  requiredSignature?: boolean
+  requiredDate?: boolean
 }> = ({
   WhatTheyAreSigningFor,
   signatureValue,
@@ -21,28 +24,34 @@ const Signature: React.FC<{
   date,
   dateState,
   id,
+  requiredCheckBox,
+  requiredSignature,
+  requiredDate,
 }) => {
   return (
-    <div id={id} className=" flex flex-col items-center justify-center">
-      <label className="my-5 mx-20 text-center text-2xl text-[red]">
+    <div id={id} className="flex  flex-col items-center justify-center">
+      <label className="my-5  text-center text-[red] md:text-2xl">
         {WhatTheyAreSigningFor}
       </label>
       <CustomCheckBox
         isChecked={agreeThatTheirSignatureIsValid}
         checkedState={agreeThatTheirSignatureIsValidState}
         text={`I agree that my typed signature represents my legal signature and is valid for all purposes.`}
+        required={requiredCheckBox}
       />
       <TextInput
         placeHolder="Signature"
         value={signatureValue}
         onChange={(e: any) => signatureState(e.target.value)}
         widthPercentage="w-full"
+        required={requiredSignature}
       />
       <DateInput
         placeHolder="Date Signed (MM/DD/YYYY)"
         widthPercentage="w-full"
         value={date}
         onChange={(e: any) => dateState(e.target.value)}
+        required={requiredDate}
       />
     </div>
   )

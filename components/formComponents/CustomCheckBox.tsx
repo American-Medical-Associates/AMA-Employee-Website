@@ -8,9 +8,30 @@ const CustomCheckBox: React.FC<{
   text: string
   doYouWantToSetCheckToBoxValue?: boolean
   id?: string
-}> = ({ isChecked, checkedState, text, doYouWantToSetCheckToBoxValue, id }) => {
+  required?: boolean
+  missing?: boolean
+}> = ({
+  isChecked,
+  checkedState,
+  text,
+  doYouWantToSetCheckToBoxValue,
+  id,
+  required,
+  missing,
+}) => {
+  if (required) {
+    if (!isChecked) {
+      missing = true
+    } else {
+      missing = false
+    }
+  }
   return (
-    <div className=" my-[1px] flex grid-cols-2 flex-row">
+    <div
+      className={` ${missing ? 'bg-[#ff1818]' : undefined} ${
+        missing ? 'rounded-[25px]' : undefined
+      } ${missing ? 'p-5' : undefined} my-[1px] flex grid-cols-2 flex-row`}
+    >
       <div id={id}>
         <CheckBox isChecked={isChecked} checkedState={checkedState} />
       </div>

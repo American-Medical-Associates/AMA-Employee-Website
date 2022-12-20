@@ -13,6 +13,7 @@ const AddressInput: React.FC<{
   USStateState: any
   USStateValue: String
   id?: string
+  required?: boolean
 }> = ({
   addressValue,
   addressValue2,
@@ -25,6 +26,7 @@ const AddressInput: React.FC<{
   USStateState,
   USStateValue,
   id,
+  required,
 }) => {
   return (
     <div
@@ -39,6 +41,7 @@ const AddressInput: React.FC<{
           addressState(text.target.value)
         }}
         value={addressValue}
+        required={required}
       />
       <TextInput
         type="Address 2"
@@ -57,6 +60,7 @@ const AddressInput: React.FC<{
             cityState(text.target.value)
           }}
           value={cityValue}
+          required={required}
         />
 
         <TextInput
@@ -66,6 +70,7 @@ const AddressInput: React.FC<{
             USStateState(text.target.value)
           }}
           value={USStateValue}
+          required={required}
         />
       </div>
       <TextInput
@@ -75,6 +80,7 @@ const AddressInput: React.FC<{
           zipCodeState(text.target.value)
         }}
         value={zipCodeValue}
+        required={required}
       />
     </div>
   )

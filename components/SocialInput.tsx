@@ -9,7 +9,18 @@ const SocialInput: React.FC<{
   value?: string | undefined
   ref?: any
   valueState?: any
-}> = ({ placeHolder, widthPercentage, onChange, value, id, ref }) => {
+  missing?: boolean
+  required?: boolean
+}> = ({
+  placeHolder,
+  widthPercentage,
+  onChange,
+  value,
+  id,
+  ref,
+  missing,
+  required,
+}) => {
   const [valueState, setValueState] = useState(value)
   const useFormat: boolean = true
   useEffect(() => {
@@ -29,6 +40,13 @@ const SocialInput: React.FC<{
     setValueState(formatCode())
   }, [value, valueState])
 
+  if (required) {
+    if (value === '') {
+      missing = true
+    } else {
+      missing = false
+    }
+  }
   return (
     <div className=" my-5 flex w-full items-center justify-center ">
       <input
@@ -38,9 +56,9 @@ const SocialInput: React.FC<{
         value={valueState}
         type={'tel'}
         placeholder={placeHolder}
-        className={classnames(
-          `${widthPercentage} cursor-pointer  rounded-[30px] border-2  bg-[#cacaca71] p-4 text-lg outline-none`
-        )}
+        className={classnames(`
+          ${missing ? 'bg-[#ff1818]' : 'bg-[#cacaca71]'} 
+          ${widthPercentage} cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`)}
         onChange={onChange}
       />
     </div>

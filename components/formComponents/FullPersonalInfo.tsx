@@ -26,6 +26,11 @@ const FullPersonalInfo: React.FC<{
   phoneNumberState: Function
   emailState: Function
   emailValue: string
+  firstNameRequired?: boolean
+  addressRequired?: boolean
+  dateOfBirthRequired?: boolean
+  phoneNumberRequired?: boolean
+  emailRequired?: boolean
 }> = ({
   firstName,
   setFirstName,
@@ -47,6 +52,11 @@ const FullPersonalInfo: React.FC<{
   phoneNumberState,
   emailState,
   emailValue,
+  firstNameRequired,
+  addressRequired,
+  dateOfBirthRequired,
+  phoneNumberRequired,
+  emailRequired,
 }) => {
   return (
     <div className="flex w-full flex-col items-center justify-center">
@@ -56,6 +66,7 @@ const FullPersonalInfo: React.FC<{
         lastName={lastName}
         setLastName={setLastName}
         id="fullName"
+        required={firstNameRequired}
       />
       <AddressInput
         addressValue={addressValue}
@@ -69,6 +80,7 @@ const FullPersonalInfo: React.FC<{
         USStateState={USStateState}
         zipCodeState={zipCodeState}
         id="fullAddress"
+        required={addressRequired}
       />
       <DateInput
         placeHolder="Date of Birth (MM/DD/YYYY)"
@@ -78,6 +90,7 @@ const FullPersonalInfo: React.FC<{
         }}
         value={BirthDateValue}
         id="birthDate"
+        required={dateOfBirthRequired}
       />
       <PhoneNumberInput
         placeHolder="Phone Number"
@@ -86,6 +99,8 @@ const FullPersonalInfo: React.FC<{
           phoneNumberState(text.target.value)
         }}
         value={phoneNumberValue}
+        id="phoneNumber"
+        required={phoneNumberRequired}
       />
       <TextInput
         placeHolder="Email"
@@ -95,6 +110,7 @@ const FullPersonalInfo: React.FC<{
         }}
         value={emailValue}
         id="email"
+        required={emailRequired}
       />
     </div>
   )

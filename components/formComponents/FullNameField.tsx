@@ -7,7 +7,8 @@ const FullNameField: React.FC<{
   lastName: string
   setLastName: Function
   id?: string
-}> = ({ firstName, setFirstName, lastName, setLastName, id }) => {
+  required?: boolean
+}> = ({ firstName, setFirstName, required, lastName, setLastName, id }) => {
   return (
     <div id={id} className=" flex w-full items-center justify-center">
       <TextInput
@@ -17,6 +18,7 @@ const FullNameField: React.FC<{
         onChange={(text: any) => {
           setFirstName(text.target.value)
         }}
+        required={required}
       />
 
       <TextInput
@@ -26,6 +28,7 @@ const FullNameField: React.FC<{
         onChange={(text: any) => {
           setLastName(text.target.value)
         }}
+        required={required}
       />
     </div>
   )

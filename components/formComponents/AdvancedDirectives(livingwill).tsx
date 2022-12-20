@@ -9,7 +9,8 @@ import Signature from './Signature'
 const AdvancedDirectivesLivingWill: React.FC<{
   id?: string
   AdvancedDirectivesLivingWillState: any
-}> = ({ AdvancedDirectivesLivingWillState, id }) => {
+  required?: boolean
+}> = ({ AdvancedDirectivesLivingWillState, id, required }) => {
   const [healthCarePowerOfAttorney, setHealthCarePowerOfAttorney] = useState('')
   const [healthCarePowerOfAttorneyName, setHealthCarePowerOfAttorneyName] =
     useState('')
@@ -21,6 +22,20 @@ const AdvancedDirectivesLivingWill: React.FC<{
   const [signature, setSignature] = useState('')
   const [agreeThatTheirSignatureIsValid, setAgreeThatTheirSignatureIsValid] =
     useState(false)
+  const [requiredCheckBoxSignature, setRequiredCheckBoxSignature] =
+    useState(false)
+  const [requiredSignature, setRequiredSignature] = useState(false)
+  const [requiredDate, setRequiredDate] = useState(false)
+  useEffect(() => {
+    if (required) {
+      if (signature === '' || date === '' || !agreeThatTheirSignatureIsValid) {
+        setRequiredCheckBoxSignature(true)
+        setRequiredSignature(true)
+        setRequiredDate(true)
+      }
+    }
+  }, [required, signature, date, agreeThatTheirSignatureIsValid])
+
   useEffect(() => {
     AdvancedDirectivesLivingWillState({
       healthCarePowerOfAttorney: healthCarePowerOfAttorney,
@@ -31,6 +46,9 @@ const AdvancedDirectivesLivingWill: React.FC<{
       date: date,
       signature: signature,
       agreeThatTheirSignatureIsValid: agreeThatTheirSignatureIsValid,
+      requiredCheckBoxSignature: requiredCheckBoxSignature,
+      requiredSignature: requiredSignature,
+      requiredDate: requiredDate,
     })
   }, [
     healthCarePowerOfAttorneyName,
@@ -41,6 +59,9 @@ const AdvancedDirectivesLivingWill: React.FC<{
     signature,
     date,
     agreeThatTheirSignatureIsValid,
+    requiredCheckBoxSignature,
+    requiredSignature,
+    requiredDate,
   ])
 
   return (
@@ -79,6 +100,9 @@ const AdvancedDirectivesLivingWill: React.FC<{
           />,
 
           <Signature
+            requiredCheckBox={requiredCheckBoxSignature}
+            requiredSignature={requiredSignature}
+            requiredDate={requiredDate}
             WhatTheyAreSigningFor="Signature"
             signatureValue={signature}
             signatureState={setSignature}

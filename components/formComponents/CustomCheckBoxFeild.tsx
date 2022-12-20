@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import MainButton from '../MainButton'
 import TextInput from '../TextInput'
 import CustomCheckBox from './CustomCheckBox'
-
+import classnames from 'classnames'
 const CustomCheckBoxFeild: React.FC<{
   id?: string
   checkBoxTitles: Array<string>
@@ -15,6 +15,8 @@ const CustomCheckBoxFeild: React.FC<{
   allowMultipleCheckBoxes: boolean
   refresh?: boolean
   setRefresh?: Function
+  missing?: boolean
+  required?: boolean
 }> = ({
   id,
   checkBoxTitles,
@@ -24,6 +26,8 @@ const CustomCheckBoxFeild: React.FC<{
   howManyCheckBoxes,
   checkBoxValues,
   allowMultipleCheckBoxes,
+  required,
+  missing,
 }) => {
   const arrayofStates: any = []
   const arrayofStatesFunctions: any = []
@@ -120,11 +124,21 @@ const CustomCheckBoxFeild: React.FC<{
     //   }
   }, [arrayofStates])
   //if number of columns is not defined then render the checkBoxes in one row
-
+  if (required) {
+    if (checkBoxValues.length == 0) {
+      missing = true
+    } else {
+      missing = false
+    }
+  }
   return (
     <div
       id={id}
-      className={`my-10 flex items-start justify-start ${marginLeft}`}
+      className={`${missing ? 'bg-[#ff1818]' : 'bg-[#c3969600]'} ${
+        missing ? 'w-[50%]' : undefined
+      }
+      ${missing ? 'rounded-[20px]' : undefined}
+       my-10 flex items-start justify-start ${marginLeft}`}
     >
       <div className=" flex flex-col ">
         <h3 className="my-5 ml-5 text-[#616161]  sm:text-lg md:text-2xl">

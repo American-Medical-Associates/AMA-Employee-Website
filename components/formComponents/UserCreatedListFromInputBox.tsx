@@ -13,6 +13,8 @@ const UserCreatedListFromInputBox: React.FC<{
   dateFieldPlaceHolder?: string
   showAddDrugFields?: boolean
   id?: string
+  required?: boolean
+  missing?: boolean
 }> = ({
   list,
   inputBoxPlaceHolder,
@@ -21,6 +23,8 @@ const UserCreatedListFromInputBox: React.FC<{
   dateFieldPlaceHolder,
   showAddDrugFields,
   id,
+  required,
+  missing,
 }) => {
   const [inputBox, setInputBox] = useState('')
   const [date, setDate] = useState('')
@@ -37,11 +41,18 @@ const UserCreatedListFromInputBox: React.FC<{
         /(\d{2})(\d{2})(\d{4})/,
         '$1/$2/$3'
       )
+      if (required) {
+        if (list.length === 0) {
+          missing = true
+        } else {
+          missing = false
+        }
+      }
 
       return (
         <div
           id={id}
-          className=" ml-[5%] flex items-center justify-center md:flex-col "
+          className={`  ml-[5%] flex items-center justify-center md:flex-col `}
         >
           <div className=" mt-5 flex w-full items-center justify-center rounded-[30px]  bg-[#e9e7e7b1] md:flex-col ">
             <p className="mx-10 my-3 text-2xl text-[#616161]">
@@ -123,8 +134,21 @@ const UserCreatedListFromInputBox: React.FC<{
   })
 
   return (
-    <div className=" my-20 flex w-full flex-col items-center justify-center text-center">
-      <h3 className=" text-center text-xl  text-[red]">{title}</h3>
+    <div
+      className={` ${missing ? 'bg-[#ff1818]' : 'bg-[#c3969600]'} ${
+        missing ? 'w-[50%]' : undefined
+      }
+      ${
+        missing ? 'rounded-[20px]' : undefined
+      } my-20 flex w-full flex-col items-center justify-center text-center`}
+    >
+      <h3
+        className={` text-center text-xl ${
+          missing ? 'text-black' : 'text-[red]'
+        }  `}
+      >
+        {title}
+      </h3>
       {!showAddDrugFields && (
         <TextInput
           placeHolder={inputBoxPlaceHolder!}

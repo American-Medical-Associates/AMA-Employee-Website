@@ -11,10 +11,20 @@ const TakeAPictureCustom: React.FC<{
   setPicture: any
   key: number
   id?: string
-}> = ({ text, picture, setPicture, key, id }) => {
+  required?: boolean
+  missing?: boolean
+}> = ({ text, picture, setPicture, key, id, required, missing }) => {
   const [pictureUpload, setPictureUpload] = useState(false)
   const [displayInfoBefore, setDisplayInfoBefore] = useState('')
   const [displayInfoAfter, setDisplayInfoAfter] = useState('')
+
+  if (required) {
+    if (picture === '') {
+      missing = true
+    } else {
+      missing = false
+    }
+  }
 
   function calculateSize(img: any, maxWidth: any, maxHeight: any) {
     let width = img.width
@@ -111,7 +121,14 @@ const TakeAPictureCustom: React.FC<{
   }
 
   return (
-    <div id={id} className=" my-10 flex flex-col items-center justify-center">
+    <div
+      id={id}
+      className={` ${missing ? 'bg-[#ff1818]' : undefined} ${
+        missing ? 'w-[80%]' : undefined
+      } ${
+        missing ? 'rounded-[25px]' : undefined
+      } my-10 flex flex-col items-center justify-center `}
+    >
       <h3 className="text-center text-2xl text-[#616161]">{text}</h3>
       <MainButton
         buttonText="upload picture"

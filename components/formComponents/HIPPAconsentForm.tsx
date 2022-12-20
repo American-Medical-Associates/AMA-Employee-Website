@@ -6,7 +6,8 @@ import Signature from './Signature'
 const HIPPAconsentForm: React.FC<{
   id?: string
   HippaConsentFormState: any
-}> = ({ HippaConsentFormState, id }) => {
+  required?: boolean
+}> = ({ HippaConsentFormState, id, required }) => {
   const [name, setName] = useState('')
   const [relationShip, setRelationShip] = useState('')
   const [name2, setName2] = useState('')
@@ -23,6 +24,10 @@ const HIPPAconsentForm: React.FC<{
   const [phoneNumber2, setPhoneNumber2] = useState('')
   const [phoneNumber3, setPhoneNumber3] = useState('')
   const [phoneNumber4, setPhoneNumber4] = useState('')
+  const [requiredCheckBoxConsent, setRequiredCheckBoxConsent] = useState(false)
+  const [requiredSignature, setRequiredSignature] = useState(false)
+  const [requiredDate, setRequiredDate] = useState(false)
+
   useEffect(() => {
     HippaConsentFormState({
       name: name,
@@ -54,6 +59,19 @@ const HIPPAconsentForm: React.FC<{
     signatureDate,
     signatureCheckBoxConsent,
   ])
+  useEffect(() => {
+    if (required) {
+      if (
+        !signatureCheckBoxConsent &&
+        signatureDate == '' &&
+        hippaSignature == ''
+      ) {
+        setRequiredCheckBoxConsent(true)
+        setRequiredSignature(true)
+        setRequiredDate(true)
+      }
+    }
+  }, [required, signatureCheckBoxConsent, signatureDate, hippaSignature])
 
   return (
     <div className="flex w-full flex-col justify-center ">
@@ -183,6 +201,9 @@ const HIPPAconsentForm: React.FC<{
 
       <Signature
         id={id}
+        requiredCheckBox={requiredCheckBoxConsent}
+        requiredSignature={requiredSignature}
+        requiredDate={requiredDate}
         signatureState={setHippaSignature}
         dateState={setSignatureDate}
         agreeThatTheirSignatureIsValidState={setSignatureCheckBoxConsent}
