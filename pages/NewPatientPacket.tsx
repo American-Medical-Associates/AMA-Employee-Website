@@ -3104,5 +3104,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       </main>
     </div>
   )
+  //q:add new repository to be able to push to it this is the url https://github.com/zachrizzo/AMA_Employee_Website
+  //a: git remote add origin https://github.com/zachrizzo/AMA_Employee_Website
+  //q: how to push to new repository
 }
 export default NewPatientPacket
