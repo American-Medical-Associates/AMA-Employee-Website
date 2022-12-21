@@ -12,8 +12,11 @@ import classnames from 'classnames'
 import CheckBox from '../components/CheckBox'
 import { useRouter } from 'next/router'
 import SearchComponent from '../components/searchComponent'
+import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 //TODO: MAKE USE MESSAGE AUTHERIZATION IS WORKING
 const MassMessagePage: NextPage<{}> = () => {
+  const [loading, setLoading] = useState(false)
+  const [showCheckMark, setShowCheckMark] = useState(false)
   const [xlsxDoc, setXlsxDoc] = useState<Array<string>>([])
   const [homePhone, setHomePhone] = useState('')
   const [workPhone, setWorkPhone] = useState('')
@@ -216,6 +219,7 @@ const MassMessagePage: NextPage<{}> = () => {
   })
   var message = ''
   const sendMessage = () => {
+    setLoading(true)
     patients.forEach((item) => {
       if (item) {
         message = `Thank You ${item[1]}  for visiting American Medical Associates. Please let us know how we did by clicking the link below. Link:https://www.google.com/search?q=american+medical+associates+az&oq=americanmed&aqs=chrome.2.69i60j0i512j0i10i512j69i57j46i10i175i199i512j69i65j69i60l2.11313j0j7&sourceid=chrome&ie=UTF-8`
@@ -252,6 +256,9 @@ const MassMessagePage: NextPage<{}> = () => {
         listOfMessageSent.push(
           `${patients.length} patients were sent messages on ${currentDate}`
         )
+
+        setLoading(false)
+        setShowCheckMark(true)
         setRefresh(!refresh)
       })
       .then(() => {
@@ -363,6 +370,7 @@ const MassMessagePage: NextPage<{}> = () => {
 
         {list}
         {ListOfMessagesSent}
+        {showCheckMark && <GreenCheckMark checkMarkText="Texts Sent!" />}
 
         <MainButton
           disabled={buttonDisabled}
@@ -370,6 +378,7 @@ const MassMessagePage: NextPage<{}> = () => {
           onClick={() => {
             sendMessage()
           }}
+          loading={loading}
         />
       </main>
     </div>

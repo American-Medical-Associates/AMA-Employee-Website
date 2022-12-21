@@ -38,8 +38,11 @@ import {
 import { useSelector } from 'react-redux'
 import { selectCompany } from '../redux/slices/companySlice'
 import Head from 'next/head'
+import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {
+  const [loading, setLoading] = useState(false)
+  const [showCheckMark, setShowCheckMark] = useState(false)
   const router = useRouter()
   const company = useSelector(selectCompany)
   const [firstName, setFirstName] = useState('')
@@ -1860,9 +1863,16 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             lineHeight="h-[10px]"
           />
         </div>
+        {showCheckMark && (
+          <GreenCheckMark
+            checkMarkText="Thank You"
+            bottomText="Your information has been submitted"
+          />
+        )}
         <div className=" mt-10 flex items-center justify-center">
           <MainButton
             onClick={async () => {
+              setLoading(true)
               console.log(haveTheyEverSmoked)
               //TODO: Ask Jasmine if she wants to require medications, drug allergies, all Surgeries, major illneses. as of now we ask for them to put none if its none do we want that?
               //TODO: ADD CHECK BOXES for all the list quests to add items
@@ -1877,6 +1887,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                   //scroll up 200px
                 })
+                setLoading(false)
                 return
               } else if (lastName === '') {
                 setRequiredFirstName(true)
@@ -1887,6 +1898,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   //scroll up 200px
                 })
                 alert('Please enter your last name')
+                setLoading(false)
                 return
               } else if (BirthDateValue === '') {
                 setRequiredDateOfBirth(true)
@@ -1897,6 +1909,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   //scroll up 200px
                 })
                 alert('Please enter your birth date')
+                setLoading(false)
                 return
               } else if (phoneNumberValue === '') {
                 setRequiredPhoneNumber(true)
@@ -1907,6 +1920,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 //scroll up 200px
                 // window.scrollBy(0, -200)
                 return
@@ -1919,6 +1933,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 })
 
                 alert('Please enter your email')
+                setLoading(false)
 
                 return
               } else if (addressValue === '') {
@@ -1929,6 +1944,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                 })
                 alert('Please enter your address')
+                setLoading(false)
                 return
               } else if (cityValue === '') {
                 setRequiredAddress(true)
@@ -1938,6 +1954,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                 })
                 alert('Please enter your city')
+                setLoading(false)
                 return
               } else if (USStateValue === '') {
                 setRequiredAddress(true)
@@ -1947,6 +1964,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                 })
                 alert('Please enter your state')
+                setLoading(false)
                 return
               } else if (zipCodeValue === '') {
                 setRequiredAddress(true)
@@ -1956,6 +1974,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                 })
                 alert('Please enter your zip code')
+                setLoading(false)
                 return
               } else if (socialValue === '') {
                 setRequireSocial(true)
@@ -1965,6 +1984,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (nameOfEmergencyContact === '') {
                 setRequiredNameOfEmergencyContact(true)
@@ -1977,7 +1997,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
 
                 alert('Please enter the name of your emergency contact')
+
                 window.scrollBy(0, -1500)
+                setLoading(false)
 
                 return
               } else if (EmergencyContactRelationShip === '') {
@@ -1990,6 +2012,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (EmergencyContactPhoneNumber === '') {
                 setRequiredEmergencyContactPhoneNumber(true)
@@ -2001,6 +2024,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (HowDidTheyHearAboutUs === '') {
                 setRequiredHowDidTheyHearAboutUs(true)
@@ -2012,6 +2036,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (howDoTheyWishToPay === '') {
                 setRequiredHowDoTheyWishToPay(true)
@@ -2025,7 +2050,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
-
+                setLoading(false)
                 return
               } else if (
                 primaryInsurance === '' &&
@@ -2038,6 +2063,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 primaryInsuranceID === '' &&
@@ -2052,6 +2078,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 primaryInsurancePhone === '' &&
@@ -2066,6 +2093,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 primaryInsuranceGroup === '' &&
@@ -2080,6 +2108,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               }
               // if (
@@ -2139,6 +2168,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 primaryPictureOfInsuranceCardFront === '' &&
@@ -2153,6 +2183,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 primaryPictureOfInsuranceCardBack === '' &&
@@ -2167,6 +2198,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (retailPharmacyName === '') {
                 setRequiredRetailPharmacyName(true)
@@ -2176,6 +2208,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 retailPharmacyCrossStreet1 === '' ||
@@ -2191,6 +2224,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (retailPharmacyPhoneNumber === '') {
                 setRequiredRetailPharmacyPhoneNumber(true)
@@ -2202,6 +2236,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (areYouAllergicToLatex === '') {
                 setRequiredAreYouAllergicToLatex(true)
@@ -2211,6 +2246,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (areYouAllergicToSelfish === '') {
                 setRequiredAreYouAllergicToSelfish(true)
@@ -2222,6 +2258,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (areYouAllergicToIodine === '') {
                 setRequiredAreYouAllergicToIodine(true)
@@ -2231,6 +2268,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
                 // if patient drug allergies are not empty array
               } else if (doYouHaveAnyDrugAllergies === '') {
@@ -2243,6 +2281,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (
                 doYouHaveAnyDrugAllergies === 'Yes' &&
                 PatientDrugAllergies.length < 1
@@ -2254,6 +2294,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (doYouHaveAHistoryOfAnyMajorIllness === '') {
                 setRequiredDoYouHaveAHistoryOfAnyMajorIllness(true)
@@ -2265,6 +2306,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (
                 allMajorIllnesses.length < 1 &&
                 doYouHaveAHistoryOfAnyMajorIllness === 'Yes'
@@ -2278,6 +2321,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (doYouHaveAHistoryOfSurgeries === '') {
                 setRequiredDoYouHaveAHistoryOfSurgeries(true)
@@ -2291,6 +2335,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (
                 allMajorSurgeriesAndHospitalizations.length < 1 &&
                 doYouHaveAHistoryOfSurgeries === 'Yes'
@@ -2304,6 +2350,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (boneDensityScreening === '') {
                 setRequiredBoneDensityScreening(true)
@@ -2316,6 +2363,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 BoneDensityScreeningDate === '' &&
@@ -2330,6 +2378,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 wasBoneDensityScreeningNormalOrAbnormal === '' &&
@@ -2346,6 +2395,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (colonoscopyScreening === '') {
                 setRequiredColonoscopyScreening(true)
@@ -2357,6 +2407,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 dateOfLastColonoscopyScreening === '' &&
@@ -2371,6 +2422,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 wasColonoscopyScreeningNormalOrAbnormal === '' &&
@@ -2387,6 +2439,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (haveTheyEverSmoked === '') {
                 setRequiredHaveTheyEverSmoked(true)
@@ -2396,6 +2449,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 haveTheyEverSmoked === 'Yes' &&
@@ -2411,6 +2465,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (anyOtherTobaccoOrEcigarettes === '') {
                 setRequiredAnyOtherTobaccoOrEcigarettes(true)
@@ -2420,6 +2475,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 anyOtherTobaccoOrEcigarettes === 'Yes' &&
@@ -2434,6 +2490,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (doYoCurrentlyUseRecreationalDrugs === '') {
                 setRequiredDoYoCurrentlyUseRecreationalDrugs(true)
@@ -2445,6 +2502,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYoCurrentlyUseRecreationalDrugs === 'Yes' &&
@@ -2459,6 +2517,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (doYouDrinkAlcohol === '') {
                 setRequiredDoYouDrinkAlcohol(true)
@@ -2468,6 +2527,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 doYouDrinkAlcohol === 'Yes' &&
@@ -2482,6 +2542,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (doYouDrinkCoffee === '') {
                 setRequiredDoYouDrinkCoffee(true)
@@ -2491,6 +2552,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 doYouDrinkCoffee === 'Yes' &&
@@ -2503,6 +2565,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (doYouUseIllegaLStreetDrugs === '') {
                 setRequiredDoYouUseIllegaLStreetDrugs(true)
@@ -2514,6 +2577,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouUseIllegaLStreetDrugs === 'Yes' &&
@@ -2528,6 +2592,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (doYouFeelDepressed === '') {
                 setRequiredDoYouFeelDepressed(true)
@@ -2539,6 +2604,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouCryFrequently === '' &&
@@ -2553,6 +2619,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -50)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouHaveLittleInterestInDoingThings == '' &&
@@ -2569,6 +2636,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouFeelHopelessDownOrDepressed === '' &&
@@ -2581,6 +2649,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 doYouHaveTroubleFallingAsleepOrSleepingTooMuch === '' &&
@@ -2597,6 +2666,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouFeelTiredOrHaveLittleEnergy === '' &&
@@ -2609,6 +2679,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (
                 doYouHavAPoorAppetiteOrOverEating === '' &&
@@ -2623,6 +2694,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouFeelBadAboutYourself === '' &&
@@ -2637,6 +2709,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 troubleConcentrating === '' &&
@@ -2651,6 +2724,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 doYouMoveOrSpeakSlowly === '' &&
@@ -2665,6 +2739,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 thoughtsYouWouldBeBetterOffDead === '' &&
@@ -2681,6 +2756,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 haveYouEverAttemptedSuicide === '' &&
@@ -2695,6 +2771,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 isStressAMajorProblem === '' &&
@@ -2709,6 +2786,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (
                 doYouPanicWhenStressed === '' &&
                 doYouFeelDepressed === 'Yes'
@@ -2722,6 +2801,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -250)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (areYouCurrentlyTakingAnyMedications == '') {
                 setRequireAreYouCurrentlyTakingAnyMedications(true)
                 alert('Please select if you are taking any medications')
@@ -2734,6 +2815,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                return setLoading(false)
               } else if (
                 areYouCurrentlyTakingAnyMedications == 'Yes' &&
                 listOfAllCurrentMedications.length < 1
@@ -2749,6 +2831,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (!PatientMedicalReviewSignatureCheckBox) {
                 setRequirePatientMedicalReviewSignatureCheckBox(true)
                 alert('Please agree to the medical review signature')
@@ -2759,6 +2843,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (patientMedicalReviewSignatureDate == '') {
                 setRequirePatientMedicalReviewSignature(true)
                 alert('Please enter the date of the medical review signature')
@@ -2769,6 +2855,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
+                return
               } else if (patientMedicalReviewSignature == '') {
                 setRequirePatientMedicalReviewSignatureDate(true)
                 alert('Please enter your signature')
@@ -2779,7 +2867,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
-
+                setLoading(false)
                 return
               } else if (AdvancedDirectives.signature == '') {
                 setRequireAdvancedDirectivesSignature(true)
@@ -2791,6 +2879,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (AdvancedDirectives.signatureDate == '') {
                 setRequireAdvancedDirectivesSignature(true)
@@ -2802,6 +2891,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (
                 !AdvancedDirectives.agreeThatTheirSignatureIsValid ||
@@ -2819,6 +2909,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       window.scrollBy(0, -150)
                     }, 100)
                   })
+                setLoading(false)
                 return
               } else if (hippa.hippaSignature == '') {
                 setRequireHippaSignature(true)
@@ -2828,6 +2919,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (hippa.hippaSignatureDate == '') {
                 setRequireHippaSignature(true)
@@ -2837,6 +2929,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (hippa.agreeThatTheirSignatureIsValid == '') {
                 setRequireHippaSignature(true)
@@ -2846,6 +2939,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (financialPolicySignature == '') {
                 setRequireFinancialPolicySignature(true)
@@ -2855,6 +2949,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (financialPolicySignatureDate == '') {
                 setRequireFinancialPolicySignatureDate(true)
@@ -2864,6 +2959,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else if (!financialPolicySignatureCheckBox) {
                 setRequireFinancialPolicySignatureCheckBox(true)
@@ -2873,6 +2969,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
+                setLoading(false)
                 return
               } else {
                 submitNewPatientPacketAndCreateNewPatient({
@@ -3034,10 +3131,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   company: company,
                 })
                   .then(() => {
-                    alert('Packet uploaded successfully now attaching photos')
-                  })
-
-                  .then(() => {
                     AddPictureOfPatientFaceToStorageAndToDB({
                       selectedFile: pictureOfTheirFace,
                       emailValue: emailValue,
@@ -3093,12 +3186,19 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     })
                   })
                   .then(() => {
-                    alert('Photos uploaded, thank you for your submission')
+                    alert('thank you for your submission')
+                  })
+                  .then(() => {
+                    setLoading(false)
+                  })
+                  .then(() => {
+                    setShowCheckMark(true)
                   })
               }
             }}
             buttonText="Submit"
             buttonWidth="w-1/2"
+            loading={loading}
           />
         </div>
       </main>
