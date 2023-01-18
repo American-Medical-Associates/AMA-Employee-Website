@@ -19,6 +19,7 @@ import {
   ComputerDesktopIcon,
   BeakerIcon,
   CloudIcon,
+  InboxStackIcon,
 } from '@heroicons/react/24/outline'
 // import Box from './box'
 import { getAuth, signOut } from 'firebase/auth'
@@ -139,6 +140,15 @@ const Header = ({ selectCompany }) => {
                   text={'Support'}
                   onClick={() => {
                     router.push('/techSupportPages/TechSupport')
+                  }}
+                />,
+                <MenuItem
+                  icon={
+                    <InboxStackIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text={'Inventory'}
+                  onClick={() => {
+                    router.push('/Inventory/Inventory')
                   }}
                 />,
 

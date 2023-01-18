@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import PdfViewerComponent from '../components/PdfViewerComponent'
+import PdfViewerComponent from '../components/pdfCompnents/PdfViewerComponent'
 import { getFaxes } from '../firebase'
 const Faxes: NextPage<{}> = () => {
   const [fax, setFax] = useState(null)
@@ -9,6 +9,6 @@ const Faxes: NextPage<{}> = () => {
     console.log(fax)
   }, [])
 
-  return <div>{fax != null && <PdfViewerComponent document={fax} />}</div>
+  return <div></div>
 }
 export default Faxes

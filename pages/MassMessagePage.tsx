@@ -360,7 +360,7 @@ const MassMessagePage: NextPage<{}> = () => {
               <div className="flex w-full  flex-row items-center justify-center">
                 <h1>
                   `Hello "Patient Name", your current balance with AMERICAN
-                  MEDICAL ASSOCIATES is $"Personal Balance", please be prepared
+                  MEDICAL ASSOCIATES is "Personal Balance", please be prepared
                   to pay your balance before your next appointment.`
                 </h1>
               </div>

@@ -12,9 +12,9 @@ const CustomYesOrNo: React.FC<{
   const [noLocal, setNoLocal] = useState(false)
   if (required) {
     if (yesLocal || noLocal) {
-      missing = true
-    } else {
       missing = false
+    } else {
+      missing = true
     }
   }
   useEffect(() => {

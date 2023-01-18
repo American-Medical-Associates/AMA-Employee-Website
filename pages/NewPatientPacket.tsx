@@ -1002,14 +1002,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <CustomYesOrNo
               id="allergicToShellfish"
               marginLeft="pl-[5%]"
-              text="Allergic to Shellfish?"
+              text="Allergic to shellfish?"
               CheckState={setAreYouAllergicToSelfish}
               required={requiredAreYouAllergicToSelfish}
             />,
             <CustomYesOrNo
               id="allergicToIodine"
               marginLeft="pl-[5%]"
-              text="Allergic to Iodine?"
+              text="Allergic to iodine?"
               CheckState={setAreYouAllergicToIodine}
               required={requiredAreYouAllergicToIodine}
             />,
@@ -1036,7 +1036,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           BgColor="bg-[#e9e7e7b1]"
           children={[
             <DateInput
-              placeHolder="Date of Last Pap Smear (mmddyyyy)"
+              placeHolder="Date of last pap smear (mmddyyyy)"
               widthPercentage="w-full"
               onChange={(text: any) => {
                 setDateOfLastPAP(text.target.value)
@@ -1045,7 +1045,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
 
             <CustomCheckBoxFeild
-              title="Was the Pap Smear Normal?"
+              title="Was the pap smear normal?"
               checkBoxValues={wasPapNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
               checkBoxTitles={['Normal', 'Abnormal']}
@@ -1054,7 +1054,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               howManyCheckBoxes={2}
             />,
             <DateInput
-              placeHolder="Date of Last Mammogram (mmddyyyy)"
+              placeHolder="Date of last mammogram (mmddyyyy)"
               widthPercentage="w-full"
               onChange={(text: any) => {
                 setDateOfLastMammogram(text.target.value)
@@ -1062,7 +1062,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={dateOfLastMammogram}
             />,
             <CustomCheckBoxFeild
-              title="Was the Mammogram Normal?"
+              title="Was the mammogram normal?"
               checkBoxValues={wasMammogramNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
               checkBoxTitles={['Normal', 'Abnormal']}
@@ -1085,7 +1085,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={dateOfLastPSA}
             />,
             <CustomCheckBoxFeild
-              title="Was the PSA Normal?"
+              title="Was the PSA normal?"
               checkBoxValues={wasPSANormalOrAbnormal}
               allowMultipleCheckBoxes={false}
               checkBoxTitles={['Normal', 'Abnormal']}
@@ -1114,14 +1114,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <CustomYesOrNo
           id="doYouHaveAnySurgeries"
           marginLeft="ml-[30%]"
-          text="Do you have a history of any major surgeries or Hospitalizations?"
+          text="Do you have a history of any major surgeries or hospitalizations?"
           CheckState={setDoYouHaveAHistoryOfSurgeries}
           required={requiredDoYouHaveAHistoryOfSurgeries}
         />
         {doYouHaveAHistoryOfSurgeries === 'Yes' && (
           <UserCreatedListFromInputBox
             id="majorSurgeries"
-            title='Please list All Surgeries individually and press "Add Item" to add it to the list.'
+            title='Please list all Surgeries individually and press "Add Item" to add it to the list.'
             inputBoxPlaceHolder="Surgeries and Hospitalizations"
             showDateField={true}
             list={allMajorSurgeriesAndHospitalizations}
@@ -1130,7 +1130,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />
         )}
         <SectionWithTitle
-          subTitle="Select What Screenings you have had."
+          subTitle="Select what screenings you have had."
           BgColor="bg-[#e9e7e7b1]"
           children={[
             <CustomYesOrNo
@@ -1143,7 +1143,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             boneDensityScreening == 'Yes' && (
               <DateInput
                 id="dateOfBoneDensityScreening"
-                placeHolder="Date of Last Bone Density Screening (mmddyyyy)"
+                placeHolder="Date of last bone density screening (mmddyyyy)"
                 widthPercentage="w-3/4"
                 onChange={(text: any) => {
                   setBoneDensityScreeningDate(text.target.value)
@@ -1155,7 +1155,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             boneDensityScreening == 'Yes' && (
               <CustomCheckBoxFeild
                 id="boneDensityScreeningResults"
-                title="Was the Bone Density Screening Normal?"
+                title="Was the bone density screening normal?"
                 checkBoxValues={wasBoneDensityScreeningNormalOrAbnormal}
                 allowMultipleCheckBoxes={false}
                 checkBoxTitles={['Normal', 'Abnormal']}
@@ -1168,14 +1168,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <CustomYesOrNo
               id="haveYouHadColonoscopy"
               marginLeft="ml-[25%]"
-              text="Have you had a Colonoscopy screening?"
+              text="Have you had a colonoscopy screening?"
               CheckState={setColonoscopyScreening}
               required={requiredColonoscopyScreening}
             />,
             colonoscopyScreening == 'Yes' && (
               <DateInput
                 id="dateOfColonoscopyScreening"
-                placeHolder="Date of Last Colonoscopy (mmddyyyy)"
+                placeHolder="Date of last colonoscopy (mmddyyyy)"
                 widthPercentage="w-full"
                 onChange={(text: any) => {
                   setDateOfLastColonoscopyScreening(text.target.value)
@@ -1187,7 +1187,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             colonoscopyScreening == 'Yes' && (
               <CustomCheckBoxFeild
                 id="colonoscopyScreeningResults"
-                title="Was the Colonoscopy Normal?"
+                title="Was the colonoscopy normal?"
                 checkBoxValues={wasColonoscopyScreeningNormalOrAbnormal}
                 allowMultipleCheckBoxes={false}
                 checkBoxTitles={['Normal', 'Abnormal']}
@@ -1296,13 +1296,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <CustomYesOrNo
               id="haveYouEverSmoked"
-              text="Have you ever Smoked?"
+              text="Have you ever smoked?"
               CheckState={setHaveTheyEverSmoked}
               required={requiredHaveTheyEverSmoked}
             />,
             <TextInput
               id="howManyPacksPerDay"
-              placeHolder="If Yes, how many packs per day?"
+              placeHolder="If yes, how many packs per day?"
               widthPercentage="w-full"
               onChange={(text: any) => {
                 setHowManyPacksPerDay(text.target.value)
@@ -1360,7 +1360,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             <CustomYesOrNo
               id="doYouDrinkCoffee"
-              text="Do you drink Caffinated Beverages | coffee?"
+              text="Do you drink caffinated beverages | coffee?"
               CheckState={setDoYouDrinkCoffee}
               required={requiredDoYouDrinkCoffee}
             />,
@@ -1408,7 +1408,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 <div>
                   <CustomYesOrNo
                     id="doYouCryFrequently"
-                    text="Do you Cry Frequently?"
+                    text="Do you cry frequently?"
                     CheckState={setDoYouCryFrequently}
                     required={requiredDoYouCryFrequently}
                   />
@@ -1578,7 +1578,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1592,7 +1592,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1606,7 +1606,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1620,7 +1620,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1634,7 +1634,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1648,7 +1648,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1662,7 +1662,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1676,7 +1676,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1690,7 +1690,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1704,7 +1704,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',
@@ -1718,7 +1718,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={[
                 'Mother',
                 'Father',
-                'Maternal Mother',
+                'Maternal Grandmother',
                 'Maternal Father',
                 'Paternal Mother',
                 'Paternal Father',

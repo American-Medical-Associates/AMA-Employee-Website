@@ -14,6 +14,7 @@ import { db } from '../firebase'
 import { useRouter } from 'next/router'
 import { setCompany, setChannelID } from '../redux/slices/companySlice'
 import { useDispatch } from 'react-redux'
+import 'react-tooltip/dist/react-tooltip.css'
 const Home: NextPage = () => {
   // const functions = getFunctions()
   const sendMessage = httpsCallable(functions, 'sendMessage')

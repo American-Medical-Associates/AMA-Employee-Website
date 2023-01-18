@@ -79,7 +79,7 @@ const Resources: NextPage<{}> = () => {
                 }
                 text="PDF Signatures"
                 onClick={() => {
-                  router.push('/VitalizeBookAnAppointment')
+                  router.push('/PdfSignatures')
                 }}
               />
             </div>

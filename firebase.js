@@ -3,7 +3,14 @@ import { initializeApp, getApps, getApp } from 'firebase/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFunctions } from 'firebase/functions'
-import { getStorage, getDownloadURL, uploadString, ref } from 'firebase/storage'
+import {
+  getStorage,
+  getDownloadURL,
+  uploadString,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from 'firebase/storage'
 import { addDoc, getFirestore, updateDoc } from 'firebase/firestore'
 import {
   arrayUnion,
@@ -51,6 +58,9 @@ export const auth = getAuth(app)
 const storage = getStorage(app)
 export const db = getFirestore(app)
 export const functions = getFunctions(app)
+// set storage cors config
+// https://firebase.google.com/docs/storage/web/download-files#cors_configuration
+
 export async function submitResume({
   email,
   profileLink,
@@ -1998,4 +2008,201 @@ export async function AddIVinfusionIntakeForm({
         { merge: true }
       )
     })
+}
+export async function GetInventory({ company, inventoryState, itemType }) {
+  onSnapshot(
+    query(
+      collection(db, 'companys', company, itemType, item),
+      orderBy('timestamp', 'desc')
+    ),
+    (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      inventoryState(arrays)
+      console.log(arrays)
+    }
+  )
+}
+//add svg of user signature to storage and store the link in the database
+export async function AddSignatureToStorage({ signature }) {
+  const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
+  const storageRef = ref(
+    storage,
+    `signatures/${auth.currentUser.email}/${randomNumber}`
+  )
+  const response = await fetch(signature)
+  const blob = await response.blob()
+  await uploadBytes(storageRef, blob)
+    .then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(storageRef)
+      await setDoc(
+        doc(
+          db,
+          'users',
+          auth.currentUser.email,
+          'signatures',
+          randomNumber.toString()
+        ),
+        {
+          signature: downloadURL,
+          timestamp: serverTimestamp(),
+          ID: randomNumber.toString(),
+        },
+        { merge: true }
+      )
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+//get all the signatures for a user
+export async function GetSignatures({ signaturesState }) {
+  try {
+    onSnapshot(
+      query(
+        collection(db, 'users', auth.currentUser.email, 'signatures'),
+        orderBy('timestamp', 'desc')
+      ),
+      (querySnapshot) => {
+        const arrays = []
+        querySnapshot.forEach((snap) => {
+          arrays.push(snap.data())
+          // key: snap.id;
+        })
+        signaturesState(arrays)
+        console.log(arrays)
+      }
+    )
+  } catch (error) {}
+}
+
+//add pdf to storage and store the link in a sub collection under the user
+export async function AddPDFToStorage({ pdf, name, requiredPages }) {
+  const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
+  const storageRef = ref(
+    storage,
+    `pdfs/${auth.currentUser.email}/${randomNumber}`
+  )
+  const response = await fetch(pdf)
+  const blob = await response.blob()
+  await uploadBytes(storageRef, blob)
+    .then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(storageRef)
+      await setDoc(
+        doc(
+          db,
+          'users',
+          auth.currentUser.email,
+          'pdfs',
+          randomNumber.toString()
+        ),
+        {
+          pdf: downloadURL,
+          name: name,
+          timestamp: serverTimestamp(),
+          requiredPages: requiredPages,
+          ID: randomNumber,
+        },
+        { merge: true }
+      )
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+//get all the pdfs for a user
+export async function GetUsersPDFs({ pdfState }) {
+  try {
+    onSnapshot(
+      query(
+        collection(db, 'users', auth.currentUser.email, 'pdfs'),
+        orderBy('timestamp', 'desc')
+      ),
+      (querySnapshot) => {
+        const arrays = []
+        querySnapshot.forEach((snap) => {
+          arrays.push(snap.data())
+          // key: snap.id;
+        })
+        pdfState(arrays)
+        console.log(arrays)
+      }
+    )
+  } catch (error) {}
+}
+//get all users
+export async function GetUsers({ usersState }) {
+  try {
+    onSnapshot(query(collection(db, 'users')), (querySnapshot) => {
+      const arrays = []
+      querySnapshot.forEach((snap) => {
+        arrays.push(snap.data())
+        // key: snap.id;
+      })
+      usersState(arrays)
+      console.log(arrays)
+    })
+  } catch (error) {
+    alert(error)
+  }
+}
+//add selected pdf to selected user
+
+export async function AddPDFToUser({ pdf, name, email, requiredPages }) {
+  const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
+  const storageRef = ref(storage, `pdfs/${email}/${randomNumber}`)
+  const response = await fetch(pdf)
+  const blob = await response.blob()
+  await uploadBytes(storageRef, blob)
+    .then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(storageRef)
+      await setDoc(
+        doc(db, 'users', email, 'pdfs', randomNumber.toString()),
+        {
+          pdf: downloadURL,
+          name: name,
+          timestamp: serverTimestamp(),
+          requiredPages: requiredPages,
+          ID: randomNumber,
+        },
+        { merge: true }
+      )
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
+
+//delete signature
+export async function DeleteSignature({ signature }) {
+  try {
+    await deleteDoc(
+      doc(db, 'users', auth.currentUser.email, 'signatures', signature)
+    ).then(async () => {
+      const storageRef = ref(
+        storage,
+        `signatures/${auth.currentUser.email}/${signature}`
+      )
+      await deleteObject(storageRef)
+    })
+  } catch (error) {
+    alert(error)
+  }
+}
+
+//delete pdf
+export async function DeletePDF({ pdf }) {
+  try {
+    await deleteDoc(doc(db, 'users', auth.currentUser.email, 'pdfs', pdf)).then(
+      async () => {
+        const storageRef = ref(storage, `pdfs/${auth.currentUser.email}/${pdf}`)
+        await deleteObject(storageRef)
+      }
+    )
+  } catch (error) {
+    alert(error)
+  }
 }
