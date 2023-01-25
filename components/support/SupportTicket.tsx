@@ -73,7 +73,6 @@ const SupportTicket: React.FC<{}> = () => {
           'Issue with something the the IT department did NOT make (ECW, Microsoft Teams, etc...)',
           'Feature request',
         ]}
-        howManyCheckBoxes={0}
         setCheckBoxValues={setWhatKindOfIssueIsIt}
         checkBoxValues={whatKindOfIssueIsIt}
         title="What Kind Of Issue Is It?"
