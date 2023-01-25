@@ -630,7 +630,9 @@ export default function NewPatientPacketSubmitions() {
                   <figcaption className=" text-2xl font-bold">
                     Secondary Insurance Card Front
                   </figcaption>
-                  <img src={selectedPacket.primaryPictureOfInsuranceCardBack} />
+                  <img
+                    src={selectedPacket.secondaryPictureOfInsuranceCardFront}
+                  />
                 </figure>
               )}
 

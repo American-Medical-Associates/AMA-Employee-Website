@@ -642,7 +642,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             'Prefer not to answer',
             'Other',
           ]}
-          howManyCheckBoxes={8}
         />
         <SectionWithTitle
           title="Emergency Contact"
@@ -699,7 +698,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             'Email',
             'Other',
           ]}
-          howManyCheckBoxes={0}
           required={requiredHowDidTheyHearAboutUs}
         />
         <CustomCheckBoxFeild
@@ -710,7 +708,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           title="How do you wish to pay for your care?"
           setCheckBoxValues={setHowDoTheyWishToPay}
           checkBoxTitles={['Out of Pocket', 'Insurance']}
-          howManyCheckBoxes={2}
           required={requiredHowDoTheyWishToPay}
         />
         {howDoTheyWishToPay === 'Insurance' && (
@@ -1051,7 +1048,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={['Normal', 'Abnormal']}
               setCheckBoxValues={setWasPapNormalOrAbnormal}
               marginLeft="ml-[25%]"
-              howManyCheckBoxes={2}
             />,
             <DateInput
               placeHolder="Date of last mammogram (mmddyyyy)"
@@ -1068,7 +1064,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={['Normal', 'Abnormal']}
               setCheckBoxValues={setWasMammogramNormalOrAbnormal}
               marginLeft="ml-[25%]"
-              howManyCheckBoxes={2}
             />,
           ]}
         />
@@ -1091,7 +1086,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxTitles={['Normal', 'Abnormal']}
               setCheckBoxValues={setWasPSANormalOrAbnormal}
               marginLeft="ml-[25%]"
-              howManyCheckBoxes={2}
             />,
           ]}
         />
@@ -1161,7 +1155,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 checkBoxTitles={['Normal', 'Abnormal']}
                 setCheckBoxValues={setWasBoneDensityScreeningNormalOrAbnormal}
                 marginLeft="ml-[25%]"
-                howManyCheckBoxes={2}
                 required={requiredWasBoneDensityScreeningNormalOrAbnormal}
               />
             ),
@@ -1193,7 +1186,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 checkBoxTitles={['Normal', 'Abnormal']}
                 setCheckBoxValues={setWasColonoscopyScreeningNormalOrAbnormal}
                 marginLeft="ml-[25%]"
-                howManyCheckBoxes={2}
                 required={requiredWasColonoscopyScreeningNormalOrAbnormal}
               />
             ),

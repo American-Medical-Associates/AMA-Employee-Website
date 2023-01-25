@@ -9,7 +9,7 @@ const CustomCheckBoxFeild: React.FC<{
   checkBoxTitles: Array<string>
   title?: string
   marginLeft?: string
-  howManyCheckBoxes?: number
+
   setCheckBoxValues: Function
   checkBoxValues?: any
   allowMultipleCheckBoxes: boolean
@@ -23,7 +23,7 @@ const CustomCheckBoxFeild: React.FC<{
   title,
   marginLeft,
   setCheckBoxValues,
-  howManyCheckBoxes,
+
   checkBoxValues,
   allowMultipleCheckBoxes,
   required,
@@ -54,29 +54,8 @@ const CustomCheckBoxFeild: React.FC<{
     )
   })
 
-  //   const howManyCheckBoxesArray = Array.from(Array(howManyCheckBoxes).keys())
-  //   howManyCheckBoxesArray.map((item, index) => {
-  //     const [state, setState] = useState(false)
-  //     //push the state and setState to the array
-  //     arrayofStates.push(state)
-  //     arrayofStatesFunctions.push(setState)
-  //   })
-
-  //   //map the array and render the CustomCheckBox
-  //   checkBoxes = howManyCheckBoxesArray.map((item, index) => {
-  //     return (
-  //       <CustomCheckBox
-  //         isChecked={arrayofStates[index]}
-  //         checkedState={arrayofStatesFunctions[index]}
-  //         text={checkBoxTitles[index]}
-  //       />
-  //     )
-  //   })
-  // }
-
   useEffect(() => {
     //if the index of arrayofStates is true then push the value of the checkBoxTitles to the setCheckBoxValues
-    // if (allowMultipleCheckBoxes) {
 
     arrayofStates.map((item: any, index: any) => {
       if (allowMultipleCheckBoxes) {
@@ -86,9 +65,6 @@ const CustomCheckBoxFeild: React.FC<{
           if (!checkBoxValues.includes(checkBoxTitles[index])) {
             checkBoxValues.push(checkBoxTitles[index])
           }
-          // if (checkBoxTitles[index] === 'Other') {
-          //   checkBoxValues.push(otherValue)
-          // }
         }
         if (item == false) {
           if (!arrayofStates.includes(true)) {
@@ -116,12 +92,6 @@ const CustomCheckBoxFeild: React.FC<{
       }
     })
     console.log(checkBoxValues)
-
-    // if (howManyCheckBoxes < checkBoxTitles.length) {
-
-    //     howManyCheckBoxes =checkBoxTitles.length
-
-    //   }
   }, [arrayofStates])
   //if number of columns is not defined then render the checkBoxes in one row
   if (required) {

@@ -79,6 +79,7 @@ const PdfSignatures = () => {
   const [isTyped, setIsTyped] = useState(false)
   const [docsToDelete, setDocsToDelete] = useState([])
   const [showTypedText, setShowTypedText] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     try {
@@ -516,21 +517,49 @@ const PdfSignatures = () => {
                 <CircularButton
                   isSelection={true}
                   icon={
-                    <PaperAirplaneIcon className=" h-10 w-7 cursor-pointer  text-white duration-[500s] ease-in" />
+                    !loading ? (
+                      <PaperAirplaneIcon className=" h-10 w-7 cursor-pointer  text-white duration-[500s] ease-in" />
+                    ) : (
+                      <div className="flex items-center justify-center">
+                        <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-white"></div>
+                      </div>
+                    )
                   }
-                  onClick={() => {
-                    usersSent.forEach((user) => {
-                      AddPDFToUser({
-                        pdf: selectedPDF,
-                        email: user.email,
-                        name: user.fullName,
-                        requiredPages: requiredPages,
-                      }).then(() => {
-                        setUsersSent([])
-                        setSharePDF(false)
-                        setRequiredPages([])
-                      })
-                    })
+                  onClick={async () => {
+                    //download pdf to URL
+                    const pdf = new jsPDF()
+                    setLoading(true)
+
+                    setSelectedPageNumber(1)
+                    await sleep(2000)
+                    for (let i = 1; i <= totalNumberOfPages; i++) {
+                      setSelectedPageNumber(i)
+                      await sleep(2000)
+
+                      const canvas = canvasRef.current
+                      const imgData = canvas.toDataURL('image/png')
+                      pdf.addImage(imgData, 'PNG', 0, 0)
+                      pdf.addPage()
+                      if (i === totalNumberOfPages) {
+                        //convert pdf to url
+
+                        const pdfUrl = URL.createObjectURL(pdf.output('blob'))
+
+                        usersSent.map((user) => {
+                          AddPDFToUser({
+                            pdf: pdfUrl,
+                            email: user.email,
+                            name: user.fullName,
+                            requiredPages: requiredPages,
+                          }).then(() => {
+                            setUsersSent([])
+                            setSharePDF(false)
+                            setRequiredPages([])
+                            setLoading(false)
+                          })
+                        })
+                      }
+                    }
                   }}
                 />
               </div>
