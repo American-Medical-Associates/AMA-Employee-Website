@@ -3,6 +3,8 @@ import { NextPage } from 'next'
 import Header from '../components/Header'
 import { GetSurveys } from '../firebase'
 import { Timestamp } from 'firebase/firestore'
+import MainButton from '../components/MainButton'
+import Router, { useRouter } from 'next/router'
 
 const SurveySubmissions: NextPage<{}> = () => {
   interface Survey {
@@ -21,6 +23,7 @@ const SurveySubmissions: NextPage<{}> = () => {
     timestamp: Timestamp
   }
 
+  const router = useRouter()
   const [mentalHealthSurvey, setMentalHealthSurvey] = useState<Array<Survey>>(
     []
   )
@@ -64,7 +67,7 @@ const SurveySubmissions: NextPage<{}> = () => {
             <p className=" text-center">{survey.gender}</p>
           </div>
           <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">Age:</h3>
+            <h3 className=" text-center text-2xl text-[#457aff]">Age: </h3>
             <p className=" text-center">{survey.age}</p>
           </div>
           <div className=" my-5">
@@ -155,8 +158,16 @@ const SurveySubmissions: NextPage<{}> = () => {
   })
 
   return (
+
     <div className=" flex flex-col items-center justify-center">
       <Header selectCompany={'AMA'} />
+
+      <MainButton 
+        buttonText={'Survey Graph'}
+        onClick={() => {
+          router.push('/SurveyGraph')
+        }}
+      />
 
       <main className=" m-10 flex w-full flex-col items-center justify-center ">
         {MentalHealthSurvey}

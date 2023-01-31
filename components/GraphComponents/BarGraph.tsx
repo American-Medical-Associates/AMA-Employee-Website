@@ -6,11 +6,11 @@ import Segment from './segment'
 
 const BarGraph: React.FC<{
   data: any
-  setDay: any
-  setWeek: any
-  setMonth: any
-  setYear: any
-  setAll: any
+  setDay?: any
+  setWeek?: any
+  setMonth?: any
+  setYear?: any
+  setAll?: any
   day: boolean
   week: boolean
   month: boolean

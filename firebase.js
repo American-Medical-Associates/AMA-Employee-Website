@@ -2215,8 +2215,8 @@ export async function submitMentalHeathGroupSurvey({
   const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
 try {
   await setDoc(doc(db, 'companys', 'AMA', 'mentalHealthSurvey', randomNumber.toString()), {
-    age:age,
     gender:gender,
+    age:age,
     currentClient:currentClient,
     medication:medication,
     OneonOne:OneonOne,
