@@ -5,6 +5,7 @@ import { GetSurveys } from '../firebase'
 import { Timestamp } from 'firebase/firestore'
 import MainButton from '../components/MainButton'
 import Router, { useRouter } from 'next/router'
+import { auth } from '../firebase'
 
 const SurveySubmissions: NextPage<{}> = () => {
   interface Survey {
@@ -16,8 +17,8 @@ const SurveySubmissions: NextPage<{}> = () => {
     interest: string
     insuranceCoverage: string
     focusArea: Array<string>
-    joinTherapy: Array<string>
-    time: Array<string>
+    daysOfWeek: Array<string>
+    timeOfDay: Array<string>
     sessionLength: Array<string>
     id: string
     timestamp: Timestamp
@@ -29,6 +30,13 @@ const SurveySubmissions: NextPage<{}> = () => {
   )
   const [collapsed, setCollapsed] = useState(true)
   const [collapsedArray, setCollapsedArray] = useState<Array<Survey>>([])
+
+  // This useEffect is to make sure that the user is logged in before they can access this page.
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/Login')
+    }
+  }, [])
 
   useEffect(() => {
     GetSurveys({ setSurveys: setMentalHealthSurvey })
@@ -114,10 +122,10 @@ const SurveySubmissions: NextPage<{}> = () => {
           </div>
           <div className=" my-5">
             <h3 className=" text-center text-2xl text-[#457aff]">
-              Join Therapy:
+              Days of the Week:
             </h3>
             <p className=" text-center">
-              {survey.joinTherapy.map((join) => {
+              {survey.daysOfWeek.map((join) => {
                 return (
                   <div className=" flex items-center justify-center">
                     <p className=" text-center">{join}</p>
@@ -127,9 +135,11 @@ const SurveySubmissions: NextPage<{}> = () => {
             </p>
           </div>
           <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">Time:</h3>
+            <h3 className=" text-center text-2xl text-[#457aff]">
+              Time of day:
+            </h3>
             <p className=" text-center">
-              {survey.time.map((time) => {
+              {survey.timeOfDay.map((time) => {
                 return (
                   <div className=" flex items-center justify-center">
                     <p className=" text-center">{time}</p>
@@ -158,11 +168,10 @@ const SurveySubmissions: NextPage<{}> = () => {
   })
 
   return (
-
     <div className=" flex flex-col items-center justify-center">
       <Header selectCompany={'AMA'} />
 
-      <MainButton 
+      <MainButton
         buttonText={'Survey Graph'}
         onClick={() => {
           router.push('/SurveyGraph')

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { NextPage } from 'next'
 import MainButton from '../components/MainButton'
@@ -7,9 +7,9 @@ import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxFeil
 import TextInput from '../components/TextInput'
 import Header from '../components/Header'
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
-import { Main } from 'next/document'
 import { submitMentalHeathGroupSurvey } from '../firebase'
 import { useRouter } from 'next/router'
+import { auth } from '../firebase'
 
 const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const router = useRouter()
@@ -21,8 +21,8 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const [interest, setInterest] = useState('')
   const [insuranceCoverage, setInsuranceCoverage] = useState('')
   const [focusArea, setFocusArea] = useState([])
-  const [joinTherapy, setJoinTherapy] = useState([])
-  const [time, setTime] = useState([])
+  const [daysOfWeek, setDaysOfWeek] = useState([])
+  const [timeOfDay, setTimeOfDay] = useState([])
   const [sessionLength, setSessionLength] = useState([])
   const [loading, setLoading] = useState(false)
   const [checkMark, setCheckMark] = useState(false)
@@ -37,9 +37,15 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const [requiredInsuranceCoverage, setRequiredInsuranceCoverage] =
     useState(false)
   const [requiredFocusArea, setRequiredFocusArea] = useState(false)
-  const [requiredJoinTherapy, setRequiredJoinTherapy] = useState(false)
-  const [requiredTime, setRequiredTime] = useState(false)
+  const [requiredDaysOfWeek, setRequiredDaysOfWeek] = useState(false)
+  const [requiredTimeOfDay, setRequiredTimeOfDay] = useState(false)
   const [requiredSessionLength, setRequiredSessionLength] = useState(false)
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/Login')
+    }
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -125,11 +131,11 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         {/* Create a list of days with check boxes. */}
         <CustomCheckBoxFeild
           id="joinTherapy"
-          checkBoxValues={joinTherapy}
+          checkBoxValues={daysOfWeek}
           allowMultipleCheckBoxes={true}
           title="If interested in joining group therapy, what days of the week would best fit your schedule? (Select all that apply)"
-          setCheckBoxValues={setJoinTherapy}
-          required={requiredJoinTherapy}
+          setCheckBoxValues={setDaysOfWeek}
+          required={requiredDaysOfWeek}
           checkBoxTitles={[
             'Monday',
             'Tuesday',
@@ -142,11 +148,11 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         {/* List of times are located in the email. */}
         <CustomCheckBoxFeild
           id="time"
-          checkBoxValues={time}
+          checkBoxValues={timeOfDay}
           allowMultipleCheckBoxes={true}
           title="If interested in joining group therapy, what times of the day would best fit your schedule? (Select all that apply)"
-          setCheckBoxValues={setTime}
-          required={requiredTime}
+          setCheckBoxValues={setTimeOfDay}
+          required={requiredTimeOfDay}
           checkBoxTitles={[
             'Morning',
             'Mid Morning',
@@ -254,8 +260,8 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
             })
             setLoading(false)
             return
-          } else if (joinTherapy.length <= 0) {
-            setRequiredJoinTherapy(true)
+          } else if (daysOfWeek.length <= 0) {
+            setRequiredDaysOfWeek(true)
             router.push('/MentalHealthQuestionnaire/#joinTherapy').then(() => {
               setTimeout(() => {
                 window.scrollBy(0, -150)
@@ -263,8 +269,8 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
             })
             setLoading(false)
             return
-          } else if (time.length <= 0) {
-            setRequiredTime(true)
+          } else if (timeOfDay.length <= 0) {
+            setRequiredTimeOfDay(true)
             router.push('/MentalHealthQuestionnaire/#time').then(() => {
               setTimeout(() => {
                 window.scrollBy(0, -150)
@@ -306,8 +312,8 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
             interest: interest,
             insuranceCoverage: insuranceCoverage,
             focusArea: focusArea,
-            joinTherapy: joinTherapy,
-            time: time,
+            daysOfWeek: daysOfWeek,
+            timeOfDay: timeOfDay,
             sessionLength: sessionLength,
           }).then(() => {
             setLoading(false)

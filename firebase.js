@@ -2210,43 +2210,57 @@ export async function DeletePDF({ pdf }) {
 }
 
 export async function submitMentalHeathGroupSurvey({
-  age, gender, currentClient, medication, OneonOne, interest, insuranceCoverage, focusArea, joinTherapy, time, sessionLength
-}){
+  age,
+  gender,
+  currentClient,
+  medication,
+  OneonOne,
+  interest,
+  insuranceCoverage,
+  focusArea,
+  daysOfWeek,
+  timeOfDay,
+  sessionLength,
+}) {
   const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
-try {
-  await setDoc(doc(db, 'companys', 'AMA', 'mentalHealthSurvey', randomNumber.toString()), {
-    gender:gender,
-    age:age,
-    currentClient:currentClient,
-    medication:medication,
-    OneonOne:OneonOne,
-    interest:interest,
-    insuranceCoverage:insuranceCoverage,
-    focusArea:focusArea,
-    joinTherapy:joinTherapy,
-    time:time,
-    sessionLength:sessionLength,
-    timestamp:serverTimestamp(),
-    company:'AMA',
-    id:randomNumber.toString()
-  })
-}
-catch (error) {
-  alert(error)
-}
-
-}
-
-export function GetSurveys({setSurveys}){
   try {
-    onSnapshot(query(collection(db, 'companys', 'AMA', 'mentalHealthSurvey')), (querySnapshot) => {
-      const arrays = []
-      querySnapshot.forEach((snap) => {
-        arrays.push(snap.data())
-        // key: snap.id;
-      })
-      setSurveys(arrays)
-    })
+    await setDoc(
+      doc(db, 'companys', 'AMA', 'mentalHealthSurvey', randomNumber.toString()),
+      {
+        gender: gender,
+        age: age,
+        currentClient: currentClient,
+        medication: medication,
+        OneonOne: OneonOne,
+        interest: interest,
+        insuranceCoverage: insuranceCoverage,
+        focusArea: focusArea,
+        daysOfWeek: daysOfWeek,
+        timeOfDay: timeOfDay,
+        sessionLength: sessionLength,
+        timestamp: serverTimestamp(),
+        company: 'AMA',
+        id: randomNumber.toString(),
+      }
+    )
+  } catch (error) {
+    alert(error)
+  }
+}
+
+export function GetSurveys({ setSurveys }) {
+  try {
+    onSnapshot(
+      query(collection(db, 'companys', 'AMA', 'mentalHealthSurvey')),
+      (querySnapshot) => {
+        const arrays = []
+        querySnapshot.forEach((snap) => {
+          arrays.push(snap.data())
+          // key: snap.id;
+        })
+        setSurveys(arrays)
+      }
+    )
   } catch (error) {
     alert(error)
   }
