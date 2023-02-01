@@ -40,6 +40,8 @@ import { emit } from 'process'
 import { async } from '@firebase/util'
 import { Faxes } from './pages/Faxes'
 import { setChannelID } from './redux/slices/companySlice'
+import { set } from 'date-fns'
+import { join } from 'path'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyBCwzGo9wi9_EnYzIGBcxUQyS59uEoNXAU',
@@ -2200,6 +2202,63 @@ export async function DeletePDF({ pdf }) {
       async () => {
         const storageRef = ref(storage, `pdfs/${auth.currentUser.email}/${pdf}`)
         await deleteObject(storageRef)
+      }
+    )
+  } catch (error) {
+    alert(error)
+  }
+}
+
+export async function submitMentalHeathGroupSurvey({
+  age,
+  gender,
+  currentClient,
+  medication,
+  OneonOne,
+  interest,
+  insuranceCoverage,
+  focusArea,
+  daysOfWeek,
+  timeOfDay,
+  sessionLength,
+}) {
+  const randomNumber = Math.floor((Math.random() * 1000000000) / 10)
+  try {
+    await setDoc(
+      doc(db, 'companys', 'AMA', 'mentalHealthSurvey', randomNumber.toString()),
+      {
+        gender: gender,
+        age: age,
+        currentClient: currentClient,
+        medication: medication,
+        OneonOne: OneonOne,
+        interest: interest,
+        insuranceCoverage: insuranceCoverage,
+        focusArea: focusArea,
+        daysOfWeek: daysOfWeek,
+        timeOfDay: timeOfDay,
+        sessionLength: sessionLength,
+        timestamp: serverTimestamp(),
+        company: 'AMA',
+        id: randomNumber.toString(),
+      }
+    )
+  } catch (error) {
+    alert(error)
+  }
+}
+
+export function GetSurveys({ setSurveys }) {
+  try {
+    onSnapshot(
+      query(collection(db, 'companys', 'AMA', 'mentalHealthSurvey')),
+      (querySnapshot) => {
+        const arrays = []
+        querySnapshot.forEach((snap) => {
+          arrays.push(snap.data())
+          // key: snap.id;
+        })
+        setSurveys(arrays)
       }
     )
   } catch (error) {

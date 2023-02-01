@@ -84,7 +84,32 @@ const Resources: NextPage<{}> = () => {
               />
             </div>
           </div>
-          <div className="h-[80vh] w-[75%] "></div>
+          <div className="justify-content flex h-[80vh] w-full grid-flow-col items-center">
+            <div className="h-[80vh] w-[25%] p-5">
+              <div>
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="Mental Health Survey"
+                  onClick={() => {
+                    router.push('/MentalHealthQuestionnaire')
+                  }}
+                />
+              </div>
+              <div className="mt-5">
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="Survey Submissions"
+                  onClick={() => {
+                    router.push('/SurveySubmissions')
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
