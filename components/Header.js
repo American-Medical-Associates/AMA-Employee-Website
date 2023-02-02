@@ -45,17 +45,19 @@ const Header = ({ selectCompany }) => {
   }
   const ref = useRef(true)
   // const [open, setOpen] = useState(false)
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
-        setOpenMenu(!openMenu)
+        setOpenMenu(openMenu)
       }
     }
-    document.addEventListener('click', handleClickOutside)
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener('click', handleClickOutside)
+      document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [openMenu, ref])
+  }, [])
+
   const router = useRouter()
   const showMenu = () => {
     if (openMenu) {

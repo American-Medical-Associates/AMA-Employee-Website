@@ -38,7 +38,7 @@ const SignatureField: React.FC<SignatureFieldProps> = () => {
   }, [])
 
   return (
-    <View
+    <div
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -47,7 +47,7 @@ const SignatureField: React.FC<SignatureFieldProps> = () => {
         width: '100%',
       }}
     >
-      <View
+      <div
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -56,13 +56,11 @@ const SignatureField: React.FC<SignatureFieldProps> = () => {
           width: '100%',
         }}
       >
-        <Text
-          style={{ fontSize: '30px', fontWeight: 'bold', color: '#0d61f3' }}
-        >
+        <p style={{ fontSize: '30px', fontWeight: 'bold', color: '#0d61f3' }}>
           Signature
-        </Text>
-      </View>
-      <View
+        </p>
+      </div>
+      <div
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -78,7 +76,7 @@ const SignatureField: React.FC<SignatureFieldProps> = () => {
           color="bg-[#ff0000]"
           PlusOrMinus="minus"
         />
-      </View>
+      </div>
       <canvas
         ref={signatureFieldRef}
         style={{
@@ -107,7 +105,7 @@ const SignatureField: React.FC<SignatureFieldProps> = () => {
           setButtonDisabled(true)
         }}
       />
-    </View>
+    </div>
   )
 }
 export default SignatureField

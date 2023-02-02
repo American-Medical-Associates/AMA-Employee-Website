@@ -1011,7 +1011,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               required={requiredAreYouAllergicToIodine}
             />,
             <CustomYesOrNo
-              id="doYouHaveDrugAllergies?"
+              id="doYouHaveDrugAllergies"
               marginLeft="pl-[5%]"
               text="Do you have any medication or drug allergies?"
               CheckState={setDoYouHaveAnyDrugAllergies}
