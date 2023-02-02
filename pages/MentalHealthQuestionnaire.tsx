@@ -58,7 +58,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
             id="age"
             placeHolder="Age"
             widthPercentage="w-2/4"
-            onChange={(text: any) => {
+            onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
               setAge(text.target.value)
             }}
             required={requiredAge}

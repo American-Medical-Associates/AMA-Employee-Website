@@ -9,52 +9,68 @@ import MainButton from '../components/MainButton'
 
 const SurveyGraph: NextPage<{}> = () => {
   const router = useRouter()
-  const [age, setAge] = useState([{}])
-  const [gender, setGender] = useState([{}])
-  const [currentClient, setCurrentClient] = useState([{}])
-  const [medication, setMedication] = useState([{}])
-  const [OneonOne, setOneonOne] = useState([{}])
-  const [interest, setInterest] = useState([{}])
-  const [focusArea, setFocusArea] = useState([])
-  const [daysOfWeek, setDaysOfWeek] = useState([])
-  const [timeOfDay, setTimeOfDay] = useState([])
-  const [sessionLength, setSessionLength] = useState([])
+  const [age, setAge] = useState<Array<{ name: string }>>([])
+  const [gender, setGender] = useState<Array<{ name: string }>>([])
+  const [focusArea, setFocusArea] = useState<Array<Array<string>>>([])
+  const [currentClient, setCurrentClient] = useState<Array<{ name: string }>>(
+    []
+  )
+  const [medication, setMedication] = useState<Array<{ name: string }>>([])
+  const [OneOnOne, setOneOnOne] = useState<Array<{ name: string }>>([])
+  const [interest, setInterest] = useState<Array<{ name: string }>>([])
+
+  const [daysOfWeek, setDaysOfWeek] = useState<Array<Array<string>>>([])
+  const [timeOfDay, setTimeOfDay] = useState<Array<Array<string>>>([])
+  const [sessionLength, setSessionLength] = useState<Array<Array<string>>>([])
   const [data, setData] = useState<Array<Survey>>([])
-  const [insuranceCoverage, setInsuranceCoverage] = useState([{}])
+  const [insuranceCoverage, setInsuranceCoverage] = useState<
+    Array<{ name: string }>
+  >([])
   const [refresh, setRefresh] = useState(false)
-  const [count, setCount] = useState<Array<{ name: string; value: number }>>([])
+
   const [hasRun, setHasRun] = useState(false)
   const [hasRunGender, setHasRunGender] = useState(false)
   const [hasRunFocusArea, setHasRunFocusArea] = useState(false)
   const [hasRunClient, setHasRunClient] = useState(false)
   const [hasRunMedication, setHasRunMedication] = useState(false)
-  const [hasRunOneonOne, setHasRunOneonOne] = useState(false)
+  const [hasRunOneOnOne, setHasRunOneOnOne] = useState(false)
   const [hasRunInterest, setHasRunInterest] = useState(false)
   const [hasRunDaysOfWeek, setHasRunDaysOfWeek] = useState(false)
   const [hasRunTimeOfDay, setHasRunTimeOfDay] = useState(false)
   const [hasRunSessionLength, setHasRunSessionLength] = useState(false)
   const [hasRunInsuranceCoverage, setHasRunInsuranceCoverage] = useState(false)
+  const [ageCount, setAgeCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
   const [genderCount, setGenderCount] = useState<
     Array<{ name: string; value: number }>
   >([])
-  const [allAreas, setAllAreas] = useState([])
+  const [focusAreaCount, setFocusAreaCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
   const [clientCount, setClientCount] = useState<
     Array<{ name: string; value: number }>
   >([])
   const [medicationCount, setMedicationCount] = useState<
-    Array<{ name: string }>
+    Array<{ name: string; value: number }>
   >([])
-  const [OneonOneCount, setOneonOneCount] = useState<Array<{ name: string }>>(
-    []
-  )
-  const [interestCount, setInterestCount] = useState<Array<{ name: string }>>(
-    []
-  )
-  const [daysOfWeekCount, setDaysOfWeekCount] = useState([])
-  const [timeOfDayCount, setTimeOfDayCount] = useState([])
-  const [sessionLengthCount, setSessionLengthCount] = useState([])
+  const [OneOnOneCount, setOneOnOneCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
+  const [interestCount, setInterestCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
+  const [daysOfWeekCount, setDaysOfWeekCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
+  const [timeOfDayCount, setTimeOfDayCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
+  const [sessionLengthCount, setSessionLengthCount] = useState<
+    Array<{ name: string; value: number }>
+  >([])
   const [insuranceCoverageCount, setInsuranceCoverageCount] = useState<
-    Array<{ name: string }>
+    Array<{ name: string; value: number }>
   >([])
 
   useEffect(() => {
@@ -76,11 +92,11 @@ const SurveyGraph: NextPage<{}> = () => {
   }
 
   // This useEffect is to make sure that the user is logged in before they can access this page.
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/Login')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!auth.currentUser?.email) {
+  //     router.push('/Login')
+  //   }
+  // }, [])
 
   // This Graph is for Age
   /* This useEffect is for the Age Graph. The first IF statement is to make sure the code only renders once and then
@@ -89,14 +105,14 @@ const SurveyGraph: NextPage<{}> = () => {
     the next possible increment. */
   useEffect(() => {
     if (!hasRun) {
-      age.forEach((num: object) => {
-        const index = count.findIndex((item) => item.age == num.name)
+      age.forEach((item) => {
+        const index = ageCount.findIndex((item1) => item1.name == item.name)
 
         if (index != -1) {
-          count[index].value++
-          setCount([...count])
+          ageCount[index].value++
+          setAgeCount([...ageCount])
         } else {
-          setCount((prev) => [...prev, { age: num.name, value: 0 }])
+          setAgeCount((prev) => [...prev, { name: item.name, value: 0 }])
         }
       })
     }
@@ -107,7 +123,7 @@ const SurveyGraph: NextPage<{}> = () => {
   by 1 if that index name already exists. And if it doesnt exist already then the value will set to 0 and be ready for
   the next possible increment. */
   useEffect(() => {
-    gender.forEach((item: object) => {
+    gender.forEach((item) => {
       const index = genderCount.findIndex(
         (genderItem) => genderItem.name == item.name
       )
@@ -133,15 +149,15 @@ const SurveyGraph: NextPage<{}> = () => {
     if (!hasRunFocusArea) {
       focusArea.forEach((item: Array<string>) => {
         item.forEach((item1: string) => {
-          const index = allAreas.findIndex(
+          const index = focusAreaCount.findIndex(
             (focusAreaItem) => focusAreaItem.name == item1
           )
 
           if (index != -1) {
-            allAreas[index].value++
-            setAllAreas([...allAreas])
+            focusAreaCount[index].value++
+            setFocusAreaCount([...focusAreaCount])
           } else {
-            setAllAreas((prev) => [...prev, { name: item1, value: 0 }])
+            setFocusAreaCount((prev) => [...prev, { name: item1, value: 0 }])
           }
         })
       })
@@ -156,7 +172,7 @@ const SurveyGraph: NextPage<{}> = () => {
   5. If it is not present, we are adding the object to the array. */
   useEffect(() => {
     if (!hasRunClient) {
-      currentClient.forEach((item: object) => {
+      currentClient.forEach((item) => {
         const index = clientCount.findIndex(
           (clientItem) => clientItem.name == item.name
         )
@@ -185,7 +201,7 @@ const SurveyGraph: NextPage<{}> = () => {
   11. useEffect runs again but hasRunMedication is true and so the condition is not met and the useEffect function does not run. */
   useEffect(() => {
     if (!hasRunMedication) {
-      medication.forEach((item: object) => {
+      medication.forEach((item) => {
         const index = medicationCount.findIndex(
           (medicationItem) => medicationItem.name == item.name
         )
@@ -200,28 +216,28 @@ const SurveyGraph: NextPage<{}> = () => {
     }
   }, [medication, refresh])
 
-  // This is for the OneonOne Graph
+  // This is for the OneOnOne Graph
   /* Here is the explanation for the code below:
-  1. We are running the useEffect only once by checking the hasRunOneonOne boolean value. 
-  2. We are iterating through the OneonOne array and checking if the name of the item is present in OneonOneCount array. If it is not present, we are adding that item to OneonOneCount array. If it is present, we are just increasing the value of that item.
-  3. We are using the setOneonOneCount function to update the OneonOneCount array. We are using the spread operator to make sure that the array is updated and not replaced. 
-  4. We are also updating the hasRunOneonOne boolean value to true so that the useEffect does not run again. */
+  1. We are running the useEffect only once by checking the hasRunOneOnOne boolean value. 
+  2. We are iterating through the OneOnOne array and checking if the name of the item is present in OneOnOneCount array. If it is not present, we are adding that item to OneOnOneCount array. If it is present, we are just increasing the value of that item.
+  3. We are using the setOneOnOneCount function to update the OneOnOneCount array. We are using the spread operator to make sure that the array is updated and not replaced. 
+  4. We are also updating the hasRunOneOnOne boolean value to true so that the useEffect does not run again. */
   useEffect(() => {
-    if (!hasRunOneonOne) {
-      OneonOne.forEach((item: object) => {
-        const index = OneonOneCount.findIndex(
-          (OneonOneItem) => OneonOneItem.name == item.name
+    if (!hasRunOneOnOne) {
+      OneOnOne.forEach((item) => {
+        const index = OneOnOneCount.findIndex(
+          (OneOnOneItem) => OneOnOneItem.name == item.name
         )
 
         if (index != -1) {
-          OneonOneCount[index].value++
-          setOneonOneCount([...OneonOneCount])
+          OneOnOneCount[index].value++
+          setOneOnOneCount([...OneOnOneCount])
         } else {
-          setOneonOneCount((prev) => [...prev, { name: item.name, value: 0 }])
+          setOneOnOneCount((prev) => [...prev, { name: item.name, value: 0 }])
         }
       })
     }
-  }, [OneonOne, refresh])
+  }, [OneOnOne, refresh])
 
   // This is for the Interest Graph
   /* Here is the explanation for the code below:
@@ -231,7 +247,7 @@ const SurveyGraph: NextPage<{}> = () => {
   4. else I create a new object and add it to the interestCount array */
   useEffect(() => {
     if (!hasRunInterest) {
-      interest.forEach((item: object) => {
+      interest.forEach((item) => {
         // console.log('interest', interest)
         const index = interestCount.findIndex(
           (interestItem) => interestItem.name == item.name
@@ -335,7 +351,7 @@ const SurveyGraph: NextPage<{}> = () => {
   5. We set the insuranceCoverageCount array to the new array with the updated values. */
   useEffect(() => {
     if (!hasRunInsuranceCoverage) {
-      insuranceCoverage.forEach((item: object) => {
+      insuranceCoverage.forEach((item) => {
         const index = insuranceCoverageCount.findIndex(
           (insuranceCoverageItem) => insuranceCoverageItem.name == item.name
         )
@@ -362,7 +378,7 @@ const SurveyGraph: NextPage<{}> = () => {
       setFocusArea((prev) => [...prev, item.focusArea])
       setCurrentClient((prev) => [...prev, { name: item.currentClient }])
       setMedication((prev) => [...prev, { name: item.medication }])
-      setOneonOne((prev) => [...prev, { name: item.OneonOne }])
+      setOneOnOne((prev) => [...prev, { name: item.OneonOne }])
       setInterest((prev) => [...prev, { name: item.interest }])
       setDaysOfWeek((prev) => [...prev, item.daysOfWeek])
       setTimeOfDay((prev) => [...prev, item.timeOfDay])
@@ -383,15 +399,15 @@ const SurveyGraph: NextPage<{}> = () => {
   4. I then remove the last item in the count array because it is always undefined */
   useEffect(() => {
     var ageTotal = 0
-    const length = count.length
+    const length = ageCount.length
     if (length > 0) {
-      count.splice(length - 1, 1)
+      ageCount.splice(length - 1, 1)
     }
-    count.forEach((item) => {
+    ageCount.forEach((item) => {
       ageTotal += item.value
-      if (item.age == undefined) {
-        const index = count.findIndex((item) => item.age == undefined)
-        count.splice(index, 1)
+      if (item.name == undefined) {
+        const index = ageCount.findIndex((item) => item.name == undefined)
+        ageCount.splice(index, 1)
       }
       if (ageTotal > 0) {
         setHasRun(true)
@@ -423,18 +439,18 @@ const SurveyGraph: NextPage<{}> = () => {
     // This is for the focusArea Graph
     /* Here is the explanation for the code below:
     1. I create a variable called focusAreaTotal and set it to 0. This variable is going to be used to determine whether or not the focus area chart has any values.
-    2. I use a forEach method to loop through the allAreas array and add the value of each item to the focusAreaTotal variable. 
+    2. I use a forEach method to loop through the focusAreaCount array and add the value of each item to the focusAreaTotal variable. 
     3. I use an if statement to check if the focusAreaTotal variable is greater than 0. If it is, I set the hasRunFocusArea state to true. This is so that the chart will render if the value is greater than 0. If the value is 0, the chart will not render.
     4. I use an if statement to check if the name of the item is undefined. If it is, I get the index of the item and use the splice method to remove it from the array. This is so that the user doesn't see a value for undefined in the chart. */
     var focusAreaTotal = 0
-    allAreas.forEach((item) => {
+    focusAreaCount.forEach((item) => {
       focusAreaTotal += item.value
       if (focusAreaTotal > 0) {
         setHasRunFocusArea(true)
       }
       if (item.name == undefined) {
-        const index = allAreas.findIndex((item) => item.name == undefined)
-        allAreas.splice(index, 1)
+        const index = focusAreaCount.findIndex((item) => item.name == undefined)
+        focusAreaCount.splice(index, 1)
       }
     })
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -479,22 +495,22 @@ const SurveyGraph: NextPage<{}> = () => {
     })
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    // This is for the OneonOne Graph
+    // This is for the OneOnOne Graph
     /* Here is the explanation for the code below:
     1. I have a variable called oneonOneTotal which will be used to check if the total of one on ones is greater than 0
-    2. I have a state called hasRunOneonOne which will be used to check if the one on ones have been run
+    2. I have a state called hasRunOneOnOne which will be used to check if the one on ones have been run
     3. I have a function that will loop through the array and add the values of the array items to the oneonOneTotal variable
-    4. If the oneonOneTotal variable is greater than 0, the hasRunOneonOne state will be set to true
+    4. If the oneonOneTotal variable is greater than 0, the hasRunOneOnOne state will be set to true
     5. If the name of the array item is undefined, it will be removed from the array */
-    var OneonOneTotal = 0
-    OneonOneCount.forEach((item) => {
-      OneonOneTotal += item.value
-      if (OneonOneTotal > 0) {
-        setHasRunOneonOne(true)
+    var OneOnOneTotal = 0
+    OneOnOneCount.forEach((item) => {
+      OneOnOneTotal += item.value
+      if (OneOnOneTotal > 0) {
+        setHasRunOneOnOne(true)
       }
       if (item.name == undefined) {
-        const index = OneonOneCount.findIndex((item) => item.name == undefined)
-        OneonOneCount.splice(index, 1)
+        const index = OneOnOneCount.findIndex((item) => item.name == undefined)
+        OneOnOneCount.splice(index, 1)
       }
     })
     //////////////////////////////////////////////////////////////////////////////////////////
@@ -611,11 +627,11 @@ const SurveyGraph: NextPage<{}> = () => {
     //////////////////////////////////////////////////////////////////////////////////////////
   }, [
     genderCount,
-    count,
-    allAreas,
+    ageCount,
+    focusAreaCount,
     clientCount,
     medicationCount,
-    OneonOneCount,
+    OneOnOneCount,
     interestCount,
     daysOfWeekCount,
     timeOfDayCount,
@@ -644,9 +660,9 @@ const SurveyGraph: NextPage<{}> = () => {
               Age
             </p>
             <PieGraph2
-              data={count.filter((item) => item.value != 0)}
+              data={ageCount.filter((item) => item.value != 0)}
               value={'value'}
-              nameKey="age"
+              nameKey="name"
             />
           </div>
           {/* Gender pie chart */}
@@ -666,7 +682,7 @@ const SurveyGraph: NextPage<{}> = () => {
               Focus Area
             </p>
             <PieGraph2
-              data={allAreas.filter((item) => item.value != 0)}
+              data={focusAreaCount.filter((item) => item.value != 0)}
               value={'value'}
               nameKey="name"
             />
@@ -701,7 +717,7 @@ const SurveyGraph: NextPage<{}> = () => {
               One on One
             </p>
             <PieGraph2
-              data={OneonOneCount.filter((item) => item.value != 0)}
+              data={OneOnOneCount.filter((item) => item.value != 0)}
               value={'value'}
               nameKey="name"
             />
