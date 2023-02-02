@@ -1,4 +1,3 @@
-import { fil } from 'date-fns/locale'
 import React, { useState } from 'react'
 import Camera from '../camera'
 import MainButton from '../MainButton'
