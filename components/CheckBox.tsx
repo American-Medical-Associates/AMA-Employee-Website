@@ -11,7 +11,6 @@ const CheckBox: React.FC<{
         checked={isChecked}
         disabled={disabled}
         onChange={() => {
-          console.log(isChecked)
           checkedState(!isChecked)
         }}
         className=" h-5 w-5 checked:border-transparent checked:bg-[#0008ff]"

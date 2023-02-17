@@ -1,11 +1,15 @@
 import { NextPage } from 'next'
-import React from 'react'
+import router from 'next/router'
+import React, { useEffect } from 'react'
+import { auth } from '../firebase'
+
+useEffect(() => {
+  if (!auth.currentUser?.email) {
+    router.push('/PatientLogin')
+  }
+}, [])
 
 const TeamManagementPage: NextPage<{}> = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+  return <div></div>
 }
 export default TeamManagementPage

@@ -8,7 +8,6 @@ const EmployeeOpportunitiesDisclosure: React.FC<{
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current
       if (scrollTop + clientHeight === scrollHeight) {
-        console.log('reached bottom')
         setScrollState(false)
       }
     }

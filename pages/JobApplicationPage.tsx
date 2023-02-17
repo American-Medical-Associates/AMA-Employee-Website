@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ItemPicker from '../components/ItemPicker'
 import MainButton from '../components/MainButton'
 import TextInput from '../components/TextInput'
@@ -511,7 +511,6 @@ const JobApplicationPage: NextPage<{}> = () => {
     try {
       const reader = new FileReader()
       if (e.target.files[0]) {
-        // console.log(resume)
         const image = e.target.files[0]
 
         if (image.type.search('pdf') > -1) {
@@ -520,13 +519,18 @@ const JobApplicationPage: NextPage<{}> = () => {
         reader.readAsDataURL(e.target.files[0])
         reader.onload = (readEvent) => {
           setResume(readEvent!.target?.result as any)
-          console.log(resume)
         }
       }
     } catch (e) {
       alert(e + 'please upload your Resume')
     }
   }
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   return (
     <div className=" flex  w-full flex-1 flex-col">
@@ -671,8 +675,6 @@ const JobApplicationPage: NextPage<{}> = () => {
                 value={linkType}
                 onChange={(value: any) => {
                   setLinkType(value.target.value)
-
-                  console.log(linkType)
                 }}
                 options={[
                   <option disabled={true} value="Please Select One">
@@ -698,7 +700,6 @@ const JobApplicationPage: NextPage<{}> = () => {
             placeHolder="Upload a Resume"
             onChange={(text: any) => {
               uploadimage({ e: text })
-              console.log(resume)
             }}
           />
           <LargeTextBox
@@ -727,8 +728,6 @@ const JobApplicationPage: NextPage<{}> = () => {
               value={statmentOfAvailability}
               onChange={(value: any) => {
                 setStatmentOfAvailability(value.target.value)
-
-                console.log(linkType)
               }}
               options={[
                 <option disabled={true} value="Please Select One">
@@ -746,8 +745,6 @@ const JobApplicationPage: NextPage<{}> = () => {
                 value={typeOfEmployment}
                 onChange={(value: any) => {
                   setTypeOfEmployment(value.target.value)
-
-                  console.log(linkType)
                 }}
                 options={[
                   <option disabled={true} value="Please Select One">
@@ -1076,7 +1073,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                   onChange={(value: any) => {
                     setDisabilityStatus(value.target.value)
 
-                    console.log(linkType)
+                    
                   }}
                   options={[
                     <option disabled={true} value="Please Select One">
@@ -1100,7 +1097,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 onChange={(value: any) => {
                   setRace(value.target.value)
 
-                  console.log(linkType)
+                  
                 }}
                 options={[
                   <option disabled={true} value="Please Select One">

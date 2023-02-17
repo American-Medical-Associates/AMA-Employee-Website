@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (auth.currentUser?.email == null) {
-      router.push('/Login')
+      router.push('/PatientLogin')
     }
   }, [])
   useEffect(() => {

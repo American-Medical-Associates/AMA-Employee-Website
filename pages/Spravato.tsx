@@ -8,7 +8,7 @@ import {
   PencilIcon,
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
-import { editSpravatoTracking, GetSpravatoTracking } from '../firebase'
+import { auth, editSpravatoTracking, GetSpravatoTracking } from '../firebase'
 import TextInput from '../components/TextInput'
 import Datepicker from '../components/Datepicker'
 import { addSpravatoTracking } from '../firebase'
@@ -40,7 +40,12 @@ const Spravato: NextPage<{}> = () => {
   const router = useRouter()
   useEffect(() => {
     GetSpravatoTracking({ SpravatoTrackingArray: setSpravtoTrackingArray })
-    console.log(spravtoTrackingArray)
+  }, [])
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
   }, [])
 
   useEffect(() => {
@@ -59,7 +64,6 @@ const Spravato: NextPage<{}> = () => {
       //   searchedPatients.pop()
       // }
       setSparavotoSearchedArray([])
-      console.log(searchedSparavto)
       searchedSparavto = []
       setSparavotoSearchedArray(spravtoTrackingArray)
     }

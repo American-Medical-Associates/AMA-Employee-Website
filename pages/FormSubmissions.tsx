@@ -14,6 +14,13 @@ import TextInput from '../components/TextInput'
 import { auth, functions } from '../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 import { Firestore } from 'firebase/firestore'
+import router from 'next/router'
+
+useEffect(() => {
+  if (!auth.currentUser?.email) {
+    router.push('/PatientLogin')
+  }
+}, [])
 
 const FormSubmissions: NextPage<{}> = () => {
   const [submissions, setSubmissions] = useState<Array<any>>([])
@@ -47,8 +54,6 @@ const FormSubmissions: NextPage<{}> = () => {
       )
 
       Object.keys(selectedPacket).map((item: any) => {
-        console.log('sdfsdfsdf', item)
-
         if (
           item
             .toLowerCase()
@@ -73,7 +78,6 @@ const FormSubmissions: NextPage<{}> = () => {
       company: company,
       NewPatientPacketsState: setSubmissions,
     })
-    console.log('submissions', submissions)
   }, [])
 
   useEffect(() => {
@@ -109,7 +113,6 @@ const FormSubmissions: NextPage<{}> = () => {
           <div
             onClick={() => {
               setSelectedPacket(submission)
-              console.log('selectedPacket', selectedPacket)
             }}
             className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
             key={submission.email}
@@ -126,7 +129,6 @@ const FormSubmissions: NextPage<{}> = () => {
           <div
             onClick={() => {
               setSelectedPacket(submission)
-              console.log('selectedPacket', selectedPacket)
             }}
             className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
           >
@@ -432,7 +434,6 @@ const FormSubmissions: NextPage<{}> = () => {
   //       x = 10 + x
   //       y = 10 + y
   //       pdf.text(answer, x, y)
-  //       console.log(answer)
   //       alert('h')
   //     })
   // })
@@ -534,31 +535,6 @@ const FormSubmissions: NextPage<{}> = () => {
                     <MainButton
                       buttonText="Add to ECW"
                       onClick={() => {
-                        // console.log('firstname', selectedPacket.firstName)
-                        // console.log('last', selectedPacket.lastName)
-                        // console.log('b', selectedPacket.BirthDateValue)
-                        // console.log('s', selectedPacket.socialValue)
-                        // console.log(selectedPacket.addressValue)
-                        // console.log(selectedPacket.cityValue)
-                        // console.log(selectedPacket.USStateValue)
-                        // console.log(selectedPacket.zipCodeValue)
-                        // console.log(selectedPacket.phoneNumberValue)
-                        // console.log(selectedPacket.emailValue)
-                        // console.log(selectedPacket.isCheckedMale)
-                        // console.log(selectedPacket.isCheckedFemale)
-                        // console.log(selectedPacket.isCheckedOther)
-                        // console.log(selectedPacket.EmergencyContactRelationShip)
-                        // console.log(selectedPacket.nameOfEmergencyContact)
-                        // console.log(selectedPacket.EmergencyContactPhoneNumber)
-                        // console.log(selectedPacket.married)
-                        // console.log(selectedPacket.single)
-                        // console.log(selectedPacket.divorced)
-                        // console.log(selectedPacket.widowed)
-
-                        // console.log(selectedPacket.separated)
-                        // console.log(selectedPacket.withPartner)
-                        // console.log(selectedPacket.Ethnicity)
-
                         addPatientToEclinicalPuppeteer({
                           //@ts-ignore
                           firstName: selectedPacket.firstName,

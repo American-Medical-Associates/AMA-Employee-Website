@@ -43,6 +43,13 @@ const MassMessagePage: NextPage<{}> = () => {
   const [refresh, setRefresh] = useState(false)
   const [searched, setSearched] = useState('')
   const [searchedPatients, setSearchedPatients] = useState<Array<any>>([])
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   //
   //1. The first useEffect hook is used to check if the user has selected an option for the message.
   //If the user has selected an option for the message,
@@ -107,7 +114,7 @@ const MassMessagePage: NextPage<{}> = () => {
       //   searchedPatients.pop()
       // }
       setSearchedPatients([])
-      console.log(searchedPatients)
+
       searchedName = []
       setSearchedPatients(xlsxDoc)
     }
@@ -123,7 +130,7 @@ const MassMessagePage: NextPage<{}> = () => {
           key={item[0]}
           onClick={() => {
             patients.splice(indexItem, 1)
-            console.log(patients)
+
             setRefresh(!refresh)
           }}
           className={classnames(
@@ -165,8 +172,6 @@ const MassMessagePage: NextPage<{}> = () => {
     const [file] = e.target.files
     const reader = new FileReader()
 
-    // console.log(resume)
-
     reader.onload = async (readEvent) => {
       try {
         const bstr = readEvent!.target?.result as any
@@ -179,17 +184,13 @@ const MassMessagePage: NextPage<{}> = () => {
             header: 1,
           } as any)
           .splice(1)
-        console.log(data)
         // remove duplicates
         const duplicateArray: Array<any> = []
         // data.forEach((item1, index) => {
-        //console.log(item1[16])
-        console.log(data.length)
         //@ts-ignore
 
         let stringArray = data.map(JSON.stringify)
         let uniqueStringArray = new Set(stringArray)
-        console.log(uniqueStringArray)
         uniqueStringArray.forEach((item) => {
           if (!duplicateArray.includes(item)) {
             duplicateArray.push(item)
@@ -197,7 +198,6 @@ const MassMessagePage: NextPage<{}> = () => {
         })
         //@ts-ignore
         let uniqueArray = Array.from(duplicateArray, JSON.parse)
-        console.log(uniqueArray.length)
         setXlsxDoc(uniqueArray)
         // var worksheet = XLSX.utils.aoa_to_sheet(data as any)
         // var new_workbook = XLSX.utils.book_new()
@@ -237,8 +237,6 @@ const MassMessagePage: NextPage<{}> = () => {
         }
 
         if (item[16] != null) {
-          console.log(item[16])
-
           sendMessageFunction({
             message: message,
             phone: `+1${item[16].replaceAll('-', '')}`,

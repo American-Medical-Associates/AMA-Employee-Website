@@ -48,7 +48,6 @@ const TakeAPictureCustom: React.FC<{
     try {
       const reader = new FileReader()
       if (e.target.files[0]) {
-        // console.log(resume)
         const file = e.target.files[0]
         //reduce the size of the image to 1048487 bites
         if (file.size > 1048487) {

@@ -205,7 +205,6 @@ const Header = ({ selectCompany }) => {
     }
   }
   // const { data: session } = useSession()
-  // console.log(session)
   return (
     <header className=" w-full">
       <div className=" sticky top-0 z-50 grid  w-full grid-cols-3 flex-row bg-white p-5 shadow-md  md:px-10">

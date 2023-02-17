@@ -1,6 +1,14 @@
 import { NextPage } from 'next'
-import React from 'react'
+import router from 'next/router'
+import React, { useEffect } from 'react'
 import TextInput from '../components/TextInput'
+import { auth } from '../firebase'
+
+useEffect(() => {
+  if (!auth.currentUser?.email) {
+    router.push('/PatientLogin')
+  }
+}, [])
 
 const EmailPage: NextPage<{}> = () => {
   return (

@@ -2,17 +2,23 @@ import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import { MenuItem } from '../../components/MenuItem'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import {
   ClipboardDocumentListIcon,
   PencilIcon,
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
-import { editSpravatoTracking, GetSpravatoTracking } from '../../firebase'
+import { auth, editSpravatoTracking, GetSpravatoTracking } from '../../firebase'
 import TextInput from '../../components/TextInput'
 import Datepicker from '../../components/Datepicker'
 
 const Inventory: NextPage<{}> = () => {
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   const router = useRouter()
   const [searched, setSearched] = useState('')
   return (

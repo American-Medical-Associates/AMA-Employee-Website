@@ -12,12 +12,19 @@ import { NextPage } from 'next'
 import Datepicker from '../components/Datepicker'
 import Submissions from '../components/NewPatientPacketAnalytics/Submissions'
 import HowTheyFoundUs from '../components/NewPatientPacketAnalytics/HowTheyFoundUs'
+import { auth } from '../firebase'
 const NewPatientPacketAnalytics: NextPage<{}> = () => {
   const router = useRouter()
   const [submissions, setSubmissions] = useState(false)
   const [howTheyFoundUs, setHowTheyFoundUs] = useState(false)
 
   const [selectedDate, setSelectedDate] = useState(new Date())
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   return (
     <div>

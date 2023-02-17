@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
 import MainButton from '../../components/MainButton'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
+import { auth } from '../../firebase'
 
 const ThankYouForSubmitting: React.FC<{}> = () => {
   const router = useRouter()

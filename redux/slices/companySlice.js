@@ -9,6 +9,7 @@ export const companySlice = createSlice({
     taskID: null,
     supportTicketNumber: null,
     ChannelID: null,
+    newPatientPacket: null,
   },
   reducers: {
     setCompany: (state, action) => {
@@ -29,6 +30,9 @@ export const companySlice = createSlice({
     setChannelID: (state, action) => {
       state.ChannelID = action.payload
     },
+    setNewPatientPacket: (state, action) => {
+      state.newPatientPacket = action.payload
+    },
   },
 })
 
@@ -39,6 +43,7 @@ export const {
   setTaskID,
   setSupportTicketNumber,
   setChannelID,
+  setNewPatientPacket,
 } = companySlice.actions
 export const selectCompany = (state) => state.global.company
 export const selectDate = (state) => state.global.date
@@ -47,4 +52,5 @@ export const selectTaskID = (state) => state.global.taskID
 export const selectSupportTicketNumber = (state) =>
   state.global.supportTicketNumber
 export const selectChannelID = (state) => state.global.ChannelID
+export const selectNewPatientPacket = (state) => state.global.newPatientPacket
 export default companySlice.reducer

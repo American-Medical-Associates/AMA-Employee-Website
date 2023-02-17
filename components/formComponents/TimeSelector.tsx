@@ -13,7 +13,6 @@ export const TimeSelector: React.FC<{ setTime: Function; time: string }> = ({
         className=" select-none   rounded-[25px] bg-[#cacaca71] p-5 after:bg-black  focus:outline-none"
         type={'time'}
         onChange={(time: any) => {
-          console.log(time.target.value)
           setTime(time.target.value)
         }}
         value={time}

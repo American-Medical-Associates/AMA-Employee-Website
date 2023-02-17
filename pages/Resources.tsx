@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import { MenuItem } from '../components/MenuItem'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import {
   ChartBarIcon,
   ClipboardIcon,
   ClipboardDocumentListIcon,
+  CodeBracketIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
+import { auth } from '../firebase'
 
 const Resources: NextPage<{}> = () => {
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   const router = useRouter()
   return (
     <div className=" flex flex-col items-center justify-center">

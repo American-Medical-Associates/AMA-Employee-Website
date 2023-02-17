@@ -92,11 +92,11 @@ const SurveyGraph: NextPage<{}> = () => {
   }
 
   // This useEffect is to make sure that the user is logged in before they can access this page.
-  // useEffect(() => {
-  //   if (!auth.currentUser?.email) {
-  //     router.push('/Login')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   // This Graph is for Age
   /* This useEffect is for the Age Graph. The first IF statement is to make sure the code only renders once and then
@@ -248,11 +248,9 @@ const SurveyGraph: NextPage<{}> = () => {
   useEffect(() => {
     if (!hasRunInterest) {
       interest.forEach((item) => {
-        // console.log('interest', interest)
         const index = interestCount.findIndex(
           (interestItem) => interestItem.name == item.name
         )
-        console.log('item', item.name)
 
         if (index != -1) {
           interestCount[index].value++
@@ -526,7 +524,6 @@ const SurveyGraph: NextPage<{}> = () => {
     7. interestCount.splice(index, 1) */
     var interestTotal = 0
     interestCount.forEach((item) => {
-      console.log('ll', item)
       interestTotal += item.value
       if (interestTotal > 0) {
         setHasRunInterest(true)

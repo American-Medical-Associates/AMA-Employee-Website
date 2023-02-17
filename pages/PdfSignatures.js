@@ -49,6 +49,7 @@ import { image } from '@tensorflow/tfjs'
 import { async } from '@firebase/util'
 import { Tooltip } from 'react-tooltip'
 import PdfViewerComponent from '../components/pdfCompnents/PdfViewerComponent'
+import router from 'next/router'
 
 const PdfSignatures = () => {
   //be able to drag and drop svg icons on the pdf document
@@ -80,6 +81,12 @@ const PdfSignatures = () => {
   const [docsToDelete, setDocsToDelete] = useState([])
   const [showTypedText, setShowTypedText] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   useEffect(() => {
     try {
@@ -315,7 +322,6 @@ const PdfSignatures = () => {
     // var x = e.clientX + e.target.getBoundingClientRect().left
 
     //
-    // console.log(x, y)
   }
   //2200 is the hight of the canvas
   //1300 is the width of the canvas
@@ -326,8 +332,6 @@ const PdfSignatures = () => {
 
     setXDropPosition(x)
     setYDropPosition(y)
-
-    // console.log('target', target)
 
     //add the page number to the array
 

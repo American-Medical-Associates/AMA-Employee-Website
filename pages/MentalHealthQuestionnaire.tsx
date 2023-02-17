@@ -41,12 +41,6 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const [requiredTimeOfDay, setRequiredTimeOfDay] = useState(false)
   const [requiredSessionLength, setRequiredSessionLength] = useState(false)
 
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/Login')
-    }
-  }, [])
-
   return (
     <div className="flex flex-col items-center justify-center">
       <Header selectCompany={'AMA'} />

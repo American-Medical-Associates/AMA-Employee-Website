@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { MenuItem } from '../../components/MenuItem'
 import {
   ChartBarIcon,
@@ -8,6 +8,7 @@ import {
   ClipboardDocumentListIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
+import { auth } from '../../firebase'
 
 const Vitalize: NextPage<{}> = () => {
   const router = useRouter()

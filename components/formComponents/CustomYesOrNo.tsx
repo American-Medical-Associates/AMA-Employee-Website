@@ -7,9 +7,11 @@ const CustomYesOrNo: React.FC<{
   id?: string
   required?: boolean
   missing?: boolean
-}> = ({ text, CheckState, marginLeft, id, required, missing }) => {
+  isChecked?: any
+}> = ({ text, CheckState, marginLeft, id, required, missing, isChecked }) => {
   const [yesLocal, setYesLocal] = useState(false)
   const [noLocal, setNoLocal] = useState(false)
+
   if (required) {
     if (yesLocal || noLocal) {
       missing = false
@@ -17,6 +19,15 @@ const CustomYesOrNo: React.FC<{
       missing = true
     }
   }
+  useEffect(() => {
+    if (isChecked == 'Yes') {
+      setYesLocal(true)
+    }
+    if (isChecked == 'No') {
+      setNoLocal(true)
+    }
+  }, [isChecked])
+
   useEffect(() => {
     if (yesLocal) {
       setNoLocal(false)

@@ -16,7 +16,6 @@ function TensorFlowBert() {
   const loadModel = async () => {
     const loadModel = await qna.load()
     setModel(loadModel)
-    console.log('model loaded')
   }
 
   useEffect(() => {

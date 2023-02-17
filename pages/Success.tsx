@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 import Header from '../components/Header'
+
 const Success: NextPage<{}> = () => {
   return (
     <div className=" flex h-full  w-full flex-col items-center justify-center">
