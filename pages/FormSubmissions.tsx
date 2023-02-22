@@ -445,7 +445,7 @@ const FormSubmissions: NextPage<{}> = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">
           <div className=" flex flex-col items-center justify-center">

@@ -34,7 +34,7 @@ const SpravatoTracking: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-10">
         <div className="flex flex-col items-center justify-center">
           <TextInput

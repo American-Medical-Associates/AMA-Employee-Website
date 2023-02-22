@@ -640,7 +640,7 @@ const SurveyGraph: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className="justify-content flex h-full w-full flex-col items-center">
         {/* This is the "Show Survey button" */}
         {!hasRun && (

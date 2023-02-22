@@ -369,7 +369,7 @@ const PdfSignatures = () => {
 
   return (
     <div className="flex  w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" item center relative my-20 flex w-full flex-row justify-center">
         {addSignature && (
           <div className=" absolute top-[5%] z-20 flex w-[60%]  grid-cols-2 items-start justify-center rounded-3xl bg-[#d1d0d0f8]">

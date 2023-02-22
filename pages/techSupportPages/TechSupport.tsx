@@ -37,7 +37,7 @@ const TechSupport: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Tech Support</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">

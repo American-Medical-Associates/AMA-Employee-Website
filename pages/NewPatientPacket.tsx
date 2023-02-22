@@ -849,7 +849,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="flex w-full items-center justify-end">
         <div className="flex w-full items-center justify-end">
           <div className=" m-10 ">
@@ -2754,7 +2754,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               //TODO: MAKE IT SCROLL TO ERROR
               //make felids are filled out
               if (firstName === '') {
-                alert('Please enter your first name')
+                //alert('Please enter your first name')
                 setRequiredFirstName(true)
                 router.push('/NewPatientPacket/#fullName').then(() => {
                   setTimeout(() => {
@@ -2772,7 +2772,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                   //scroll up 200px
                 })
-                alert('Please enter your last name')
+                //alert('Please enter your last name')
                 setLoading(false)
                 return
               } else if (BirthDateValue === '') {
@@ -2783,12 +2783,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                   //scroll up 200px
                 })
-                alert('Please enter your birth date')
+                //alert('Please enter your birth date')
                 setLoading(false)
                 return
               } else if (phoneNumberValue === '') {
                 setRequiredPhoneNumber(true)
-                alert('Please enter your phone number')
+                //alert('Please enter your phone number')
                 //scroll to phone number feild
                 router.push('/NewPatientPacket/#phoneNumber').then(() => {
                   setTimeout(() => {
@@ -2807,7 +2807,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   }, 100)
                 })
 
-                alert('Please enter your email')
+                //alert('Please enter your email')
                 setLoading(false)
 
                 return
@@ -2818,7 +2818,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
-                alert('Please enter your address')
+                //alert('Please enter your address')
                 setLoading(false)
                 return
               } else if (cityValue === '') {
@@ -2828,7 +2828,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
-                alert('Please enter your city')
+                //alert('Please enter your city')
                 setLoading(false)
                 return
               } else if (USStateValue === '') {
@@ -2838,7 +2838,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
-                alert('Please enter your state')
+                //alert('Please enter your state')
                 setLoading(false)
                 return
               } else if (zipCodeValue === '') {
@@ -2848,12 +2848,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     window.scrollBy(0, -150)
                   }, 100)
                 })
-                alert('Please enter your zip code')
+                //alert('Please enter your zip code')
                 setLoading(false)
                 return
               } else if (socialValue === '') {
                 setRequireSocial(true)
-                alert('Please enter your social security number')
+                //alert('Please enter your social security number')
                 router.push('/NewPatientPacket/#social').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -2871,7 +2871,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     }, 100)
                   })
 
-                alert('Please enter the name of your emergency contact')
+                //alert('Please enter the name of your emergency contact')
 
                 window.scrollBy(0, -1500)
                 setLoading(false)
@@ -2879,7 +2879,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (EmergencyContactRelationShip === '') {
                 setRequiredEmergencyContactRelationship(true)
-                alert('Please enter the relationship of your emergency contact')
+                //alert('Please enter the relationship of your emergency contact')
                 router
                   .push('/NewPatientPacket/#emergencyContactRelationship')
                   .then(() => {
@@ -2891,7 +2891,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (EmergencyContactPhoneNumber === '') {
                 setRequiredEmergencyContactPhoneNumber(true)
-                alert('Please enter the phone number of your emergency contact')
+                //alert('Please enter the phone number of your emergency contact')
                 router
                   .push('/NewPatientPacket/#emergencyContactPhoneNumber')
                   .then(() => {
@@ -2903,7 +2903,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (HowDidTheyHearAboutUs === '') {
                 setRequiredHowDidTheyHearAboutUs(true)
-                alert('Please enter how you heard about us')
+                //alert('Please enter how you heard about us')
                 router
                   .push('/NewPatientPacket/#howDidYouHearAboutUs')
                   .then(() => {
@@ -2915,9 +2915,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (howDoTheyWishToPay === '') {
                 setRequiredHowDoTheyWishToPay(true)
-                alert(
-                  'Please enter how you wish to pay, out of pocket or insurance'
-                )
+                //alert(
+                //   'Please enter how you wish to pay, out of pocket or insurance'
+                // )
                 router
                   .push('/NewPatientPacket/#howDoTheyWishToPay')
                   .then(() => {
@@ -2932,7 +2932,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryInsurance(true)
-                alert('Please enter your insurance name')
+                //alert('Please enter your insurance name')
                 router.push('/NewPatientPacket/#insuranceName').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -2945,7 +2945,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryInsuranceID(true)
-                alert('Please enter your insurance policy number')
+                //alert('Please enter your insurance policy number')
                 router
                   .push('/NewPatientPacket/#insurancePolicyNumber')
                   .then(() => {
@@ -2960,7 +2960,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryInsurancePhone(true)
-                alert('Please enter your insurance phone number')
+                //alert('Please enter your insurance phone number')
                 router
                   .push('/NewPatientPacket/#insurancePhoneNumber')
                   .then(() => {
@@ -2975,7 +2975,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryInsuranceGroup(true)
-                alert('Please enter your insurance group number')
+                //alert('Please enter your insurance group number')
                 router
                   .push('/NewPatientPacket/#insuranceGroupNumber')
                   .then(() => {
@@ -2991,7 +2991,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               //   howDoTheyWishToPay === 'Insurance'
               // ) {
 
-              //   alert('Please enter your insurance address')
+              //   //alert('Please enter your insurance address')
               //   router.push('/NewPatientPacket/#insuranceAddress').then(() => {
               //     setTimeout(() => {
               //       window.scrollBy(0, -150)
@@ -3002,7 +3002,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               //   primaryInsuranceCity === '' &&
               //   howDoTheyWishToPay === 'Insurance'
               // ) {
-              //   alert('Please enter your insurance city')
+              //   //alert('Please enter your insurance city')
               //   router.push('/NewPatientPacket/#insuranceAddress').then(() => {
               //     setTimeout(() => {
               //       window.scrollBy(0, -150)
@@ -3013,7 +3013,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               //   primaryInsuranceState === '' &&
               //   howDoTheyWishToPay === 'Insurance'
               // ) {
-              //   alert('Please enter your insurance state')
+              //   //alert('Please enter your insurance state')
               //   router.push('/NewPatientPacket/#insuranceAddress').then(() => {
               //     setTimeout(() => {
               //       window.scrollBy(0, -150)
@@ -3024,7 +3024,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               //   primaryInsuranceZip === '' &&
               //   howDoTheyWishToPay === 'Insurance'
               // ) {
-              //   alert('Please enter your insurance zip code')
+              //   //alert('Please enter your insurance zip code')
               //   router.push('/NewPatientPacket/#insuranceAddress').then(() => {
               //     setTimeout(() => {
               //       window.scrollBy(0, -150)
@@ -3037,7 +3037,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimarySubscribersName(true)
-                alert('Please enter your insurance subscribers name')
+                //alert('Please enter your insurance subscribers name')
                 router.push('/NewPatientPacket/#subscriberName').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3050,7 +3050,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryPictureOfInsuranceCardFront(true)
-                alert('Please upload a picture of your insurance card front')
+                //alert('Please upload a picture of your insurance card front')
                 router
                   .push('/NewPatientPacket/#insuranceCardPicture')
                   .then(() => {
@@ -3065,7 +3065,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howDoTheyWishToPay === 'Insurance'
               ) {
                 setRequiredPrimaryPictureOfInsuranceCardBack(true)
-                alert('Please upload a picture of your insurance card front')
+                //alert('Please upload a picture of your insurance card front')
                 router
                   .push('/NewPatientPacket/#insuranceCardPictureBack')
                   .then(() => {
@@ -3077,7 +3077,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (retailPharmacyName === '') {
                 setRequiredRetailPharmacyName(true)
-                alert('Please enter your retail pharmacy name')
+                //alert('Please enter your retail pharmacy name')
                 router.push('/NewPatientPacket/#pharmacyName').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3091,7 +3091,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               ) {
                 setRequiredRetailPharmacyCrossStreet1(true)
                 setRequiredRetailPharmacyCrossStreet2(true)
-                alert('Please enter your retail pharmacy cross street')
+                //alert('Please enter your retail pharmacy cross street')
                 router
                   .push('/NewPatientPacket/#pharmacyCrossStreet1')
                   .then(() => {
@@ -3103,7 +3103,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (retailPharmacyPhoneNumber === '') {
                 setRequiredRetailPharmacyPhoneNumber(true)
-                alert('Please enter your retail pharmacy phone number')
+                //alert('Please enter your retail pharmacy phone number')
                 router
                   .push('/NewPatientPacket/#pharmacyPhoneNumber')
                   .then(() => {
@@ -3115,7 +3115,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (areYouAllergicToLatex === '') {
                 setRequiredAreYouAllergicToLatex(true)
-                alert('Please enter if you are allergic to latex')
+                //alert('Please enter if you are allergic to latex')
                 router.push('/NewPatientPacket/#allergicToLatex').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3125,7 +3125,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (areYouAllergicToSelfish === '') {
                 setRequiredAreYouAllergicToSelfish(true)
-                alert('Please enter if you are allergic to shellfish')
+                //alert('Please enter if you are allergic to shellfish')
                 router
                   .push('/NewPatientPacket/#allergicToShellfish')
                   .then(() => {
@@ -3137,7 +3137,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (areYouAllergicToIodine === '') {
                 setRequiredAreYouAllergicToIodine(true)
-                alert('Please enter if you are allergic to iodine')
+                //alert('Please enter if you are allergic to iodine')
                 router.push('/NewPatientPacket/#allergicToIodine').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3148,7 +3148,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 // if patient drug allergies are not empty array
               } else if (doYouHaveAnyDrugAllergies === '') {
                 setRequiredDoYouHaveAnyDrugAllergies(true)
-                alert('Please enter if you have any drug allergies')
+                //alert('Please enter if you have any drug allergies')
                 router
                   .push('/NewPatientPacket/#doYouHaveDrugAllergies')
                   .then(() => {
@@ -3163,7 +3163,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 PatientDrugAllergies.length < 1
               ) {
                 setRequiredDrugAllergies(true)
-                alert('Please enter your drug allergies')
+                //alert('Please enter your drug allergies')
                 router.push('/NewPatientPacket/#drugAllergies').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3173,7 +3173,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouHaveAHistoryOfAnyMajorIllness === '') {
                 setRequiredDoYouHaveAHistoryOfAnyMajorIllness(true)
-                alert('Please enter if you have a history of any major illness')
+                //alert('Please enter if you have a history of any major illness')
                 router
                   .push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
                   .then(() => {
@@ -3188,7 +3188,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouHaveAHistoryOfAnyMajorIllness === 'Yes'
               ) {
                 setRequiredMajorIllnesses(true)
-                alert('Please enter your major illnesses')
+                //alert('Please enter your major illnesses')
                 router
                   .push('/NewPatientPacket/#doYouHaveAnyMajorIllnesses')
                   .then(() => {
@@ -3200,9 +3200,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouHaveAHistoryOfSurgeries === '') {
                 setRequiredDoYouHaveAHistoryOfSurgeries(true)
-                alert(
-                  'Please enter if you have a history of surgeries or hospitalizations'
-                )
+                //alert(
+                //   'Please enter if you have a history of surgeries or hospitalizations'
+                // )
                 router
                   .push('/NewPatientPacket/#doYouHaveAnySurgeries')
                   .then(() => {
@@ -3217,7 +3217,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouHaveAHistoryOfSurgeries === 'Yes'
               ) {
                 setRequiredMajorSurgeriesAndHospitalizations(true)
-                alert('Please enter your major surgeries and hospitalizations')
+                //alert('Please enter your major surgeries and hospitalizations')
                 router
                   .push('/NewPatientPacket/#doYouHaveAnySurgeries')
                   .then(() => {
@@ -3229,7 +3229,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (boneDensityScreening === '') {
                 setRequiredBoneDensityScreening(true)
-                alert('Please enter if you have had a bone density screening')
+                //alert('Please enter if you have had a bone density screening')
 
                 router
                   .push('/NewPatientPacket/#haveYouHadBoneDensityScreening')
@@ -3245,7 +3245,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 boneDensityScreening === 'Yes'
               ) {
                 setRequiredBoneDensityScreeningDate(true)
-                alert('Please enter the date of your bone density screening')
+                //alert('Please enter the date of your bone density screening')
                 router
                   .push('/NewPatientPacket/#dateOfBoneDensityScreening')
                   .then(() => {
@@ -3260,9 +3260,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 boneDensityScreening === 'Yes'
               ) {
                 setRequiredWasBoneDensityScreeningNormalOrAbnormal(true)
-                alert(
-                  'Please enter if your bone density screening was normal or abnormal'
-                )
+                // //alert(
+                //   'Please enter if your bone density screening was normal or abnormal'
+                // )
                 router
                   .push('/NewPatientPacket/#boneDensityScreeningResults')
                   .then(() => {
@@ -3274,7 +3274,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (colonoscopyScreening === '') {
                 setRequiredColonoscopyScreening(true)
-                alert('Please enter if you have had any of the following')
+                //alert('Please enter if you have had any of the following')
                 router
                   .push('/NewPatientPacket/#haveYouHadColonoscopy')
                   .then(() => {
@@ -3289,7 +3289,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 colonoscopyScreening === 'Yes'
               ) {
                 setRequiredDateOfLastColonoscopyScreening(true)
-                alert('Please enter the date of your colonoscopy screening')
+                //alert('Please enter the date of your colonoscopy screening')
                 router
                   .push('/NewPatientPacket/#dateOfColonoscopyScreening')
                   .then(() => {
@@ -3304,9 +3304,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 colonoscopyScreening === 'Yes'
               ) {
                 setRequiredWasColonoscopyScreeningNormalOrAbnormal(true)
-                alert(
-                  'Please enter if your colonoscopy screening was normal or abnormal'
-                )
+                // //alert(
+                //   'Please enter if your colonoscopy screening was normal or abnormal'
+                // )
                 router
                   .push('/NewPatientPacket/#colonoscopyScreeningResults')
                   .then(() => {
@@ -3318,7 +3318,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (haveTheyEverSmoked === '') {
                 setRequiredHaveTheyEverSmoked(true)
-                alert('Please enter if you have ever smoked')
+                //alert('Please enter if you have ever smoked')
                 router.push('/NewPatientPacket/#haveYouEverSmoked').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3332,7 +3332,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               ) {
                 setRequiredHowManyPacksPerDay(true)
 
-                alert('Please enter how many packs per day')
+                //alert('Please enter how many packs per day')
                 router
                   .push('/NewPatientPacket/#howManyPacksPerDay')
                   .then(() => {
@@ -3344,7 +3344,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (anyOtherTobaccoOrEcigarettes === '') {
                 setRequiredAnyOtherTobaccoOrEcigarettes(true)
-                alert('Please enter if you have used any other tobacco')
+                //alert('Please enter if you have used any other tobacco')
                 router.push('/NewPatientPacket/#otherTabaccoUse').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3357,7 +3357,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 describeOtherTobaccoUse === ''
               ) {
                 setRequiredDescribeOtherTobaccoUse(true)
-                alert('Please enter what other smoking products you have used')
+                //alert('Please enter what other smoking products you have used')
                 router
                   .push('/NewPatientPacket/#describeOtherTobaccoUse')
                   .then(() => {
@@ -3369,7 +3369,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYoCurrentlyUseRecreationalDrugs === '') {
                 setRequiredDoYoCurrentlyUseRecreationalDrugs(true)
-                alert('Please enter if you currently use recreational drugs')
+                //alert('Please enter if you currently use recreational drugs')
                 router
                   .push('/NewPatientPacket/#doYouUseRecreationalDrugs')
                   .then(() => {
@@ -3384,7 +3384,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 describeRecreationalDrugUse === ''
               ) {
                 setRequiredDescribeRecreationalDrugUse(true)
-                alert('Please enter what recreational drugs you use')
+                //alert('Please enter what recreational drugs you use')
                 router
                   .push('/NewPatientPacket/#describeRecreationalDrugUse')
                   .then(() => {
@@ -3396,7 +3396,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouDrinkAlcohol === '') {
                 setRequiredDoYouDrinkAlcohol(true)
-                alert('Please enter if you drink alcohol')
+                //alert('Please enter if you drink alcohol')
                 router.push('/NewPatientPacket/#doYouDrinkAlcohol').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3409,7 +3409,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howManyDrinksPerWeek === ''
               ) {
                 setRequiredHowManyDrinksPerWeek(true)
-                alert('Please enter how many drinks per week')
+                //alert('Please enter how many drinks per week')
                 router
                   .push('/NewPatientPacket/#howManyDrinksPerWeek')
                   .then(() => {
@@ -3421,7 +3421,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouDrinkCoffee === '') {
                 setRequiredDoYouDrinkCoffee(true)
-                alert('Please enter if you drink coffee')
+                //alert('Please enter if you drink coffee')
                 router.push('/NewPatientPacket/#doYouDrinkCoffee').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3434,7 +3434,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 howManyCupsPerDay === ''
               ) {
                 setRequiredHowManyCupsPerDay(true)
-                alert('Please enter how many cups of coffee per day')
+                //alert('Please enter how many cups of coffee per day')
                 router.push('/NewPatientPacket/#howManyCupsPerDay').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3444,7 +3444,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouUseIllegaLStreetDrugs === '') {
                 setRequiredDoYouUseIllegaLStreetDrugs(true)
-                alert('Please enter if you use illegal street drugs')
+                //alert('Please enter if you use illegal street drugs')
                 router
                   .push('/NewPatientPacket/#doYouUseIllegaLStreetDrugs')
                   .then(() => {
@@ -3459,7 +3459,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 describeIllegalStreetDrugUse === ''
               ) {
                 setRequiredDescribeIllegaLStreetDrugUse(true)
-                alert('Please enter what illegal street drugs you use')
+                //alert('Please enter what illegal street drugs you use')
                 router
                   .push('/NewPatientPacket/#describeIllegalStreetDrugUse')
                   .then(() => {
@@ -3471,7 +3471,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (doYouFeelDepressed === '') {
                 setRequiredDoYouFeelDepressed(true)
-                alert('Please enter if you feel depressed')
+                //alert('Please enter if you feel depressed')
                 router
                   .push('/NewPatientPacket/#doYouFeelDepressed')
                   .then(() => {
@@ -3486,7 +3486,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouCryFrequently(true)
-                alert('Please enter if you cry frequently')
+                //alert('Please enter if you cry frequently')
                 router
                   .push('/NewPatientPacket/#doYouFeelDepressed')
                   .then(() => {
@@ -3501,9 +3501,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouHaveLittleInterestInDoingThings(true)
-                alert(
-                  'Please enter if you have little interest in doing things'
-                )
+                // //alert(
+                //   'Please enter if you have little interest in doing things'
+                // )
                 router
                   .push('/NewPatientPacket/#doYouHaveLittleInterest')
                   .then(() => {
@@ -3518,7 +3518,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouFeelHopelessDownOrDepressed(true)
-                alert('Please enter if you feel hopeless down or depressed')
+                //alert('Please enter if you feel hopeless down or depressed')
                 router.push('/NewPatientPacket/#doYouFeelHopeless').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3531,9 +3531,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouHaveTroubleFallingAsleepOrSleepingTooMuch(true)
-                alert(
-                  'Please enter if you have trouble falling asleep or sleeping too much'
-                )
+                // //alert(
+                //   'Please enter if you have trouble falling asleep or sleeping too much'
+                // )
                 router
                   .push('/NewPatientPacket/#doYouHaveTroubleFallingAsleep')
                   .then(() => {
@@ -3548,7 +3548,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouFeelTiredOrHaveLittleEnergy(true)
-                alert('Please enter if you feel tired or have little energy')
+                //alert('Please enter if you feel tired or have little energy')
                 router.push('/NewPatientPacket/#doYouFeelTired').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3561,7 +3561,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouHavAPoorAppetiteOrOverEating(true)
-                alert('Please enter if you have a poor appetite or over eating')
+                //alert('Please enter if you have a poor appetite or over eating')
                 router
                   .push('/NewPatientPacket/#doYouHavAPoorAppetite')
                   .then(() => {
@@ -3576,7 +3576,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouFeelBadAboutYourself(true)
-                alert('Please enter if you feel bad about yourself')
+                //alert('Please enter if you feel bad about yourself')
                 router
                   .push('/NewPatientPacket/#doYouFeelBadAboutYourself')
                   .then(() => {
@@ -3591,7 +3591,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredTroubleConcentrating(true)
-                alert('please enter if you have trouble concentrating')
+                //alert('please enter if you have trouble concentrating')
                 router
                   .push('/NewPatientPacket/#troubleConcentrating')
                   .then(() => {
@@ -3606,7 +3606,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouMoveOrSpeakSlowly(true)
-                alert('Please enter if you move or speak slowly')
+                //alert('Please enter if you move or speak slowly')
                 router
                   .push('/NewPatientPacket/#doYouMoveOrSpeakSlowly')
                   .then(() => {
@@ -3621,9 +3621,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredThoughtsYouWouldBeBetterOffDead(true)
-                alert(
-                  'Please enter if you have thoughts you would be better off dead'
-                )
+                // //alert(
+                //   'Please enter if you have thoughts you would be better off dead'
+                // )
                 router
                   .push('/NewPatientPacket/#thoughtsYouWouldBeBetterOffDead')
                   .then(() => {
@@ -3638,7 +3638,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredHaveYouEverAttemptedSuicide(true)
-                alert('Please enter if you have ever attempted suicide ')
+                //alert('Please enter if you have ever attempted suicide ')
                 router
                   .push('/NewPatientPacket/#HaveYouAttemptedSuicide')
                   .then(() => {
@@ -3653,7 +3653,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredIsStressAMajorProblem(true)
-                alert('Please enter if stress is a major problem for you')
+                //alert('Please enter if stress is a major problem for you')
                 router
                   .push('/NewPatientPacket/#isStressAMajorProblemForYou')
                   .then(() => {
@@ -3668,7 +3668,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 doYouFeelDepressed === 'Yes'
               ) {
                 setRequiredDoYouPanicWhenStressed(true)
-                alert('Please enter if you panic when stressed')
+                //alert('Please enter if you panic when stressed')
                 router
                   .push('/NewPatientPacket/#doYouPanicWhenStressed')
                   .then(() => {
@@ -3680,7 +3680,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (areYouCurrentlyTakingAnyMedications == '') {
                 setRequireAreYouCurrentlyTakingAnyMedications(true)
-                alert('Please select if you are taking any medications')
+                //alert('Please select if you are taking any medications')
                 router
                   .push(
                     '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
@@ -3696,7 +3696,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 listOfAllCurrentMedications.length < 1
               ) {
                 setRequireListOfAllCurrentMedications(true)
-                alert('Please enter a list of all current medications')
+                //alert('Please enter a list of all current medications')
                 router
                   .push(
                     '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
@@ -3710,7 +3710,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (!PatientMedicalReviewSignatureCheckBox) {
                 setRequirePatientMedicalReviewSignatureCheckBox(true)
-                alert('Please agree to the medical review signature')
+                //alert('Please agree to the medical review signature')
                 router
                   .push('/NewPatientPacket/#patientMedicalReviewSignature')
                   .then(() => {
@@ -3722,7 +3722,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (patientMedicalReviewSignatureDate == '') {
                 setRequirePatientMedicalReviewSignature(true)
-                alert('Please enter the date of the medical review signature')
+                //alert('Please enter the date of the medical review signature')
                 router
                   .push('/NewPatientPacket/#patientMedicalReviewSignature')
                   .then(() => {
@@ -3734,7 +3734,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (patientMedicalReviewSignature == '') {
                 setRequirePatientMedicalReviewSignatureDate(true)
-                alert('Please enter your signature')
+                //alert('Please enter your signature')
                 router
                   .push('/NewPatientPacket/#patientMedicalReviewSignature')
                   .then(() => {
@@ -3746,7 +3746,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (AdvancedDirectives.signature == '') {
                 setRequireAdvancedDirectivesSignature(true)
-                alert('Please enter your signature for Advanced Directives')
+                //alert('Please enter your signature for Advanced Directives')
                 router
                   .push('/NewPatientPacket/#advancedDirectivesLivingWill')
                   .then(() => {
@@ -3758,7 +3758,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (AdvancedDirectives.signatureDate == '') {
                 setRequireAdvancedDirectivesSignature(true)
-                alert('Please enter the date of the signature')
+                //alert('Please enter the date of the signature')
                 router
                   .push('/NewPatientPacket/#advancedDirectivesLivingWill')
                   .then(() => {
@@ -3776,7 +3776,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 AdvancedDirectives.agreeThatTheirSignatureIsValid == null
               ) {
                 setRequireAdvancedDirectivesSignature(true)
-                alert('Please agree that your signature is valid')
+                //alert('Please agree that your signature is valid')
                 router
                   .push('/NewPatientPacket/#advancedDirectivesLivingWill')
                   .then(() => {
@@ -3788,7 +3788,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (hippa.hippaSignature == '') {
                 setRequireHippaSignature(true)
-                alert('Please enter your signature for HIPPA')
+                //alert('Please enter your signature for HIPPA')
                 router.push('/NewPatientPacket/#hippa').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3796,9 +3796,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 })
                 setLoading(false)
                 return
-              } else if (hippa.hippaSignatureDate == '') {
+              } else if (hippa.signatureDate == '') {
                 setRequireHippaSignature(true)
-                alert('Please enter the date of the signature')
+                //alert('Please enter the date of the signature')
                 router.push('/NewPatientPacket/#hippa').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3808,7 +3808,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (hippa.agreeThatTheirSignatureIsValid == '') {
                 setRequireHippaSignature(true)
-                alert('Please agree that your signature is valid')
+                //alert('Please agree that your signature is valid')
                 router.push('/NewPatientPacket/#hippa').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3818,7 +3818,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (financialPolicySignature == '') {
                 setRequireFinancialPolicySignature(true)
-                alert('Please enter your signature for Financial Policy')
+                //alert('Please enter your signature for Financial Policy')
                 router.push('/NewPatientPacket/#financialPolicy').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3828,7 +3828,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (financialPolicySignatureDate == '') {
                 setRequireFinancialPolicySignatureDate(true)
-                alert('Please enter the date of the signature')
+                //alert('Please enter the date of the signature')
                 router.push('/NewPatientPacket/#financialPolicy').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -3838,7 +3838,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (!financialPolicySignatureCheckBox) {
                 setRequireFinancialPolicySignatureCheckBox(true)
-                alert('Please agree that your signature is valid')
+                //alert('Please agree that your signature is valid')
                 router.push('/NewPatientPacket/#financialPolicy').then(() => {
                   setTimeout(() => {
                     window.scrollBy(0, -150)
@@ -4060,9 +4060,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       company: company,
                     })
                   })
-                  .then(() => {
-                    alert('thank you for your submission')
-                  })
+                  // .then(() => {
+                  //   //alert('thank you for your submission')
+                  // })
                   .then(() => {
                     setLoading(false)
                   })

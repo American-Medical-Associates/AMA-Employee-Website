@@ -151,7 +151,7 @@ export default function NewPatientPacketSubmitions() {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" m-5 flex h-[80vh] w-[25%] flex-col overflow-y-auto rounded-[30px] bg-[#d2d1d18b]">
           <div className=" flex flex-col items-center justify-center">

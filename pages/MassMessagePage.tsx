@@ -268,7 +268,7 @@ const MassMessagePage: NextPage<{}> = () => {
   }
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <main
         className=" flex  h-full w-full flex-col items-center p-10

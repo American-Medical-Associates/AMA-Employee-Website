@@ -38,7 +38,7 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
 
   return (
     <div className=" mb-10">
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className=" flex flex-col items-center  justify-center p-5 ">
         <form>
           <h1 className=" text-xl">Book an Appointment</h1>

@@ -670,7 +670,12 @@ export function GetSpravatoTracking({ SpravatoTrackingArray }) {
 //     setCompanyDispatch(setCompany(doc.get('company')))
 //   })
 // }
-export function getAllUserInfo({ setChannelID, setCompany, dispatch }) {
+export function getAllUserInfo({
+  setChannelID,
+  setCompany,
+  dispatch,
+  // isPatient,
+}) {
   onSnapshot(doc(db, 'users', auth.currentUser.email), (doc) => {
     // setCompanyDB(doc.get("company"));
     dispatch(setCompany(doc.get('company')))
@@ -2608,6 +2613,15 @@ export async function HasSubmittedPacket({ email, setSubmittedPacket }) {
       querySnapshot.forEach((doc) => {
         setSubmittedPacket(doc.data())
       })
+    }
+  )
+}
+
+export function GetAllPatientInfo({ setPatientInfo }) {
+  onSnapshot(
+    doc(db, 'companys', 'AMA', 'patients', auth.currentUser.email),
+    (doc) => {
+      setPatientInfo(doc.data())
     }
   )
 }

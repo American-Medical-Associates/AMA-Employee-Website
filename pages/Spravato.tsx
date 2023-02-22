@@ -392,7 +392,7 @@ const Spravato: NextPage<{}> = () => {
   }
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-8">
         <h1 className=" text-center text-4xl text-[#0008ff]">Spravato</h1>
         <div className=" mt-10 flex flex-row ">

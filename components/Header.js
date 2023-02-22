@@ -24,14 +24,16 @@ import {
 // import Box from './box'
 import { getAuth, signOut } from 'firebase/auth'
 import MainButton from './MainButton'
-import { auth, isAdmin } from '../firebase'
+import { auth, isAdmin, GetAllPatientInfo } from '../firebase'
 import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
 
-const Header = ({ selectCompany }) => {
+const Header = ({ selectCompany, routePatientsHome }) => {
   const [isUserAdmin, setIsUserAdmin] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
   const [showPatientLookup, setShowPatientLookup] = useState(false)
+  const [patientInfo, setPatientInfo] = useState([])
+  const [isPatient, setIsPatient] = useState(false)
   useEffect(() => {
     if (auth.currentUser) {
       isAdmin({ adminState: setIsUserAdmin })
@@ -58,10 +60,33 @@ const Header = ({ selectCompany }) => {
     }
   }, [])
 
+  useEffect(() => {
+    if (auth.currentUser) {
+      GetAllPatientInfo({
+        setPatientInfo: setPatientInfo,
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      if (patientInfo) {
+        setIsPatient(patientInfo.isPatient)
+      }
+    }
+  }, [patientInfo])
+
+  useEffect(() => {
+    if (isPatient && routePatientsHome) {
+      setIsUserAdmin(false)
+      router.push('/PatientPage')
+    }
+  }, [isPatient])
+
   const router = useRouter()
   const showMenu = () => {
     if (openMenu) {
-      if (auth.currentUser) {
+      if (auth.currentUser && !isPatient) {
         return (
           <div
             ref={ref}
@@ -151,6 +176,39 @@ const Header = ({ selectCompany }) => {
                   text={'Inventory'}
                   onClick={() => {
                     router.push('/Inventory/Inventory')
+                  }}
+                />,
+
+                <MenuItem
+                  icon={
+                    <ArrowRightOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text={'Logout'}
+                  onClick={() => {
+                    Logout()
+                  }}
+                />,
+              ]}
+            />
+          </div>
+        )
+      } else if (auth.currentUser && isPatient) {
+        return (
+          <div
+            ref={ref}
+            className=" absolute flex justify-start duration-[500s] ease-in"
+          >
+            <DropDownMenu
+              openMenu={openMenu}
+              setOpenMenu={setOpenMenu}
+              item={[
+                <MenuItem
+                  icon={
+                    <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text={'Home'}
+                  onClick={() => {
+                    router.push('/PatientPage')
                   }}
                 />,
 
