@@ -1,76 +1,58 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../firebase'
 import TextInput from '../components/TextInput'
 import MainButton from '../components/MainButton'
+import router from 'next/router'
 
 // CURRENTLY A WORK IN PROGRESS
 
-// function ForgotPassword() {
-//   const [email, setEmail] = useState('')
-//   const [errorMessage, setErrorMessage] = useState('')
+function ForgotPassword() {
+  const [email, setEmail] = useState('')
+  const [errorMessage, setErrorMessage] = useState(false)
 
-//   async function sendPasswordResetEmail(email: string) {
-//     try {
-//       await auth.sendPasswordResetEmail(email)
-//       console.log('Password reset email sent')
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }
+  return (
+    <div className="flex w-full flex-col items-center justify-center">
+      {/* TODO: Add prop to header component */}
+      <Header selectCompany={'AMA'} />
 
-//   const handleSubmit = async (event: React.FormEvent) => {
-//     event.preventDefault()
-//     if (!email) {
-//       setErrorMessage('Please enter your email address.')
-//       return
-//     }
-//     try {
-//       await sendPasswordResetEmail(email)
-//       setErrorMessage('')
-//     } catch (error) {
-//       setErrorMessage('Error sending password reset email.')
-//       console.error(error)
-//     }
-//   }
+      <div className="w-[50%] rounded-[30px] p-5 text-center shadow-2xl">
+        <h1 className="text-3xl font-bold text-[#377adf]">Reset Password</h1>
+        <TextInput
+          placeHolder="Email"
+          type="email"
+          value={email}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(event.target.value)
+          }
+        />
+        <div className="flex flex-col items-center justify-center">
+          <MainButton
+            buttonWidth="w-[40%]"
+            buttonText="Reset Password"
+            onClick={() => {
+              if (
+                email === '' ||
+                !email.includes('@') ||
+                !email.includes('.')
+              ) {
+                setErrorMessage(true)
+              } else {
+                sendPasswordResetEmail(auth, email).then(() => {
+                  alert('Password reset email sent!')
+                  router.push('/PatientLogin')
+                })
+              }
+            }}
+          />
+          {errorMessage && (
+            <p className="mt-5">Please enter a valid email address</p>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
-//   return (
-//     <div>
-//       <Header selectCompany={'AMA'} />
-
-//       <div className="m-3 flex flex-col items-center justify-center">
-//         <form onSubmit={handleSubmit}>
-//           {/* <label>
-//             Email:
-//             <input
-//               className="ml-3 rounded-3xl bg-[#f2f2f2] p-3"
-//               type="email"
-//               value={email}
-//               onChange={(event) => setEmail(event.target.value)}
-//             />
-//           </label> */}
-//           <div className="flex flex-row ">
-//             <TextInput
-//               id="email"
-//               placeHolder="Email"
-//               onChange={(event) => setEmail(event.target.value)}
-//             />
-
-//             <MainButton buttonText="Reset Password" onClick={handleSubmit} />
-
-//             {/* <button
-//               type="submit"
-//               className="ml-3 rounded-3xl bg-[#0008ff] p-3 text-white"
-//             >
-//               Reset Password
-//             </button> */}
-//             {errorMessage && <p className="mt-4 text-center">{errorMessage}</p>}
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default ForgotPassword
+export default ForgotPassword

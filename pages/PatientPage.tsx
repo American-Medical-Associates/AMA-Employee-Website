@@ -43,7 +43,6 @@ const PatientPage: NextPage = () => {
               setPatientAutoSaveInfo: setPatientAutoSaveInfo,
               dispatch: dispatch,
             })
-            console.log('yo')
           }
         })
     }
@@ -76,28 +75,10 @@ const PatientPage: NextPage = () => {
       })
     }
   }, [auth.currentUser?.email])
-  console.log('submittedPacket', submittedPacket)
-  console.log('hasSubmitted', hasSubmitted)
-  console.log('noFoundPacket', noFoundPacket)
-  console.log('patientAutoSaveInfo', patientAutoSaveInfo)
-
-  // This is the useEffect that will check if the patient has submitted the packet and if they have then it will change
-  // from "False" to "True" and then the button will change from "Resume New Patient Packet" to "View New Patient Packet"
-  // useEffect(() => {
-  //   if (auth.currentUser?.email) {
-  //
-  //     HasSubmittedPacket({
-  //       email: auth.currentUser?.email,
-  //       setSubmittedPacket: setSubmittedPacket,
-  //     }).then(() => {
-  //       setHasSubmitted(true)
-  //     })
-  //   }
-  // }, [auth.currentUser?.email])
-
-  // const handlePacketSubmission = () => {
-  //   setHasSubmittedPacket(true)
-  // }
+  // console.log('submittedPacket', submittedPacket)
+  // console.log('hasSubmitted', hasSubmitted)
+  // console.log('noFoundPacket', noFoundPacket)
+  // console.log('patientAutoSaveInfo', patientAutoSaveInfo)
 
   return (
     <div className="flex w-full flex-col items-center justify-center">

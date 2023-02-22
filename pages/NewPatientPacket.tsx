@@ -49,6 +49,34 @@ import { NewPatientPacketAutoSave } from '../firebase'
 import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {
+  interface Directives {
+    healthCarePowerOfAttorney: ''
+    healthCarePowerOfAttorneyName: ''
+    doYouHaveALivingWill: ''
+    preHospitalMedicalDirectives: ''
+    phoneNumber: ''
+    date: ''
+    signature: ''
+    agreeThatTheirSignatureIsValid: false
+    signatureDate: ''
+  }
+
+  interface Hippa {
+    name: ''
+    relationShip: ''
+    name2: ''
+    relationShip2: ''
+    name3: ''
+    relationShip3: ''
+    name4: ''
+    relationShip4: ''
+    hippaSignature: ''
+    signatureDate: ''
+    signatureCheckBoxConsent: ''
+    hippaSignatureDate: ''
+    agreeThatTheirSignatureIsValid: ''
+  }
+
   const [loading, setLoading] = useState(false)
   const [showCheckMark, setShowCheckMark] = useState(false)
   const router = useRouter()
@@ -283,29 +311,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     patientMedicalReviewSignatureDate,
     setPatientMedicalSignatureReviewDate,
   ] = useState('')
-  const [AdvancedDirectives, setAdvancedDirectives] = useState<any>({
-    healthCarePowerOfAttorney: '',
-    healthCarePowerOfAttorneyName: '',
-    doYouHaveALivingWill: '',
-    preHospitalMedicalDirectives: '',
-    phoneNumber: '',
-    date: '',
-    signature: '',
-    agreeThatTheirSignatureIsValid: false,
-  })
-  const [hippa, setHippa] = useState<any>({
-    name: '',
-    relationShip: '',
-    name2: '',
-    relationShip2: '',
-    name3: '',
-    relationShip3: '',
-    name4: '',
-    relationShip4: '',
-    hippaSignature: '',
-    signatureDate: '',
-    signatureCheckBoxConsent: '',
-  })
+  const [AdvancedDirectives, setAdvancedDirectives] = useState<Directives>()
+  const [hippa, setHippa] = useState<Hippa>()
   const [financialPolicySignature, setFinancialPolicySignature] = useState('')
 
   const [
@@ -899,7 +906,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <PhoneNumberInput
           placeHolder="Home Phone Number"
           value={homePhone}
-          onChange={(text: any) => setHomePhone(text.target.value)}
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+            setHomePhone(text.target.value)
+          }
           widthPercentage="w-3/4"
           id={'homePhone'}
         />
@@ -1065,7 +1074,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               company: company,
             })
           }}
-          onChange={(text: any) => {
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setSocialValue(text.target.value)
           }}
           id={'social'}
@@ -1095,7 +1104,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           id="preferredName"
           placeHolder="Preferred Name"
           widthPercentage="w-3/4"
-          onChange={(text: any) => {
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setPreferredName(text.target.value)
           }}
           value={preferredName}
@@ -1162,7 +1171,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="emergencyContactName"
               placeHolder="Name of Emergency Contact"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setNameOfEmergency(text.target.value)
               }}
               value={nameOfEmergencyContact}
@@ -1172,7 +1181,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="emergencyContactRelationship"
               placeHolder="Relationship"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setEmergencyContactRelationShip(text.target.value)
               }}
               value={EmergencyContactRelationShip}
@@ -1183,7 +1192,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               placeHolder="Phone Number"
               widthPercentage="w-full"
               value={EmergencyContactPhoneNumber}
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setEmergencyContactPhoneNumber(text.target.value)
               }}
               required={requiredEmergencyContactPhoneNumber}
@@ -1230,7 +1239,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="insuranceName"
                 placeHolder="Primary Insurance"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsurance(text.target.value)
                 }}
                 value={primaryInsurance}
@@ -1240,7 +1249,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="insurancePolicyNumber"
                 placeHolder="Primary Insurance ID"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsuranceID(text.target.value)
                 }}
                 value={primaryInsuranceID}
@@ -1250,7 +1259,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="insuranceGroupNumber"
                 placeHolder="Primary Insurance Group"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsuranceGroup(text.target.value)
                 }}
                 value={primaryInsuranceGroup}
@@ -1260,7 +1269,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="insurancePhoneNumber"
                 placeHolder="primary Insurance Phone Number"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsurancePhone(text.target.value)
                 }}
                 value={primaryInsurancePhone}
@@ -1285,7 +1294,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="subscriberName"
                 placeHolder="Subscriber Name"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimarySubscribersName(text.target.value)
                 }}
                 value={primarySubscribersName}
@@ -1321,7 +1330,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 placeHolder="Secondary Insurance"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsurance(text.target.value)
                 }}
                 value={secondaryInsurance}
@@ -1329,7 +1338,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 placeHolder="Secondary Insurance ID"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsuranceID(text.target.value)
                 }}
                 value={secondaryInsuranceID}
@@ -1337,7 +1346,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 placeHolder="Secondary Insurance Group"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsuranceGroup(text.target.value)
                 }}
                 value={secondaryInsuranceGroup}
@@ -1345,7 +1354,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 placeHolder="Secondary Insurance Phone Number"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsurancePhone(text.target.value)
                 }}
                 value={secondaryInsurancePhone}
@@ -1367,7 +1376,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               <TextInput
                 placeHolder="Subscriber Name"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondarySubscribersName(text.target.value)
                 }}
                 value={secondarySubscribersName}
@@ -1400,7 +1409,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="pharmacyName"
               placeHolder="Retail Pharmacy Name"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setRetailPharmacyName(text.target.value)
               }}
               value={retailPharmacyName}
@@ -1413,7 +1422,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   id="pharmacyCrossStreet1"
                   placeHolder="Street 1"
                   widthPercentage="w-full"
-                  onChange={(text: any) => {
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setRetailPharmacyCrossStreet1(text.target.value)
                   }}
                   value={retailPharmacyCrossStreet1}
@@ -1423,7 +1432,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   id="pharmacyCrossStreet2"
                   placeHolder="Street 2"
                   widthPercentage="w-full"
-                  onChange={(text: any) => {
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setRetailPharmacyCrossStreet2(text.target.value)
                   }}
                   value={retailPharmacyCrossStreet2}
@@ -1435,7 +1444,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="pharmacyPhoneNumber"
               placeHolder="Retail Pharmacy Phone Number"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setRetailPharmacyPhoneNumber(text.target.value)
               }}
               value={retailPharmacyPhoneNumber}
@@ -1445,7 +1454,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="pharmacyFaxNumber"
               placeHolder="Retail Pharmacy Fax Number"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setRetailPharmacyFaxNumber(text.target.value)
               }}
               value={retailPharmacyFaxNumber}
@@ -1460,7 +1469,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <TextInput
               placeHolder="Mail Order Pharmacy Name"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setMailOrderPharmacyName(text.target.value)
               }}
               value={mailOrderPharmacyName}
@@ -1480,7 +1489,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <PhoneNumberInput
               placeHolder="Mail Order Pharmacy Phone Number"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setMailOrderPharmacyPhoneNumber(text.target.value)
               }}
               value={mailOrderPharmacyPhoneNumber}
@@ -1549,7 +1558,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               placeHolder="Date of last pap smear (mmddyyyy)"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDateOfLastPAP(text.target.value)
               }}
               value={dateOfLastPAP}
@@ -1566,7 +1575,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               placeHolder="Date of last mammogram (mmddyyyy)"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDateOfLastMammogram(text.target.value)
               }}
               value={dateOfLastMammogram}
@@ -1588,7 +1597,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             <DateInput
               placeHolder="Date of Last PSA (mmddyyyy)"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDateOfLastPSA(text.target.value)
               }}
               value={dateOfLastPSA}
@@ -1656,7 +1665,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="dateOfBoneDensityScreening"
                 placeHolder="Date of last bone density screening (mmddyyyy)"
                 widthPercentage="w-3/4"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setBoneDensityScreeningDate(text.target.value)
                 }}
                 value={BoneDensityScreeningDate}
@@ -1688,7 +1697,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 id="dateOfColonoscopyScreening"
                 placeHolder="Date of last colonoscopy (mmddyyyy)"
                 widthPercentage="w-full"
-                onChange={(text: any) => {
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setDateOfLastColonoscopyScreening(text.target.value)
                 }}
                 value={dateOfLastColonoscopyScreening}
@@ -1815,7 +1824,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="howManyPacksPerDay"
               placeHolder="If yes, how many packs per day?"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setHowManyPacksPerDay(text.target.value)
               }}
               value={howManyPacksPerDay}
@@ -1832,7 +1841,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="describeOtherTobaccoUse"
               placeHolder="If yes, please describe."
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDescribeOtherTobaccoUse(text.target.value)
               }}
               value={describeOtherTobaccoUse}
@@ -1849,7 +1858,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="describeRecreationalDrugUse"
               placeHolder="If yes, please describe."
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDescribeRecreationalDrugUse(text.target.value)
               }}
               value={describeRecreationalDrugUse}
@@ -1866,7 +1875,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="howManyDrinksPerWeek"
               placeHolder="If yes, how many drinks per week?"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setHowManyDrinksPerWeek(text.target.value)
               }}
               value={howManyDrinksPerWeek}
@@ -1883,7 +1892,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="howManyCupsPerDay"
               placeHolder="If yes, how many cups per day?"
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setHowManyCupsPerDay(text.target.value)
               }}
               value={howManyCupsPerDay}
@@ -1900,7 +1909,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               id="describeIllegalStreetDrugUse"
               placeHolder="If yes, please describe."
               widthPercentage="w-full"
-              onChange={(text: any) => {
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                 setDescribeIllegalStreetDrugUse(text.target.value)
               }}
               value={describeIllegalStreetDrugUse}
@@ -1909,178 +1918,175 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           ]}
         />
         <AutoSaveLine success={autoSaveMentalHealth} />
+        <div
+          className="h-16 w-full"
+          onMouseEnter={() => {
+            if (!autoSaveMentalHealth) {
+              NewPatientPacketAutoSave({
+                setSuccess: setAutoSaveMentalHealth,
+                firstName: firstName,
+                lastName: lastName,
+                addressValue: addressValue,
+                addressValue2: addressValue2,
+                cityValue: cityValue,
+                USStateValue: USStateValue,
+                zipCodeValue: zipCodeValue,
+                BirthDateValue: BirthDateValue,
+                phoneNumberValue: phoneNumberValue,
+                homePhone: homePhone,
+                emailValue: emailValue.trim(),
+                socialValue: socialValue,
+                isCheckedMale: isCheckedMale,
+                isCheckedFemale: isCheckedFemale,
+                isCheckedOther: isCheckedOther,
+                pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+                preferredName: preferredName,
+                single: single,
+                married: married,
+                divorced: divorced,
+                widowed: widowed,
+                separated: separated,
+                withPartner: withPartner,
+                MayWeTakeYourPicture: MayWeTakeYourPicture,
+                pictureOfTheirFace: pictureOfTheirFace,
+                Ethnicity: Ethnicity,
+                nameOfEmergencyContact: nameOfEmergencyContact,
+                EmergencyContactRelationShip: EmergencyContactRelationShip,
+                EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+                HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+                howDoTheyWishToPay: howDoTheyWishToPay,
+                primaryInsurance: primaryInsurance,
+                primaryInsuranceID: primaryInsuranceID,
+                primaryInsuranceGroup: primaryInsuranceGroup,
+                primaryInsurancePhone: primaryInsurancePhone,
+                primaryInsuranceAddress1: primaryInsuranceAddress1,
+                primaryInsuranceAddress2: primaryInsuranceAddress2,
+                primaryInsuranceCity: primaryInsuranceCity,
+                primaryInsuranceState: primaryInsuranceState,
+                primaryInsuranceZip: primaryInsuranceZip,
+                primarySubscribersName: primarySubscribersName,
+                secondaryInsurance: secondaryInsurance,
+                secondaryInsuranceID: secondaryInsuranceID,
+                secondaryInsuranceGroup: secondaryInsuranceGroup,
+                secondaryInsurancePhone: secondaryInsurancePhone,
+                secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+                secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+                secondaryInsuranceCity: secondaryInsuranceCity,
+                secondaryInsuranceState: secondaryInsuranceState,
+                secondaryInsuranceZip: secondaryInsuranceZip,
+                secondarySubscribersName: secondarySubscribersName,
+                primaryPictureOfInsuranceCardFront:
+                  primaryPictureOfInsuranceCardFront,
+                primaryPictureOfInsuranceCardBack:
+                  primaryPictureOfInsuranceCardBack,
+                secondaryPictureOfInsuranceCardFront:
+                  secondaryPictureOfInsuranceCardFront,
+                secondaryPictureOfInsuranceCardBack:
+                  secondaryPictureOfInsuranceCardBack,
+                retailPharmacyName: retailPharmacyName,
+                retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+                retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+                retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+                retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+                mailOrderPharmacyName: mailOrderPharmacyName,
+                mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+                mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+                mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+                mailOrderPharmacyCity: mailOrderPharmacyCity,
+                mailOrderPharmacyState: mailOrderPharmacyState,
+                mailOrderPharmacyZip: mailOrderPharmacyZip,
+                areYouAllergicToLatex: areYouAllergicToLatex,
+                areYouAllergicToSelfish: areYouAllergicToSelfish,
+                areYouAllergicToIodine: areYouAllergicToIodine,
+                PatientDrugAllergies: PatientDrugAllergies,
+                dateOfLastPAP: dateOfLastPAP,
+                wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+                dateOfLastMammogram: dateOfLastMammogram,
+                wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+                dateOfLastPSA: dateOfLastPSA,
+                wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+                allMajorIllnesses: allMajorIllnesses,
+                allMajorSurgeriesAndHospitalizations:
+                  allMajorSurgeriesAndHospitalizations,
+                boneDensityScreening: boneDensityScreening,
+                BoneDensityScreeningDate: BoneDensityScreeningDate,
+                wasBoneDensityScreeningNormalOrAbnormal:
+                  wasBoneDensityScreeningNormalOrAbnormal,
+                colonoscopyScreening: colonoscopyScreening,
+                dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+                wasColonoscopyScreeningNormalOrAbnormal:
+                  wasColonoscopyScreeningNormalOrAbnormal,
+                allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+                haveTheyEverSmoked: haveTheyEverSmoked,
+                howManyPacksPerDay: howManyPacksPerDay,
+                anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+                describeOtherTobaccoUse: describeOtherTobaccoUse,
+                doYouDrinkCoffee: doYouDrinkCoffee,
+                howManyCupsPerDay: howManyCupsPerDay,
+                doYouDrinkAlcohol: doYouDrinkAlcohol,
+                howManyDrinksPerWeek: howManyDrinksPerWeek,
+                doYoCurrentlyUseRecreationalDrugs:
+                  doYoCurrentlyUseRecreationalDrugs,
+                describeRecreationalDrugUse: describeRecreationalDrugUse,
+                doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+                describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+                doYouFeelDepressed: doYouFeelDepressed,
+                doYouCryFrequently: doYouCryFrequently,
+                doYouHaveLittleInterestInDoingThings:
+                  doYouHaveLittleInterestInDoingThings,
+                doYouFeelHopelessDownOrDepressed:
+                  doYouFeelHopelessDownOrDepressed,
+                doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+                doYouFeelTiredOrHaveLittleEnergy:
+                  doYouFeelTiredOrHaveLittleEnergy,
+                doYouHavAPoorAppetiteOrOverEating:
+                  doYouHavAPoorAppetiteOrOverEating,
+                doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+                troubleConcentrating: troubleConcentrating,
+                doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+                thoughtsYouWouldBeBetterOffDead:
+                  thoughtsYouWouldBeBetterOffDead,
+                isStressAMajorProblem: isStressAMajorProblem,
+                doYouPanicWhenStressed: doYouPanicWhenStressed,
+                haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+                familyMedicalAlcoholismAddiction:
+                  familyMedicalAlcoholismAddiction,
+                familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+                familyMedicalCancer: familyMedicalCancer,
+                familyMedicalDiabetes: familyMedicalDiabetes,
+                familyMedicalHeartAttack: familyMedicalHeartAttack,
+                familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+                familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+                familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+                familyMedicalMentalIllness: familyMedicalMentalIllness,
+                familyMedicalStroke: familyMedicalStroke,
+                familyMedicalTuberculosis: familyMedicalTuberculosis,
+                isYourMotherStillLiving: isYourMotherStillLiving,
+                isYourFatherStillLiving: isYourFatherStillLiving,
+                listOfAllCurrentMedications: listOfAllCurrentMedications,
+                patientMedicalReviewSignature: patientMedicalReviewSignature,
+                patientMedicalReviewSignatureDate:
+                  patientMedicalReviewSignatureDate,
+                PatientMedicalReviewSignatureCheckBox:
+                  PatientMedicalReviewSignatureCheckBox,
+                AdvancedDirectives: AdvancedDirectives,
+                hippa: hippa,
+                financialPolicySignature: financialPolicySignature,
+                financialPolicySignatureCheckBox:
+                  financialPolicySignatureCheckBox,
+                financialPolicySignatureDate: financialPolicySignatureDate,
+                company: company,
+              })
+            }
+          }}
+        ></div>
         <SectionWithTitle
           title="Mental Health Questions"
           subTitle="Check if you have had the following (check ALL that apply):"
           BgColor="bg-[#e9e7e7b1]"
           children={[
-            <div
-              onMouseEnter={() => {
-                if (!autoSaveMentalHealth) {
-                  NewPatientPacketAutoSave({
-                    setSuccess: setAutoSaveMentalHealth,
-                    firstName: firstName,
-                    lastName: lastName,
-                    addressValue: addressValue,
-                    addressValue2: addressValue2,
-                    cityValue: cityValue,
-                    USStateValue: USStateValue,
-                    zipCodeValue: zipCodeValue,
-                    BirthDateValue: BirthDateValue,
-                    phoneNumberValue: phoneNumberValue,
-                    homePhone: homePhone,
-                    emailValue: emailValue.trim(),
-                    socialValue: socialValue,
-                    isCheckedMale: isCheckedMale,
-                    isCheckedFemale: isCheckedFemale,
-                    isCheckedOther: isCheckedOther,
-                    pictureOfFrontOfDriverLicense:
-                      pictureOfFrontOfDriverLicense,
-                    preferredName: preferredName,
-                    single: single,
-                    married: married,
-                    divorced: divorced,
-                    widowed: widowed,
-                    separated: separated,
-                    withPartner: withPartner,
-                    MayWeTakeYourPicture: MayWeTakeYourPicture,
-                    pictureOfTheirFace: pictureOfTheirFace,
-                    Ethnicity: Ethnicity,
-                    nameOfEmergencyContact: nameOfEmergencyContact,
-                    EmergencyContactRelationShip: EmergencyContactRelationShip,
-                    EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
-                    HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
-                    howDoTheyWishToPay: howDoTheyWishToPay,
-                    primaryInsurance: primaryInsurance,
-                    primaryInsuranceID: primaryInsuranceID,
-                    primaryInsuranceGroup: primaryInsuranceGroup,
-                    primaryInsurancePhone: primaryInsurancePhone,
-                    primaryInsuranceAddress1: primaryInsuranceAddress1,
-                    primaryInsuranceAddress2: primaryInsuranceAddress2,
-                    primaryInsuranceCity: primaryInsuranceCity,
-                    primaryInsuranceState: primaryInsuranceState,
-                    primaryInsuranceZip: primaryInsuranceZip,
-                    primarySubscribersName: primarySubscribersName,
-                    secondaryInsurance: secondaryInsurance,
-                    secondaryInsuranceID: secondaryInsuranceID,
-                    secondaryInsuranceGroup: secondaryInsuranceGroup,
-                    secondaryInsurancePhone: secondaryInsurancePhone,
-                    secondaryInsuranceAddress1: secondaryInsuranceAddress1,
-                    secondaryInsuranceAddress2: secondaryInsuranceAddress2,
-                    secondaryInsuranceCity: secondaryInsuranceCity,
-                    secondaryInsuranceState: secondaryInsuranceState,
-                    secondaryInsuranceZip: secondaryInsuranceZip,
-                    secondarySubscribersName: secondarySubscribersName,
-                    primaryPictureOfInsuranceCardFront:
-                      primaryPictureOfInsuranceCardFront,
-                    primaryPictureOfInsuranceCardBack:
-                      primaryPictureOfInsuranceCardBack,
-                    secondaryPictureOfInsuranceCardFront:
-                      secondaryPictureOfInsuranceCardFront,
-                    secondaryPictureOfInsuranceCardBack:
-                      secondaryPictureOfInsuranceCardBack,
-                    retailPharmacyName: retailPharmacyName,
-                    retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
-                    retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
-                    retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
-                    retailPharmacyFaxNumber: retailPharmacyFaxNumber,
-                    mailOrderPharmacyName: mailOrderPharmacyName,
-                    mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
-                    mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
-                    mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
-                    mailOrderPharmacyCity: mailOrderPharmacyCity,
-                    mailOrderPharmacyState: mailOrderPharmacyState,
-                    mailOrderPharmacyZip: mailOrderPharmacyZip,
-                    areYouAllergicToLatex: areYouAllergicToLatex,
-                    areYouAllergicToSelfish: areYouAllergicToSelfish,
-                    areYouAllergicToIodine: areYouAllergicToIodine,
-                    PatientDrugAllergies: PatientDrugAllergies,
-                    dateOfLastPAP: dateOfLastPAP,
-                    wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
-                    dateOfLastMammogram: dateOfLastMammogram,
-                    wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
-                    dateOfLastPSA: dateOfLastPSA,
-                    wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
-                    allMajorIllnesses: allMajorIllnesses,
-                    allMajorSurgeriesAndHospitalizations:
-                      allMajorSurgeriesAndHospitalizations,
-                    boneDensityScreening: boneDensityScreening,
-                    BoneDensityScreeningDate: BoneDensityScreeningDate,
-                    wasBoneDensityScreeningNormalOrAbnormal:
-                      wasBoneDensityScreeningNormalOrAbnormal,
-                    colonoscopyScreening: colonoscopyScreening,
-                    dateOfLastColonoscopyScreening:
-                      dateOfLastColonoscopyScreening,
-                    wasColonoscopyScreeningNormalOrAbnormal:
-                      wasColonoscopyScreeningNormalOrAbnormal,
-                    allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
-                    haveTheyEverSmoked: haveTheyEverSmoked,
-                    howManyPacksPerDay: howManyPacksPerDay,
-                    anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
-                    describeOtherTobaccoUse: describeOtherTobaccoUse,
-                    doYouDrinkCoffee: doYouDrinkCoffee,
-                    howManyCupsPerDay: howManyCupsPerDay,
-                    doYouDrinkAlcohol: doYouDrinkAlcohol,
-                    howManyDrinksPerWeek: howManyDrinksPerWeek,
-                    doYoCurrentlyUseRecreationalDrugs:
-                      doYoCurrentlyUseRecreationalDrugs,
-                    describeRecreationalDrugUse: describeRecreationalDrugUse,
-                    doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
-                    describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
-                    doYouFeelDepressed: doYouFeelDepressed,
-                    doYouCryFrequently: doYouCryFrequently,
-                    doYouHaveLittleInterestInDoingThings:
-                      doYouHaveLittleInterestInDoingThings,
-                    doYouFeelHopelessDownOrDepressed:
-                      doYouFeelHopelessDownOrDepressed,
-                    doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
-                      doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
-                    doYouFeelTiredOrHaveLittleEnergy:
-                      doYouFeelTiredOrHaveLittleEnergy,
-                    doYouHavAPoorAppetiteOrOverEating:
-                      doYouHavAPoorAppetiteOrOverEating,
-                    doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
-                    troubleConcentrating: troubleConcentrating,
-                    doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
-                    thoughtsYouWouldBeBetterOffDead:
-                      thoughtsYouWouldBeBetterOffDead,
-                    isStressAMajorProblem: isStressAMajorProblem,
-                    doYouPanicWhenStressed: doYouPanicWhenStressed,
-                    haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
-                    familyMedicalAlcoholismAddiction:
-                      familyMedicalAlcoholismAddiction,
-                    familyMedicalBleedingDisorders:
-                      familyMedicalBleedingDisorders,
-                    familyMedicalCancer: familyMedicalCancer,
-                    familyMedicalDiabetes: familyMedicalDiabetes,
-                    familyMedicalHeartAttack: familyMedicalHeartAttack,
-                    familyMedicalHighBloodPressure:
-                      familyMedicalHighBloodPressure,
-                    familyMedicalHighCholesterol: familyMedicalHighCholesterol,
-                    familyMedicalKidneyDisease: familyMedicalKidneyDisease,
-                    familyMedicalMentalIllness: familyMedicalMentalIllness,
-                    familyMedicalStroke: familyMedicalStroke,
-                    familyMedicalTuberculosis: familyMedicalTuberculosis,
-                    isYourMotherStillLiving: isYourMotherStillLiving,
-                    isYourFatherStillLiving: isYourFatherStillLiving,
-                    listOfAllCurrentMedications: listOfAllCurrentMedications,
-                    patientMedicalReviewSignature:
-                      patientMedicalReviewSignature,
-                    patientMedicalReviewSignatureDate:
-                      patientMedicalReviewSignatureDate,
-                    PatientMedicalReviewSignatureCheckBox:
-                      PatientMedicalReviewSignatureCheckBox,
-                    AdvancedDirectives: AdvancedDirectives,
-                    hippa: hippa,
-                    financialPolicySignature: financialPolicySignature,
-                    financialPolicySignatureCheckBox:
-                      financialPolicySignatureCheckBox,
-                    financialPolicySignatureDate: financialPolicySignatureDate,
-                    company: company,
-                  })
-                }
-              }}
-            >
+            <div>
               <CustomYesOrNo
                 id="doYouFeelDepressed"
                 text="Do you feel depressed?"
@@ -3744,7 +3750,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
                 setLoading(false)
                 return
-              } else if (AdvancedDirectives.signature == '') {
+              } else if (AdvancedDirectives?.signature == '') {
                 setRequireAdvancedDirectivesSignature(true)
                 alert('Please enter your signature for Advanced Directives')
                 router
@@ -3756,7 +3762,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
                 setLoading(false)
                 return
-              } else if (AdvancedDirectives.signatureDate == '') {
+              } else if (AdvancedDirectives?.signatureDate == '') {
                 setRequireAdvancedDirectivesSignature(true)
                 alert('Please enter the date of the signature')
                 router
@@ -3769,7 +3775,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 setLoading(false)
                 return
               } else if (
-                !AdvancedDirectives.agreeThatTheirSignatureIsValid ||
+                !AdvancedDirectives?.agreeThatTheirSignatureIsValid ||
                 AdvancedDirectives.agreeThatTheirSignatureIsValid == '' ||
                 AdvancedDirectives.agreeThatTheirSignatureIsValid ==
                   undefined ||
@@ -3786,7 +3792,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
                 setLoading(false)
                 return
-              } else if (hippa.hippaSignature == '') {
+              } else if (hippa?.hippaSignature == '') {
                 setRequireHippaSignature(true)
                 alert('Please enter your signature for HIPPA')
                 router.push('/NewPatientPacket/#hippa').then(() => {
@@ -3796,7 +3802,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 })
                 setLoading(false)
                 return
-              } else if (hippa.hippaSignatureDate == '') {
+              } else if (hippa?.hippaSignatureDate == '') {
                 setRequireHippaSignature(true)
                 alert('Please enter the date of the signature')
                 router.push('/NewPatientPacket/#hippa').then(() => {
@@ -3806,7 +3812,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 })
                 setLoading(false)
                 return
-              } else if (hippa.agreeThatTheirSignatureIsValid == '') {
+              } else if (hippa?.agreeThatTheirSignatureIsValid == '') {
                 setRequireHippaSignature(true)
                 alert('Please agree that your signature is valid')
                 router.push('/NewPatientPacket/#hippa').then(() => {

@@ -71,6 +71,14 @@ const Login: NextPage<{}> = () => {
         }}
         buttonWidth={'w-[40%]'}
       />
+
+      <MainButton
+        buttonText="Patient Login"
+        onClick={() => {
+          router.push('/PatientLogin')
+        }}
+      />
+
       {auth.currentUser && <h1>Welcome {auth.currentUser?.email!}</h1>}
     </div>
   )

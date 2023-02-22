@@ -40,7 +40,7 @@ const Header = ({ selectCompany }) => {
   const Logout = () => {
     const auth = getAuth()
     signOut(auth).then(() => {
-      router.push('/')
+      router.push('/PatientLogin')
     })
   }
   const ref = useRef(true)
@@ -192,7 +192,7 @@ const Header = ({ selectCompany }) => {
                   }
                   text={'Login'}
                   onClick={() => {
-                    router.push('/Login')
+                    router.push('/PatientLogin')
                   }}
                 />,
               ]}
