@@ -54,7 +54,7 @@ const MessagingPage: NextPage<{}> = () => {
   return (
     <div>
       <div>
-        <Header selectCompany={'AMA'} />
+        <Header selectCompany={'AMA'} routePatientsHome={false} />
       </div>
       <main className=" flex w-full grid-cols-2">
         {/* <div className=" h-[87vh] w-[25%] flex-col ">{listOfChannels}</div> */}

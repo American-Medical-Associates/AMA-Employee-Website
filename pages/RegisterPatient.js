@@ -46,7 +46,7 @@ const RegisterPatient = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[50%] rounded-[30px] shadow-2xl">
         <h1 className="m-2 text-center text-4xl font-bold text-[#377adf] opacity-100">
           Register Patient

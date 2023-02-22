@@ -73,7 +73,7 @@ const BookedAppointments: NextPage<{}> = () => {
 
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className="flex h-full w-full flex-col items-center justify-center p-10">
         <h1 className="text-2xl">Booked Appointments</h1>
         <div className=" my-10 flex w-full  flex-col items-center  justify-start  ">

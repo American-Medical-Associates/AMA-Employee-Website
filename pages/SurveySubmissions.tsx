@@ -165,7 +165,7 @@ const SurveySubmissions: NextPage<{}> = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <MainButton
         buttonText={'Survey Graph'}

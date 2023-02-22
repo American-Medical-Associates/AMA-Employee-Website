@@ -31,7 +31,7 @@ const PatientPage: NextPage = () => {
         setSubmittedPacket: setSubmittedPacket,
       })
         .then(() => {
-          if (submittedPacket.length > 0) {
+          if (submittedPacket.emailValue) {
             setHasSubmitted(true)
             setNoFoundPacket(false)
           }
@@ -82,7 +82,7 @@ const PatientPage: NextPage = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[50%] rounded-[30px] shadow-2xl">
         <h1 className="m-2 text-center text-4xl font-bold text-[#377adf] opacity-100">
           Patient Page
@@ -95,7 +95,7 @@ const PatientPage: NextPage = () => {
         <div className="flex flex-col items-center justify-center">
           <MainButton
             buttonText={
-              submittedPacket.length > 0
+              submittedPacket.emailValue
                 ? hasSubmitted
                   ? 'Hide New Patient Packet'
                   : 'View New Patient Packet'
@@ -104,13 +104,14 @@ const PatientPage: NextPage = () => {
                 : 'Resume New Patient Packet'
             }
             onClick={() => {
-              if (submittedPacket.length > 0) {
+              if (submittedPacket.emailValue) {
                 setHasSubmitted(!hasSubmitted)
               } else {
                 router.push('/NewPatientPacket')
               }
             }}
           />
+
           {hasSubmitted && (
             <NewPatientPacketFullSubmission selectedPacket={submittedPacket} />
           )}

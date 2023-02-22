@@ -24,7 +24,7 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className=" my-16 flex flex-col items-center justify-center">
         <h1 className=" my-10 text-2xl font-bold">PATIENT CONSENT FORM </h1>
         <h2 className=" font-semiboldmy-5 text-center text-xl">

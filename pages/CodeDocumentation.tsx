@@ -16,7 +16,7 @@ const CodeDocumentation: NextPage = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <h1 className="m-[20px] text-center text-5xl text-[#377adf]">
         Code Documentation
       </h1>

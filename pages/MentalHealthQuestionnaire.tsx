@@ -43,7 +43,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="mt-5">
         <div className="mb-5 text-center text-4xl">Mental Health Survey</div>
 
