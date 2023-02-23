@@ -22,7 +22,7 @@ import {
   InboxStackIcon,
 } from '@heroicons/react/24/outline'
 // import Box from './box'
-import { getAuth, signOut } from 'firebase/auth'
+import { getAuth, signOut, sendEmailVerification } from 'firebase/auth'
 import MainButton from './MainButton'
 import { auth, isAdmin } from '../firebase'
 import PatientResourcesModal from './PatientResourcesModal'
@@ -32,6 +32,18 @@ const Header = ({ selectCompany }) => {
   const [isUserAdmin, setIsUserAdmin] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
   const [showPatientLookup, setShowPatientLookup] = useState(false)
+  // TODO Check if user is patient or employee
+  useEffect(() => {
+    if (auth.currentUser) {
+      if (auth.currentUser.emailVerified === false) {
+        sendEmailVerification(auth.currentUser).then(() => {
+          alert('Email Verification Sent, Please Check Your Email.')
+          console.log('Email Verification Sent, Please Check Your Email.')
+        })
+      }
+    }
+  }, [auth.currentUser])
+
   useEffect(() => {
     if (auth.currentUser) {
       isAdmin({ adminState: setIsUserAdmin })

@@ -15,12 +15,14 @@ import { useRouter } from 'next/router'
 import { setCompany, setChannelID } from '../redux/slices/companySlice'
 import { useDispatch } from 'react-redux'
 import 'react-tooltip/dist/react-tooltip.css'
+import { sendEmailVerification } from 'firebase/auth'
 const Home: NextPage = () => {
   // const functions = getFunctions()
   const sendMessage = httpsCallable(functions, 'sendMessage')
   const helloWorld = httpsCallable(functions, 'helloWorld')
   const router = useRouter()
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (auth.currentUser?.email == null) {
       router.push('/Login')
@@ -46,7 +48,18 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1>{auth.currentUser?.email}</h1>
+        {auth.currentUser?.emailVerified ? (
+          <h1 className=" text-[#959494f6]">Email Verified</h1>
+        ) : (
+          <MainButton
+            buttonText="Verify Email"
+            onClick={() => {
+              sendEmailVerification(auth.currentUser!)
+            }}
+          />
+        )}
         <h1>Home Page!</h1>
+
         {/* <TensorFlowBert /> */}
       </main>
 
