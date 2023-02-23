@@ -1069,7 +1069,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           'patients',
           emailValue,
           'NewPatientPacket',
-          patientMedicalReviewSignatureDate
+          emailValue
         ),
         {
           firstName: firstName,
@@ -1629,6 +1629,8 @@ export function GetNewPatientPacketSubmissions({
       collection(db, 'companys', 'AMA', 'NewPatientPacket')
       //orderBy('timestamp', 'desc')
     ),
+    limit(10),
+
     (querySnapshot) => {
       const arrays = []
       querySnapshot.forEach((snap) => {
@@ -1636,7 +1638,7 @@ export function GetNewPatientPacketSubmissions({
         // key: snap.id;
       })
       NewPatientPacketsState(arrays)
-      console.log(arrays)
+      // console.log(arrays)
     }
   )
 }

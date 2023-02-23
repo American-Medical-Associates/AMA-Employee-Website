@@ -26,11 +26,10 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   const [maSpravatoPercentage, setmaSpravatoPercentage] = useState(false)
   const router = useRouter()
   useEffect(() => {
-    if (!auth.currentUser?.email) {
+    if (auth.currentUser?.email == null) {
       router.push('/PatientLogin')
     }
   }, [])
-
   var weekNumber = 0
   var monthNumber = 0
   var yearNumber = 0

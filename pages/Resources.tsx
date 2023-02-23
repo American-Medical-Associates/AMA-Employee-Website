@@ -67,7 +67,7 @@ const Resources: NextPage<{}> = () => {
                 }
                 text="Vitalize Book Appointment"
                 onClick={() => {
-                  router.push('/VitalizeBookAnAppointment')
+                  router.push('/VitalizeNation/VitalizeBookAnAppointment')
                 }}
               />
             </div>
