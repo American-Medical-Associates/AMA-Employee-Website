@@ -39,6 +39,7 @@ const Header = ({ selectCompany, routePatientsHome }) => {
       isAdmin({ adminState: setIsUserAdmin })
     }
   }, [])
+
   const Logout = () => {
     const auth = getAuth()
     signOut(auth).then(() => {
