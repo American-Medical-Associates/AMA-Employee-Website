@@ -846,7 +846,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       router.push('/PatientLogin')
     }
   }, [])
-
+  console.log(familyMedicalStroke)
   return (
     <div
       className="item-center

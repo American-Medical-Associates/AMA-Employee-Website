@@ -2604,17 +2604,38 @@ export function GetPatientAutoSaveInfo({
     }
   )
 }
-
-export async function HasSubmittedPacket({ email, setSubmittedPacket }) {
+// /companys/AMA/patients/z@gmail.com/NewPatientPacket/z@gmail.com
+export async function SubmittedPacket({ email, setSubmittedPacket }) {
+  // onSnapshot(
+  //   query(
+  //     collection(
+  //       db,
+  //       'companys',
+  //       'AMA',
+  //       'patients',
+  //       auth.currentUser.email,
+  //       'NewPatientPacket'
+  //     )
+  //     // where('email', '==', email)
+  //   ),
+  //   (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       setSubmittedPacket(doc.data())
+  //     })
+  //   }
+  // )
   onSnapshot(
-    query(
-      collection(db, 'companys', 'AMA', 'patients', email, 'NewPatientPacket')
-      // where('email', '==', email)
+    doc(
+      db,
+      'companys',
+      'AMA',
+      'patients',
+      auth.currentUser.email,
+      'NewPatientPacket',
+      auth.currentUser.email
     ),
-    (querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        setSubmittedPacket(doc.data())
-      })
+    (doc) => {
+      setSubmittedPacket(doc.data())
     }
   )
 }

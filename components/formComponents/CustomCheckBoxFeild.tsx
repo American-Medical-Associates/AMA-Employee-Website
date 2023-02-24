@@ -34,6 +34,7 @@ const CustomCheckBoxFeild: React.FC<{
   const [otherValue, setOtherValue] = useState('')
   const [refresh, setRefresh] = useState(false)
   var values: any = [...checkBoxValues]
+  var values: any = checkBoxValues
   //map variable for each howManyCheckBoxes
 
   checkBoxTitles.map((item, index) => {
@@ -96,12 +97,13 @@ const CustomCheckBoxFeild: React.FC<{
         }
 
         if (item == false) {
-          if (!arrayofStates.includes(true)) {
-            values.pop()
-            // checkBoxValues = newArr
-          } else {
-            values.splice(index, 1)
-            // checkBoxValues = newArr
+          //if the index of arrayofStates is false then remove the value of the checkBoxTitles to the setCheckBoxValues
+          //if item already exists in the array then dont push it
+          if (checkBoxValues.includes(checkBoxTitles[index])) {
+            // checkBoxValues.push(checkBoxTitles[index])
+            setCheckBoxValues((prev: any) =>
+              prev.filter((item: any) => item !== checkBoxTitles[index])
+            )
           }
         }
       } else {
