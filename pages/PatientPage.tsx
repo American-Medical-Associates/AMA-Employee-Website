@@ -6,7 +6,7 @@ import MainButton from '../components/MainButton'
 import {
   GetPatientAutoSaveInfo,
   GetPatientInfo,
-  HasSubmittedPacket,
+  SubmittedPacket,
 } from '../firebase'
 import { auth } from '../firebase'
 import { useDispatch } from 'react-redux'
@@ -26,25 +26,25 @@ const PatientPage: NextPage = () => {
 
   useEffect(() => {
     if (auth.currentUser?.email) {
-      HasSubmittedPacket({
+      SubmittedPacket({
         email: auth.currentUser?.email,
         setSubmittedPacket: setSubmittedPacket,
       })
-        .then(() => {
-          if (submittedPacket.emailValue) {
-            setHasSubmitted(true)
-            setNoFoundPacket(false)
-          }
-        })
-        .then(() => {
-          if (submittedPacket.length === 0) {
-            GetPatientAutoSaveInfo({
-              email: auth.currentUser?.email,
-              setPatientAutoSaveInfo: setPatientAutoSaveInfo,
-              dispatch: dispatch,
-            })
-          }
-        })
+      // .then(() => {
+      //   if (submittedPacket.emailValue) {
+      //     setHasSubmitted(true)
+      //     setNoFoundPacket(false)
+      //   }
+      // })
+      // .then(() => {
+      //   if (submittedPacket.length === 0) {
+      //     GetPatientAutoSaveInfo({
+      //       email: auth.currentUser?.email,
+      //       setPatientAutoSaveInfo: setPatientAutoSaveInfo,
+      //       dispatch: dispatch,
+      //     })
+      //   }
+      // })
     }
   }, [auth.currentUser?.email])
 
@@ -75,10 +75,10 @@ const PatientPage: NextPage = () => {
       })
     }
   }, [auth.currentUser?.email])
-  // console.log('submittedPacket', submittedPacket)
-  // console.log('hasSubmitted', hasSubmitted)
-  // console.log('noFoundPacket', noFoundPacket)
-  // console.log('patientAutoSaveInfo', patientAutoSaveInfo)
+  console.log('submittedPacket', submittedPacket)
+  console.log('hasSubmitted', hasSubmitted)
+  console.log('noFoundPacket', noFoundPacket)
+  console.log('patientAutoSaveInfo', patientAutoSaveInfo)
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
