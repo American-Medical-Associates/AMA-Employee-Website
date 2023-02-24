@@ -58,7 +58,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     date: ''
     signature: ''
     agreeThatTheirSignatureIsValid: false
-    signatureDate: ''
   }
 
   interface Hippa {
@@ -73,7 +72,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     hippaSignature: ''
     signatureDate: ''
     signatureCheckBoxConsent: ''
-    hippaSignatureDate: ''
     agreeThatTheirSignatureIsValid: ''
   }
 
@@ -3724,6 +3722,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 return
               } else if (patientMedicalReviewSignatureDate == '') {
                 setRequirePatientMedicalReviewSignature(true)
+                setRequirePatientMedicalReviewSignatureDate(true)
                 //alert('Please enter the date of the medical review signature')
                 router
                   .push('/NewPatientPacket/#patientMedicalReviewSignature')
@@ -3735,7 +3734,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 setLoading(false)
                 return
               } else if (patientMedicalReviewSignature == '') {
-                setRequirePatientMedicalReviewSignatureDate(true)
+                setRequirePatientMedicalReviewSignature(true)
                 //alert('Please enter your signature')
                 router
                   .push('/NewPatientPacket/#patientMedicalReviewSignature')
@@ -3758,7 +3757,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   })
                 setLoading(false)
                 return
-              } else if (AdvancedDirectives?.signatureDate == '') {
+              } else if (AdvancedDirectives?.date == '') {
                 setRequireAdvancedDirectivesSignature(true)
                 //alert('Please enter the date of the signature')
                 router
@@ -3798,7 +3797,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 })
                 setLoading(false)
                 return
-              } else if (hippa?.hippaSignatureDate == '') {
+              } else if (hippa?.signatureDate == '') {
                 setRequireHippaSignature(true)
                 //alert('Please enter the date of the signature')
                 router.push('/NewPatientPacket/#hippa').then(() => {
