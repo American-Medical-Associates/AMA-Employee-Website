@@ -11,7 +11,7 @@ import {
 import { auth } from '../firebase'
 import { useDispatch } from 'react-redux'
 import NewPatientPacketFullSubmission from '../components/formComponents/NewPatientPacketFullSubmission'
-import { PacketInfo } from './types/NewPatientPacketTypes'
+import { PacketInfo } from '../types/NewPatientPacketTypes'
 
 const PatientPage: NextPage = () => {
   const router = useRouter()

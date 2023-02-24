@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import MainButton from '../MainButton'
 import { InformationSection } from './InformationSection'
 import { jsPDF } from 'jspdf'
-import { PacketInfo } from '../../pages/types/NewPatientPacketTypes'
+import { PacketInfo } from '../../types/NewPatientPacketTypes'
 
 type PacketInfoKeys = keyof PacketInfo
 
