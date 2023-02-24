@@ -16,11 +16,11 @@ import { httpsCallable, getFunctions } from 'firebase/functions'
 import { Firestore } from 'firebase/firestore'
 import router from 'next/router'
 
-useEffect(() => {
-  if (!auth.currentUser?.email) {
-    router.push('/PatientLogin')
-  }
-}, [])
+// useEffect(() => {
+//   if (!auth.currentUser?.email) {
+//     router.push('/PatientLogin')
+//   }
+// }, [])
 
 const FormSubmissions: NextPage<{}> = () => {
   const [submissions, setSubmissions] = useState<Array<any>>([])
