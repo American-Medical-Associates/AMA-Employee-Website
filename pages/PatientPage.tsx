@@ -17,7 +17,7 @@ const PatientPage: NextPage = () => {
   const router = useRouter()
   const [patientInfo, setPatientInfo] = useState<Info>()
   const [patientName, setPatientName] = useState('')
-  const [patientAutoSaveInfo, setPatientAutoSaveInfo] = useState([])
+  const [patientAutoSaveInfo, setPatientAutoSaveInfo] = useState([] as any)
   const [submittedPacket, setSubmittedPacket] = useState<any>([])
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [noFoundPacket, setNoFoundPacket] = useState(false)
@@ -49,7 +49,7 @@ const PatientPage: NextPage = () => {
   }, [auth.currentUser?.email])
 
   useEffect(() => {
-    if (patientAutoSaveInfo) {
+    if (patientAutoSaveInfo.emailValue) {
       setNoFoundPacket(false)
       setHasSubmitted(false)
     } else {

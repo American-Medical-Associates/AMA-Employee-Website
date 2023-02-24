@@ -28,11 +28,11 @@ const AdvancedDirectivesLivingWill: React.FC<{
   const [requiredDate, setRequiredDate] = useState(false)
   useEffect(() => {
     if (required) {
-      if (signature === '' || date === '' || !agreeThatTheirSignatureIsValid) {
-        setRequiredCheckBoxSignature(true)
-        setRequiredSignature(true)
-        setRequiredDate(true)
-      }
+      // if (signature === '' || date === '' || !agreeThatTheirSignatureIsValid) {
+      setRequiredCheckBoxSignature(true)
+      setRequiredSignature(true)
+      setRequiredDate(true)
+      // }
     }
   }, [required, signature, date, agreeThatTheirSignatureIsValid])
 
