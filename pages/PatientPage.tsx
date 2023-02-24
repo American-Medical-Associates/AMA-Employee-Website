@@ -30,21 +30,21 @@ const PatientPage: NextPage = () => {
         email: auth.currentUser?.email,
         setSubmittedPacket: setSubmittedPacket,
       })
-      // .then(() => {
-      //   if (submittedPacket.emailValue) {
-      //     setHasSubmitted(true)
-      //     setNoFoundPacket(false)
-      //   }
-      // })
-      // .then(() => {
-      //   if (submittedPacket.length === 0) {
-      //     GetPatientAutoSaveInfo({
-      //       email: auth.currentUser?.email,
-      //       setPatientAutoSaveInfo: setPatientAutoSaveInfo,
-      //       dispatch: dispatch,
-      //     })
-      //   }
-      // })
+        .then(() => {
+          if (submittedPacket.emailValue) {
+            setHasSubmitted(true)
+            setNoFoundPacket(false)
+          }
+        })
+        .then(() => {
+          if (submittedPacket.length === 0) {
+            GetPatientAutoSaveInfo({
+              email: auth.currentUser?.email,
+              setPatientAutoSaveInfo: setPatientAutoSaveInfo,
+              dispatch: dispatch,
+            })
+          }
+        })
     }
   }, [auth.currentUser?.email])
 
