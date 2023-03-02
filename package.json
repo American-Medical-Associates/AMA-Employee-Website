@@ -37,6 +37,7 @@
     "react-redux": "^8.0.2",
     "react-scrolllock": "^5.0.1",
     "react-tooltip": "^5.5.1",
+    "react-youtube": "^10.1.0",
     "recharts": "2.1.11",
     "selenium-webdriver": "^4.4.0",
     "signature_pad": "^4.1.4",

@@ -49,7 +49,7 @@ const PatientPage: NextPage = () => {
   }, [auth.currentUser?.email])
 
   useEffect(() => {
-    if (patientAutoSaveInfo.emailValue) {
+    if (patientAutoSaveInfo?.emailValue) {
       setNoFoundPacket(false)
       setHasSubmitted(false)
     } else {
@@ -84,6 +84,16 @@ const PatientPage: NextPage = () => {
     <div className="flex w-full flex-col items-center justify-center">
       <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[50%] rounded-[30px] shadow-2xl">
+        <div className="  item-center flex justify-end p-3">
+          <p
+            onClick={() => {
+              router.push('/PatientHelpPage')
+            }}
+            className=" mx-10 cursor-pointer text-[#377adf] underline"
+          >
+            Need Help?
+          </p>
+        </div>
         <h1 className="m-2 text-center text-4xl font-bold text-[#377adf] opacity-100">
           Patient Page
         </h1>
@@ -95,7 +105,7 @@ const PatientPage: NextPage = () => {
         <div className="flex flex-col items-center justify-center">
           <MainButton
             buttonText={
-              submittedPacket.emailValue
+              submittedPacket?.emailValue
                 ? hasSubmitted
                   ? 'Hide New Patient Packet'
                   : 'View New Patient Packet'
