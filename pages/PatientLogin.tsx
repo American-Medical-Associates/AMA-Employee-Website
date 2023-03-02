@@ -30,7 +30,7 @@ const PatientLogin: NextPage<{}> = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center">
       <Header selectCompany={'AMA'} routePatientsHome={false} />
-      <div className="m-10 w-[50%] rounded-[30px] shadow-2xl">
+      <div className="m-10 w-[85%] rounded-[30px] shadow-2xl md:w-[50%]">
         <div className="  item-center flex justify-end p-3">
           <p
             onClick={() => {

@@ -17,7 +17,7 @@ function ForgotPassword() {
       {/* TODO: Add prop to header component */}
       <Header selectCompany={'AMA'} routePatientsHome={false} />
 
-      <div className="w-[50%] rounded-[30px] p-5 text-center shadow-2xl">
+      <div className="w-[80%] rounded-[30px] p-5 text-center shadow-2xl md:w-[50%]">
         <h1 className="text-3xl font-bold text-[#377adf]">Reset Password</h1>
         <TextInput
           placeHolder="Email"
@@ -29,7 +29,6 @@ function ForgotPassword() {
         />
         <div className="flex flex-col items-center justify-center">
           <MainButton
-            buttonWidth="w-[40%]"
             buttonText="Reset Password"
             onClick={() => {
               if (
