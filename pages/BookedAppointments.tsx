@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Header from '../components/Header'
-import { GetBookedAppointments } from '../firebase'
+import { auth, GetBookedAppointments } from '../firebase'
+import router from 'next/router'
 const BookedAppointments: NextPage<{}> = () => {
   const [appointments, setAppointments] = useState<Array<any>>([])
   useEffect(() => {
@@ -9,9 +10,15 @@ const BookedAppointments: NextPage<{}> = () => {
       BookedAppointmentsState: setAppointments,
     })
   }, [])
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   const listOfAppointments = appointments.map(
     (appointment: any, index: any) => {
-      console.log(appointment[index])
       // item.map((appointment: any, index: any) => {
       // make appointment.time into a 12 hour clock
       const time = appointment.time
@@ -66,7 +73,7 @@ const BookedAppointments: NextPage<{}> = () => {
 
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className="flex h-full w-full flex-col items-center justify-center p-10">
         <h1 className="text-2xl">Booked Appointments</h1>
         <div className=" my-10 flex w-full  flex-col items-center  justify-start  ">

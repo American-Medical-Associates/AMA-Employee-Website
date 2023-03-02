@@ -11,7 +11,7 @@ import {
   uploadBytes,
   deleteObject,
 } from 'firebase/storage'
-import { addDoc, getFirestore, updateDoc } from 'firebase/firestore'
+import { addDoc, getDoc, getFirestore, updateDoc } from 'firebase/firestore'
 import {
   arrayUnion,
   deleteDoc,
@@ -39,9 +39,8 @@ import {
 import { emit } from 'process'
 import { async } from '@firebase/util'
 import { Faxes } from './pages/Faxes'
-import { setChannelID } from './redux/slices/companySlice'
-import { set } from 'date-fns'
-import { join } from 'path'
+import { setChannelID, setNewPatientPacket } from './redux/slices/companySlice'
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyBCwzGo9wi9_EnYzIGBcxUQyS59uEoNXAU',
@@ -671,7 +670,12 @@ export function GetSpravatoTracking({ SpravatoTrackingArray }) {
 //     setCompanyDispatch(setCompany(doc.get('company')))
 //   })
 // }
-export function getAllUserInfo({ setChannelID, setCompany, dispatch }) {
+export function getAllUserInfo({
+  setChannelID,
+  setCompany,
+  dispatch,
+  // isPatient,
+}) {
   onSnapshot(doc(db, 'users', auth.currentUser.email), (doc) => {
     // setCompanyDB(doc.get("company"));
     dispatch(setCompany(doc.get('company')))
@@ -1065,7 +1069,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           'patients',
           emailValue,
           'NewPatientPacket',
-          patientMedicalReviewSignatureDate
+          emailValue
         ),
         {
           firstName: firstName,
@@ -1625,6 +1629,8 @@ export function GetNewPatientPacketSubmissions({
       collection(db, 'companys', 'AMA', 'NewPatientPacket')
       //orderBy('timestamp', 'desc')
     ),
+    limit(10),
+
     (querySnapshot) => {
       const arrays = []
       querySnapshot.forEach((snap) => {
@@ -1632,7 +1638,7 @@ export function GetNewPatientPacketSubmissions({
         // key: snap.id;
       })
       NewPatientPacketsState(arrays)
-      console.log(arrays)
+      // console.log(arrays)
     }
   )
 }
@@ -2264,4 +2270,381 @@ export function GetSurveys({ setSurveys }) {
   } catch (error) {
     alert(error)
   }
+}
+
+export async function NewPatientPacketAutoSave({
+  setSuccess,
+  firstName,
+  lastName,
+  addressValue,
+  addressValue2,
+  cityValue,
+  USStateValue,
+  zipCodeValue,
+  BirthDateValue,
+  phoneNumberValue,
+  homePhone,
+  emailValue,
+  socialValue,
+  isCheckedMale,
+  isCheckedFemale,
+  isCheckedOther,
+  pictureOfFrontOfDriverLicense,
+  preferredName,
+  single,
+  married,
+  divorced,
+  widowed,
+  separated,
+  withPartner,
+  MayWeTakeYourPicture,
+  pictureOfTheirFace,
+  Ethnicity,
+  nameOfEmergencyContact,
+  EmergencyContactRelationShip,
+  EmergencyContactPhoneNumber,
+  HowDidTheyHearAboutUs,
+  howDoTheyWishToPay,
+  primaryInsurance,
+  primaryInsuranceID,
+  primaryInsuranceGroup,
+  primaryInsurancePhone,
+  primaryInsuranceAddress1,
+  primaryInsuranceAddress2,
+  primaryInsuranceCity,
+  primaryInsuranceState,
+  primaryInsuranceZip,
+  primarySubscribersName,
+  secondaryInsurance,
+  secondaryInsuranceID,
+  secondaryInsuranceGroup,
+  secondaryInsurancePhone,
+  secondaryInsuranceAddress1,
+  secondaryInsuranceAddress2,
+  secondaryInsuranceCity,
+  secondaryInsuranceState,
+  secondaryInsuranceZip,
+  secondarySubscribersName,
+  primaryPictureOfInsuranceCardFront,
+  primaryPictureOfInsuranceCardBack,
+  secondaryPictureOfInsuranceCardFront,
+  secondaryPictureOfInsuranceCardBack,
+  retailPharmacyName,
+  retailPharmacyCrossStreet1,
+  retailPharmacyCrossStreet2,
+  retailPharmacyPhoneNumber,
+  retailPharmacyFaxNumber,
+  mailOrderPharmacyName,
+  mailOrderPharmacyPhoneNumber,
+  mailOrderPharmacyAddress1,
+  mailOrderPharmacyAddress2,
+  mailOrderPharmacyCity,
+  mailOrderPharmacyState,
+  mailOrderPharmacyZip,
+  areYouAllergicToLatex,
+  areYouAllergicToSelfish,
+  areYouAllergicToIodine,
+  PatientDrugAllergies,
+  dateOfLastPAP,
+  wasPapNormalOrAbnormal,
+  dateOfLastMammogram,
+  wasMammogramNormalOrAbnormal,
+  dateOfLastPSA,
+  wasPSANormalOrAbnormal,
+  allMajorIllnesses,
+  allMajorSurgeriesAndHospitalizations,
+  boneDensityScreening,
+  BoneDensityScreeningDate,
+  wasBoneDensityScreeningNormalOrAbnormal,
+  colonoscopyScreening,
+  dateOfLastColonoscopyScreening,
+  wasColonoscopyScreeningNormalOrAbnormal,
+  allMedicalHistoryOfDisease,
+  haveTheyEverSmoked,
+  howManyPacksPerDay,
+  anyOtherTobaccoOrEcigarettes,
+  describeOtherTobaccoUse,
+  doYouDrinkCoffee,
+  howManyCupsPerDay,
+  doYouDrinkAlcohol,
+  howManyDrinksPerWeek,
+  doYoCurrentlyUseRecreationalDrugs,
+  describeRecreationalDrugUse,
+  doYouUseIllegaLStreetDrugs,
+  describeIllegalStreetDrugUse,
+  doYouFeelDepressed,
+  doYouCryFrequently,
+  doYouHaveLittleInterestInDoingThings,
+  doYouFeelHopelessDownOrDepressed,
+  doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+  doYouFeelTiredOrHaveLittleEnergy,
+  doYouHavAPoorAppetiteOrOverEating,
+  doYouFeelBadAboutYourself,
+  troubleConcentrating,
+  doYouMoveOrSpeakSlowly,
+  thoughtsYouWouldBeBetterOffDead,
+  isStressAMajorProblem,
+  doYouPanicWhenStressed,
+  haveYouEverAttemptedSuicide,
+  familyMedicalAlcoholismAddiction,
+  familyMedicalBleedingDisorders,
+  familyMedicalCancer,
+  familyMedicalDiabetes,
+  familyMedicalHeartAttack,
+  familyMedicalHighBloodPressure,
+  familyMedicalHighCholesterol,
+  familyMedicalKidneyDisease,
+  familyMedicalMentalIllness,
+  familyMedicalStroke,
+  familyMedicalTuberculosis,
+  isYourMotherStillLiving,
+  isYourFatherStillLiving,
+  listOfAllCurrentMedications,
+  patientMedicalReviewSignature,
+  PatientMedicalReviewSignatureCheckBox,
+  patientMedicalReviewSignatureDate,
+  AdvancedDirectives,
+  hippa,
+  financialPolicySignature,
+  financialPolicySignatureCheckBox,
+  financialPolicySignatureDate,
+  company,
+}) {
+  try {
+    await setDoc(
+      doc(
+        db,
+        'companys',
+        'AMA',
+        'patients',
+        emailValue,
+        'AutoSaveNewPatientPacket',
+        emailValue
+      ),
+      {
+        firstName: firstName,
+        lastName: lastName,
+        addressValue: addressValue,
+        addressValue2: addressValue2,
+        cityValue: cityValue,
+        USStateValue: USStateValue,
+        zipCodeValue: zipCodeValue,
+        BirthDateValue: BirthDateValue,
+        phoneNumberValue: phoneNumberValue,
+        homePhone: homePhone,
+        emailValue: emailValue,
+        socialValue: socialValue,
+        isCheckedMale: isCheckedMale,
+        isCheckedFemale: isCheckedFemale,
+        isCheckedOther: isCheckedOther,
+        pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+        preferredName: preferredName,
+        single: single,
+        married: married,
+        divorced: divorced,
+        widowed: widowed,
+        separated: separated,
+        withPartner: withPartner,
+        MayWeTakeYourPicture: MayWeTakeYourPicture,
+        Ethnicity: Ethnicity,
+        nameOfEmergencyContact: nameOfEmergencyContact,
+        EmergencyContactRelationShip: EmergencyContactRelationShip,
+        EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+        HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+        howDoTheyWishToPay: howDoTheyWishToPay,
+        primaryInsurance: primaryInsurance,
+        primaryInsuranceID: primaryInsuranceID,
+        primaryInsuranceGroup: primaryInsuranceGroup,
+        primaryInsurancePhone: primaryInsurancePhone,
+        primaryInsuranceAddress1: primaryInsuranceAddress1,
+        primaryInsuranceAddress2: primaryInsuranceAddress2,
+        primaryInsuranceCity: primaryInsuranceCity,
+        primaryInsuranceState: primaryInsuranceState,
+        primaryInsuranceZip: primaryInsuranceZip,
+        primarySubscribersName: primarySubscribersName,
+        secondaryInsurance: secondaryInsurance,
+        secondaryInsuranceID: secondaryInsuranceID,
+        secondaryInsuranceGroup: secondaryInsuranceGroup,
+        secondaryInsurancePhone: secondaryInsurancePhone,
+        secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+        secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+        secondaryInsuranceCity: secondaryInsuranceCity,
+        secondaryInsuranceState: secondaryInsuranceState,
+        secondaryInsuranceZip: secondaryInsuranceZip,
+        secondarySubscribersName: secondarySubscribersName,
+        primaryPictureOfInsuranceCardFront: primaryPictureOfInsuranceCardFront,
+        primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
+        secondaryPictureOfInsuranceCardFront:
+          secondaryPictureOfInsuranceCardFront,
+        secondaryPictureOfInsuranceCardBack:
+          secondaryPictureOfInsuranceCardBack,
+        retailPharmacyName: retailPharmacyName,
+        retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+        retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+        retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+        retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+        mailOrderPharmacyName: mailOrderPharmacyName,
+        mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+        mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+        mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+        mailOrderPharmacyCity: mailOrderPharmacyCity,
+        mailOrderPharmacyState: mailOrderPharmacyState,
+        mailOrderPharmacyZip: mailOrderPharmacyZip,
+        areYouAllergicToLatex: areYouAllergicToLatex,
+        areYouAllergicToSelfish: areYouAllergicToSelfish,
+        areYouAllergicToIodine: areYouAllergicToIodine,
+        PatientDrugAllergies: PatientDrugAllergies,
+        dateOfLastPAP: dateOfLastPAP,
+        wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+        dateOfLastMammogram: dateOfLastMammogram,
+        wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+        dateOfLastPSA: dateOfLastPSA,
+        wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+        allMajorIllnesses: allMajorIllnesses,
+        allMajorSurgeriesAndHospitalizations:
+          allMajorSurgeriesAndHospitalizations,
+        boneDensityScreening: boneDensityScreening,
+        BoneDensityScreeningDate: BoneDensityScreeningDate,
+        wasBoneDensityScreeningNormalOrAbnormal:
+          wasBoneDensityScreeningNormalOrAbnormal,
+        colonoscopyScreening: colonoscopyScreening,
+        dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+        wasColonoscopyScreeningNormalOrAbnormal:
+          wasColonoscopyScreeningNormalOrAbnormal,
+        allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+        haveTheyEverSmoked: haveTheyEverSmoked,
+        howManyPacksPerDay: howManyPacksPerDay,
+        anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+        describeOtherTobaccoUse: describeOtherTobaccoUse,
+        doYouDrinkCoffee: doYouDrinkCoffee,
+        howManyCupsPerDay: howManyCupsPerDay,
+        doYouDrinkAlcohol: doYouDrinkAlcohol,
+        howManyDrinksPerWeek: howManyDrinksPerWeek,
+        doYoCurrentlyUseRecreationalDrugs: doYoCurrentlyUseRecreationalDrugs,
+        describeRecreationalDrugUse: describeRecreationalDrugUse,
+        doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+        describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+        doYouFeelDepressed: doYouFeelDepressed,
+        doYouCryFrequently: doYouCryFrequently,
+        doYouHaveLittleInterestInDoingThings:
+          doYouHaveLittleInterestInDoingThings,
+        doYouFeelHopelessDownOrDepressed: doYouFeelHopelessDownOrDepressed,
+        doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+          doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+        doYouFeelTiredOrHaveLittleEnergy: doYouFeelTiredOrHaveLittleEnergy,
+        doYouHavAPoorAppetiteOrOverEating: doYouHavAPoorAppetiteOrOverEating,
+        doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+        troubleConcentrating: troubleConcentrating,
+        doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+        thoughtsYouWouldBeBetterOffDead: thoughtsYouWouldBeBetterOffDead,
+        isStressAMajorProblem: isStressAMajorProblem,
+        doYouPanicWhenStressed: doYouPanicWhenStressed,
+        haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+        familyMedicalAlcoholismAddiction: familyMedicalAlcoholismAddiction,
+        familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+        familyMedicalCancer: familyMedicalCancer,
+        familyMedicalDiabetes: familyMedicalDiabetes,
+        familyMedicalHeartAttack: familyMedicalHeartAttack,
+        familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+        familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+        familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+        familyMedicalMentalIllness: familyMedicalMentalIllness,
+        familyMedicalStroke: familyMedicalStroke,
+        familyMedicalTuberculosis: familyMedicalTuberculosis,
+        isYourMotherStillLiving: isYourMotherStillLiving,
+        isYourFatherStillLiving: isYourFatherStillLiving,
+        listOfAllCurrentMedications: listOfAllCurrentMedications,
+        patientMedicalReviewSignature: patientMedicalReviewSignature,
+        patientMedicalReviewSignatureDate: patientMedicalReviewSignatureDate,
+        PatientMedicalReviewSignatureCheckBox:
+          PatientMedicalReviewSignatureCheckBox,
+        AdvancedDirectives: AdvancedDirectives,
+        hippa: hippa,
+        financialPolicySignature: financialPolicySignature,
+        financialPolicySignatureCheckBox: financialPolicySignatureCheckBox,
+        financialPolicySignatureDate: financialPolicySignatureDate,
+        dateAdded: serverTimestamp(),
+        company: 'AMA',
+        archived: false,
+      },
+      { merge: true }
+    ).then(() => {
+      setSuccess(true)
+    })
+  } catch (error) {
+    console.log(error)
+    setSuccess(false)
+  }
+}
+
+export function GetPatientInfo({ email, setPatientInfo }) {
+  onSnapshot(doc(db, 'companys', 'AMA', 'patients', email), (doc) => {
+    setPatientInfo(doc.data())
+  })
+}
+
+export function GetPatientAutoSaveInfo({
+  dispatch,
+  email,
+  setPatientAutoSaveInfo,
+}) {
+  onSnapshot(
+    doc(
+      db,
+      'companys',
+      'AMA',
+      'patients',
+      email,
+      'AutoSaveNewPatientPacket',
+      email
+    ),
+    (doc) => {
+      setPatientAutoSaveInfo(doc.data())
+      dispatch(setNewPatientPacket(doc.data()))
+    }
+  )
+}
+// /companys/AMA/patients/z@gmail.com/NewPatientPacket/z@gmail.com
+export async function SubmittedPacket({ email, setSubmittedPacket }) {
+  // onSnapshot(
+  //   query(
+  //     collection(
+  //       db,
+  //       'companys',
+  //       'AMA',
+  //       'patients',
+  //       auth.currentUser.email,
+  //       'NewPatientPacket'
+  //     )
+  //     // where('email', '==', email)
+  //   ),
+  //   (querySnapshot) => {
+  //     querySnapshot.forEach((doc) => {
+  //       setSubmittedPacket(doc.data())
+  //     })
+  //   }
+  // )
+  onSnapshot(
+    doc(
+      db,
+      'companys',
+      'AMA',
+      'patients',
+      auth.currentUser.email,
+      'NewPatientPacket',
+      auth.currentUser.email
+    ),
+    (doc) => {
+      setSubmittedPacket(doc.data())
+    }
+  )
+}
+
+export function GetAllPatientInfo({ setPatientInfo }) {
+  onSnapshot(
+    doc(db, 'companys', 'AMA', 'patients', auth.currentUser.email),
+    (doc) => {
+      setPatientInfo(doc.data())
+    }
+  )
 }

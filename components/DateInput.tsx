@@ -27,7 +27,7 @@ const DateInput: React.FC<{
     const formatCode: any = () => {
       const cleaned = value?.replace(/\D/g, '')
       const match = cleaned?.match(/^(1|)?(\d{2})(\d{2})(\d{4})$/)
-      
+
       if (useFormat && match) {
         // const intlCode = match[1] ? '+1 ' : ''
 
@@ -36,7 +36,6 @@ const DateInput: React.FC<{
 
       return cleaned ?? null
     }
-    console.log(value)
 
     setValueState(formatCode())
   }, [value, valueState])

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { MenuItem } from '../../components/MenuItem'
 import {
   ChartBarIcon,
@@ -8,12 +8,13 @@ import {
   ClipboardDocumentListIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
+import { auth } from '../../firebase'
 
 const Vitalize: NextPage<{}> = () => {
   const router = useRouter()
   return (
     <div>
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={true} />
       <main className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Vitalize</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">

@@ -34,7 +34,6 @@ const SupportTicket: React.FC<{}> = () => {
     try {
       const reader = new FileReader()
       if (e.target.files[0]) {
-        // console.log(resume)
         const image = e.target.files[0]
 
         reader.readAsDataURL(e.target.files[0])

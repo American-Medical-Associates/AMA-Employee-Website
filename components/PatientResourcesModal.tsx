@@ -56,8 +56,6 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const patientList = () => {
     if (searched != null) {
       const list = searched.map((item: any) => {
-        // console.log('hiii ' + item.email)
-        // console.log(height)
         var month = item.DOB.slice(0, 2)
         var day = item.DOB.slice(2, 4)
         var year = item.DOB.slice(4, 8)
@@ -67,7 +65,6 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
             key={item.phoneNumber}
             onClick={() => {
               setSearched({ item })
-              console.log('hiiiii' + item)
             }}
             className=" m-4  flex cursor-pointer flex-row items-center justify-center overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
           >

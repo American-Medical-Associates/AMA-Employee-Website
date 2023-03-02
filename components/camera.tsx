@@ -23,7 +23,6 @@ const Camera: React.FC<{ picture: any; setPicture: any; key: number }> = ({
   var randomNum = 0
   useEffect(() => {
     setS(Math.floor(Math.random() * 10000))
-    console.log(s)
   }, [])
 
   const [showCamera, setShowCamera] = useState(false)

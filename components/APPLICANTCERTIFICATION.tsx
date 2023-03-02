@@ -8,7 +8,6 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current
       if (scrollTop + clientHeight === scrollHeight) {
-        console.log('reached bottom')
         setScrollState(false)
       }
     }

@@ -34,17 +34,13 @@ const SurveySubmissions: NextPage<{}> = () => {
   // This useEffect is to make sure that the user is logged in before they can access this page.
   useEffect(() => {
     if (!auth.currentUser?.email) {
-      router.push('/Login')
+      router.push('/PatientLogin')
     }
   }, [])
 
   useEffect(() => {
     GetSurveys({ setSurveys: setMentalHealthSurvey })
-    console.log(mentalHealthSurvey)
   }, [])
-  useEffect(() => {
-    console.log(mentalHealthSurvey)
-  }, [mentalHealthSurvey])
 
   const MentalHealthSurvey = mentalHealthSurvey.map((survey) => {
     if (!collapsedArray.includes(survey)) {
@@ -169,7 +165,7 @@ const SurveySubmissions: NextPage<{}> = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <MainButton
         buttonText={'Survey Graph'}

@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../../components/Header'
 import MainButton from '../../components/MainButton'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
+import { auth } from '../../firebase'
 
 const ThankYouForSubmitting: React.FC<{}> = () => {
   const router = useRouter()
   return (
     <div>
-      <Header selectCompany={'Vitalize'} />
+      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className="  mt-5 flex h-[80vh] w-[full] flex-col  items-center justify-center ">
         <div className=" flex h-[300px] w-[60%] grid-rows-2 flex-col items-center justify-center rounded-[30px] bg-[#dadada7c]">
           <div className=" mb-32 h-[10%]">

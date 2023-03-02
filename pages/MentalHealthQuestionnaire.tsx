@@ -41,15 +41,9 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const [requiredTimeOfDay, setRequiredTimeOfDay] = useState(false)
   const [requiredSessionLength, setRequiredSessionLength] = useState(false)
 
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/Login')
-    }
-  }, [])
-
   return (
     <div className="flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="mt-5">
         <div className="mb-5 text-center text-4xl">Mental Health Survey</div>
 

@@ -38,7 +38,7 @@ const InventoryHistory: NextPage<{}> = () => {
   const router = useRouter()
   useEffect(() => {
     if (!auth.currentUser?.email) {
-      router.push('/Login')
+      router.push('/PatientLogin')
     }
   }, [])
 
@@ -220,7 +220,7 @@ const InventoryHistory: NextPage<{}> = () => {
       Number_of_Spravatos: maSpravato.numberOfSpravatos,
     }
   })
-  console.log(dataForMA)
+
   //   const maSpravatoPercentageArray = []
   //   maSpravatoArray.map((ma: any) => {
   //     var maSpravatoNumber = 0
@@ -237,7 +237,7 @@ const InventoryHistory: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="flex flex-col">
         <div className="flex h-[80vh] flex-col">
           <div className="flex flex-row p-10 ">

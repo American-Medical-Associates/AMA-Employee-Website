@@ -1,10 +1,10 @@
 import { NextPage } from 'next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Datepicker from '../components/Datepicker'
 import Header from '../components/Header'
 import MainButton from '../components/MainButton'
 import TextInput from '../components/TextInput'
-import { addSpravatoTracking } from '../firebase'
+import { addSpravatoTracking, auth } from '../firebase'
 import DateInput from '../components/DateInput'
 import PhoneNumberInput from '../components/PhoneNumberInput'
 import { useRouter } from 'next/router'
@@ -25,9 +25,16 @@ const SpravatoTracking: NextPage<{}> = () => {
   const [lotNumber, setLotNumber] = useState('')
   const [snNumber, setSnNumber] = useState('')
   //ma as mulitiple choice
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-10">
         <div className="flex flex-col items-center justify-center">
           <TextInput

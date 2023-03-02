@@ -35,7 +35,6 @@ const PhoneNumberInput: React.FC<{
 
       return cleaned ?? null
     }
-    console.log(value)
 
     setValueState(formatCode())
   }, [value, valueState])

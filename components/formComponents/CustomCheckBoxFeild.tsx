@@ -29,11 +29,12 @@ const CustomCheckBoxFeild: React.FC<{
   required,
   missing,
 }) => {
-  const arrayofStates: any = []
+  var arrayofStates: any = []
   const arrayofStatesFunctions: any = []
   const [otherValue, setOtherValue] = useState('')
   const [refresh, setRefresh] = useState(false)
-
+  var values: any = [...checkBoxValues]
+  var values: any = checkBoxValues
   //map variable for each howManyCheckBoxes
 
   checkBoxTitles.map((item, index) => {
@@ -55,22 +56,54 @@ const CustomCheckBoxFeild: React.FC<{
   })
 
   useEffect(() => {
+    //get the index of the  checkboxValues
+    if (!allowMultipleCheckBoxes) {
+      var index = checkBoxTitles.indexOf(checkBoxValues)
+      //set the state of the index to true
+      arrayofStatesFunctions.forEach((item: any, index1: any) => {
+        if (index1 == index) {
+          item(true)
+        }
+      })
+    }
+  }, [checkBoxValues])
+  useEffect(() => {
+    // Check the checkboxes that have values in checkBoxValues
+    arrayofStates = checkBoxTitles.map((title) =>
+      checkBoxValues.includes(title)
+    )
+
+    //check the boxes that have values in checkBoxValues
+    arrayofStatesFunctions.forEach((item: any, index: any) => {
+      item(arrayofStates[index])
+    })
+
+    // Tell React to re-render the component
+    setRefresh(!refresh)
+  }, [checkBoxTitles])
+
+  useEffect(() => {
     //if the index of arrayofStates is true then push the value of the checkBoxTitles to the setCheckBoxValues
 
     arrayofStates.map((item: any, index: any) => {
-      if (allowMultipleCheckBoxes) {
+      if (allowMultipleCheckBoxes == true) {
         if (item) {
           //if the index of arrayofStates is true then push the value of the checkBoxTitles to the setCheckBoxValues
           //if item already exists in the array then dont push it
           if (!checkBoxValues.includes(checkBoxTitles[index])) {
-            checkBoxValues.push(checkBoxTitles[index])
+            // checkBoxValues.push(checkBoxTitles[index])
+            setCheckBoxValues((prev: any) => [...prev, checkBoxTitles[index]])
           }
         }
+
         if (item == false) {
-          if (!arrayofStates.includes(true)) {
-            checkBoxValues.pop()
-          } else {
-            checkBoxValues.splice(index, 1)
+          //if the index of arrayofStates is false then remove the value of the checkBoxTitles to the setCheckBoxValues
+          //if item already exists in the array then dont push it
+          if (checkBoxValues.includes(checkBoxTitles[index])) {
+            // checkBoxValues.push(checkBoxTitles[index])
+            setCheckBoxValues((prev: any) =>
+              prev.filter((item: any) => item !== checkBoxTitles[index])
+            )
           }
         }
       } else {
@@ -91,7 +124,6 @@ const CustomCheckBoxFeild: React.FC<{
         })
       }
     })
-    console.log(checkBoxValues)
   }, [arrayofStates])
   //if number of columns is not defined then render the checkBoxes in one row
   if (required) {

@@ -12,6 +12,7 @@ import { NextPage } from 'next'
 import Datepicker from '../components/Datepicker'
 import Submissions from '../components/NewPatientPacketAnalytics/Submissions'
 import HowTheyFoundUs from '../components/NewPatientPacketAnalytics/HowTheyFoundUs'
+import { auth } from '../firebase'
 const NewPatientPacketAnalytics: NextPage<{}> = () => {
   const router = useRouter()
   const [submissions, setSubmissions] = useState(false)
@@ -19,9 +20,15 @@ const NewPatientPacketAnalytics: NextPage<{}> = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date())
 
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   return (
     <div>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">New Patient Packet</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">

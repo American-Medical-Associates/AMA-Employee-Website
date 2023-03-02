@@ -6,6 +6,7 @@ import {
   archiveItem,
   isAdmin,
   SearchForApplicationsNOTArchived,
+  auth,
 } from '../firebase'
 import ListItem from '../components/ListItem'
 import { ReactDOM } from 'react'
@@ -39,8 +40,7 @@ const SubmitedResumes: React.FC<{}> = () => {
   useEffect(() => {
     const getAdmin = () => {
       isAdmin({ adminState: setIsAdminState })
-      console.log(isAdminState)
-      console.log('not admin')
+
       return Promise.resolve(isAdminState)
     }
 
@@ -90,11 +90,10 @@ const SubmitedResumes: React.FC<{}> = () => {
       })
       // if (searchedApplication != null || searchedApplication != []) {
       setSearched(searchedApplication)
-      console.log(application)
       // }
     }
   }, [applicationSearch])
-  //   console.log(application)
+
   const maping = () => {
     if (
       applicationSearch == null ||
@@ -102,15 +101,12 @@ const SubmitedResumes: React.FC<{}> = () => {
       applicationSearch.length < 1
     ) {
       const list = application.map((item: any) => {
-        // console.log('hiii ' + item.email)
-        // console.log(height)
         if (item.archive == showArchived) {
           return (
             <div
               key={item.phoneNumber}
               onClick={() => {
                 setApplicationDetails({ item })
-                console.log('hiiiii' + item)
               }}
               className=" m-4  cursor-pointer overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
             >
@@ -124,7 +120,6 @@ const SubmitedResumes: React.FC<{}> = () => {
       return list
     } else {
       const list = searched.map((item: any) => {
-        console.log(item)
         return (
           <div
             key={item.phoneNumber}
@@ -1012,7 +1007,7 @@ const SubmitedResumes: React.FC<{}> = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <main className=" flex grid-cols-2 justify-center overflow-y-clip">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">

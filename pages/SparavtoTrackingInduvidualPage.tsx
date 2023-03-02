@@ -1,5 +1,13 @@
 import { NextPage } from 'next'
-import React from 'react'
+import router from 'next/router'
+import React, { useEffect } from 'react'
+import { auth } from '../firebase'
+
+// useEffect(() => {
+//   if (!auth.currentUser?.email) {
+//     router.push('/PatientLogin')
+//   }
+// }, [])
 
 const SparavtoTrackingInduvidualPage: NextPage<{}> = () => {
   return <div>editing coming soon</div>

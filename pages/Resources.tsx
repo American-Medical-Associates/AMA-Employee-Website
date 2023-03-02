@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import { MenuItem } from '../components/MenuItem'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import {
   ChartBarIcon,
   ClipboardIcon,
   ClipboardDocumentListIcon,
+  CodeBracketIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
+import { auth } from '../firebase'
 
 const Resources: NextPage<{}> = () => {
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
+
   const router = useRouter()
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} />
+      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Resources</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">
@@ -59,7 +67,7 @@ const Resources: NextPage<{}> = () => {
                 }
                 text="Vitalize Book Appointment"
                 onClick={() => {
-                  router.push('/VitalizeBookAnAppointment')
+                  router.push('/VitalizeNation/VitalizeBookAnAppointment')
                 }}
               />
             </div>

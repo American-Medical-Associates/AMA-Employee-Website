@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { MenuItem } from '../components/MenuItem'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { NextPage } from 'next'
-import { getMessages } from '../firebase'
+import { auth, getMessages } from '../firebase'
 import {
   selectSupportTicketNumber,
   selectChannelID,
@@ -17,6 +17,12 @@ const MessagingPage: NextPage<{}> = () => {
   const [allSupportMessages, setAllSupportMessages] = useState([])
   const ChannelID = useSelector(selectChannelID)
   const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   useEffect(() => {
     // if (ChannelID) {
@@ -48,7 +54,7 @@ const MessagingPage: NextPage<{}> = () => {
   return (
     <div>
       <div>
-        <Header selectCompany={'AMA'} />
+        <Header selectCompany={'AMA'} routePatientsHome={false} />
       </div>
       <main className=" flex w-full grid-cols-2">
         {/* <div className=" h-[87vh] w-[25%] flex-col ">{listOfChannels}</div> */}

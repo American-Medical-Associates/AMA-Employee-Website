@@ -14,7 +14,6 @@ const Login: NextPage<{}> = () => {
   const router = useRouter()
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user)
       if (user != null) {
         router.push('/')
       }
@@ -52,6 +51,16 @@ const Login: NextPage<{}> = () => {
         type="email"
         value={password}
       />
+
+      <p
+        onClick={() => {
+          router.push('/ForgotPassword')
+        }}
+        className="cursor-pointer text-center text-[#377adf]"
+      >
+        Forgot Password?
+      </p>
+
       <MainButton
         buttonText=" Sign In"
         onClick={() => {
@@ -62,6 +71,14 @@ const Login: NextPage<{}> = () => {
         }}
         buttonWidth={'w-[40%]'}
       />
+
+      <MainButton
+        buttonText="Patient Login"
+        onClick={() => {
+          router.push('/PatientLogin')
+        }}
+      />
+
       {auth.currentUser && <h1>Welcome {auth.currentUser?.email!}</h1>}
     </div>
   )

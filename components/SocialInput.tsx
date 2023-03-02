@@ -11,6 +11,7 @@ const SocialInput: React.FC<{
   valueState?: any
   missing?: boolean
   required?: boolean
+  onClick?: any
 }> = ({
   placeHolder,
   widthPercentage,
@@ -20,6 +21,7 @@ const SocialInput: React.FC<{
   ref,
   missing,
   required,
+  onClick,
 }) => {
   const [valueState, setValueState] = useState(value)
   const useFormat: boolean = true
@@ -35,7 +37,6 @@ const SocialInput: React.FC<{
 
       return cleaned ?? null
     }
-    console.log(value)
 
     setValueState(formatCode())
   }, [value, valueState])
@@ -60,6 +61,7 @@ const SocialInput: React.FC<{
           ${missing ? 'bg-[#ff1818]' : 'bg-[#cacaca71]'} 
           ${widthPercentage} cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`)}
         onChange={onChange}
+        onClick={onClick}
       />
     </div>
   )

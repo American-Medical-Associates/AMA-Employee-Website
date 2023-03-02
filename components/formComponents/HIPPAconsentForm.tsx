@@ -62,8 +62,8 @@ const HIPPAconsentForm: React.FC<{
   useEffect(() => {
     if (required) {
       if (
-        !signatureCheckBoxConsent &&
-        signatureDate == '' &&
+        !signatureCheckBoxConsent ||
+        signatureDate == '' ||
         hippaSignature == ''
       ) {
         setRequiredCheckBoxConsent(true)
