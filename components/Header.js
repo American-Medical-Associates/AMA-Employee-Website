@@ -33,16 +33,16 @@ const Header = ({ selectCompany, routePatientsHome }) => {
   const [openMenu, setOpenMenu] = useState(false)
   const [showPatientLookup, setShowPatientLookup] = useState(false)
   // TODO Check if user is patient or employee
-  useEffect(() => {
-    if (auth.currentUser) {
-      if (auth.currentUser.emailVerified === false) {
-        sendEmailVerification(auth.currentUser).then(() => {
-          alert('Email Verification Sent, Please Check Your Email.')
-          console.log('Email Verification Sent, Please Check Your Email.')
-        })
-      }
-    }
-  }, [auth.currentUser])
+  // useEffect(() => {
+  //   if (auth.currentUser) {
+  //     if (auth.currentUser.emailVerified === false) {
+  //       sendEmailVerification(auth.currentUser).then(() => {
+  //         alert('Email Verification Sent, Please Check Your Email.')
+  //         console.log('Email Verification Sent, Please Check Your Email.')
+  //       })
+  //     }
+  //   }
+  // }, [auth.currentUser])
 
   const [patientInfo, setPatientInfo] = useState([])
   const [isPatient, setIsPatient] = useState(false)
