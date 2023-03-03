@@ -327,7 +327,7 @@ function NewPatientPacketFullSubmission({
           {selectedPacket.secondaryPictureOfInsuranceCardBack && (
             <figure className="flex flex-col items-center justify-center">
               <figcaption className=" text-2xl font-bold">
-                Secondary Insurance Card Front
+                Secondary Insurance Card Back
               </figcaption>
               <img src={selectedPacket.secondaryPictureOfInsuranceCardBack} />
             </figure>
