@@ -312,19 +312,19 @@ const WeightLossSurvey: NextPage<{}> = () => {
     <div>
       <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="align-center m-5 flex justify-center">
-        <DateInput
-          placeHolder="Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setDate(text.target.value)
-          }}
-        />
         <TextInput
           id="patientsName"
           placeHolder="Patients Name"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setPatientsName(text.target.value)
+          }}
+        />
+        <DateInput
+          placeHolder="Date"
+          widthPercentage="w-2/3"
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+            setDate(text.target.value)
           }}
         />
       </div>
