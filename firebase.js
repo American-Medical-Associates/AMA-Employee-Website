@@ -725,6 +725,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   primaryInsuranceState,
   primaryInsuranceZip,
   primarySubscribersName,
+  primarySubscribersDOB,
   secondaryInsurance,
   secondaryInsuranceID,
   secondaryInsuranceGroup,
@@ -735,6 +736,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
   secondaryInsuranceState,
   secondaryInsuranceZip,
   secondarySubscribersName,
+  secondarySubscribersDOB,
   primaryPictureOfInsuranceCardFront,
   primaryPictureOfInsuranceCardBack,
   secondaryPictureOfInsuranceCardFront,
@@ -864,6 +866,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       primaryInsuranceState: primaryInsuranceState,
       primaryInsuranceZip: primaryInsuranceZip,
       primarySubscribersName: primarySubscribersName,
+      primarySubscribersDOB: primarySubscribersDOB,
       secondaryInsurance: secondaryInsurance,
       secondaryInsuranceID: secondaryInsuranceID,
       secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -874,6 +877,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       secondaryInsuranceState: secondaryInsuranceState,
       secondaryInsuranceZip: secondaryInsuranceZip,
       secondarySubscribersName: secondarySubscribersName,
+      secondarySubscribersDOB: secondarySubscribersDOB,
       primaryPictureOfInsuranceCardFront: primaryPictureOfInsuranceCardFront,
       primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
       secondaryPictureOfInsuranceCardFront:
@@ -1021,6 +1025,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
             primaryInsuranceState: primaryInsuranceState,
             primaryInsuranceZip: primaryInsuranceZip,
             primarySubscribersName: primarySubscribersName,
+            primarySubscribersDOB: primarySubscribersDOB,
             secondaryInsurance: secondaryInsurance,
             secondaryInsuranceID: secondaryInsuranceID,
             secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -1031,6 +1036,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
             secondaryInsuranceState: secondaryInsuranceState,
             secondaryInsuranceZip: secondaryInsuranceZip,
             secondarySubscribersName: secondarySubscribersName,
+            secondarySubscribersDOB: secondarySubscribersDOB,
             primaryPictureOfInsuranceCardFront:
               primaryPictureOfInsuranceCardFront,
             primaryPictureOfInsuranceCardBack:
@@ -1114,6 +1120,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           primaryInsuranceState: primaryInsuranceState,
           primaryInsuranceZip: primaryInsuranceZip,
           primarySubscribersName: primarySubscribersName,
+          primarySubscribersDOB: primarySubscribersDOB,
           secondaryInsurance: secondaryInsurance,
           secondaryInsuranceID: secondaryInsuranceID,
           secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -1124,6 +1131,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
           secondaryInsuranceState: secondaryInsuranceState,
           secondaryInsuranceZip: secondaryInsuranceZip,
           secondarySubscribersName: secondarySubscribersName,
+          secondarySubscribersDOB: secondarySubscribersDOB,
           primaryPictureOfInsuranceCardFront:
             primaryPictureOfInsuranceCardFront,
           primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
@@ -1316,9 +1324,7 @@ export async function submitNewPatientPacketAndCreateNewPatient({
 }
 export async function AddPictureOfPatientFaceToStorageAndToDB({
   selectedFile,
-
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(storage, `NewPatientPacket/${emailValue}/patientFace`)
@@ -1352,7 +1358,7 @@ export async function AddPictureOfPatientFaceToStorageAndToDB({
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               pictureOfTheirFace: download,
@@ -1367,7 +1373,6 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
   selectedFile,
 
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(
@@ -1404,7 +1409,7 @@ export async function AddPictureOfPatientInsuranceToStorageAndToDB({
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               primaryPictureOfInsuranceCardFront: download,
@@ -1419,7 +1424,6 @@ export async function AddPictureOfPatientInsuranceBackToStorageAndToDB({
   selectedFile,
 
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(
@@ -1456,7 +1460,7 @@ export async function AddPictureOfPatientInsuranceBackToStorageAndToDB({
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               primaryPictureOfInsuranceCardBack: download,
@@ -1471,7 +1475,6 @@ export async function AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
   selectedFile,
 
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(
@@ -1508,7 +1511,7 @@ export async function AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               secondaryPictureOfInsuranceCardFront: download,
@@ -1523,7 +1526,6 @@ export async function AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB(
   selectedFile,
 
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(
@@ -1560,7 +1562,7 @@ export async function AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB(
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               secondaryPictureOfInsuranceCardBack: download,
@@ -1576,7 +1578,6 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
   selectedFile,
 
   emailValue,
-  patientMedicalReviewSignatureDate,
   company,
 }) {
   const imageRef = ref(storage, `NewPatientPacket/${emailValue}/DriverLicense`)
@@ -1609,7 +1610,7 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
               'patients',
               emailValue,
               'NewPatientPacket',
-              patientMedicalReviewSignatureDate
+              emailValue
             ),
             {
               pictureOfFrontOfDriverLicense: download,
@@ -2298,7 +2299,6 @@ export async function NewPatientPacketAutoSave({
   separated,
   withPartner,
   MayWeTakeYourPicture,
-  pictureOfTheirFace,
   Ethnicity,
   nameOfEmergencyContact,
   EmergencyContactRelationShip,
@@ -2315,6 +2315,7 @@ export async function NewPatientPacketAutoSave({
   primaryInsuranceState,
   primaryInsuranceZip,
   primarySubscribersName,
+  primarySubscribersDOB,
   secondaryInsurance,
   secondaryInsuranceID,
   secondaryInsuranceGroup,
@@ -2325,10 +2326,7 @@ export async function NewPatientPacketAutoSave({
   secondaryInsuranceState,
   secondaryInsuranceZip,
   secondarySubscribersName,
-  primaryPictureOfInsuranceCardFront,
-  primaryPictureOfInsuranceCardBack,
-  secondaryPictureOfInsuranceCardFront,
-  secondaryPictureOfInsuranceCardBack,
+  secondarySubscribersDOB,
   retailPharmacyName,
   retailPharmacyCrossStreet1,
   retailPharmacyCrossStreet2,
@@ -2462,6 +2460,7 @@ export async function NewPatientPacketAutoSave({
         primaryInsuranceState: primaryInsuranceState,
         primaryInsuranceZip: primaryInsuranceZip,
         primarySubscribersName: primarySubscribersName,
+        primarySubscribersDOB: primarySubscribersDOB,
         secondaryInsurance: secondaryInsurance,
         secondaryInsuranceID: secondaryInsuranceID,
         secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -2472,12 +2471,13 @@ export async function NewPatientPacketAutoSave({
         secondaryInsuranceState: secondaryInsuranceState,
         secondaryInsuranceZip: secondaryInsuranceZip,
         secondarySubscribersName: secondarySubscribersName,
-        primaryPictureOfInsuranceCardFront: primaryPictureOfInsuranceCardFront,
-        primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
-        secondaryPictureOfInsuranceCardFront:
-          secondaryPictureOfInsuranceCardFront,
-        secondaryPictureOfInsuranceCardBack:
-          secondaryPictureOfInsuranceCardBack,
+        secondarySubscribersDOB: secondarySubscribersDOB,
+        // primaryPictureOfInsuranceCardFront: primaryPictureOfInsuranceCardFront,
+        // primaryPictureOfInsuranceCardBack: primaryPictureOfInsuranceCardBack,
+        // secondaryPictureOfInsuranceCardFront:
+        //   secondaryPictureOfInsuranceCardFront,
+        // secondaryPictureOfInsuranceCardBack:
+        //   secondaryPictureOfInsuranceCardBack,
         retailPharmacyName: retailPharmacyName,
         retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
         retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,

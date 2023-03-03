@@ -65,6 +65,7 @@ export interface PacketInfo {
   primaryInsuranceState: string
   primaryInsuranceZipCode: string
   primarySubscribersName: string
+  primarySubscribersDOB: string
   secondaryInsurance: string
   secondaryInsuranceID: string
   secondaryInsuranceGroup: string
@@ -75,9 +76,11 @@ export interface PacketInfo {
   secondaryInsuranceState: string
   secondaryInsuranceZipCode: string
   secondarySubscribersName: string
+  secondarySubscribersDOB: string
   primaryPictureOfInsuranceCardFront: string
   primaryPictureOfInsuranceCardBack: string
   secondaryPictureOfInsuranceCardFront: string
+  secondaryPictureOfInsuranceCardBack: string
   retailPharmacyName: string
   retailPharmacyCrossStreet1: string
   retailPharmacyCrossStreet2: string

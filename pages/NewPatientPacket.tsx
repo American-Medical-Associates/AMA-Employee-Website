@@ -124,6 +124,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [primaryInsuranceZip, setPrimaryInsuranceZip] = useState('')
 
   const [primarySubscribersName, setPrimarySubscribersName] = useState('')
+  const [primarySubscribersDOB, setPrimarySubscribersDOB] = useState('')
   const [secondaryInsurance, setSecondaryInsurance] = useState('')
   const [secondaryInsuranceID, setSecondaryInsuranceID] = useState('')
   const [secondaryInsuranceGroup, setSecondaryInsuranceGroup] = useState('')
@@ -136,6 +137,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [secondaryInsuranceState, setSecondaryInsuranceState] = useState('')
   const [secondaryInsuranceZip, setSecondaryInsuranceZip] = useState('')
   const [secondarySubscribersName, setSecondarySubscribersName] = useState('')
+  const [secondarySubscribersDOB, setSecondarySubscribersDOB] = useState('')
   const [
     primaryPictureOfInsuranceCardFront,
     setPrimaryPictureOfInsuranceCardFront,
@@ -309,8 +311,30 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     patientMedicalReviewSignatureDate,
     setPatientMedicalSignatureReviewDate,
   ] = useState('')
-  const [AdvancedDirectives, setAdvancedDirectives] = useState<Directives>()
-  const [hippa, setHippa] = useState<Hippa>()
+  const [AdvancedDirectives, setAdvancedDirectives] = useState<Directives>({
+    healthCarePowerOfAttorney: '',
+    healthCarePowerOfAttorneyName: '',
+    doYouHaveALivingWill: '',
+    preHospitalMedicalDirectives: '',
+    phoneNumber: '',
+    date: '',
+    signature: '',
+    agreeThatTheirSignatureIsValid: false,
+  })
+  const [hippa, setHippa] = useState<Hippa>({
+    name: '',
+    relationShip: '',
+    name2: '',
+    relationShip2: '',
+    name3: '',
+    relationShip3: '',
+    name4: '',
+    relationShip4: '',
+    hippaSignature: '',
+    signatureDate: '',
+    signatureCheckBoxConsent: '',
+    agreeThatTheirSignatureIsValid: '',
+  })
   const [financialPolicySignature, setFinancialPolicySignature] = useState('')
 
   const [
@@ -354,6 +378,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [requiredPrimaryInsurancePhone, setRequiredPrimaryInsurancePhone] =
     useState(false)
   const [requiredPrimarySubscribersName, setRequiredPrimarySubscribersName] =
+    useState(false)
+  const [requiredPrimarySubscribersDOB, setRequiredPrimarySubscribersDOB] =
     useState(false)
   const [
     requiredPrimaryPictureOfInsuranceCardFront,
@@ -535,7 +561,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     setRequireFinancialPolicySignatureDate,
   ] = useState(false)
   const [autoSaveCheck, setAutoSaveCheck] = useState<boolean>()
-  const [autoSaveMentalHealth, setAutoSaveMentalHealth] = useState<boolean>()
+  const [autoSaveMentalHealth, setAutoSaveMentalHealth] =
+    useState<boolean>(false)
   const [autoSaveMedications, setAutoSaveMedications] = useState<boolean>()
 
   const newPatientPackSelector = useSelector(selectNewPatientPacket)
@@ -569,9 +596,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setSeparated(newPatientPackSelector.separated)
       setWithPartner(newPatientPackSelector.withPartner)
       setMayWeTakeYourPicture(newPatientPackSelector.MayWeTakeYourPicture)
-      if (newPatientPackSelector.pictureOfTheirFace !== undefined) {
-        setPictureOfTheirFace(newPatientPackSelector.pictureOfTheirFace)
-      }
+
       setEthnicity(newPatientPackSelector.Ethnicity)
       setNameOfEmergency(newPatientPackSelector.nameOfEmergencyContact)
       setEmergencyContactRelationShip(
@@ -587,6 +612,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setPrimaryInsuranceGroup(newPatientPackSelector.primaryInsuranceGroup)
       setPrimaryInsurancePhone(newPatientPackSelector.primaryInsurancePhone)
       setPrimarySubscribersName(newPatientPackSelector.primarySubscribersName)
+      setPrimarySubscribersDOB(newPatientPackSelector.primarySubscribersDOB)
       setSecondaryInsurance(newPatientPackSelector.secondaryInsurance)
       setSecondaryInsuranceID(newPatientPackSelector.secondaryInsuranceID)
       setSecondaryInsuranceGroup(newPatientPackSelector.secondaryInsuranceGroup)
@@ -594,18 +620,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setSecondarySubscribersName(
         newPatientPackSelector.secondarySubscribersName
       )
-      setPrimaryPictureOfInsuranceCardFront(
-        newPatientPackSelector.primaryPictureOfInsuranceCardFront
-      )
-      setPrimaryPictureOfInsuranceCardBack(
-        newPatientPackSelector.primaryPictureOfInsuranceCardBack
-      )
-      setSecondaryPictureOfInsuranceCardFront(
-        newPatientPackSelector.secondaryPictureOfInsuranceCardFront
-      )
-      setSecondaryPictureOfInsuranceCardBack(
-        newPatientPackSelector.secondaryPictureOfInsuranceCardBack
-      )
+      setSecondarySubscribersDOB(newPatientPackSelector.secondarySubscribersDOB)
+
       setRetailPharmacyName(newPatientPackSelector.retailPharmacyName)
       setRetailPharmacyCrossStreet1(
         newPatientPackSelector.retailPharmacyCrossStreet1
@@ -844,6 +860,181 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       router.push('/PatientLogin')
     }
   }, [])
+
+  const autoSaveDivRef = useRef(null)
+  const [isVisibleAutoSaveMentalHealth, setIsVisibleAutoSaveMentalHealth] =
+    useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisibleAutoSaveMentalHealth(entry.isIntersecting)
+      },
+      { threshold: 0.5 } // Trigger when 50% of component is visible
+    )
+
+    if (autoSaveDivRef.current) {
+      observer.observe(autoSaveDivRef.current)
+    }
+
+    return () => {
+      if (autoSaveDivRef.current) {
+        observer.unobserve(autoSaveDivRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (
+      autoSaveMentalHealth == false &&
+      isVisibleAutoSaveMentalHealth == true
+    ) {
+      NewPatientPacketAutoSave({
+        setSuccess: setAutoSaveMentalHealth,
+        firstName: firstName,
+        lastName: lastName,
+        addressValue: addressValue,
+        addressValue2: addressValue2,
+        cityValue: cityValue,
+        USStateValue: USStateValue,
+        zipCodeValue: zipCodeValue,
+        BirthDateValue: BirthDateValue,
+        phoneNumberValue: phoneNumberValue,
+        homePhone: homePhone,
+        emailValue: auth.currentUser?.email,
+        socialValue: socialValue,
+        isCheckedMale: isCheckedMale,
+        isCheckedFemale: isCheckedFemale,
+        isCheckedOther: isCheckedOther,
+        pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
+        preferredName: preferredName,
+        single: single,
+        married: married,
+        divorced: divorced,
+        widowed: widowed,
+        separated: separated,
+        withPartner: withPartner,
+        MayWeTakeYourPicture: MayWeTakeYourPicture,
+        Ethnicity: Ethnicity,
+        nameOfEmergencyContact: nameOfEmergencyContact,
+        EmergencyContactRelationShip: EmergencyContactRelationShip,
+        EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
+        HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
+        howDoTheyWishToPay: howDoTheyWishToPay,
+        primaryInsurance: primaryInsurance,
+        primaryInsuranceID: primaryInsuranceID,
+        primaryInsuranceGroup: primaryInsuranceGroup,
+        primaryInsurancePhone: primaryInsurancePhone,
+        primaryInsuranceAddress1: primaryInsuranceAddress1,
+        primaryInsuranceAddress2: primaryInsuranceAddress2,
+        primaryInsuranceCity: primaryInsuranceCity,
+        primaryInsuranceState: primaryInsuranceState,
+        primaryInsuranceZip: primaryInsuranceZip,
+        primarySubscribersName: primarySubscribersName,
+        primarySubscribersDOB: primarySubscribersDOB,
+        secondaryInsurance: secondaryInsurance,
+        secondaryInsuranceID: secondaryInsuranceID,
+        secondaryInsuranceGroup: secondaryInsuranceGroup,
+        secondaryInsurancePhone: secondaryInsurancePhone,
+        secondaryInsuranceAddress1: secondaryInsuranceAddress1,
+        secondaryInsuranceAddress2: secondaryInsuranceAddress2,
+        secondaryInsuranceCity: secondaryInsuranceCity,
+        secondaryInsuranceState: secondaryInsuranceState,
+        secondaryInsuranceZip: secondaryInsuranceZip,
+        secondarySubscribersName: secondarySubscribersName,
+        secondarySubscribersDOB: secondarySubscribersDOB,
+        retailPharmacyName: retailPharmacyName,
+        retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
+        retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
+        retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
+        retailPharmacyFaxNumber: retailPharmacyFaxNumber,
+        mailOrderPharmacyName: mailOrderPharmacyName,
+        mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
+        mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
+        mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
+        mailOrderPharmacyCity: mailOrderPharmacyCity,
+        mailOrderPharmacyState: mailOrderPharmacyState,
+        mailOrderPharmacyZip: mailOrderPharmacyZip,
+        areYouAllergicToLatex: areYouAllergicToLatex,
+        areYouAllergicToSelfish: areYouAllergicToSelfish,
+        areYouAllergicToIodine: areYouAllergicToIodine,
+        PatientDrugAllergies: PatientDrugAllergies,
+        dateOfLastPAP: dateOfLastPAP,
+        wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
+        dateOfLastMammogram: dateOfLastMammogram,
+        wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
+        dateOfLastPSA: dateOfLastPSA,
+        wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+        allMajorIllnesses: allMajorIllnesses,
+        allMajorSurgeriesAndHospitalizations:
+          allMajorSurgeriesAndHospitalizations,
+        boneDensityScreening: boneDensityScreening,
+        BoneDensityScreeningDate: BoneDensityScreeningDate,
+        wasBoneDensityScreeningNormalOrAbnormal:
+          wasBoneDensityScreeningNormalOrAbnormal,
+        colonoscopyScreening: colonoscopyScreening,
+        dateOfLastColonoscopyScreening: dateOfLastColonoscopyScreening,
+        wasColonoscopyScreeningNormalOrAbnormal:
+          wasColonoscopyScreeningNormalOrAbnormal,
+        allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
+        haveTheyEverSmoked: haveTheyEverSmoked,
+        howManyPacksPerDay: howManyPacksPerDay,
+        anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
+        describeOtherTobaccoUse: describeOtherTobaccoUse,
+        doYouDrinkCoffee: doYouDrinkCoffee,
+        howManyCupsPerDay: howManyCupsPerDay,
+        doYouDrinkAlcohol: doYouDrinkAlcohol,
+        howManyDrinksPerWeek: howManyDrinksPerWeek,
+        doYoCurrentlyUseRecreationalDrugs: doYoCurrentlyUseRecreationalDrugs,
+        describeRecreationalDrugUse: describeRecreationalDrugUse,
+        doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
+        describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
+        doYouFeelDepressed: doYouFeelDepressed,
+        doYouCryFrequently: doYouCryFrequently,
+        doYouHaveLittleInterestInDoingThings:
+          doYouHaveLittleInterestInDoingThings,
+        doYouFeelHopelessDownOrDepressed: doYouFeelHopelessDownOrDepressed,
+        doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
+          doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
+        doYouFeelTiredOrHaveLittleEnergy: doYouFeelTiredOrHaveLittleEnergy,
+        doYouHavAPoorAppetiteOrOverEating: doYouHavAPoorAppetiteOrOverEating,
+        doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
+        troubleConcentrating: troubleConcentrating,
+        doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
+        thoughtsYouWouldBeBetterOffDead: thoughtsYouWouldBeBetterOffDead,
+        isStressAMajorProblem: isStressAMajorProblem,
+        doYouPanicWhenStressed: doYouPanicWhenStressed,
+        haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
+        familyMedicalAlcoholismAddiction: familyMedicalAlcoholismAddiction,
+        familyMedicalBleedingDisorders: familyMedicalBleedingDisorders,
+        familyMedicalCancer: familyMedicalCancer,
+        familyMedicalDiabetes: familyMedicalDiabetes,
+        familyMedicalHeartAttack: familyMedicalHeartAttack,
+        familyMedicalHighBloodPressure: familyMedicalHighBloodPressure,
+        familyMedicalHighCholesterol: familyMedicalHighCholesterol,
+        familyMedicalKidneyDisease: familyMedicalKidneyDisease,
+        familyMedicalMentalIllness: familyMedicalMentalIllness,
+        familyMedicalStroke: familyMedicalStroke,
+        familyMedicalTuberculosis: familyMedicalTuberculosis,
+        isYourMotherStillLiving: isYourMotherStillLiving,
+        isYourFatherStillLiving: isYourFatherStillLiving,
+        listOfAllCurrentMedications: listOfAllCurrentMedications,
+        patientMedicalReviewSignature: patientMedicalReviewSignature,
+        patientMedicalReviewSignatureDate: patientMedicalReviewSignatureDate,
+        PatientMedicalReviewSignatureCheckBox:
+          PatientMedicalReviewSignatureCheckBox,
+        AdvancedDirectives: AdvancedDirectives,
+        hippa: hippa,
+        financialPolicySignature: financialPolicySignature,
+        financialPolicySignatureCheckBox: financialPolicySignatureCheckBox,
+        financialPolicySignatureDate: financialPolicySignatureDate,
+        company: company,
+      }).then(() => {
+        console.log('success')
+      })
+    }
+  }, [isVisibleAutoSaveMentalHealth])
+
   // console.log(familyMedicalStroke)
   return (
     <div
@@ -957,7 +1148,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 separated: separated,
                 withPartner: withPartner,
                 MayWeTakeYourPicture: MayWeTakeYourPicture,
-                pictureOfTheirFace: pictureOfTheirFace,
                 Ethnicity: Ethnicity,
                 nameOfEmergencyContact: nameOfEmergencyContact,
                 EmergencyContactRelationShip: EmergencyContactRelationShip,
@@ -974,6 +1164,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 primaryInsuranceState: primaryInsuranceState,
                 primaryInsuranceZip: primaryInsuranceZip,
                 primarySubscribersName: primarySubscribersName,
+                primarySubscribersDOB: primarySubscribersDOB,
                 secondaryInsurance: secondaryInsurance,
                 secondaryInsuranceID: secondaryInsuranceID,
                 secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -984,14 +1175,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 secondaryInsuranceState: secondaryInsuranceState,
                 secondaryInsuranceZip: secondaryInsuranceZip,
                 secondarySubscribersName: secondarySubscribersName,
-                primaryPictureOfInsuranceCardFront:
-                  primaryPictureOfInsuranceCardFront,
-                primaryPictureOfInsuranceCardBack:
-                  primaryPictureOfInsuranceCardBack,
-                secondaryPictureOfInsuranceCardFront:
-                  secondaryPictureOfInsuranceCardFront,
-                secondaryPictureOfInsuranceCardBack:
-                  secondaryPictureOfInsuranceCardBack,
+                secondarySubscribersDOB: secondarySubscribersDOB,
                 retailPharmacyName: retailPharmacyName,
                 retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                 retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -1315,6 +1499,17 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={primarySubscribersName}
                 required={requiredPrimarySubscribersName}
               />,
+              <DateInput
+                id="subscriberDOB"
+                placeHolder="Subscriber Date Of Birth"
+                widthPercentage="w-full"
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                  setPrimarySubscribersDOB(text.target.value)
+                }}
+                value={primarySubscribersDOB}
+                required={requiredPrimarySubscribersDOB}
+              />,
+
               <div className=" flex w-full flex-col items-center justify-center">
                 <TakeAPictureCustom
                   id="insuranceCardPicture"
@@ -1396,6 +1591,15 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 }}
                 value={secondarySubscribersName}
               />,
+              <DateInput
+                placeHolder="Subscriber Date Of Birth"
+                widthPercentage="w-full"
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                  setSecondarySubscribersDOB(text.target.value)
+                }}
+                value={secondarySubscribersDOB}
+              />,
+
               <div className="flex w-full flex-col items-center justify-center ">
                 <TakeAPictureCustom
                   text="Take A Picture Of Your Insurance Card (Front)"
@@ -1933,177 +2137,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           ]}
         />
         <AutoSaveLine success={autoSaveMentalHealth} />
-        <div
-          className="h-16 w-full"
-          onMouseEnter={() => {
-            const setAutoSave = async () => {
-              setAutoSaveMentalHealth(false)
-            }
-            if (autoSaveMentalHealth !== true) {
-              setAutoSave().then(() => {
-                NewPatientPacketAutoSave({
-                  setSuccess: setAutoSaveMentalHealth,
-                  firstName: firstName,
-                  lastName: lastName,
-                  addressValue: addressValue,
-                  addressValue2: addressValue2,
-                  cityValue: cityValue,
-                  USStateValue: USStateValue,
-                  zipCodeValue: zipCodeValue,
-                  BirthDateValue: BirthDateValue,
-                  phoneNumberValue: phoneNumberValue,
-                  homePhone: homePhone,
-                  emailValue: emailValue.trim(),
-                  socialValue: socialValue,
-                  isCheckedMale: isCheckedMale,
-                  isCheckedFemale: isCheckedFemale,
-                  isCheckedOther: isCheckedOther,
-                  pictureOfFrontOfDriverLicense: pictureOfFrontOfDriverLicense,
-                  preferredName: preferredName,
-                  single: single,
-                  married: married,
-                  divorced: divorced,
-                  widowed: widowed,
-                  separated: separated,
-                  withPartner: withPartner,
-                  MayWeTakeYourPicture: MayWeTakeYourPicture,
-                  pictureOfTheirFace: pictureOfTheirFace,
-                  Ethnicity: Ethnicity,
-                  nameOfEmergencyContact: nameOfEmergencyContact,
-                  EmergencyContactRelationShip: EmergencyContactRelationShip,
-                  EmergencyContactPhoneNumber: EmergencyContactPhoneNumber,
-                  HowDidTheyHearAboutUs: HowDidTheyHearAboutUs,
-                  howDoTheyWishToPay: howDoTheyWishToPay,
-                  primaryInsurance: primaryInsurance,
-                  primaryInsuranceID: primaryInsuranceID,
-                  primaryInsuranceGroup: primaryInsuranceGroup,
-                  primaryInsurancePhone: primaryInsurancePhone,
-                  primaryInsuranceAddress1: primaryInsuranceAddress1,
-                  primaryInsuranceAddress2: primaryInsuranceAddress2,
-                  primaryInsuranceCity: primaryInsuranceCity,
-                  primaryInsuranceState: primaryInsuranceState,
-                  primaryInsuranceZip: primaryInsuranceZip,
-                  primarySubscribersName: primarySubscribersName,
-                  secondaryInsurance: secondaryInsurance,
-                  secondaryInsuranceID: secondaryInsuranceID,
-                  secondaryInsuranceGroup: secondaryInsuranceGroup,
-                  secondaryInsurancePhone: secondaryInsurancePhone,
-                  secondaryInsuranceAddress1: secondaryInsuranceAddress1,
-                  secondaryInsuranceAddress2: secondaryInsuranceAddress2,
-                  secondaryInsuranceCity: secondaryInsuranceCity,
-                  secondaryInsuranceState: secondaryInsuranceState,
-                  secondaryInsuranceZip: secondaryInsuranceZip,
-                  secondarySubscribersName: secondarySubscribersName,
-                  primaryPictureOfInsuranceCardFront:
-                    primaryPictureOfInsuranceCardFront,
-                  primaryPictureOfInsuranceCardBack:
-                    primaryPictureOfInsuranceCardBack,
-                  secondaryPictureOfInsuranceCardFront:
-                    secondaryPictureOfInsuranceCardFront,
-                  secondaryPictureOfInsuranceCardBack:
-                    secondaryPictureOfInsuranceCardBack,
-                  retailPharmacyName: retailPharmacyName,
-                  retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
-                  retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
-                  retailPharmacyPhoneNumber: retailPharmacyPhoneNumber,
-                  retailPharmacyFaxNumber: retailPharmacyFaxNumber,
-                  mailOrderPharmacyName: mailOrderPharmacyName,
-                  mailOrderPharmacyPhoneNumber: mailOrderPharmacyPhoneNumber,
-                  mailOrderPharmacyAddress1: mailOrderPharmacyAddress1,
-                  mailOrderPharmacyAddress2: mailOrderPharmacyAddress2,
-                  mailOrderPharmacyCity: mailOrderPharmacyCity,
-                  mailOrderPharmacyState: mailOrderPharmacyState,
-                  mailOrderPharmacyZip: mailOrderPharmacyZip,
-                  areYouAllergicToLatex: areYouAllergicToLatex,
-                  areYouAllergicToSelfish: areYouAllergicToSelfish,
-                  areYouAllergicToIodine: areYouAllergicToIodine,
-                  PatientDrugAllergies: PatientDrugAllergies,
-                  dateOfLastPAP: dateOfLastPAP,
-                  wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
-                  dateOfLastMammogram: dateOfLastMammogram,
-                  wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
-                  dateOfLastPSA: dateOfLastPSA,
-                  wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
-                  allMajorIllnesses: allMajorIllnesses,
-                  allMajorSurgeriesAndHospitalizations:
-                    allMajorSurgeriesAndHospitalizations,
-                  boneDensityScreening: boneDensityScreening,
-                  BoneDensityScreeningDate: BoneDensityScreeningDate,
-                  wasBoneDensityScreeningNormalOrAbnormal:
-                    wasBoneDensityScreeningNormalOrAbnormal,
-                  colonoscopyScreening: colonoscopyScreening,
-                  dateOfLastColonoscopyScreening:
-                    dateOfLastColonoscopyScreening,
-                  wasColonoscopyScreeningNormalOrAbnormal:
-                    wasColonoscopyScreeningNormalOrAbnormal,
-                  allMedicalHistoryOfDisease: allMedicalHistoryOfDisease,
-                  haveTheyEverSmoked: haveTheyEverSmoked,
-                  howManyPacksPerDay: howManyPacksPerDay,
-                  anyOtherTobaccoOrEcigarettes: anyOtherTobaccoOrEcigarettes,
-                  describeOtherTobaccoUse: describeOtherTobaccoUse,
-                  doYouDrinkCoffee: doYouDrinkCoffee,
-                  howManyCupsPerDay: howManyCupsPerDay,
-                  doYouDrinkAlcohol: doYouDrinkAlcohol,
-                  howManyDrinksPerWeek: howManyDrinksPerWeek,
-                  doYoCurrentlyUseRecreationalDrugs:
-                    doYoCurrentlyUseRecreationalDrugs,
-                  describeRecreationalDrugUse: describeRecreationalDrugUse,
-                  doYouUseIllegaLStreetDrugs: doYouUseIllegaLStreetDrugs,
-                  describeIllegalStreetDrugUse: describeIllegalStreetDrugUse,
-                  doYouFeelDepressed: doYouFeelDepressed,
-                  doYouCryFrequently: doYouCryFrequently,
-                  doYouHaveLittleInterestInDoingThings:
-                    doYouHaveLittleInterestInDoingThings,
-                  doYouFeelHopelessDownOrDepressed:
-                    doYouFeelHopelessDownOrDepressed,
-                  doYouHaveTroubleFallingAsleepOrSleepingTooMuch:
-                    doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
-                  doYouFeelTiredOrHaveLittleEnergy:
-                    doYouFeelTiredOrHaveLittleEnergy,
-                  doYouHavAPoorAppetiteOrOverEating:
-                    doYouHavAPoorAppetiteOrOverEating,
-                  doYouFeelBadAboutYourself: doYouFeelBadAboutYourself,
-                  troubleConcentrating: troubleConcentrating,
-                  doYouMoveOrSpeakSlowly: doYouMoveOrSpeakSlowly,
-                  thoughtsYouWouldBeBetterOffDead:
-                    thoughtsYouWouldBeBetterOffDead,
-                  isStressAMajorProblem: isStressAMajorProblem,
-                  doYouPanicWhenStressed: doYouPanicWhenStressed,
-                  haveYouEverAttemptedSuicide: haveYouEverAttemptedSuicide,
-                  familyMedicalAlcoholismAddiction:
-                    familyMedicalAlcoholismAddiction,
-                  familyMedicalBleedingDisorders:
-                    familyMedicalBleedingDisorders,
-                  familyMedicalCancer: familyMedicalCancer,
-                  familyMedicalDiabetes: familyMedicalDiabetes,
-                  familyMedicalHeartAttack: familyMedicalHeartAttack,
-                  familyMedicalHighBloodPressure:
-                    familyMedicalHighBloodPressure,
-                  familyMedicalHighCholesterol: familyMedicalHighCholesterol,
-                  familyMedicalKidneyDisease: familyMedicalKidneyDisease,
-                  familyMedicalMentalIllness: familyMedicalMentalIllness,
-                  familyMedicalStroke: familyMedicalStroke,
-                  familyMedicalTuberculosis: familyMedicalTuberculosis,
-                  isYourMotherStillLiving: isYourMotherStillLiving,
-                  isYourFatherStillLiving: isYourFatherStillLiving,
-                  listOfAllCurrentMedications: listOfAllCurrentMedications,
-                  patientMedicalReviewSignature: patientMedicalReviewSignature,
-                  patientMedicalReviewSignatureDate:
-                    patientMedicalReviewSignatureDate,
-                  PatientMedicalReviewSignatureCheckBox:
-                    PatientMedicalReviewSignatureCheckBox,
-                  AdvancedDirectives: AdvancedDirectives,
-                  hippa: hippa,
-                  financialPolicySignature: financialPolicySignature,
-                  financialPolicySignatureCheckBox:
-                    financialPolicySignatureCheckBox,
-                  financialPolicySignatureDate: financialPolicySignatureDate,
-                  company: company,
-                })
-              })
-            }
-          }}
-        ></div>
+        <div className="h-16 w-full" ref={autoSaveDivRef}></div>
         <SectionWithTitle
           title="Mental Health Questions"
           subTitle="Check if you have had the following (check ALL that apply):"
@@ -2477,7 +2511,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     BirthDateValue: BirthDateValue,
                     phoneNumberValue: phoneNumberValue,
                     homePhone: homePhone,
-                    emailValue: emailValue.trim(),
+                    emailValue: auth.currentUser?.email,
                     socialValue: socialValue,
                     isCheckedMale: isCheckedMale,
                     isCheckedFemale: isCheckedFemale,
@@ -2492,7 +2526,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     separated: separated,
                     withPartner: withPartner,
                     MayWeTakeYourPicture: MayWeTakeYourPicture,
-                    pictureOfTheirFace: pictureOfTheirFace,
                     Ethnicity: Ethnicity,
                     nameOfEmergencyContact: nameOfEmergencyContact,
                     EmergencyContactRelationShip: EmergencyContactRelationShip,
@@ -2509,6 +2542,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     primaryInsuranceState: primaryInsuranceState,
                     primaryInsuranceZip: primaryInsuranceZip,
                     primarySubscribersName: primarySubscribersName,
+                    primarySubscribersDOB: primarySubscribersDOB,
                     secondaryInsurance: secondaryInsurance,
                     secondaryInsuranceID: secondaryInsuranceID,
                     secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -2519,14 +2553,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     secondaryInsuranceState: secondaryInsuranceState,
                     secondaryInsuranceZip: secondaryInsuranceZip,
                     secondarySubscribersName: secondarySubscribersName,
-                    primaryPictureOfInsuranceCardFront:
-                      primaryPictureOfInsuranceCardFront,
-                    primaryPictureOfInsuranceCardBack:
-                      primaryPictureOfInsuranceCardBack,
-                    secondaryPictureOfInsuranceCardFront:
-                      secondaryPictureOfInsuranceCardFront,
-                    secondaryPictureOfInsuranceCardBack:
-                      secondaryPictureOfInsuranceCardBack,
+                    secondarySubscribersDOB: secondarySubscribersDOB,
                     retailPharmacyName: retailPharmacyName,
                     retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                     retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -3930,6 +3957,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   primaryInsuranceState: primaryInsuranceState,
                   primaryInsuranceZip: primaryInsuranceZip,
                   primarySubscribersName: primarySubscribersName,
+                  primarySubscribersDOB: primarySubscribersDOB,
                   secondaryInsurance: secondaryInsurance,
                   secondaryInsuranceID: secondaryInsuranceID,
                   secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -3940,6 +3968,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   secondaryInsuranceState: secondaryInsuranceState,
                   secondaryInsuranceZip: secondaryInsuranceZip,
                   secondarySubscribersName: secondarySubscribersName,
+                  secondarySubscribersDOB: secondarySubscribersDOB,
                   primaryPictureOfInsuranceCardFront:
                     primaryPictureOfInsuranceCardFront,
                   primaryPictureOfInsuranceCardBack:
@@ -4050,8 +4079,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfPatientFaceToStorageAndToDB({
                       selectedFile: pictureOfTheirFace,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })
@@ -4059,8 +4086,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfPatientInsuranceToStorageAndToDB({
                       selectedFile: primaryPictureOfInsuranceCardFront,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })
@@ -4068,8 +4093,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfPatientInsuranceBackToStorageAndToDB({
                       selectedFile: primaryPictureOfInsuranceCardBack,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })
@@ -4077,8 +4100,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
                       selectedFile: secondaryPictureOfInsuranceCardFront,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })
@@ -4086,8 +4107,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB({
                       selectedFile: secondaryPictureOfInsuranceCardBack,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })
@@ -4096,8 +4115,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     AddPictureOfDriverLicenseToStorageAndToDB({
                       selectedFile: pictureOfFrontOfDriverLicense,
                       emailValue: emailValue,
-                      patientMedicalReviewSignatureDate:
-                        patientMedicalReviewSignatureDate,
                       company: company,
                     })
                   })

@@ -249,46 +249,54 @@ function NewPatientPacketFullSubmission({
                 fieldTitle: 'Primary Insurance Subscriber Name:',
                 fieldValue: selectedPacket.primarySubscribersName,
               },
+              selectedPacket.howDoTheyWishToPay == 'Insurance' && {
+                fieldTitle: 'Primary Insurance Subscriber DOB:',
+                fieldValue: selectedPacket.primarySubscribersDOB,
+              },
 
-              selectedPacket.secondaryInsurance == '' && {
+              selectedPacket.secondaryInsurance != '' && {
                 fieldTitle: 'Secondary Insurance Company:',
                 fieldValue: selectedPacket.secondaryInsurance,
               },
-              selectedPacket.secondaryInsuranceID == '' && {
+              selectedPacket.secondaryInsuranceID != '' && {
                 fieldTitle: 'Secondary Insurance Policy Number:',
                 fieldValue: selectedPacket.secondaryInsuranceID,
               },
-              selectedPacket.secondaryInsuranceGroup == '' && {
+              selectedPacket.secondaryInsuranceGroup != '' && {
                 fieldTitle: 'Secondary Insurance Group Number:',
                 fieldValue: selectedPacket.secondaryInsuranceGroup,
               },
-              selectedPacket.secondaryInsurancePhone == '' && {
+              selectedPacket.secondaryInsurancePhone != '' && {
                 fieldTitle: 'Secondary Insurance Phone Number:',
                 fieldValue: selectedPacket.secondaryInsurancePhone,
               },
-              selectedPacket.secondaryInsuranceAddress1 == '' && {
+              selectedPacket.secondaryInsuranceAddress1 != '' && {
                 fieldTitle: 'Secondary Insurance Address:',
                 fieldValue: selectedPacket.secondaryInsuranceAddress1,
               },
-              selectedPacket.secondaryInsuranceAddress2 == '' && {
+              selectedPacket.secondaryInsuranceAddress2 != '' && {
                 fieldTitle: 'Secondary Insurance Address 2:',
                 fieldValue: selectedPacket.secondaryInsuranceAddress2,
               },
-              selectedPacket.secondaryInsuranceCity == '' && {
+              selectedPacket.secondaryInsuranceCity != '' && {
                 fieldTitle: 'Secondary Insurance City:',
                 fieldValue: selectedPacket.secondaryInsuranceCity,
               },
-              selectedPacket.secondaryInsuranceState == '' && {
+              selectedPacket.secondaryInsuranceState != '' && {
                 fieldTitle: 'Secondary Insurance State:',
                 fieldValue: selectedPacket.secondaryInsuranceState,
               },
-              selectedPacket.secondaryInsuranceZipCode == '' && {
+              selectedPacket.secondaryInsuranceZipCode != '' && {
                 fieldTitle: 'Secondary Insurance Zip Code:',
                 fieldValue: selectedPacket.secondaryInsuranceZipCode,
               },
-              selectedPacket.secondarySubscribersName == '' && {
+              selectedPacket.secondarySubscribersName != '' && {
                 fieldTitle: 'Secondary Insurance Subscriber Name:',
                 fieldValue: selectedPacket.secondarySubscribersName,
+              },
+              selectedPacket.secondarySubscribersDOB != '' && {
+                fieldTitle: 'Secondary Insurance Subscriber DOB:',
+                fieldValue: selectedPacket.secondarySubscribersDOB,
               },
             ]}
           />
@@ -314,6 +322,14 @@ function NewPatientPacketFullSubmission({
                 Secondary Insurance Card Front
               </figcaption>
               <img src={selectedPacket.secondaryPictureOfInsuranceCardFront} />
+            </figure>
+          )}
+          {selectedPacket.secondaryPictureOfInsuranceCardBack && (
+            <figure className="flex flex-col items-center justify-center">
+              <figcaption className=" text-2xl font-bold">
+                Secondary Insurance Card Front
+              </figcaption>
+              <img src={selectedPacket.secondaryPictureOfInsuranceCardBack} />
             </figure>
           )}
           <InformationSection
