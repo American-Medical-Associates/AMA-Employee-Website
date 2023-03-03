@@ -116,6 +116,17 @@ const Resources: NextPage<{}> = () => {
                   }}
                 />
               </div>
+              <div className="mt-5">
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="Weight Loss Survey"
+                  onClick={() => {
+                    router.push('/WeightLossSurvey')
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
