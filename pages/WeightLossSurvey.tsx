@@ -8,10 +8,21 @@ import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
 import UserCreatedListFromInputBox from '../components/formComponents/UserCreatedListFromInputBox'
 import SectionWithTitle from '../components/formComponents/SectionWithTitle'
 import MainButton from '../components/MainButton'
+import {
+  auth,
+  GetWeightLossSurveyPatient,
+  WeightLossAutoSave,
+  // SubmitWeightLossSurvey,
+} from '../firebase'
+import { WeightLossSurveyTypes } from '../types/weightLossTypes'
+import AutoSaveLine from '../components/formComponents/AutoSaveLine'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectWeightLossSurvey } from '../redux/slices/companySlice'
 
 const WeightLossSurvey: NextPage<{}> = () => {
-  const [date, setDate] = useState('')
+  const dispatch = useDispatch()
   const [patientsName, setPatientsName] = useState('')
+  const [date, setDate] = useState('')
   const [whyLossWeight, setWhyLossWeight] = useState('')
   const [weightGoals, setWeightGoals] = useState('')
   const [timeFrame, setTimeFrame] = useState('')
@@ -27,7 +38,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
     useState('')
   const [commitmentsToWeightLoss, setCommitmentsToWeightLoss] = useState('')
   const [onYourOwn, setOnYourOwn] = useState('')
-  const [checkIfTried, setCheckIfTried] = useState([])
+  const [checkIfTried, setCheckIfTried] = useState('')
   const [onYourOwnStartDate, setOnYourOwnStartDate] = useState('')
   const [onYourOwnEndDate, setOnYourOwnEndDate] = useState('')
   const [onYourOwnWeightLoss, setOnYourOwnWeightLoss] = useState('')
@@ -307,18 +318,50 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [medicalHistory, setMedicalHistory] = useState('')
   const [medicationsTaken, setMedicationsTaken] = useState('')
   const [medicationsTakenList, setMedicationsTakenList] = useState([])
+  const [autoSaveWeightAge, setAutoSaveWeightAge] = useState<boolean>()
+  const [autoSaveEighteen, setAutoSaveEighteen] = useState<boolean>()
+  const [autoSaveDaysPerWeek, setAutoSaveDaysPerWeek] = useState<boolean>()
+
+  const weightLossSelector = useSelector(selectWeightLossSurvey)
+
+  useEffect(() => {
+    if (weightLossSelector) {
+      setPatientsName(weightLossSelector.patientsName)
+      setDate(weightLossSelector.date)
+      setWhyLossWeight(weightLossSelector.whyLossWeight)
+      setWeightGoals(weightLossSelector.weightGoals)
+      setTimeFrame(weightLossSelector.timeFrame)
+      setMostWeighedAsAdult(weightLossSelector.mostWeighedAsAdult)
+      setAgeAtAdultMostWeight(weightLossSelector.ageAtAdultMostWeight)
+      setLeastWeighedAsAdult(weightLossSelector.leastWeighedAsAdult)
+      setAgeAtAdultLeastWeight(weightLossSelector.ageAtAdultLeastWeight)
+      setWeightChangeDuringLife(weightLossSelector.weightChangeDuringLife)
+      setWeightGainedInPast(weightLossSelector.weightGainedInPast)
+      setChallengesOfWeightManagement(
+        weightLossSelector.challengesOfWeightManagement
+      )
+      setHopesForWeightLossManagement(
+        weightLossSelector.hopesForWeightLossManagement
+      )
+      setCommitmentsToWeightLoss(weightLossSelector.commitmentsToWeightLoss)
+      setOnYourOwn(weightLossSelector.onYourOwn)
+
+      setCheckIfTried(weightLossSelector.checkIfTried)
+      setOnYourOwnStartDate(weightLossSelector.onYourOwnStartDate)
+      setOnYourOwnEndDate(weightLossSelector.onYourOwnEndDate)
+      setOnYourOwnWeightLoss(weightLossSelector.onYourOwnWeightLoss)
+      setOnYourOwnReasonForStopping(
+        weightLossSelector.onYourOwnReasonForStopping
+      )
+    }
+  }, [weightLossSelector])
+
+  console.log('weightLossSelector', weightLossSelector)
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
+      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="align-center m-5 flex justify-center">
-        <DateInput
-          placeHolder="Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setDate(text.target.value)
-          }}
-        />
         <TextInput
           id="patientsName"
           placeHolder="Patients Name"
@@ -326,6 +369,15 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setPatientsName(text.target.value)
           }}
+          value={patientsName}
+        />
+        <DateInput
+          placeHolder="Date"
+          widthPercentage="w-2/3"
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+            setDate(text.target.value)
+          }}
+          value={date}
         />
       </div>
       <h1 className="m-3 text-center text-lg font-bold">
@@ -339,6 +391,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setWhyLossWeight(text.target.value)
           }}
+          value={whyLossWeight}
         />
       </div>
       <div className="mb-10">
@@ -349,6 +402,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setWeightGoals(text.target.value)
           }}
+          value={weightGoals}
         />
       </div>
       <div className="mb-10">
@@ -359,16 +413,18 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setTimeFrame(text.target.value)
           }}
+          value={timeFrame}
         />
       </div>
       <div className="flex">
         <TextInput
           id="mostWieghedAsAdult"
-          placeHolder="What is the most you have weighed as an adult?"
+          placeHolder="Most weighed as adult?"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setMostWeighedAsAdult(text.target.value)
           }}
+          value={mostWeighedAsAdult}
         />
         <TextInput
           id="ageAtWeight"
@@ -377,16 +433,18 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setAgeAtAdultMostWeight(text.target.value)
           }}
+          value={ageAtAdultWeight}
         />
       </div>
       <div className="flex">
         <TextInput
           id="leastWieghedAsAdult"
-          placeHolder="What is the least you have weighed as an adult?"
+          placeHolder="Least weighed as adult?"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setLeastWeighedAsAdult(text.target.value)
           }}
+          value={leastWeighedAsAdult}
         />
         <TextInput
           id="ageAtWeight"
@@ -395,8 +453,287 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setAgeAtAdultLeastWeight(text.target.value)
           }}
+          value={ageAtAdultLeastWeight}
+          onClick={() => {
+            const setAutoSave = async () => {
+              setAutoSaveWeightAge(false)
+            }
+            setAutoSave().then(() => {
+              WeightLossAutoSave({
+                setSuccess: setAutoSaveWeightAge,
+                emailValue: auth.currentUser?.email,
+                patientsName: patientsName,
+                date: date,
+                whyLossWeight: whyLossWeight,
+                weightGoals: weightGoals,
+                timeFrame: timeFrame,
+                mostWeighedAsAdult: mostWeighedAsAdult,
+                ageAtAdultWeight: ageAtAdultWeight,
+                leastWeighedAsAdult: leastWeighedAsAdult,
+                ageAtAdultLeastWeight: ageAtAdultLeastWeight,
+                weightChangeDuringLife: weightChangeDuringLife,
+                weightGainedInPast: weightGainedInPast,
+                challengesOfWeightManagement: challengesOfWeightManagement,
+                hopesForWeightLossManagement: hopesForWeightLossManagement,
+                commitmentsToWeightLoss: commitmentsToWeightLoss,
+                onYourOwn: onYourOwn,
+                checkIfTried: checkIfTried,
+                onYourOwnStartDate: onYourOwnStartDate,
+                onYourOwnEndDate: onYourOwnEndDate,
+                onYourOwnWeightLoss: onYourOwnWeightLoss,
+                onYourOwnReasonForStopping: onYourOwnReasonForStopping,
+                onYourOwnReasonForRegain: onYourOwnReasonForRegain,
+                atkinsOrLowCarbohydrate: atkinsOrLowCarbohydrate,
+                atkinsOrLowCarbohydrateStartDate:
+                  atkinsOrLowCarbohydrateStartDate,
+                atkinsOrLowCarbohydrateEndDate: atkinsOrLowCarbohydrateEndDate,
+                atkinsOrLowCarbohydrateWeightLoss:
+                  atkinsOrLowCarbohydrateWeightLoss,
+                atkinsOrLowCarbohydrateReasonForStopping:
+                  atkinsOrLowCarbohydrateReasonForStopping,
+                atkinsOrLowCarbohydrateReasonForRegain:
+                  atkinsOrLowCarbohydrateReasonForRegain,
+                jennyCraig: jennyCraig,
+                jennyCraigStartDate: jennyCraigStartDate,
+                jennyCraigEndDate: jennyCraigEndDate,
+                jennyCraigWeightLoss: jennyCraigWeightLoss,
+                jennyCraigReasonForStopping: jennyCraigReasonForStopping,
+                jennyCraigReasonForRegain: jennyCraigReasonForRegain,
+                nutrisystem: nutrisystem,
+                nutrisystemStartDate: nutrisystemStartDate,
+                nutrisystemEndDate: nutrisystemEndDate,
+                nutrisystemWeightLoss: nutrisystemWeightLoss,
+                nutrisystemReasonForStopping: nutrisystemReasonForStopping,
+                nutrisystemReasonForRegain: nutrisystemReasonForRegain,
+                weightWatchers: weightWatchers,
+                weightWatchersStartDate: weightWatchersStartDate,
+                weightWatchersEndDate: weightWatchersEndDate,
+                weightWatchersWeightLoss: weightWatchersWeightLoss,
+                weightWatchersReasonForStopping:
+                  weightWatchersReasonForStopping,
+                weightWatchersReasonForRegain: weightWatchersReasonForRegain,
+                slimfast: slimfast,
+                slimfastStartDate: slimfastStartDate,
+                slimfastEndDate: slimfastEndDate,
+                slimfastWeightLoss: slimfastWeightLoss,
+                slimfastReasonForStopping: slimfastReasonForStopping,
+                slimfastReasonForRegain: slimfastReasonForRegain,
+                optifast: optifast,
+                optifastStartDate: optifastStartDate,
+                optifastEndDate: optifastEndDate,
+                optifastWeightLoss: optifastWeightLoss,
+                optifastReasonForStopping: optifastReasonForStopping,
+                optifastReasonForRegain: optifastReasonForRegain,
+                otherLiquidDiet: otherLiquidDiet,
+                otherLiquidDietStartDate: otherLiquidDietStartDate,
+                otherLiquidDietEndDate: otherLiquidDietEndDate,
+                otherLiquidDietWeightLoss: otherLiquidDietWeightLoss,
+                otherLiquidDietReasonForStopping:
+                  otherLiquidDietReasonForStopping,
+                otherLiquidDietReasonForRegain: otherLiquidDietReasonForRegain,
+                other: other,
+                otherName: otherName,
+                otherStartDate: otherStartDate,
+                otherEndDate: otherEndDate,
+                otherWeightLoss: otherWeightLoss,
+                otherReasonForStopping: otherReasonForStopping,
+                otherReasonForRegain: otherReasonForRegain,
+                adipex: adipex,
+                adipexStartDate: adipexStartDate,
+                adipexEndDate: adipexEndDate,
+                adipexWeightLoss: adipexWeightLoss,
+                adipexReasonForStopping: adipexReasonForStopping,
+                adipexReasonForRegain: adipexReasonForRegain,
+                alli: alli,
+                alliStartDate: alliStartDate,
+                alliEndDate: alliEndDate,
+                alliWeightLoss: alliWeightLoss,
+                alliReasonForStopping: alliReasonForStopping,
+                alliReasonForRegain: alliReasonForRegain,
+                belviq: belviq,
+                belviqStartDate: belviqStartDate,
+                belviqEndDate: belviqEndDate,
+                belviqWeightLoss: belviqWeightLoss,
+                belviqReasonForStopping: belviqReasonForStopping,
+                belviqReasonForRegain: belviqReasonForRegain,
+                dexatrim: dexatrim,
+                dexatrimStartDate: dexatrimStartDate,
+                dexatrimEndDate: dexatrimEndDate,
+                dexatrimWeightLoss: dexatrimWeightLoss,
+                dexatrimReasonForStopping: dexatrimReasonForStopping,
+                dexatrimReasonForRegain: dexatrimReasonForRegain,
+                herbalWeightLoss: herbalWeightLoss,
+                herbalWeightLossStartDate: herbalWeightLossStartDate,
+                herbalWeightLossEndDate: herbalWeightLossEndDate,
+                herbalWeightLossWeightLoss: herbalWeightLossWeightLoss,
+                herbalWeightLossReasonForStopping:
+                  herbalWeightLossReasonForStopping,
+                herbalWeightLossReasonForRegain:
+                  herbalWeightLossReasonForRegain,
+                meridia: meridia,
+                meridiaStartDate: meridiaStartDate,
+                meridiaEndDate: meridiaEndDate,
+                meridiaWeightLoss: meridiaWeightLoss,
+                meridiaReasonForStopping: meridiaReasonForStopping,
+                meridiaReasonForRegain: meridiaReasonForRegain,
+                phenfen: phenfen,
+                phenfenStartDate: phenfenStartDate,
+                phenfenEndDate: phenfenEndDate,
+                phenfenWeightLoss: phenfenWeightLoss,
+                phenfenReasonForStopping: phenfenReasonForStopping,
+                phenfenReasonForRegain: phenfenReasonForRegain,
+                qsymia: qsymia,
+                qsymiaStartDate: qsymiaStartDate,
+                qsymiaEndDate: qsymiaEndDate,
+                qsymiaWeightLoss: qsymiaWeightLoss,
+                qsymiaReasonForStopping: qsymiaReasonForStopping,
+                qsymiaReasonForRegain: qsymiaReasonForRegain,
+                redux: redux,
+                reduxStartDate: reduxStartDate,
+                reduxEndDate: reduxEndDate,
+                reduxWeightLoss: reduxWeightLoss,
+                reduxReasonForStopping: reduxReasonForStopping,
+                reduxReasonForRegain: reduxReasonForRegain,
+                otherSupplements: otherSupplements,
+                otherSupplementsName: otherSupplementsName,
+                otherSupplementsStartDate: otherSupplementsStartDate,
+                otherSupplementsEndDate: otherSupplementsEndDate,
+                otherSupplementsWeightLoss: otherSupplementsWeightLoss,
+                otherSupplementsReasonForStopping:
+                  otherSupplementsReasonForStopping,
+                otherSupplementsReasonForRegain:
+                  otherSupplementsReasonForRegain,
+                childrenUnderEighteen: childrenUnderEighteen,
+                childrenUnderEighteenCheckBox: childrenUnderEighteenCheckBox,
+                familyMemebersObese: familyMemebersObese,
+                support: support,
+                supportExplaination: supportExplaination,
+                eatingDisorder: eatingDisorder,
+                anorexiaNervosa: anorexiaNervosa,
+                bingeEating: bingeEating,
+                bulimia: bulimia,
+                eatingTooMuch: eatingTooMuch,
+                sleepHours: sleepHours,
+                restedWhenWakeUp: restedWhenWakeUp,
+                doYouSnore: doYouSnore,
+                wearEquipment: wearEquipment,
+                howManyNights: howManyNights,
+                sleepWellness: sleepWellness,
+                sittingAndReading: sittingAndReading,
+                watchingTv: watchingTv,
+                sittingInPublic: sittingInPublic,
+                carPassanger: carPassanger,
+                lyingDown: lyingDown,
+                talkingToSomeone: talkingToSomeone,
+                sittingQuietlyAfterLunch: sittingQuietlyAfterLunch,
+                inCarWhileStopped: inCarWhileStopped,
+                total: total,
+                typicalDay: typicalDay,
+                enjoyExercise: enjoyExercise,
+                gymMembership: gymMembership,
+                exerciseEquipment: exerciseEquipment,
+                exerciseRegularly: exerciseRegularly,
+                badExerciseExperience: badExerciseExperience,
+                sixAm: sixAm,
+                nineAm: nineAm,
+                twelvePm: twelvePm,
+                threePm: threePm,
+                sixPm: sixPm,
+                ninePm: ninePm,
+                exerciseWeekly: exerciseWeekly,
+                describeExercise: describeExercise,
+                difficultyGettingUpFromFloor: difficultyGettingUpFromFloor,
+                typeOfExercise: typeOfExercise,
+                exercisePreference: exercisePreference,
+                athleteInSchool: athleteInSchool,
+                confidentIncrease: confidentIncrease,
+                majorBenefitsOfExercise: majorBenefitsOfExercise,
+                exerciseBarriers: exerciseBarriers,
+                minutesPerDay: minutesPerDay,
+                daysPerWeek: daysPerWeek,
+                confidenceWeightLossDiet: confidenceWeightLossDiet,
+                majorBarriersDiet: majorBarriersDiet,
+                favoriteFoods: favoriteFoods,
+                breakfastTypeOfFood: breakfastTypeOfFood,
+                breakfastProteinOrCarbs: breakfastProteinOrCarbs,
+                breakfastCalories: breakfastCalories,
+                lunchTypeOfFood: lunchTypeOfFood,
+                lunchProteinOrCarbs: lunchProteinOrCarbs,
+                lunchCalories: lunchCalories,
+                dinnerTypeOfFood: dinnerTypeOfFood,
+                dinnerProteinOrCarbs: dinnerProteinOrCarbs,
+                dinnerCalories: dinnerCalories,
+                snackOneTypeOfFood: snackOneTypeOfFood,
+                snackOneProteinOrCarbs: snackOneProteinOrCarbs,
+                snackOneCalories: snackOneCalories,
+                snackTwoTypeOfFood: snackTwoTypeOfFood,
+                snackTwoProteinOrCarbs: snackTwoProteinOrCarbs,
+                snackTwoCalories: snackTwoCalories,
+                coffeeTypeOfFood: coffeeTypeOfFood,
+                coffeeProteinOrCarbs: coffeeProteinOrCarbs,
+                coffeeCalories: coffeeCalories,
+                sodaTypeOfFood: sodaTypeOfFood,
+                sodaProteinOrCarbs: sodaProteinOrCarbs,
+                sodaCalories: sodaCalories,
+                candyOrSweetsTypeOfFood: candyOrSweetsTypeOfFood,
+                candyOrSweetsProteinOrCarbs: candyOrSweetsProteinOrCarbs,
+                candyOrSweetsCalories: candyOrSweetsCalories,
+                otherTypeOfFood: otherTypeOfFood,
+                otherProteinOrCarbs: otherProteinOrCarbs,
+                otherCalories: otherCalories,
+                numPeopleLiveWith: numPeopleLiveWith,
+                eatTogether: eatTogether,
+                whoDoesShopping: whoDoesShopping,
+                whoDoesCooking: whoDoesCooking,
+                foodIntolerance: foodIntolerance,
+                foodIntoleranceList: foodIntoleranceList,
+                stressEating: stressEating,
+                stressEatingList: stressEatingList,
+                bingeEatingExperience: bingeEatingExperience,
+                bingeEatingList: bingeEatingList,
+                snackingExperience: snackingExperience,
+                snackingList: snackingList,
+                eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
+                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                skippingMealsExperience: skippingMealsExperience,
+                skippingMealsList: skippingMealsList,
+                eatingOutExperience: eatingOutExperience,
+                eatingOutList: eatingOutList,
+                eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
+                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingAtDeskExperience: eatingAtDeskExperience,
+                eatingAtDeskList: eatingAtDeskList,
+                portionSizeExperience: portionSizeExperience,
+                portionSizeList: portionSizeList,
+                eatingTooFastExperience: eatingTooFastExperience,
+                eatingTooFastList: eatingTooFastList,
+                notSatifiedExperience: notSatifiedExperience,
+                notSatifiedList: notSatifiedList,
+                regularSoda: regularSoda,
+                regularSodaList: regularSodaList,
+                juice: juice,
+                juiceList: juiceList,
+                sweetTea: sweetTea,
+                sweetTeaList: sweetTeaList,
+                alchoholBeverages: alchoholBeverages,
+                alchoholBeveragesList: alchoholBeveragesList,
+                friedFoods: friedFoods,
+                friedFoodsList: friedFoodsList,
+                fruitServings: fruitServings,
+                vegetableServings: vegetableServings,
+                wholeGrainServings: wholeGrainServings,
+                lowFatDairyServings: lowFatDairyServings,
+                leanProteinServings: leanProteinServings,
+                daysPerWeekExplination: daysPerWeekExplination,
+                medicalHistory: medicalHistory,
+                medicationsTaken: medicationsTaken,
+                medicationsTakenList: medicationsTakenList,
+              })
+            })
+          }}
         />
       </div>
+      <AutoSaveLine success={autoSaveWeightAge} />
       <div className="align-center flex justify-center text-lg">
         <CustomCheckBoxFeild
           id="howHasWeightChangedDuringLife"
@@ -1558,13 +1895,292 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
+      <AutoSaveLine success={autoSaveEighteen} />
       <div className="mt-10">
         <TextInput
           id="childrenUnderEighteen"
-          placeHolder="How many children under age 18 live with you?"
-          widthPercentage="w-1/3"
+          placeHolder="How many people under age 18 live with you?"
+          widthPercentage="w-2/5"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setChildrenUnderEighteen(text.target.value)
+          }}
+          required={true}
+          onClick={() => {
+            const setAutoSave = async () => {
+              setAutoSaveWeightAge(false)
+            }
+            setAutoSave().then(() => {
+              WeightLossAutoSave({
+                setSuccess: setAutoSaveEighteen,
+                emailValue: auth.currentUser?.email,
+                patientsName: patientsName,
+                date: date,
+                whyLossWeight: whyLossWeight,
+                weightGoals: weightGoals,
+                timeFrame: timeFrame,
+                mostWeighedAsAdult: mostWeighedAsAdult,
+                ageAtAdultWeight: ageAtAdultWeight,
+                leastWeighedAsAdult: leastWeighedAsAdult,
+                ageAtAdultLeastWeight: ageAtAdultLeastWeight,
+                weightChangeDuringLife: weightChangeDuringLife,
+                weightGainedInPast: weightGainedInPast,
+                challengesOfWeightManagement: challengesOfWeightManagement,
+                hopesForWeightLossManagement: hopesForWeightLossManagement,
+                commitmentsToWeightLoss: commitmentsToWeightLoss,
+                onYourOwn: onYourOwn,
+                checkIfTried: checkIfTried,
+                onYourOwnStartDate: onYourOwnStartDate,
+                onYourOwnEndDate: onYourOwnEndDate,
+                onYourOwnWeightLoss: onYourOwnWeightLoss,
+                onYourOwnReasonForStopping: onYourOwnReasonForStopping,
+                onYourOwnReasonForRegain: onYourOwnReasonForRegain,
+                atkinsOrLowCarbohydrate: atkinsOrLowCarbohydrate,
+                atkinsOrLowCarbohydrateStartDate:
+                  atkinsOrLowCarbohydrateStartDate,
+                atkinsOrLowCarbohydrateEndDate: atkinsOrLowCarbohydrateEndDate,
+                atkinsOrLowCarbohydrateWeightLoss:
+                  atkinsOrLowCarbohydrateWeightLoss,
+                atkinsOrLowCarbohydrateReasonForStopping:
+                  atkinsOrLowCarbohydrateReasonForStopping,
+                atkinsOrLowCarbohydrateReasonForRegain:
+                  atkinsOrLowCarbohydrateReasonForRegain,
+                jennyCraig: jennyCraig,
+                jennyCraigStartDate: jennyCraigStartDate,
+                jennyCraigEndDate: jennyCraigEndDate,
+                jennyCraigWeightLoss: jennyCraigWeightLoss,
+                jennyCraigReasonForStopping: jennyCraigReasonForStopping,
+                jennyCraigReasonForRegain: jennyCraigReasonForRegain,
+                nutrisystem: nutrisystem,
+                nutrisystemStartDate: nutrisystemStartDate,
+                nutrisystemEndDate: nutrisystemEndDate,
+                nutrisystemWeightLoss: nutrisystemWeightLoss,
+                nutrisystemReasonForStopping: nutrisystemReasonForStopping,
+                nutrisystemReasonForRegain: nutrisystemReasonForRegain,
+                weightWatchers: weightWatchers,
+                weightWatchersStartDate: weightWatchersStartDate,
+                weightWatchersEndDate: weightWatchersEndDate,
+                weightWatchersWeightLoss: weightWatchersWeightLoss,
+                weightWatchersReasonForStopping:
+                  weightWatchersReasonForStopping,
+                weightWatchersReasonForRegain: weightWatchersReasonForRegain,
+                slimfast: slimfast,
+                slimfastStartDate: slimfastStartDate,
+                slimfastEndDate: slimfastEndDate,
+                slimfastWeightLoss: slimfastWeightLoss,
+                slimfastReasonForStopping: slimfastReasonForStopping,
+                slimfastReasonForRegain: slimfastReasonForRegain,
+                optifast: optifast,
+                optifastStartDate: optifastStartDate,
+                optifastEndDate: optifastEndDate,
+                optifastWeightLoss: optifastWeightLoss,
+                optifastReasonForStopping: optifastReasonForStopping,
+                optifastReasonForRegain: optifastReasonForRegain,
+                otherLiquidDiet: otherLiquidDiet,
+                otherLiquidDietStartDate: otherLiquidDietStartDate,
+                otherLiquidDietEndDate: otherLiquidDietEndDate,
+                otherLiquidDietWeightLoss: otherLiquidDietWeightLoss,
+                otherLiquidDietReasonForStopping:
+                  otherLiquidDietReasonForStopping,
+                otherLiquidDietReasonForRegain: otherLiquidDietReasonForRegain,
+                other: other,
+                otherName: otherName,
+                otherStartDate: otherStartDate,
+                otherEndDate: otherEndDate,
+                otherWeightLoss: otherWeightLoss,
+                otherReasonForStopping: otherReasonForStopping,
+                otherReasonForRegain: otherReasonForRegain,
+                adipex: adipex,
+                adipexStartDate: adipexStartDate,
+                adipexEndDate: adipexEndDate,
+                adipexWeightLoss: adipexWeightLoss,
+                adipexReasonForStopping: adipexReasonForStopping,
+                adipexReasonForRegain: adipexReasonForRegain,
+                alli: alli,
+                alliStartDate: alliStartDate,
+                alliEndDate: alliEndDate,
+                alliWeightLoss: alliWeightLoss,
+                alliReasonForStopping: alliReasonForStopping,
+                alliReasonForRegain: alliReasonForRegain,
+                belviq: belviq,
+                belviqStartDate: belviqStartDate,
+                belviqEndDate: belviqEndDate,
+                belviqWeightLoss: belviqWeightLoss,
+                belviqReasonForStopping: belviqReasonForStopping,
+                belviqReasonForRegain: belviqReasonForRegain,
+                dexatrim: dexatrim,
+                dexatrimStartDate: dexatrimStartDate,
+                dexatrimEndDate: dexatrimEndDate,
+                dexatrimWeightLoss: dexatrimWeightLoss,
+                dexatrimReasonForStopping: dexatrimReasonForStopping,
+                dexatrimReasonForRegain: dexatrimReasonForRegain,
+                herbalWeightLoss: herbalWeightLoss,
+                herbalWeightLossStartDate: herbalWeightLossStartDate,
+                herbalWeightLossEndDate: herbalWeightLossEndDate,
+                herbalWeightLossWeightLoss: herbalWeightLossWeightLoss,
+                herbalWeightLossReasonForStopping:
+                  herbalWeightLossReasonForStopping,
+                herbalWeightLossReasonForRegain:
+                  herbalWeightLossReasonForRegain,
+                meridia: meridia,
+                meridiaStartDate: meridiaStartDate,
+                meridiaEndDate: meridiaEndDate,
+                meridiaWeightLoss: meridiaWeightLoss,
+                meridiaReasonForStopping: meridiaReasonForStopping,
+                meridiaReasonForRegain: meridiaReasonForRegain,
+                phenfen: phenfen,
+                phenfenStartDate: phenfenStartDate,
+                phenfenEndDate: phenfenEndDate,
+                phenfenWeightLoss: phenfenWeightLoss,
+                phenfenReasonForStopping: phenfenReasonForStopping,
+                phenfenReasonForRegain: phenfenReasonForRegain,
+                qsymia: qsymia,
+                qsymiaStartDate: qsymiaStartDate,
+                qsymiaEndDate: qsymiaEndDate,
+                qsymiaWeightLoss: qsymiaWeightLoss,
+                qsymiaReasonForStopping: qsymiaReasonForStopping,
+                qsymiaReasonForRegain: qsymiaReasonForRegain,
+                redux: redux,
+                reduxStartDate: reduxStartDate,
+                reduxEndDate: reduxEndDate,
+                reduxWeightLoss: reduxWeightLoss,
+                reduxReasonForStopping: reduxReasonForStopping,
+                reduxReasonForRegain: reduxReasonForRegain,
+                otherSupplements: otherSupplements,
+                otherSupplementsName: otherSupplementsName,
+                otherSupplementsStartDate: otherSupplementsStartDate,
+                otherSupplementsEndDate: otherSupplementsEndDate,
+                otherSupplementsWeightLoss: otherSupplementsWeightLoss,
+                otherSupplementsReasonForStopping:
+                  otherSupplementsReasonForStopping,
+                otherSupplementsReasonForRegain:
+                  otherSupplementsReasonForRegain,
+                childrenUnderEighteen: childrenUnderEighteen,
+                childrenUnderEighteenCheckBox: childrenUnderEighteenCheckBox,
+                familyMemebersObese: familyMemebersObese,
+                support: support,
+                supportExplaination: supportExplaination,
+                eatingDisorder: eatingDisorder,
+                anorexiaNervosa: anorexiaNervosa,
+                bingeEating: bingeEating,
+                bulimia: bulimia,
+                eatingTooMuch: eatingTooMuch,
+                sleepHours: sleepHours,
+                restedWhenWakeUp: restedWhenWakeUp,
+                doYouSnore: doYouSnore,
+                wearEquipment: wearEquipment,
+                howManyNights: howManyNights,
+                sleepWellness: sleepWellness,
+                sittingAndReading: sittingAndReading,
+                watchingTv: watchingTv,
+                sittingInPublic: sittingInPublic,
+                carPassanger: carPassanger,
+                lyingDown: lyingDown,
+                talkingToSomeone: talkingToSomeone,
+                sittingQuietlyAfterLunch: sittingQuietlyAfterLunch,
+                inCarWhileStopped: inCarWhileStopped,
+                total: total,
+                typicalDay: typicalDay,
+                enjoyExercise: enjoyExercise,
+                gymMembership: gymMembership,
+                exerciseEquipment: exerciseEquipment,
+                exerciseRegularly: exerciseRegularly,
+                badExerciseExperience: badExerciseExperience,
+                sixAm: sixAm,
+                nineAm: nineAm,
+                twelvePm: twelvePm,
+                threePm: threePm,
+                sixPm: sixPm,
+                ninePm: ninePm,
+                exerciseWeekly: exerciseWeekly,
+                describeExercise: describeExercise,
+                difficultyGettingUpFromFloor: difficultyGettingUpFromFloor,
+                typeOfExercise: typeOfExercise,
+                exercisePreference: exercisePreference,
+                athleteInSchool: athleteInSchool,
+                confidentIncrease: confidentIncrease,
+                majorBenefitsOfExercise: majorBenefitsOfExercise,
+                exerciseBarriers: exerciseBarriers,
+                minutesPerDay: minutesPerDay,
+                daysPerWeek: daysPerWeek,
+                confidenceWeightLossDiet: confidenceWeightLossDiet,
+                majorBarriersDiet: majorBarriersDiet,
+                favoriteFoods: favoriteFoods,
+                breakfastTypeOfFood: breakfastTypeOfFood,
+                breakfastProteinOrCarbs: breakfastProteinOrCarbs,
+                breakfastCalories: breakfastCalories,
+                lunchTypeOfFood: lunchTypeOfFood,
+                lunchProteinOrCarbs: lunchProteinOrCarbs,
+                lunchCalories: lunchCalories,
+                dinnerTypeOfFood: dinnerTypeOfFood,
+                dinnerProteinOrCarbs: dinnerProteinOrCarbs,
+                dinnerCalories: dinnerCalories,
+                snackOneTypeOfFood: snackOneTypeOfFood,
+                snackOneProteinOrCarbs: snackOneProteinOrCarbs,
+                snackOneCalories: snackOneCalories,
+                snackTwoTypeOfFood: snackTwoTypeOfFood,
+                snackTwoProteinOrCarbs: snackTwoProteinOrCarbs,
+                snackTwoCalories: snackTwoCalories,
+                coffeeTypeOfFood: coffeeTypeOfFood,
+                coffeeProteinOrCarbs: coffeeProteinOrCarbs,
+                coffeeCalories: coffeeCalories,
+                sodaTypeOfFood: sodaTypeOfFood,
+                sodaProteinOrCarbs: sodaProteinOrCarbs,
+                sodaCalories: sodaCalories,
+                candyOrSweetsTypeOfFood: candyOrSweetsTypeOfFood,
+                candyOrSweetsProteinOrCarbs: candyOrSweetsProteinOrCarbs,
+                candyOrSweetsCalories: candyOrSweetsCalories,
+                otherTypeOfFood: otherTypeOfFood,
+                otherProteinOrCarbs: otherProteinOrCarbs,
+                otherCalories: otherCalories,
+                numPeopleLiveWith: numPeopleLiveWith,
+                eatTogether: eatTogether,
+                whoDoesShopping: whoDoesShopping,
+                whoDoesCooking: whoDoesCooking,
+                foodIntolerance: foodIntolerance,
+                foodIntoleranceList: foodIntoleranceList,
+                stressEating: stressEating,
+                stressEatingList: stressEatingList,
+                bingeEatingExperience: bingeEatingExperience,
+                bingeEatingList: bingeEatingList,
+                snackingExperience: snackingExperience,
+                snackingList: snackingList,
+                eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
+                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                skippingMealsExperience: skippingMealsExperience,
+                skippingMealsList: skippingMealsList,
+                eatingOutExperience: eatingOutExperience,
+                eatingOutList: eatingOutList,
+                eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
+                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingAtDeskExperience: eatingAtDeskExperience,
+                eatingAtDeskList: eatingAtDeskList,
+                portionSizeExperience: portionSizeExperience,
+                portionSizeList: portionSizeList,
+                eatingTooFastExperience: eatingTooFastExperience,
+                eatingTooFastList: eatingTooFastList,
+                notSatifiedExperience: notSatifiedExperience,
+                notSatifiedList: notSatifiedList,
+                regularSoda: regularSoda,
+                regularSodaList: regularSodaList,
+                juice: juice,
+                juiceList: juiceList,
+                sweetTea: sweetTea,
+                sweetTeaList: sweetTeaList,
+                alchoholBeverages: alchoholBeverages,
+                alchoholBeveragesList: alchoholBeveragesList,
+                friedFoods: friedFoods,
+                friedFoodsList: friedFoodsList,
+                fruitServings: fruitServings,
+                vegetableServings: vegetableServings,
+                wholeGrainServings: wholeGrainServings,
+                lowFatDairyServings: lowFatDairyServings,
+                leanProteinServings: leanProteinServings,
+                daysPerWeekExplination: daysPerWeekExplination,
+                medicalHistory: medicalHistory,
+                medicationsTaken: medicationsTaken,
+                medicationsTakenList: medicationsTakenList,
+              })
+            })
           }}
         />
       </div>
@@ -2766,6 +3382,10 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setDaysPerWeekExplination(text.target.value)
           }}
+          required={true}
+          onClick={() => {
+            console.log('clicked')
+          }}
         />
       </div>
       <SectionWithTitle
@@ -2844,7 +3464,272 @@ const WeightLossSurvey: NextPage<{}> = () => {
           buttonText="Submit"
           onClick={() => {
             alert('Survey Submitted Successfully')
-            console.log('submit')
+            SubmitWeightLossSurvey({
+              emailValue: auth.currentUser?.email,
+              patientsName: patientsName,
+              date: date,
+              whyLossWeight: whyLossWeight,
+              weightGoals: weightGoals,
+              timeFrame: timeFrame,
+              mostWeighedAsAdult: mostWeighedAsAdult,
+              ageAtAdultWeight: ageAtAdultWeight,
+              leastWeighedAsAdult: leastWeighedAsAdult,
+              ageAtAdultLeastWeight: ageAtAdultLeastWeight,
+              weightChangeDuringLife: weightChangeDuringLife,
+              weightGainedInPast: weightGainedInPast,
+              challengesOfWeightManagement: challengesOfWeightManagement,
+              hopesForWeightLossManagement: hopesForWeightLossManagement,
+              commitmentsToWeightLoss: commitmentsToWeightLoss,
+              onYourOwn: onYourOwn,
+              checkIfTried: checkIfTried,
+              onYourOwnStartDate: onYourOwnStartDate,
+              onYourOwnEndDate: onYourOwnEndDate,
+              onYourOwnWeightLoss: onYourOwnWeightLoss,
+              onYourOwnReasonForStopping: onYourOwnReasonForStopping,
+              onYourOwnReasonForRegain: onYourOwnReasonForRegain,
+              atkinsOrLowCarbohydrate: atkinsOrLowCarbohydrate,
+              atkinsOrLowCarbohydrateStartDate:
+                atkinsOrLowCarbohydrateStartDate,
+              atkinsOrLowCarbohydrateEndDate: atkinsOrLowCarbohydrateEndDate,
+              atkinsOrLowCarbohydrateWeightLoss:
+                atkinsOrLowCarbohydrateWeightLoss,
+              atkinsOrLowCarbohydrateReasonForStopping:
+                atkinsOrLowCarbohydrateReasonForStopping,
+              atkinsOrLowCarbohydrateReasonForRegain:
+                atkinsOrLowCarbohydrateReasonForRegain,
+              jennyCraig: jennyCraig,
+              jennyCraigStartDate: jennyCraigStartDate,
+              jennyCraigEndDate: jennyCraigEndDate,
+              jennyCraigWeightLoss: jennyCraigWeightLoss,
+              jennyCraigReasonForStopping: jennyCraigReasonForStopping,
+              jennyCraigReasonForRegain: jennyCraigReasonForRegain,
+              nutrisystem: nutrisystem,
+              nutrisystemStartDate: nutrisystemStartDate,
+              nutrisystemEndDate: nutrisystemEndDate,
+              nutrisystemWeightLoss: nutrisystemWeightLoss,
+              nutrisystemReasonForStopping: nutrisystemReasonForStopping,
+              nutrisystemReasonForRegain: nutrisystemReasonForRegain,
+              weightWatchers: weightWatchers,
+              weightWatchersStartDate: weightWatchersStartDate,
+              weightWatchersEndDate: weightWatchersEndDate,
+              weightWatchersWeightLoss: weightWatchersWeightLoss,
+              weightWatchersReasonForStopping: weightWatchersReasonForStopping,
+              weightWatchersReasonForRegain: weightWatchersReasonForRegain,
+              slimfast: slimfast,
+              slimfastStartDate: slimfastStartDate,
+              slimfastEndDate: slimfastEndDate,
+              slimfastWeightLoss: slimfastWeightLoss,
+              slimfastReasonForStopping: slimfastReasonForStopping,
+              slimfastReasonForRegain: slimfastReasonForRegain,
+              optifast: optifast,
+              optifastStartDate: optifastStartDate,
+              optifastEndDate: optifastEndDate,
+              optifastWeightLoss: optifastWeightLoss,
+              optifastReasonForStopping: optifastReasonForStopping,
+              optifastReasonForRegain: optifastReasonForRegain,
+              otherLiquidDiet: otherLiquidDiet,
+              otherLiquidDietStartDate: otherLiquidDietStartDate,
+              otherLiquidDietEndDate: otherLiquidDietEndDate,
+              otherLiquidDietWeightLoss: otherLiquidDietWeightLoss,
+              otherLiquidDietReasonForStopping:
+                otherLiquidDietReasonForStopping,
+              otherLiquidDietReasonForRegain: otherLiquidDietReasonForRegain,
+              other: other,
+              otherName: otherName,
+              otherStartDate: otherStartDate,
+              otherEndDate: otherEndDate,
+              otherWeightLoss: otherWeightLoss,
+              otherReasonForStopping: otherReasonForStopping,
+              otherReasonForRegain: otherReasonForRegain,
+              adipex: adipex,
+              adipexStartDate: adipexStartDate,
+              adipexEndDate: adipexEndDate,
+              adipexWeightLoss: adipexWeightLoss,
+              adipexReasonForStopping: adipexReasonForStopping,
+              adipexReasonForRegain: adipexReasonForRegain,
+              alli: alli,
+              alliStartDate: alliStartDate,
+              alliEndDate: alliEndDate,
+              alliWeightLoss: alliWeightLoss,
+              alliReasonForStopping: alliReasonForStopping,
+              alliReasonForRegain: alliReasonForRegain,
+              belviq: belviq,
+              belviqStartDate: belviqStartDate,
+              belviqEndDate: belviqEndDate,
+              belviqWeightLoss: belviqWeightLoss,
+              belviqReasonForStopping: belviqReasonForStopping,
+              belviqReasonForRegain: belviqReasonForRegain,
+              dexatrim: dexatrim,
+              dexatrimStartDate: dexatrimStartDate,
+              dexatrimEndDate: dexatrimEndDate,
+              dexatrimWeightLoss: dexatrimWeightLoss,
+              dexatrimReasonForStopping: dexatrimReasonForStopping,
+              dexatrimReasonForRegain: dexatrimReasonForRegain,
+              herbalWeightLoss: herbalWeightLoss,
+              herbalWeightLossStartDate: herbalWeightLossStartDate,
+              herbalWeightLossEndDate: herbalWeightLossEndDate,
+              herbalWeightLossWeightLoss: herbalWeightLossWeightLoss,
+              herbalWeightLossReasonForStopping:
+                herbalWeightLossReasonForStopping,
+              herbalWeightLossReasonForRegain: herbalWeightLossReasonForRegain,
+              meridia: meridia,
+              meridiaStartDate: meridiaStartDate,
+              meridiaEndDate: meridiaEndDate,
+              meridiaWeightLoss: meridiaWeightLoss,
+              meridiaReasonForStopping: meridiaReasonForStopping,
+              meridiaReasonForRegain: meridiaReasonForRegain,
+              phenfen: phenfen,
+              phenfenStartDate: phenfenStartDate,
+              phenfenEndDate: phenfenEndDate,
+              phenfenWeightLoss: phenfenWeightLoss,
+              phenfenReasonForStopping: phenfenReasonForStopping,
+              phenfenReasonForRegain: phenfenReasonForRegain,
+              qsymia: qsymia,
+              qsymiaStartDate: qsymiaStartDate,
+              qsymiaEndDate: qsymiaEndDate,
+              qsymiaWeightLoss: qsymiaWeightLoss,
+              qsymiaReasonForStopping: qsymiaReasonForStopping,
+              qsymiaReasonForRegain: qsymiaReasonForRegain,
+              redux: redux,
+              reduxStartDate: reduxStartDate,
+              reduxEndDate: reduxEndDate,
+              reduxWeightLoss: reduxWeightLoss,
+              reduxReasonForStopping: reduxReasonForStopping,
+              reduxReasonForRegain: reduxReasonForRegain,
+              otherSupplements: otherSupplements,
+              otherSupplementsName: otherSupplementsName,
+              otherSupplementsStartDate: otherSupplementsStartDate,
+              otherSupplementsEndDate: otherSupplementsEndDate,
+              otherSupplementsWeightLoss: otherSupplementsWeightLoss,
+              otherSupplementsReasonForStopping:
+                otherSupplementsReasonForStopping,
+              otherSupplementsReasonForRegain: otherSupplementsReasonForRegain,
+              childrenUnderEighteen: childrenUnderEighteen,
+              childrenUnderEighteenCheckBox: childrenUnderEighteenCheckBox,
+              familyMemebersObese: familyMemebersObese,
+              support: support,
+              supportExplaination: supportExplaination,
+              eatingDisorder: eatingDisorder,
+              anorexiaNervosa: anorexiaNervosa,
+              bingeEating: bingeEating,
+              bulimia: bulimia,
+              eatingTooMuch: eatingTooMuch,
+              sleepHours: sleepHours,
+              restedWhenWakeUp: restedWhenWakeUp,
+              doYouSnore: doYouSnore,
+              wearEquipment: wearEquipment,
+              howManyNights: howManyNights,
+              sleepWellness: sleepWellness,
+              sittingAndReading: sittingAndReading,
+              watchingTv: watchingTv,
+              sittingInPublic: sittingInPublic,
+              carPassanger: carPassanger,
+              lyingDown: lyingDown,
+              talkingToSomeone: talkingToSomeone,
+              sittingQuietlyAfterLunch: sittingQuietlyAfterLunch,
+              inCarWhileStopped: inCarWhileStopped,
+              total: total,
+              typicalDay: typicalDay,
+              enjoyExercise: enjoyExercise,
+              gymMembership: gymMembership,
+              exerciseEquipment: exerciseEquipment,
+              exerciseRegularly: exerciseRegularly,
+              badExerciseExperience: badExerciseExperience,
+              sixAm: sixAm,
+              nineAm: nineAm,
+              twelvePm: twelvePm,
+              threePm: threePm,
+              sixPm: sixPm,
+              ninePm: ninePm,
+              exerciseWeekly: exerciseWeekly,
+              describeExercise: describeExercise,
+              difficultyGettingUpFromFloor: difficultyGettingUpFromFloor,
+              typeOfExercise: typeOfExercise,
+              exercisePreference: exercisePreference,
+              athleteInSchool: athleteInSchool,
+              confidentIncrease: confidentIncrease,
+              majorBenefitsOfExercise: majorBenefitsOfExercise,
+              exerciseBarriers: exerciseBarriers,
+              minutesPerDay: minutesPerDay,
+              daysPerWeek: daysPerWeek,
+              confidenceWeightLossDiet: confidenceWeightLossDiet,
+              majorBarriersDiet: majorBarriersDiet,
+              favoriteFoods: favoriteFoods,
+              breakfastTypeOfFood: breakfastTypeOfFood,
+              breakfastProteinOrCarbs: breakfastProteinOrCarbs,
+              breakfastCalories: breakfastCalories,
+              lunchTypeOfFood: lunchTypeOfFood,
+              lunchProteinOrCarbs: lunchProteinOrCarbs,
+              lunchCalories: lunchCalories,
+              dinnerTypeOfFood: dinnerTypeOfFood,
+              dinnerProteinOrCarbs: dinnerProteinOrCarbs,
+              dinnerCalories: dinnerCalories,
+              snackOneTypeOfFood: snackOneTypeOfFood,
+              snackOneProteinOrCarbs: snackOneProteinOrCarbs,
+              snackOneCalories: snackOneCalories,
+              snackTwoTypeOfFood: snackTwoTypeOfFood,
+              snackTwoProteinOrCarbs: snackTwoProteinOrCarbs,
+              snackTwoCalories: snackTwoCalories,
+              coffeeTypeOfFood: coffeeTypeOfFood,
+              coffeeProteinOrCarbs: coffeeProteinOrCarbs,
+              coffeeCalories: coffeeCalories,
+              sodaTypeOfFood: sodaTypeOfFood,
+              sodaProteinOrCarbs: sodaProteinOrCarbs,
+              sodaCalories: sodaCalories,
+              candyOrSweetsTypeOfFood: candyOrSweetsTypeOfFood,
+              candyOrSweetsProteinOrCarbs: candyOrSweetsProteinOrCarbs,
+              candyOrSweetsCalories: candyOrSweetsCalories,
+              otherTypeOfFood: otherTypeOfFood,
+              otherProteinOrCarbs: otherProteinOrCarbs,
+              otherCalories: otherCalories,
+              numPeopleLiveWith: numPeopleLiveWith,
+              eatTogether: eatTogether,
+              whoDoesShopping: whoDoesShopping,
+              whoDoesCooking: whoDoesCooking,
+              foodIntolerance: foodIntolerance,
+              foodIntoleranceList: foodIntoleranceList,
+              stressEating: stressEating,
+              stressEatingList: stressEatingList,
+              bingeEatingExperience: bingeEatingExperience,
+              bingeEatingList: bingeEatingList,
+              snackingExperience: snackingExperience,
+              snackingList: snackingList,
+              eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
+              eatingMiddleOfNightList: eatingMiddleOfNightList,
+              skippingMealsExperience: skippingMealsExperience,
+              skippingMealsList: skippingMealsList,
+              eatingOutExperience: eatingOutExperience,
+              eatingOutList: eatingOutList,
+              eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
+              eatingInFrontOfTVList: eatingInFrontOfTVList,
+              eatingAtDeskExperience: eatingAtDeskExperience,
+              eatingAtDeskList: eatingAtDeskList,
+              portionSizeExperience: portionSizeExperience,
+              portionSizeList: portionSizeList,
+              eatingTooFastExperience: eatingTooFastExperience,
+              eatingTooFastList: eatingTooFastList,
+              notSatifiedExperience: notSatifiedExperience,
+              notSatifiedList: notSatifiedList,
+              regularSoda: regularSoda,
+              regularSodaList: regularSodaList,
+              juice: juice,
+              juiceList: juiceList,
+              sweetTea: sweetTea,
+              sweetTeaList: sweetTeaList,
+              alchoholBeverages: alchoholBeverages,
+              alchoholBeveragesList: alchoholBeveragesList,
+              friedFoods: friedFoods,
+              friedFoodsList: friedFoodsList,
+              fruitServings: fruitServings,
+              vegetableServings: vegetableServings,
+              wholeGrainServings: wholeGrainServings,
+              lowFatDairyServings: lowFatDairyServings,
+              leanProteinServings: leanProteinServings,
+              daysPerWeekExplination: daysPerWeekExplination,
+              medicalHistory: medicalHistory,
+              medicationsTaken: medicationsTaken,
+              medicationsTakenList: medicationsTakenList,
+            })
           }}
         />
       </div>
