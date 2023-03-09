@@ -1007,6 +1007,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 areYouAllergicToLatex: areYouAllergicToLatex,
                 areYouAllergicToSelfish: areYouAllergicToSelfish,
                 areYouAllergicToIodine: areYouAllergicToIodine,
+                doYouHaveAnyDrugAllergies: doYouHaveAnyDrugAllergies,
                 PatientDrugAllergies: PatientDrugAllergies,
                 dateOfLastPAP: dateOfLastPAP,
                 wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
@@ -1014,7 +1015,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
                 dateOfLastPSA: dateOfLastPSA,
                 wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+                doYouHaveAHistoryOfAnyMajorIllness:
+                  doYouHaveAHistoryOfAnyMajorIllness,
                 allMajorIllnesses: allMajorIllnesses,
+                doYouHaveAHistoryOfSurgeries: doYouHaveAHistoryOfSurgeries,
                 allMajorSurgeriesAndHospitalizations:
                   allMajorSurgeriesAndHospitalizations,
                 boneDensityScreening: boneDensityScreening,
@@ -1648,7 +1652,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           id="doYouHaveAnySurgeries"
           marginLeft="ml-[30%]"
           text="Do you have a history of any major surgeries or hospitalizations?"
-          // isChecked={doYouHaveAHistoryOfSurgeries}
+          isChecked={doYouHaveAHistoryOfSurgeries}
           CheckState={setDoYouHaveAHistoryOfSurgeries}
           required={requiredDoYouHaveAHistoryOfSurgeries}
         />
@@ -2017,6 +2021,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   areYouAllergicToLatex: areYouAllergicToLatex,
                   areYouAllergicToSelfish: areYouAllergicToSelfish,
                   areYouAllergicToIodine: areYouAllergicToIodine,
+                  doYouHaveAnyDrugAllergies: doYouHaveAnyDrugAllergies,
                   PatientDrugAllergies: PatientDrugAllergies,
                   dateOfLastPAP: dateOfLastPAP,
                   wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
@@ -2024,7 +2029,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
                   dateOfLastPSA: dateOfLastPSA,
                   wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+                  doYouHaveAHistoryOfAnyMajorIllness:
+                    doYouHaveAHistoryOfAnyMajorIllness,
                   allMajorIllnesses: allMajorIllnesses,
+                  doYouHaveAHistoryOfSurgeries: doYouHaveAHistoryOfSurgeries,
                   allMajorSurgeriesAndHospitalizations:
                     allMajorSurgeriesAndHospitalizations,
                   boneDensityScreening: boneDensityScreening,
@@ -2542,6 +2550,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     areYouAllergicToLatex: areYouAllergicToLatex,
                     areYouAllergicToSelfish: areYouAllergicToSelfish,
                     areYouAllergicToIodine: areYouAllergicToIodine,
+                    doYouHaveAnyDrugAllergies: doYouHaveAnyDrugAllergies,
                     PatientDrugAllergies: PatientDrugAllergies,
                     dateOfLastPAP: dateOfLastPAP,
                     wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
@@ -2549,9 +2558,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
                     dateOfLastPSA: dateOfLastPSA,
                     wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+                    doYouHaveAHistoryOfAnyMajorIllness:
+                      doYouHaveAHistoryOfAnyMajorIllness,
                     allMajorIllnesses: allMajorIllnesses,
                     allMajorSurgeriesAndHospitalizations:
                       allMajorSurgeriesAndHospitalizations,
+                    doYouHaveAHistoryOfSurgeries: doYouHaveAHistoryOfSurgeries,
                     boneDensityScreening: boneDensityScreening,
                     BoneDensityScreeningDate: BoneDensityScreeningDate,
                     wasBoneDensityScreeningNormalOrAbnormal:
@@ -2761,7 +2773,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         )}
         {loading && (
           <div className="flex flex-col items-center justify-center">
-            <p className="text-xl font-bold text-red-500 ">
+            <p className="text-center font-bold  text-red-500 md:text-xl ">
               If your packet is taking longer then expected then click to resume
               your progress from last auto save.
             </p>

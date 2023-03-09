@@ -45,6 +45,7 @@ const Signature: React.FC<{
         onChange={(e: any) => signatureState(e.target.value)}
         widthPercentage="w-full"
         required={requiredSignature}
+        
       />
       <DateInput
         placeHolder="Date Signed (MM/DD/YYYY)"

@@ -50,68 +50,68 @@ const TakeAPictureCustom: React.FC<{
       if (e.target.files[0]) {
         const file = e.target.files[0]
         //reduce the size of the image to 1048487 bites
-        if (file.size > 1048487) {
-          //reduce the size of the image to 1048487 bites
+        // if (file.size > 1048487) {
+        //reduce the size of the image to 1048487 bites
 
-          const MAX_WIDTH = 820
-          const MAX_HEIGHT = 680
-          const MIME_TYPE = 'image/jpeg'
-          const QUALITY = 0.7
-          const img = new Image()
-          img.src = window.URL.createObjectURL(file)
-          img.onload = () => {
-            const [width, height] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT)
-            const elem = document.createElement('canvas')
-            elem.width = width
-            elem.height = height
-            const ctx = elem.getContext('2d')
-            if (ctx) {
-              // reduce image quality to 0.7
+        const MAX_WIDTH = 820
+        const MAX_HEIGHT = 680
+        const MIME_TYPE = 'image/jpeg'
+        const QUALITY = 0.9
+        const img = new Image()
+        img.src = window.URL.createObjectURL(file)
+        img.onload = () => {
+          const [width, height] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT)
+          const elem = document.createElement('canvas')
+          elem.width = width
+          elem.height = height
+          const ctx = elem.getContext('2d')
+          if (ctx) {
+            // reduce image quality to 0.7
 
-              ctx.drawImage(img, 0, 0, width, height)
-              ctx.canvas.toBlob(
-                (blob: any) => {
-                  const newFile = new File([blob], 'image.jpg', {
-                    type: MIME_TYPE,
-                    lastModified: Date.now(),
-                  })
-                  //determine the size extension of the image
-                  const size = newFile.size
-                  const sizeInKb = size / 1024
-                  const sizeInMb = sizeInKb / 1024
+            ctx.drawImage(img, 0, 0, width, height)
+            ctx.canvas.toBlob(
+              (blob: any) => {
+                const newFile = new File([blob], 'image.jpg', {
+                  type: MIME_TYPE,
+                  lastModified: Date.now(),
+                })
+                //determine the size extension of the image
+                const size = newFile.size
+                const sizeInKb = size / 1024
+                const sizeInMb = sizeInKb / 1024
 
-                  const sizeOrdinal = file.size
-                  const sizeInKbOrdinal = sizeOrdinal / 1024
-                  const sizeInMbOrdinal = sizeInKbOrdinal / 1024
-                  reader.readAsDataURL(newFile)
-                  reader.onloadend = () => {
-                    setPicture(reader.result)
-                    setPictureUpload(true)
+                const sizeOrdinal = file.size
+                const sizeInKbOrdinal = sizeOrdinal / 1024
+                const sizeInMbOrdinal = sizeInKbOrdinal / 1024
+                reader.readAsDataURL(newFile)
+                reader.onloadend = () => {
+                  setPicture(reader.result)
+                  setPictureUpload(true)
 
-                    if (sizeInMb < 1) {
-                      setDisplayInfoAfter(`image size: ${sizeInKb} kb`)
-                    } else {
-                      setDisplayInfoAfter(`image size: ${sizeInMb} mb`)
-                    }
-                    if (sizeInMbOrdinal < 1) {
-                      setDisplayInfoBefore(`image size: ${sizeInKbOrdinal} kb`)
-                    } else {
-                      setDisplayInfoBefore(`image size: ${sizeInMbOrdinal} mb`)
-                    }
+                  if (sizeInMb < 1) {
+                    setDisplayInfoAfter(`image size: ${sizeInKb} kb`)
+                  } else {
+                    setDisplayInfoAfter(`image size: ${sizeInMb} mb`)
                   }
-                },
-                MIME_TYPE,
-                QUALITY
-              )
-            }
-          }
-        } else {
-          reader.readAsDataURL(file)
-          reader.onloadend = () => {
-            setPicture(reader.result)
-            setPictureUpload(true)
+                  if (sizeInMbOrdinal < 1) {
+                    setDisplayInfoBefore(`image size: ${sizeInKbOrdinal} kb`)
+                  } else {
+                    setDisplayInfoBefore(`image size: ${sizeInMbOrdinal} mb`)
+                  }
+                }
+              },
+              MIME_TYPE,
+              QUALITY
+            )
           }
         }
+        // } else {
+        //   reader.readAsDataURL(file)
+        //   reader.onloadend = () => {
+        //     setPicture(reader.result)
+        //     setPictureUpload(true)
+        //   }
+        // }
       }
     } catch (error) {
       console.log(error)
