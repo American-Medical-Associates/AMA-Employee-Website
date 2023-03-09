@@ -6,12 +6,17 @@ import MainButton from '../components/MainButton'
 import {
   GetPatientAutoSaveInfo,
   GetPatientInfo,
+  GetWeightLossSurveyPatient,
   SubmittedPacket,
 } from '../firebase'
 import { auth } from '../firebase'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import NewPatientPacketFullSubmission from '../components/formComponents/NewPatientPacketFullSubmission'
 import { PacketInfo } from '../types/NewPatientPacketTypes'
+import {
+  selectWeightLossSurvey,
+  setWeightLossSurvey,
+} from '../redux/slices/companySlice'
 
 const PatientPage: NextPage = () => {
   const router = useRouter()
@@ -22,6 +27,15 @@ const PatientPage: NextPage = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false)
   const [noFoundPacket, setNoFoundPacket] = useState(false)
   // const [collapsedArray, setCollapsedArray] = useState()
+  const [weightLossSurveyPatient, setWeightLossSurveyPatient] = useState(
+    [] as any
+  )
+  // const [weightLossAutoSaveSubmission, setWeightLossAutoSaveSubmission] =
+  //   useState<any>([])
+  const [hasSubmittedWeightLoss, setHasSubmittedWeightLoss] = useState(false)
+  const [noFoundWeightLoss, setNoFoundWeightLoss] = useState(false)
+  const weightLossAutoSaveSubmission = useSelector(selectWeightLossSurvey)
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,6 +71,32 @@ const PatientPage: NextPage = () => {
     }
   }, [submittedPacket, patientAutoSaveInfo])
 
+  useEffect(() => {
+    if (auth.currentUser?.email) {
+      GetWeightLossSurveyPatient({
+        email: auth.currentUser?.email,
+        setWeightLossSurveyPatient: setWeightLossSurvey,
+        dispatch: dispatch,
+      })
+      // .then(() => {
+      //   if (weightLossAutoSaveSubmission.emailValue) {
+      //     setHasSubmittedWeightLoss(true)
+      //     setNoFoundWeightLoss(false)
+      //   }
+      // })
+      // .then(() => {
+      //   if (weightLossAutoSaveSubmission.length === 0) {
+      //     GetWeightLossSurveyPatient({
+      //       email: auth.currentUser?.email,
+      //       setWeightLossSurveyPatient: setWeightLossSurveyPatient,
+      //       dispatch: dispatch,
+      //     })
+      //   }
+      // })
+    }
+  }, [auth.currentUser?.email])
+  console.log('weightLossAutoSaveSubmission', weightLossAutoSaveSubmission)
+
   interface Info {
     email: string
   }
@@ -75,10 +115,6 @@ const PatientPage: NextPage = () => {
       })
     }
   }, [auth.currentUser?.email])
-  console.log('submittedPacket', submittedPacket)
-  console.log('hasSubmitted', hasSubmitted)
-  console.log('noFoundPacket', noFoundPacket)
-  console.log('patientAutoSaveInfo', patientAutoSaveInfo)
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
@@ -125,6 +161,13 @@ const PatientPage: NextPage = () => {
           {hasSubmitted && (
             <NewPatientPacketFullSubmission selectedPacket={submittedPacket} />
           )}
+
+          <MainButton
+            buttonText="Weight Loss Survey"
+            onClick={() => {
+              router.push('/WeightLossSurvey')
+            }}
+          />
         </div>
       </div>
     </div>
