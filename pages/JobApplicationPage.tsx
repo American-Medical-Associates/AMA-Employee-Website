@@ -526,12 +526,6 @@ const JobApplicationPage: NextPage<{}> = () => {
     }
   }
 
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/PatientLogin')
-    }
-  }, [])
-
   return (
     <div className=" flex  w-full flex-1 flex-col">
       <Header selectCompany={'AMA'} routePatientsHome={false} />
@@ -1073,7 +1067,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                   onChange={(value: any) => {
                     setDisabilityStatus(value.target.value)
 
-                    
+
                   }}
                   options={[
                     <option disabled={true} value="Please Select One">
@@ -1097,7 +1091,7 @@ const JobApplicationPage: NextPage<{}> = () => {
                 onChange={(value: any) => {
                   setRace(value.target.value)
 
-                  
+
                 }}
                 options={[
                   <option disabled={true} value="Please Select One">
