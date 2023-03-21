@@ -594,18 +594,18 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setSecondarySubscribersName(
         newPatientPackSelector.secondarySubscribersName
       )
-      setPrimaryPictureOfInsuranceCardFront(
-        newPatientPackSelector.primaryPictureOfInsuranceCardFront
-      )
-      setPrimaryPictureOfInsuranceCardBack(
-        newPatientPackSelector.primaryPictureOfInsuranceCardBack
-      )
-      setSecondaryPictureOfInsuranceCardFront(
-        newPatientPackSelector.secondaryPictureOfInsuranceCardFront
-      )
-      setSecondaryPictureOfInsuranceCardBack(
-        newPatientPackSelector.secondaryPictureOfInsuranceCardBack
-      )
+      // setPrimaryPictureOfInsuranceCardFront(
+      //   newPatientPackSelector.primaryPictureOfInsuranceCardFront
+      // )
+      // setPrimaryPictureOfInsuranceCardBack(
+      //   newPatientPackSelector.primaryPictureOfInsuranceCardBack
+      // )
+      // setSecondaryPictureOfInsuranceCardFront(
+      //   newPatientPackSelector.secondaryPictureOfInsuranceCardFront
+      // )
+      // setSecondaryPictureOfInsuranceCardBack(
+      //   newPatientPackSelector.secondaryPictureOfInsuranceCardBack
+      // )
       setRetailPharmacyName(newPatientPackSelector.retailPharmacyName)
       setRetailPharmacyCrossStreet1(
         newPatientPackSelector.retailPharmacyCrossStreet1
@@ -984,14 +984,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 secondaryInsuranceState: secondaryInsuranceState,
                 secondaryInsuranceZip: secondaryInsuranceZip,
                 secondarySubscribersName: secondarySubscribersName,
-                primaryPictureOfInsuranceCardFront:
-                  primaryPictureOfInsuranceCardFront,
-                primaryPictureOfInsuranceCardBack:
-                  primaryPictureOfInsuranceCardBack,
-                secondaryPictureOfInsuranceCardFront:
-                  secondaryPictureOfInsuranceCardFront,
-                secondaryPictureOfInsuranceCardBack:
-                  secondaryPictureOfInsuranceCardBack,
                 retailPharmacyName: retailPharmacyName,
                 retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                 retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -1998,14 +1990,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   secondaryInsuranceState: secondaryInsuranceState,
                   secondaryInsuranceZip: secondaryInsuranceZip,
                   secondarySubscribersName: secondarySubscribersName,
-                  primaryPictureOfInsuranceCardFront:
-                    primaryPictureOfInsuranceCardFront,
-                  primaryPictureOfInsuranceCardBack:
-                    primaryPictureOfInsuranceCardBack,
-                  secondaryPictureOfInsuranceCardFront:
-                    secondaryPictureOfInsuranceCardFront,
-                  secondaryPictureOfInsuranceCardBack:
-                    secondaryPictureOfInsuranceCardBack,
+
                   retailPharmacyName: retailPharmacyName,
                   retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                   retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -2527,14 +2512,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     secondaryInsuranceState: secondaryInsuranceState,
                     secondaryInsuranceZip: secondaryInsuranceZip,
                     secondarySubscribersName: secondarySubscribersName,
-                    primaryPictureOfInsuranceCardFront:
-                      primaryPictureOfInsuranceCardFront,
-                    primaryPictureOfInsuranceCardBack:
-                      primaryPictureOfInsuranceCardBack,
-                    secondaryPictureOfInsuranceCardFront:
-                      secondaryPictureOfInsuranceCardFront,
-                    secondaryPictureOfInsuranceCardBack:
-                      secondaryPictureOfInsuranceCardBack,
+
                     retailPharmacyName: retailPharmacyName,
                     retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                     retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
