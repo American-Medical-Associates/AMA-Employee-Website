@@ -15,6 +15,7 @@ const Signature: React.FC<{
   requiredCheckBox?: boolean
   requiredSignature?: boolean
   requiredDate?: boolean
+  signatureOnClick?: Function
 }> = ({
   WhatTheyAreSigningFor,
   signatureValue,
@@ -27,6 +28,7 @@ const Signature: React.FC<{
   requiredCheckBox,
   requiredSignature,
   requiredDate,
+  signatureOnClick,
 }) => {
   return (
     <div id={id} className="flex  flex-col items-center justify-center">
@@ -41,11 +43,11 @@ const Signature: React.FC<{
       />
       <TextInput
         placeHolder="Signature"
+        onClick={signatureOnClick}
         value={signatureValue}
         onChange={(e: any) => signatureState(e.target.value)}
         widthPercentage="w-full"
         required={requiredSignature}
-        
       />
       <DateInput
         placeHolder="Date Signed (MM/DD/YYYY)"

@@ -3,9 +3,12 @@ import React from 'react'
 function AutoSaveLine({ success }: { success: any }) {
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center text-center text-xl font-bold text-green-500 ">
-        <p>Saved up to this point.</p>
+      <div className="flex flex-col items-center justify-center text-center">
+        <p className="text-xl font-bold text-green-500 ">
+          Saved up to this point.
+        </p>
         <div className="h-1 w-[80%] rounded-3xl bg-green-500"></div>
+        <p className=" italic text-[#a8a8a8]">Pictures Do Not Auto Save</p>
       </div>
     )
   } else if (success === false) {
