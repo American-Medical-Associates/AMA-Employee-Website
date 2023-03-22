@@ -1008,6 +1008,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         areYouAllergicToLatex: areYouAllergicToLatex,
         areYouAllergicToSelfish: areYouAllergicToSelfish,
         areYouAllergicToIodine: areYouAllergicToIodine,
+        doYouHaveAnyDrugAllergies: doYouHaveAnyDrugAllergies,
         PatientDrugAllergies: PatientDrugAllergies,
         dateOfLastPAP: dateOfLastPAP,
         wasPapNormalOrAbnormal: wasPapNormalOrAbnormal,
@@ -1015,7 +1016,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         wasMammogramNormalOrAbnormal: wasMammogramNormalOrAbnormal,
         dateOfLastPSA: dateOfLastPSA,
         wasPSANormalOrAbnormal: wasPSANormalOrAbnormal,
+        doYouHaveAHistoryOfAnyMajorIllness: doYouHaveAHistoryOfAnyMajorIllness,
         allMajorIllnesses: allMajorIllnesses,
+        doYouHaveAHistoryOfSurgeries: doYouHaveAHistoryOfSurgeries,
         allMajorSurgeriesAndHospitalizations:
           allMajorSurgeriesAndHospitalizations,
         boneDensityScreening: boneDensityScreening,
@@ -1068,6 +1071,8 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         familyMedicalTuberculosis: familyMedicalTuberculosis,
         isYourMotherStillLiving: isYourMotherStillLiving,
         isYourFatherStillLiving: isYourFatherStillLiving,
+        areYouCurrentlyTakingAnyMedications:
+          areYouCurrentlyTakingAnyMedications,
         listOfAllCurrentMedications: listOfAllCurrentMedications,
         patientMedicalReviewSignature: patientMedicalReviewSignature,
         patientMedicalReviewSignatureDate: patientMedicalReviewSignatureDate,
@@ -1818,7 +1823,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
             doYouHaveAnyDrugAllergies === 'Yes' && (
               <UserCreatedListFromInputBox
-                id="drugAllergies"
+                id="doYouHaveDrugAllergies"
                 title="Please type each individual drug you are allergic to and press add item to add it to the list."
                 list={PatientDrugAllergies}
                 inputBoxPlaceHolder="Drug Allergies"
@@ -2228,7 +2233,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   separated: separated,
                   withPartner: withPartner,
                   MayWeTakeYourPicture: MayWeTakeYourPicture,
-                  pictureOfTheirFace: pictureOfTheirFace,
+
                   Ethnicity: Ethnicity,
                   nameOfEmergencyContact: nameOfEmergencyContact,
                   EmergencyContactRelationShip: EmergencyContactRelationShip,
@@ -2245,6 +2250,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   primaryInsuranceState: primaryInsuranceState,
                   primaryInsuranceZip: primaryInsuranceZip,
                   primarySubscribersName: primarySubscribersName,
+                  primarySubscribersDOB: primarySubscribersDOB,
                   secondaryInsurance: secondaryInsurance,
                   secondaryInsuranceID: secondaryInsuranceID,
                   secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -2255,7 +2261,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   secondaryInsuranceState: secondaryInsuranceState,
                   secondaryInsuranceZip: secondaryInsuranceZip,
                   secondarySubscribersName: secondarySubscribersName,
-
+                  secondarySubscribersDOB: secondarySubscribersDOB,
                   retailPharmacyName: retailPharmacyName,
                   retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                   retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -2788,7 +2794,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   separated: separated,
                   withPartner: withPartner,
                   MayWeTakeYourPicture: MayWeTakeYourPicture,
-                  pictureOfTheirFace: pictureOfTheirFace,
                   Ethnicity: Ethnicity,
                   nameOfEmergencyContact: nameOfEmergencyContact,
                   EmergencyContactRelationShip: EmergencyContactRelationShip,
@@ -2805,6 +2810,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   primaryInsuranceState: primaryInsuranceState,
                   primaryInsuranceZip: primaryInsuranceZip,
                   primarySubscribersName: primarySubscribersName,
+                  primarySubscribersDOB: primarySubscribersDOB,
                   secondaryInsurance: secondaryInsurance,
                   secondaryInsuranceID: secondaryInsuranceID,
                   secondaryInsuranceGroup: secondaryInsuranceGroup,
@@ -2815,7 +2821,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   secondaryInsuranceState: secondaryInsuranceState,
                   secondaryInsuranceZip: secondaryInsuranceZip,
                   secondarySubscribersName: secondarySubscribersName,
-
+                  secondarySubscribersDOB: secondarySubscribersDOB,
                   retailPharmacyName: retailPharmacyName,
                   retailPharmacyCrossStreet1: retailPharmacyCrossStreet1,
                   retailPharmacyCrossStreet2: retailPharmacyCrossStreet2,
@@ -3462,11 +3468,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               ) {
                 setRequiredDrugAllergies(true)
                 //alert('Please enter your drug allergies')
-                router.push('/NewPatientPacket/#drugAllergies').then(() => {
-                  setTimeout(() => {
-                    window.scrollBy(0, -150)
-                  }, 100)
-                })
+                router
+                  .push('/NewPatientPacket/#doYouHaveDrugAllergies')
+                  .then(() => {
+                    setTimeout(() => {
+                      window.scrollBy(0, -150)
+                    }, 100)
+                  })
                 setLoading(false)
                 return
               } else if (doYouHaveAHistoryOfAnyMajorIllness === '') {

@@ -162,12 +162,12 @@ const PatientPage: NextPage = () => {
             <NewPatientPacketFullSubmission selectedPacket={submittedPacket} />
           )}
 
-          <MainButton
+          {/* <MainButton
             buttonText="Weight Loss Survey"
             onClick={() => {
               router.push('/WeightLossSurvey')
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>
