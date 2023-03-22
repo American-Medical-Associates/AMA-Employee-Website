@@ -9,6 +9,7 @@ export default function TextInput({
   ref,
   id,
   missing,
+  onClick,
   required,
 }: {
   placeHolder: string
@@ -19,6 +20,7 @@ export default function TextInput({
   ref?: any
   id?: string
   missing?: boolean
+  onClick?: any
   required?: boolean
   //   text: string
 }) {
@@ -33,6 +35,7 @@ export default function TextInput({
   return (
     <div id={id} className=" my-5 flex w-full items-center justify-center ">
       <input
+        onClick={onClick}
         ref={ref}
         value={value}
         type={type}
