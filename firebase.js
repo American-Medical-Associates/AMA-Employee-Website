@@ -2398,6 +2398,7 @@ export async function NewPatientPacketAutoSave({
   familyMedicalTuberculosis,
   isYourMotherStillLiving,
   isYourFatherStillLiving,
+  areYouCurrentlyTakingAnyMedications,
   listOfAllCurrentMedications,
   patientMedicalReviewSignature,
   PatientMedicalReviewSignatureCheckBox,
@@ -2549,6 +2550,8 @@ export async function NewPatientPacketAutoSave({
         familyMedicalTuberculosis: familyMedicalTuberculosis,
         isYourMotherStillLiving: isYourMotherStillLiving,
         isYourFatherStillLiving: isYourFatherStillLiving,
+        areYouCurrentlyTakingAnyMedications:
+          areYouCurrentlyTakingAnyMedications,
         listOfAllCurrentMedications: listOfAllCurrentMedications,
         patientMedicalReviewSignature: patientMedicalReviewSignature,
         patientMedicalReviewSignatureDate: patientMedicalReviewSignatureDate,
