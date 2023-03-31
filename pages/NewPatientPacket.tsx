@@ -615,7 +615,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setPrimaryInsuranceGroup(newPatientPackSelector.primaryInsuranceGroup)
       setPrimaryInsurancePhone(newPatientPackSelector.primaryInsurancePhone)
       setPrimarySubscribersName(newPatientPackSelector.primarySubscribersName)
-      setPrimarySubscribersDOB(newPatientPackSelector.primarySubscribersDOB)
+      if (newPatientPackSelector.primarySubscribersDOB !== undefined) {
+        setPrimarySubscribersDOB(newPatientPackSelector.primarySubscribersDOB)
+      }
       setSecondaryInsurance(newPatientPackSelector.secondaryInsurance)
       setSecondaryInsuranceID(newPatientPackSelector.secondaryInsuranceID)
       setSecondaryInsuranceGroup(newPatientPackSelector.secondaryInsuranceGroup)
@@ -623,7 +625,11 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setSecondarySubscribersName(
         newPatientPackSelector.secondarySubscribersName
       )
-      setSecondarySubscribersDOB(newPatientPackSelector.secondarySubscribersDOB)
+      if (newPatientPackSelector.secondarySubscribersDOB !== undefined) {
+        setSecondarySubscribersDOB(
+          newPatientPackSelector.secondarySubscribersDOB
+        )
+      }
 
       setRetailPharmacyName(newPatientPackSelector.retailPharmacyName)
       setRetailPharmacyCrossStreet1(
@@ -652,9 +658,11 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setAreYouAllergicToLatex(newPatientPackSelector.areYouAllergicToLatex)
       setAreYouAllergicToSelfish(newPatientPackSelector.areYouAllergicToSelfish)
       setAreYouAllergicToIodine(newPatientPackSelector.areYouAllergicToIodine)
-      setDoYouHaveAnyDrugAllergies(
-        newPatientPackSelector.doYouHaveAnyDrugAllergies
-      )
+      if (newPatientPackSelector.doYouHaveAnyDrugAllergies !== undefined) {
+        setDoYouHaveAnyDrugAllergies(
+          newPatientPackSelector.doYouHaveAnyDrugAllergies
+        )
+      }
       if (
         newPatientPackSelector.PatientDrugAllergies &&
         newPatientPackSelector.PatientDrugAllergies.length > 0
@@ -669,9 +677,13 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       )
       setDateOfLastPSA(newPatientPackSelector.dateOfLastPSA)
       setWasPSANormalOrAbnormal(newPatientPackSelector.wasPSANormalOrAbnormal)
-      setDoYouHaveAHistoryOfAnyMajorIllness(
-        newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness
-      )
+      if (
+        newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness !== undefined
+      ) {
+        setDoYouHaveAHistoryOfAnyMajorIllness(
+          newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness
+        )
+      }
       if (
         newPatientPackSelector.allMajorIllnesses &&
         newPatientPackSelector.allMajorIllnesses.length > 0
@@ -682,9 +694,11 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           }
         })
       }
-      setDoYouHaveAHistoryOfSurgeries(
-        newPatientPackSelector.doYouHaveAHistoryOfSurgeries
-      )
+      if (newPatientPackSelector.doYouHaveAHistoryOfSurgeries !== undefined) {
+        setDoYouHaveAHistoryOfSurgeries(
+          newPatientPackSelector.doYouHaveAHistoryOfSurgeries
+        )
+      }
       if (
         newPatientPackSelector.allMajorSurgeriesAndHospitalizations &&
         newPatientPackSelector.allMajorSurgeriesAndHospitalizations.length > 0
@@ -877,12 +891,11 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       }
       setIsYourMotherStillLiving(newPatientPackSelector.isYourMotherStillLiving)
       setIsYourFatherStillLiving(newPatientPackSelector.isYourFatherStillLiving)
-      setAreYouCurrentlyTakingAnyMedications(
-        areYouCurrentlyTakingAnyMedications
-      )
-      setAreYouCurrentlyTakingAnyMedications(
-        newPatientPackSelector.areYouCurrentlyTakingAnyMedications
-      )
+      if (newPatientPackSelector.areYouCurrentlyTakingAnyMedications) {
+        setAreYouCurrentlyTakingAnyMedications(
+          newPatientPackSelector.areYouCurrentlyTakingAnyMedications
+        )
+      }
       if (
         newPatientPackSelector.listOfAllCurrentMedications &&
         newPatientPackSelector.listOfAllCurrentMedications.length > 0
@@ -902,7 +915,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       }
     }
   }, [newPatientPackSelector])
-  console.log(allMajorSurgeriesAndHospitalizations)
+  // console.log(allMajorSurgeriesAndHospitalizations)
   //console.log(newPatientPackSelector.listOfAllCurrentMedications)
 
   useEffect(() => {
@@ -936,8 +949,9 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
 
   useEffect(() => {
     if (
-      autoSaveMentalHealth == false &&
-      isVisibleAutoSaveMentalHealth == true
+      autoSaveMentalHealth == false ||
+      (autoSaveMentalHealth == undefined &&
+        isVisibleAutoSaveMentalHealth == true)
     ) {
       NewPatientPacketAutoSave({
         setSuccess: setAutoSaveMentalHealth,
@@ -1084,8 +1098,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         financialPolicySignatureCheckBox: financialPolicySignatureCheckBox,
         financialPolicySignatureDate: financialPolicySignatureDate,
         company: company,
-      }).then(() => {
-        console.log('success')
       })
     }
   }, [isVisibleAutoSaveMentalHealth])
@@ -2201,6 +2213,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <AutoSaveLine success={autoSaveMentalHealth} />
         <div
           className="h-16 w-full"
+          ref={autoSaveDivRef}
           onMouseEnter={() => {
             const setAutoSave = async () => {
               setAutoSaveMentalHealth(false)
