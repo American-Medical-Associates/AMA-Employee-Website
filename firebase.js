@@ -626,12 +626,8 @@ export function patientSearchListAMA({ patientArray, company }) {
 
         querySnapshot.forEach((snap) => {
           quantitysnap.push(snap.data())
-
-          // key: snap.id;
         })
         patientArray(quantitysnap)
-
-        // console.log(' fireeee x  ' + quantitysnap)
       }
     )
   } catch (e) {
@@ -4029,4 +4025,17 @@ export async function SubmitWeightLossSurvey({
       medicationsTakenList: medicationsTakenList,
     })
   })
+}
+//update patient info if they are in weight loss program
+export async function UpdatePatientInfoWeightLoss({
+  weightLossProgram,
+  emailValue,
+}) {
+  await setDoc(
+    doc(db, 'companys', 'AMA', 'patients', emailValue),
+    {
+      isInWeightLossProgram: weightLossProgram,
+    },
+    { merge: true }
+  )
 }

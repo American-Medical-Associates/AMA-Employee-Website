@@ -676,14 +676,14 @@ function NewPatientPacketFullSubmission({
             ]}
           />
           <InformationSection
-            title="Hippa"
+            title="HIPAA"
             contentInSection={[
               {
-                fieldTitle: 'Hippa Signature:',
+                fieldTitle: 'HIPAA Signature:',
                 fieldValue: selectedPacket.hippa.hippaSignature,
               },
               {
-                fieldTitle: 'Hippa Signature Date:',
+                fieldTitle: 'HIPAA Signature Date:',
                 fieldValue: selectedPacket.hippa.signatureDate,
               },
               selectedPacket.hippa.signatureCheckBoxConsent && {

@@ -6,8 +6,10 @@ import TextInput from './TextInput'
 import PhoneNumberInput from './PhoneNumberInput'
 import MainButton from './MainButton'
 import { addNewPatient, patientSearchListAMA } from '../firebase'
-import { selectCompany } from '../redux/slices/companySlice'
-import { useSelector } from 'react-redux'
+import { selectCompany, setPatientDetails } from '../redux/slices/companySlice'
+import { useDispatch, useSelector } from 'react-redux'
+import CustomCheckBox from './formComponents/CustomCheckBox'
+import { useRouter } from 'next/router'
 
 const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [showAddNewUser, setShowAddNewUser] = useState(false)
@@ -22,13 +24,32 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [patientListArray, setPatientListArray] = useState<Array<any>>(Array)
   const [searched, setSearched] = useState<any>(null)
   const company = useSelector(selectCompany)
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    patientSearchListAMA({
-      patientArray: setPatientListArray,
-      company: company,
-    })
+    if (patientListArray.length < 1) {
+      patientSearchListAMA({
+        patientArray: setPatientListArray,
+        company: company,
+      })
+    }
   }, [])
+  console.log(patientListArray.length)
+  useEffect(() => {
+    if (patientListArray.length > 0) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+  }, [patientListArray])
+
+  useEffect(() => {
+    if (searchName == ' ' || searchDob == '') {
+      setSearched(null)
+    }
+  }, [searchName, searchDob])
 
   useEffect(() => {
     var searchedPatient: Array<any> = []
@@ -37,11 +58,13 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
         const fullName: string = JSON.stringify(item.fullName) as string
         const DOB: string = JSON.stringify(item.DOB) as string
         // if (applicationSearch.length > 1) {
-        if (
-          fullName.toLowerCase().includes(searchName.toLowerCase()) == true &&
-          DOB.includes(searchDob)
-        ) {
-          searchedPatient.push(item)
+        if (fullName && DOB) {
+          if (
+            fullName.toLowerCase().includes(searchName.toLowerCase()) == true &&
+            DOB.includes(searchDob)
+          ) {
+            searchedPatient.push(item)
+          }
         }
 
         // }
@@ -60,18 +83,22 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
         var day = item.DOB.slice(2, 4)
         var year = item.DOB.slice(4, 8)
 
+        var index = patientListArray.indexOf(item)
+
         return (
           <div
-            key={item.phoneNumber}
+            key={index}
             onClick={() => {
-              setSearched({ item })
+              router.push(`/PatientDetailsPage`)
+              dispatch(setPatientDetails(item))
+              setClose(false)
             }}
-            className=" m-4  flex cursor-pointer flex-row items-center justify-center overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-4   text-center shadow-xl duration-500 hover:scale-[110%]"
+            className=" m-4 flex h-[20px] cursor-pointer flex-row items-center justify-center overflow-clip overflow-x-hidden rounded-[30px] bg-[#ebebebc6]  p-8   text-center shadow-xl duration-500 hover:scale-[110%]"
           >
-            <h1 className="  mx-5  text-center text-lg text-[#707070]">
+            <h1 className="  mx-5 my-4 text-center text-lg text-[#707070]">
               {item.fullName}
             </h1>
-            <h1 className=" mx-5  text-center text-lg text-[#707070]">
+            <h1 className=" mx-5 my-4  text-center text-lg text-[#707070]">
               {month}/{day}/{year}
             </h1>
           </div>
@@ -88,7 +115,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const showAddPatientOrSearch = () => {
     if (showAddNewUser == false) {
       return (
-        <div className=" flex h-[85%] flex-col items-center justify-center">
+        <div className=" flex h-[85%] flex-col items-center ">
           <div className=" flex h-[20%] w-full flex-row items-start justify-center px-5 ">
             <div className=" mx-10">
               <TextInput
@@ -110,7 +137,12 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
               />
             </div>
           </div>
-          <div className=" 0 flex h-full w-[75%] flex-col overflow-auto p-5 ">
+          <div className="  flex h-[75%] w-[75%] flex-col overflow-y-auto p-5 ">
+            {loading && (
+              <div className="flex h-[10%] w-full items-center justify-center">
+                <h1 className="text-lg text-[#0b7ee9]">Loading...</h1>
+              </div>
+            )}
             {patientList()}
           </div>
         </div>

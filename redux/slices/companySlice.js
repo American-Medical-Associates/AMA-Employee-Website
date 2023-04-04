@@ -11,6 +11,7 @@ export const companySlice = createSlice({
     ChannelID: null,
     newPatientPacket: null,
     weightLossSurvey: null,
+    patientDetails: null,
   },
   reducers: {
     setCompany: (state, action) => {
@@ -37,6 +38,9 @@ export const companySlice = createSlice({
     setWeightLossSurvey: (state, action) => {
       state.weightLossSurvey = action.payload
     },
+    setPatientDetails: (state, action) => {
+      state.patientDetails = action.payload
+    },
   },
 })
 
@@ -49,6 +53,7 @@ export const {
   setChannelID,
   setNewPatientPacket,
   setWeightLossSurvey,
+  setPatientDetails,
 } = companySlice.actions
 export const selectCompany = (state) => state.global.company
 export const selectDate = (state) => state.global.date
@@ -59,4 +64,5 @@ export const selectSupportTicketNumber = (state) =>
 export const selectChannelID = (state) => state.global.ChannelID
 export const selectNewPatientPacket = (state) => state.global.newPatientPacket
 export const selectWeightLossSurvey = (state) => state.global.weightLossSurvey
+export const selectPatientDetails = (state) => state.global.patientDetails
 export default companySlice.reducer

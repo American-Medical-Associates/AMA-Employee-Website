@@ -2979,7 +2979,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           />
         </div>
         <SectionWithTitle
-          title="HIPPA Authorization for Release of Medical Information"
+          title="HIPAA Authorization for Release of Medical Information"
           subTitle="If You Need a copy of this form, please ask the office staff."
           children={[
             <HIPPAconsentForm

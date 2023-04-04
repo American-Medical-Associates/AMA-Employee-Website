@@ -99,6 +99,7 @@ const PatientPage: NextPage = () => {
 
   interface Info {
     email: string
+    isInWeightLossProgram: boolean
   }
 
   useEffect(() => {
@@ -161,13 +162,14 @@ const PatientPage: NextPage = () => {
           {hasSubmitted && (
             <NewPatientPacketFullSubmission selectedPacket={submittedPacket} />
           )}
-
-          {/* <MainButton
-            buttonText="Weight Loss Survey"
-            onClick={() => {
-              router.push('/WeightLossSurvey')
-            }}
-          /> */}
+          {patientInfo?.isInWeightLossProgram && (
+            <MainButton
+              buttonText="Weight Loss Survey"
+              onClick={() => {
+                router.push('/WeightLossSurvey')
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
