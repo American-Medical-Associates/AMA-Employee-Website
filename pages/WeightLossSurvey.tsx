@@ -11,6 +11,7 @@ import MainButton from '../components/MainButton'
 import {
   auth,
   GetWeightLossSurveyPatient,
+  SubmitWeightLossSurvey,
   WeightLossAutoSave,
   // SubmitWeightLossSurvey,
 } from '../firebase'
@@ -18,11 +19,13 @@ import { WeightLossSurveyTypes } from '../types/weightLossTypes'
 import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectWeightLossSurvey } from '../redux/slices/companySlice'
+import router from 'next/router'
 
 const WeightLossSurvey: NextPage<{}> = () => {
   const dispatch = useDispatch()
   const [patientsName, setPatientsName] = useState('')
   const [date, setDate] = useState('')
+  const [primaryDoctor, setPrimaryDoctor] = useState('')
   const [whyLossWeight, setWhyLossWeight] = useState('')
   const [weightGoals, setWeightGoals] = useState('')
   const [timeFrame, setTimeFrame] = useState('')
@@ -37,6 +40,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [hopesForWeightLossManagement, setHopesForWeightLossManagement] =
     useState('')
   const [commitmentsToWeightLoss, setCommitmentsToWeightLoss] = useState('')
+  const [currentDietAids, setCurrentDietAids] = useState('')
   const [onYourOwn, setOnYourOwn] = useState('')
   const [checkIfTried, setCheckIfTried] = useState('')
   const [onYourOwnStartDate, setOnYourOwnStartDate] = useState('')
@@ -322,12 +326,60 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [autoSaveEighteen, setAutoSaveEighteen] = useState<boolean>()
   const [autoSaveDaysPerWeek, setAutoSaveDaysPerWeek] = useState<boolean>()
 
+  const [requiredPatientsName, setRequiredPatientsName] = useState(false)
+  const [requiredDate, setRequiredDate] = useState(false)
+  const [requiredWhyLossWeight, setRequiredWhyLossWeight] = useState(false)
+  const [requiredWeightGoals, setRequiredWeightGoals] = useState(false)
+  const [requiredMostWeighedAsAdult, setRequiredMostWeighedAsAdult] =
+    useState(false)
+  const [requiredAgeAtAdultMostWeight, setRequiredAgeAtAdultMostWeight] =
+    useState(false)
+  const [requiredLeastWeighedAsAdult, setRequiredLeastWeighedAsAdult] =
+    useState(false)
+  const [requiredAgeAtAdultLeastWeight, setRequiredAgeAtAdultLeastWeight] =
+    useState(false)
+  const [requiredWeightChangeDuringLife, setRequiredWeightChangeDuringLife] =
+    useState(false)
+  const [requiredWeightGainedInPast, setRequiredWeightGainedInPast] =
+    useState(false)
+  const [
+    requiredHopesForWeightLossManagement,
+    setRequiredHopesForWeightLossManagement,
+  ] = useState(false)
+  const [requiredCurrentDietAids, setRequiredCurrentDietAids] = useState(false)
+  const [requiredChildrenUnderEighteen, setRequiredChildrenUnderEighteen] =
+    useState(false)
+  const [requiredEatingDisorder, setRequiredEatingDisorder] = useState(false)
+  const [requiredAnorexiaNervosa, setRequiredAnorexiaNervosa] = useState(false)
+  const [requiredBingeEating, setRequiredBingeEating] = useState(false)
+  const [requiredBulimia, setRequiredBulimia] = useState(false)
+  const [requiredEatingTooMuch, setRequiredEatingTooMuch] = useState(false)
+  const [requiredSleepHours, setRequiredSleepHours] = useState(false)
+  const [requiredRestedWhenWakeUp, setRequiredRestedWhenWakeUp] =
+    useState(false)
+  const [requiredDoYouSnore, setRequiredDoYouSnore] = useState(false)
+  const [requiredWearEquipment, setRequiredWearEquipment] = useState(false)
+  const [requiredSleepWellness, setRequiredSleepWellness] = useState(false)
+  const [requiredTypicalDay, setRequiredTypicalDay] = useState(false)
+  const [requiredExerciseBarriers, setRequiredExerciseBarriers] =
+    useState(false)
+  const [
+    requiredConfidenceWeightLossDiet,
+    setRequiredConfidenceWeightLossDiet,
+  ] = useState(false)
+  const [requiredMajorBarriersDiet, setRequiredMajorBarriersDiet] =
+    useState(false)
+  const [requiredDaysPerWeekExplination, setRequiredDaysPerWeekExplination] =
+    useState(false)
+  const [requiredMedicalHistory, setRequiredMedicalHistory] = useState(false)
+
   const weightLossSelector = useSelector(selectWeightLossSurvey)
 
   useEffect(() => {
     if (weightLossSelector) {
       setPatientsName(weightLossSelector.patientsName)
       setDate(weightLossSelector.date)
+      setPrimaryDoctor(weightLossSelector.primaryDoctor)
       setWhyLossWeight(weightLossSelector.whyLossWeight)
       setWeightGoals(weightLossSelector.weightGoals)
       setTimeFrame(weightLossSelector.timeFrame)
@@ -345,6 +397,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         weightLossSelector.hopesForWeightLossManagement
       )
       setCommitmentsToWeightLoss(weightLossSelector.commitmentsToWeightLoss)
+      setCurrentDietAids(weightLossSelector.currentDietAids)
       setOnYourOwn(weightLossSelector.onYourOwn)
 
       setCheckIfTried(weightLossSelector.checkIfTried)
@@ -672,19 +725,33 @@ const WeightLossSurvey: NextPage<{}> = () => {
             setPatientsName(text.target.value)
           }}
           value={patientsName}
+          required={requiredPatientsName}
         />
         <DateInput
+          id="date"
           placeHolder="Date"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setDate(text.target.value)
           }}
           value={date}
+          required={requiredDate}
         />
       </div>
       <h1 className="m-3 text-center text-lg font-bold">
         Please answer the following questionnaire as complete as possible.
       </h1>
+      <div className="mb-10">
+        <TextInput
+          id="primaryDoctor"
+          placeHolder="Who is your primary care physician or family doctor?"
+          widthPercentage="w-2/3"
+          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+            setPrimaryDoctor(text.target.value)
+          }}
+          value={primaryDoctor}
+        />
+      </div>
       <div className="mb-10">
         <TextInput
           id="whyLossWeight"
@@ -694,6 +761,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             setWhyLossWeight(text.target.value)
           }}
           value={whyLossWeight}
+          required={requiredWhyLossWeight}
         />
       </div>
       <div className="mb-10">
@@ -705,6 +773,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             setWeightGoals(text.target.value)
           }}
           value={weightGoals}
+          required={requiredWeightGoals}
         />
       </div>
       <div className="mb-10">
@@ -720,13 +789,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <div className="flex">
         <TextInput
-          id="mostWieghedAsAdult"
+          id="mostWeighedAsAdult"
           placeHolder="Most weighed as adult?"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setMostWeighedAsAdult(text.target.value)
           }}
           value={mostWeighedAsAdult}
+          required={requiredMostWeighedAsAdult}
         />
         <TextInput
           id="ageAtWeight"
@@ -736,26 +806,28 @@ const WeightLossSurvey: NextPage<{}> = () => {
             setAgeAtAdultMostWeight(text.target.value)
           }}
           value={ageAtAdultMostWeight}
+          required={requiredAgeAtAdultMostWeight}
         />
       </div>
       <div className="flex">
         <TextInput
-          id="leastWieghedAsAdult"
+          id="leastWeighedAsAdult"
           placeHolder="Least weighed as adult?"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setLeastWeighedAsAdult(text.target.value)
           }}
           value={leastWeighedAsAdult}
+          required={requiredLeastWeighedAsAdult}
         />
         <TextInput
-          id="ageAtWeight"
+          id="ageAtAdultLeastWeight"
           placeHolder="Age at this weight?"
           widthPercentage="w-2/3"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setAgeAtAdultLeastWeight(text.target.value)
           }}
-          required={true}
+          required={requiredAgeAtAdultLeastWeight}
           value={ageAtAdultLeastWeight}
           onClick={() => {
             const setAutoSave = async () => {
@@ -767,6 +839,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 emailValue: auth.currentUser?.email,
                 patientsName: patientsName,
                 date: date,
+                primaryDoctor: primaryDoctor,
                 whyLossWeight: whyLossWeight,
                 weightGoals: weightGoals,
                 timeFrame: timeFrame,
@@ -779,6 +852,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 challengesOfWeightManagement: challengesOfWeightManagement,
                 hopesForWeightLossManagement: hopesForWeightLossManagement,
                 commitmentsToWeightLoss: commitmentsToWeightLoss,
+                currentDietAids: currentDietAids,
                 onYourOwn: onYourOwn,
                 checkIfTried: checkIfTried,
                 onYourOwnStartDate: onYourOwnStartDate,
@@ -1050,6 +1124,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'One or more rapid increase(s) in weight',
             'Up and down',
           ]}
+          required={requiredWeightChangeDuringLife}
         />
       </div>
       <div className="align-center flex justify-center text-lg">
@@ -1070,6 +1145,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Stress',
             'Other',
           ]}
+          required={requiredWeightGainedInPast}
         />
       </div>
       <div>
@@ -1098,6 +1174,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Reverse medical problems/Allow me to stop medications',
             'Other',
           ]}
+          required={requiredHopesForWeightLossManagement}
         />
       </div>
       <div>
@@ -1118,561 +1195,527 @@ const WeightLossSurvey: NextPage<{}> = () => {
         reason for stopping the diet, diet aid, or program, and reason for
         weight regain after stopping.
       </h2>
-      <p className="text-center text-xl font-bold">On Your Own</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="onYourOwn"
-          text="Check if Tried"
-          CheckState={setCheckIfTried}
-          isChecked={checkIfTried}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="onYourOwnStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOnYourOwnStartDate(text.target.value)
-          }}
-          value={onYourOwnStartDate}
-        />
-        <DateInput
-          id="onYourOwnEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOnYourOwnEndDate(text.target.value)
-          }}
-          value={onYourOwnEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="onYourOwnWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOnYourOwnWeightLoss(text.target.value)
-          }}
-          value={onYourOwnWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="onYourOwnReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOnYourOwnReasonForStopping(text.target.value)
-          }}
-          value={onYourOwnReasonForStopping}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="onYourOwnReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOnYourOwnReasonForRegain(text.target.value)
-          }}
-          value={onYourOwnReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">
-        Atkins or low carbohydrate
-      </p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="atkinsOrLowCarbohydrate"
-          text="Check if Tried"
-          CheckState={setAtkinsOrLowCarbohydrate}
-          isChecked={atkinsOrLowCarbohydrate}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="atkinsOrLowCarbohydrateStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setAtkinsOrLowCarbohydrateStartDate(text.target.value)
-          }}
-          value={atkinsOrLowCarbohydrateStartDate}
-        />
-        <DateInput
-          id="atkinsOrLowCarbohydrateEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setAtkinsOrLowCarbohydrateEndDate(text.target.value)
-          }}
-          value={atkinsOrLowCarbohydrateEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="atkinsOrLowCarbohydrateWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setAtkinsOrLowCarbohydrateWeightLoss(text.target.value)
-          }}
-          value={atkinsOrLowCarbohydrateWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="atkinsOrLowCarbohydrateReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setAtkinsOrLowCarbohydrateReasonForStopping(text.target.value)
-          }}
-          value={atkinsOrLowCarbohydrateReasonForStopping}
-        />
-        <TextInput
-          id="atkinsOrLowCarbohydrateReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setAtkinsOrLowCarbohydrateReasonForRegain(text.target.value)
-          }}
-          value={atkinsOrLowCarbohydrateReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Jenny Craig</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="jennyCraig"
-          text="Check if Tried"
-          CheckState={setJennyCraig}
-          isChecked={jennyCraig}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="jennyCraigStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setJennyCraigStartDate(text.target.value)
-          }}
-          value={jennyCraigStartDate}
-        />
-        <DateInput
-          id="jennyCraigEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setJennyCraigEndDate(text.target.value)
-          }}
-          value={jennyCraigEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="jennyCraigWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setJennyCraigWeightLoss(text.target.value)
-          }}
-          value={jennyCraigWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="jennyCraigReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setJennyCraigReasonForStopping(text.target.value)
-          }}
-          value={jennyCraigReasonForStopping}
-        />
-        <TextInput
-          id="jennyCraigReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setJennyCraigReasonForRegain(text.target.value)
-          }}
-          value={jennyCraigReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Nutrisystem</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="nutrisystem"
-          text="Check if Tried"
-          CheckState={setNutrisystem}
-          isChecked={nutrisystem}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="nutrisystemStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setNutrisystemStartDate(text.target.value)
-          }}
-          value={nutrisystemStartDate}
-        />
-        <DateInput
-          id="nutrisystemEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setNutrisystemEndDate(text.target.value)
-          }}
-          value={nutrisystemEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="nutrisystemWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setNutrisystemWeightLoss(text.target.value)
-          }}
-          value={nutrisystemWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="nutrisystemReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setNutrisystemReasonForStopping(text.target.value)
-          }}
-          value={nutrisystemReasonForStopping}
-        />
-        <TextInput
-          id="nutrisystemReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setNutrisystemReasonForRegain(text.target.value)
-          }}
-          value={nutrisystemReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Weight Watchers</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="weightWatchers"
-          text="Check if Tried"
-          CheckState={setWeightWatchers}
-          isChecked={weightWatchers}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="weightWatchersStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setWeightWatchersStartDate(text.target.value)
-          }}
-          value={weightWatchersStartDate}
-        />
-        <DateInput
-          id="weightWatchersEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setWeightWatchersEndDate(text.target.value)
-          }}
-          value={weightWatchersEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="weightWatchersWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setWeightWatchersWeightLoss(text.target.value)
-          }}
-          value={weightWatchersWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="weightWatchersReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setWeightWatchersReasonForStopping(text.target.value)
-          }}
-          value={weightWatchersReasonForStopping}
-        />
-        <TextInput
-          id="weightWatchersReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setWeightWatchersReasonForRegain(text.target.value)
-          }}
-          value={weightWatchersReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Slimfast</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="slimfast"
-          text="Check if Tried"
-          CheckState={setSlimfast}
-          isChecked={slimfast}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="slimfastStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setSlimfastStartDate(text.target.value)
-          }}
-          value={slimfastStartDate}
-        />
-        <DateInput
-          id="slimfastEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setSlimfastEndDate(text.target.value)
-          }}
-          value={slimfastEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="slimfastWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setSlimfastWeightLoss(text.target.value)
-          }}
-          value={slimfastWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="slimfastReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setSlimfastReasonForStopping(text.target.value)
-          }}
-          value={slimfastReasonForStopping}
-        />
-        <TextInput
-          id="slimfastReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setSlimfastReasonForRegain(text.target.value)
-          }}
-          value={slimfastReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Optifast</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="optifast"
-          text="Check if Tried"
-          CheckState={setOptifast}
-          isChecked={optifast}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="optifastStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOptifastStartDate(text.target.value)
-          }}
-          value={optifastStartDate}
-        />
-        <DateInput
-          id="optifastEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOptifastEndDate(text.target.value)
-          }}
-          value={optifastEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="optifastWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOptifastWeightLoss(text.target.value)
-          }}
-          value={optifastWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="optifastReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOptifastReasonForStopping(text.target.value)
-          }}
-          value={optifastReasonForStopping}
-        />
-        <TextInput
-          id="optifastReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOptifastReasonForRegain(text.target.value)
-          }}
-          value={optifastReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">Other liquid diet</p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="otherLiquidDiet"
-          text="Check if Tried"
-          CheckState={setOtherLiquidDiet}
-          isChecked={otherLiquidDiet}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="otherLiquidDietStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherLiquidDietStartDate(text.target.value)
-          }}
-          value={otherLiquidDietStartDate}
-        />
-        <DateInput
-          id="otherLiquidDietEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherLiquidDietEndDate(text.target.value)
-          }}
-          value={otherLiquidDietEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="otherLiquidDietWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherLiquidDietWeightLoss(text.target.value)
-          }}
-          value={otherLiquidDietWeightLoss}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="otherLiquidDietReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherLiquidDietReasonForStopping(text.target.value)
-          }}
-          value={otherLiquidDietReasonForStopping}
-        />
-        <TextInput
-          id="otherLiquidDietReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherLiquidDietReasonForRegain(text.target.value)
-          }}
-          value={otherLiquidDietReasonForRegain}
-        />
-      </div>
-      <p className="mt-10 text-center text-xl font-bold">
-        Other (please specify)
-      </p>
-      <div className="align-center flex justify-center">
-        <CustomYesOrNo
-          id="other"
-          text="Check if Tried"
-          CheckState={setOther}
-          isChecked={other}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="otherName"
-          placeHolder="Name of Diet"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherName(text.target.value)
-          }}
-          value={otherName}
-        />
-      </div>
-      <div className="flex">
-        <DateInput
-          id="otherStartDate"
-          placeHolder="Start Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherStartDate(text.target.value)
-          }}
-          value={otherStartDate}
-        />
-        <DateInput
-          id="otherEndDate"
-          placeHolder="End Date"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherEndDate(text.target.value)
-          }}
-          value={otherEndDate}
-        />
-      </div>
-      <div>
-        <TextInput
-          id="otherWeightLoss"
-          placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherWeightLoss(text.target.value)
-          }}
-          value={otherWeightLoss}
-        />
-      </div>
-      <div className="mb-10">
-        <TextInput
-          id="otherReasonForStopping"
-          placeHolder="Reason for Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherReasonForStopping(text.target.value)
-          }}
-          value={otherReasonForStopping}
-        />
-        <TextInput
-          id="otherReasonForRegain"
-          placeHolder="Reason Weight Regained After Stopping"
-          widthPercentage="w-2/3"
-          onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setOtherReasonForRegain(text.target.value)
-          }}
-          value={otherReasonForRegain}
+      <div className="align-center mb-5 flex flex-col justify-center">
+        <SectionWithTitle
+          title="Diet, Diet Aids, or Programs"
+          BgColor="bg-[#e8e8e8]"
+          children={[
+            <CustomYesOrNo
+              id="currentlyOnDietAids"
+              text="Are you Currently on a Diet, diet aids, or programs?"
+              CheckState={setCurrentDietAids}
+              isChecked={currentDietAids}
+              marginLeft="ml-[25%]"
+              required={requiredCurrentDietAids}
+            />,
+            currentDietAids === 'Yes' && (
+              <div className="align-center flex w-full flex-col justify-center">
+                <p className="mt-3 text-center text-xl font-bold">
+                  On Your Own
+                </p>
+                <CustomYesOrNo
+                  id="onYourOwn"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setCheckIfTried}
+                  isChecked={checkIfTried}
+                />
+                <DateInput
+                  id="onYourOwnStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-3/4"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOnYourOwnStartDate(text.target.value)
+                  }}
+                  value={onYourOwnStartDate}
+                />
+                <DateInput
+                  id="onYourOwnEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOnYourOwnEndDate(text.target.value)
+                  }}
+                  value={onYourOwnEndDate}
+                />
+                <TextInput
+                  id="onYourOwnWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOnYourOwnWeightLoss(text.target.value)
+                  }}
+                  value={onYourOwnWeightLoss}
+                />
+                <TextInput
+                  id="onYourOwnReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOnYourOwnReasonForStopping(text.target.value)
+                  }}
+                  value={onYourOwnReasonForStopping}
+                />
+                <TextInput
+                  id="onYourOwnReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOnYourOwnReasonForRegain(text.target.value)
+                  }}
+                  value={onYourOwnReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">
+                  Atkins or low carbohydrate
+                </p>
+                <CustomYesOrNo
+                  id="atkinsOrLowCarbohydrate"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setAtkinsOrLowCarbohydrate}
+                  isChecked={atkinsOrLowCarbohydrate}
+                />
+                <DateInput
+                  id="atkinsOrLowCarbohydrateStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setAtkinsOrLowCarbohydrateStartDate(text.target.value)
+                  }}
+                  value={atkinsOrLowCarbohydrateStartDate}
+                />
+                <DateInput
+                  id="atkinsOrLowCarbohydrateEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setAtkinsOrLowCarbohydrateEndDate(text.target.value)
+                  }}
+                  value={atkinsOrLowCarbohydrateEndDate}
+                />
+                <TextInput
+                  id="atkinsOrLowCarbohydrateWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setAtkinsOrLowCarbohydrateWeightLoss(text.target.value)
+                  }}
+                  value={atkinsOrLowCarbohydrateWeightLoss}
+                />
+                <TextInput
+                  id="atkinsOrLowCarbohydrateReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setAtkinsOrLowCarbohydrateReasonForStopping(
+                      text.target.value
+                    )
+                  }}
+                  value={atkinsOrLowCarbohydrateReasonForStopping}
+                />
+                <TextInput
+                  id="atkinsOrLowCarbohydrateReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setAtkinsOrLowCarbohydrateReasonForRegain(text.target.value)
+                  }}
+                  value={atkinsOrLowCarbohydrateReasonForRegain}
+                />
+                ,
+                <p className="mt-10 text-center text-xl font-bold">
+                  Jenny Craig
+                </p>
+                <CustomYesOrNo
+                  id="jennyCraig"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setJennyCraig}
+                  isChecked={jennyCraig}
+                />
+                <DateInput
+                  id="jennyCraigStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setJennyCraigStartDate(text.target.value)
+                  }}
+                  value={jennyCraigStartDate}
+                />
+                <DateInput
+                  id="jennyCraigEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setJennyCraigEndDate(text.target.value)
+                  }}
+                  value={jennyCraigEndDate}
+                />
+                <TextInput
+                  id="jennyCraigWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setJennyCraigWeightLoss(text.target.value)
+                  }}
+                  value={jennyCraigWeightLoss}
+                />
+                <TextInput
+                  id="jennyCraigReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setJennyCraigReasonForStopping(text.target.value)
+                  }}
+                  value={jennyCraigReasonForStopping}
+                />
+                <TextInput
+                  id="jennyCraigReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setJennyCraigReasonForRegain(text.target.value)
+                  }}
+                  value={jennyCraigReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">
+                  Nutrisystem
+                </p>
+                <CustomYesOrNo
+                  id="nutrisystem"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setNutrisystem}
+                  isChecked={nutrisystem}
+                />
+                <DateInput
+                  id="nutrisystemStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setNutrisystemStartDate(text.target.value)
+                  }}
+                  value={nutrisystemStartDate}
+                />
+                <DateInput
+                  id="nutrisystemEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setNutrisystemEndDate(text.target.value)
+                  }}
+                  value={nutrisystemEndDate}
+                />
+                <TextInput
+                  id="nutrisystemWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setNutrisystemWeightLoss(text.target.value)
+                  }}
+                  value={nutrisystemWeightLoss}
+                />
+                <TextInput
+                  id="nutrisystemReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setNutrisystemReasonForStopping(text.target.value)
+                  }}
+                  value={nutrisystemReasonForStopping}
+                />
+                <TextInput
+                  id="nutrisystemReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setNutrisystemReasonForRegain(text.target.value)
+                  }}
+                  value={nutrisystemReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">
+                  Weight Watchers
+                </p>
+                <CustomYesOrNo
+                  id="weightWatchers"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setWeightWatchers}
+                  isChecked={weightWatchers}
+                />
+                <DateInput
+                  id="weightWatchersStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setWeightWatchersStartDate(text.target.value)
+                  }}
+                  value={weightWatchersStartDate}
+                />
+                <DateInput
+                  id="weightWatchersEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setWeightWatchersEndDate(text.target.value)
+                  }}
+                  value={weightWatchersEndDate}
+                />
+                <TextInput
+                  id="weightWatchersWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setWeightWatchersWeightLoss(text.target.value)
+                  }}
+                  value={weightWatchersWeightLoss}
+                />
+                <TextInput
+                  id="weightWatchersReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setWeightWatchersReasonForStopping(text.target.value)
+                  }}
+                  value={weightWatchersReasonForStopping}
+                />
+                <TextInput
+                  id="weightWatchersReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setWeightWatchersReasonForRegain(text.target.value)
+                  }}
+                  value={weightWatchersReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">Slimfast</p>
+                <CustomYesOrNo
+                  id="slimfast"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setSlimfast}
+                  isChecked={slimfast}
+                />
+                <DateInput
+                  id="slimfastStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setSlimfastStartDate(text.target.value)
+                  }}
+                  value={slimfastStartDate}
+                />
+                <DateInput
+                  id="slimfastEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setSlimfastEndDate(text.target.value)
+                  }}
+                  value={slimfastEndDate}
+                />
+                <TextInput
+                  id="slimfastWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setSlimfastWeightLoss(text.target.value)
+                  }}
+                  value={slimfastWeightLoss}
+                />
+                <TextInput
+                  id="slimfastReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setSlimfastReasonForStopping(text.target.value)
+                  }}
+                  value={slimfastReasonForStopping}
+                />
+                <TextInput
+                  id="slimfastReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setSlimfastReasonForRegain(text.target.value)
+                  }}
+                  value={slimfastReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">Optifast</p>
+                <CustomYesOrNo
+                  id="optifast"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setOptifast}
+                  isChecked={optifast}
+                />
+                <DateInput
+                  id="optifastStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOptifastStartDate(text.target.value)
+                  }}
+                  value={optifastStartDate}
+                />
+                <DateInput
+                  id="optifastEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOptifastEndDate(text.target.value)
+                  }}
+                  value={optifastEndDate}
+                />
+                <TextInput
+                  id="optifastWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOptifastWeightLoss(text.target.value)
+                  }}
+                  value={optifastWeightLoss}
+                />
+                <TextInput
+                  id="optifastReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOptifastReasonForStopping(text.target.value)
+                  }}
+                  value={optifastReasonForStopping}
+                />
+                <TextInput
+                  id="optifastReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOptifastReasonForRegain(text.target.value)
+                  }}
+                  value={optifastReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">
+                  Other liquid diet
+                </p>
+                <CustomYesOrNo
+                  id="otherLiquidDiet"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setOtherLiquidDiet}
+                  isChecked={otherLiquidDiet}
+                />
+                <DateInput
+                  id="otherLiquidDietStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherLiquidDietStartDate(text.target.value)
+                  }}
+                  value={otherLiquidDietStartDate}
+                />
+                <DateInput
+                  id="otherLiquidDietEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherLiquidDietEndDate(text.target.value)
+                  }}
+                  value={otherLiquidDietEndDate}
+                />
+                <TextInput
+                  id="otherLiquidDietWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherLiquidDietWeightLoss(text.target.value)
+                  }}
+                  value={otherLiquidDietWeightLoss}
+                />
+                <TextInput
+                  id="otherLiquidDietReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherLiquidDietReasonForStopping(text.target.value)
+                  }}
+                  value={otherLiquidDietReasonForStopping}
+                />
+                <TextInput
+                  id="otherLiquidDietReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherLiquidDietReasonForRegain(text.target.value)
+                  }}
+                  value={otherLiquidDietReasonForRegain}
+                />
+                <p className="mt-10 text-center text-xl font-bold">
+                  Other (please specify)
+                </p>
+                <CustomYesOrNo
+                  id="other"
+                  text="Check if Tried"
+                  marginLeft="ml-[38%]"
+                  CheckState={setOther}
+                  isChecked={other}
+                />
+                <TextInput
+                  id="otherName"
+                  placeHolder="Name of Diet"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherName(text.target.value)
+                  }}
+                  value={otherName}
+                />
+                <DateInput
+                  id="otherStartDate"
+                  placeHolder="Start Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherStartDate(text.target.value)
+                  }}
+                  value={otherStartDate}
+                />
+                <DateInput
+                  id="otherEndDate"
+                  placeHolder="End Date"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherEndDate(text.target.value)
+                  }}
+                  value={otherEndDate}
+                />
+                <TextInput
+                  id="otherWeightLoss"
+                  placeHolder="Amount of Weight Lost"
+                  widthPercentage="w-1/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherWeightLoss(text.target.value)
+                  }}
+                  value={otherWeightLoss}
+                />
+                <TextInput
+                  id="otherReasonForStopping"
+                  placeHolder="Reason for Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherReasonForStopping(text.target.value)
+                  }}
+                  value={otherReasonForStopping}
+                />
+                <TextInput
+                  id="otherReasonForRegain"
+                  placeHolder="Reason Weight Regained After Stopping"
+                  widthPercentage="w-2/3"
+                  onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                    setOtherReasonForRegain(text.target.value)
+                  }}
+                  value={otherReasonForRegain}
+                />
+              </div>
+            ),
+          ]}
         />
       </div>
       <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
@@ -2308,7 +2351,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             setChildrenUnderEighteen(text.target.value)
           }}
           value={childrenUnderEighteen}
-          required={true}
+          required={requiredChildrenUnderEighteen}
           onClick={() => {
             const setAutoSave = async () => {
               setAutoSaveWeightAge(false)
@@ -2319,6 +2362,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 emailValue: auth.currentUser?.email,
                 patientsName: patientsName,
                 date: date,
+                primaryDoctor: primaryDoctor,
                 whyLossWeight: whyLossWeight,
                 weightGoals: weightGoals,
                 timeFrame: timeFrame,
@@ -2331,6 +2375,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 challengesOfWeightManagement: challengesOfWeightManagement,
                 hopesForWeightLossManagement: hopesForWeightLossManagement,
                 commitmentsToWeightLoss: commitmentsToWeightLoss,
+                currentDietAids: currentDietAids,
                 onYourOwn: onYourOwn,
                 checkIfTried: checkIfTried,
                 onYourOwnStartDate: onYourOwnStartDate,
@@ -2648,6 +2693,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="eatingDisorder"
             text="Eating Disorder"
+            required={requiredEatingDisorder}
             CheckState={setEatingDisorder}
             isChecked={eatingDisorder}
           />
@@ -2656,6 +2702,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="anorexiaNervosa"
             text="Anorexia Nervosa"
+            required={requiredAnorexiaNervosa}
             CheckState={setAnorexiaNervosa}
             isChecked={anorexiaNervosa}
           />
@@ -2664,6 +2711,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="bingeEating"
             text="Binge Eating"
+            required={requiredBingeEating}
             CheckState={setBingeEating}
             isChecked={bingeEating}
           />
@@ -2672,6 +2720,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="bulimia"
             text="Making yourself throw up/Bulimia"
+            required={requiredBulimia}
             CheckState={setBulimia}
             isChecked={bulimia}
           />
@@ -2679,8 +2728,9 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <div className="mt-5 flex justify-center text-lg">
         <CustomYesOrNo
-          id="EatingTooMuch"
+          id="eatingTooMuch"
           text="Eating so much at one time that you have to throw up"
+          required={requiredEatingTooMuch}
           CheckState={setEatingTooMuch}
           isChecked={eatingTooMuch}
         />
@@ -2694,6 +2744,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           id="sleepHours"
           placeHolder="On average over the past month, how many hours of sleep did you get per night?"
           widthPercentage="w-2/3"
+          required={requiredSleepHours}
           value={sleepHours}
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setSleepHours(text.target.value)
@@ -2705,6 +2756,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="restedWhenWakeUp"
             text="Do you feel rested when you wake up?"
+            required={requiredRestedWhenWakeUp}
             CheckState={setRestedWhenWakeUp}
             isChecked={restedWhenWakeUp}
           />
@@ -2713,6 +2765,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="doYouSnore"
             text="Do you snore?"
+            required={requiredDoYouSnore}
             CheckState={setDoYouSnore}
             isChecked={doYouSnore}
           />
@@ -2723,6 +2776,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomYesOrNo
             id="wearEquipment"
             text="Have you ever been told to wear CPAP or BiPAP for sleep apnea?"
+            required={requiredWearEquipment}
             CheckState={setWearEquipment}
             isChecked={wearEquipment}
           />
@@ -2743,6 +2797,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <CustomCheckBoxFeild
           id="sleepWellness"
           title="How well have you slept over the past month?"
+          required={requiredSleepWellness}
           checkBoxValues={sleepWellness}
           setCheckBoxValues={setSleepWellness}
           allowMultipleCheckBoxes={false}
@@ -2868,6 +2923,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <CustomCheckBoxFeild
           id="typicalDay"
           title="On a typical day, which describes you?"
+          required={requiredTypicalDay}
           checkBoxValues={typicalDay}
           setCheckBoxValues={setTypicalDay}
           allowMultipleCheckBoxes={false}
@@ -3100,6 +3156,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomCheckBoxFeild
             id="exerciseBarriers"
             title="What are your major barriers to increasing the amount of exercise you do? (Mark all that apply)"
+            required={requiredExerciseBarriers}
             checkBoxValues={exerciseBarriers}
             setCheckBoxValues={setExerciseBarriers}
             allowMultipleCheckBoxes={true}
@@ -3145,6 +3202,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomCheckBoxFeild
             id="confidenceWeightlossDiet"
             title="How confident are you that you can follow a weight loss diet? (Check One)"
+            required={requiredConfidenceWeightLossDiet}
             checkBoxValues={confidenceWeightLossDiet}
             setCheckBoxValues={setConfidenceWeightLossDiet}
             allowMultipleCheckBoxes={false}
@@ -3158,6 +3216,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomCheckBoxFeild
             id="majorBarriersDiet"
             title="What are your major barriers to following a weight loss diet? (Mark all that apply)"
+            required={requiredMajorBarriersDiet}
             checkBoxValues={majorBarriersDiet}
             setCheckBoxValues={setMajorBarriersDiet}
             allowMultipleCheckBoxes={true}
@@ -3838,7 +3897,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setDaysPerWeekExplination(text.target.value)
           }}
-          required={true}
+          required={requiredDaysPerWeekExplination}
           onClick={() => {
             const setAutoSave = async () => {
               setAutoSaveDaysPerWeek(false)
@@ -3849,6 +3908,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 emailValue: auth.currentUser?.email,
                 patientsName: patientsName,
                 date: date,
+                primaryDoctor: primaryDoctor,
                 whyLossWeight: whyLossWeight,
                 weightGoals: weightGoals,
                 timeFrame: timeFrame,
@@ -3861,6 +3921,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 challengesOfWeightManagement: challengesOfWeightManagement,
                 hopesForWeightLossManagement: hopesForWeightLossManagement,
                 commitmentsToWeightLoss: commitmentsToWeightLoss,
+                currentDietAids: currentDietAids,
                 onYourOwn: onYourOwn,
                 checkIfTried: checkIfTried,
                 onYourOwnStartDate: onYourOwnStartDate,
@@ -4126,6 +4187,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           <CustomCheckBoxFeild
             id="medicalHistory"
             title="Please check all that apply"
+            required={requiredMedicalHistory}
             checkBoxValues={medicalHistory}
             setCheckBoxValues={setMedicalHistory}
             allowMultipleCheckBoxes={true}
@@ -4172,6 +4234,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Liver disease',
               'Hepatitis',
               'HIV/AID',
+              'None of the above',
               'Other',
             ]}
           />,
@@ -4194,273 +4257,527 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <MainButton
           buttonText="Submit"
           onClick={() => {
-            alert('Survey Submitted Successfully')
-            //   SubmitWeightLossSurvey({
-            //     emailValue: auth.currentUser?.email,
-            //     patientsName: patientsName,
-            //     date: date,
-            //     whyLossWeight: whyLossWeight,
-            //     weightGoals: weightGoals,
-            //     timeFrame: timeFrame,
-            //     mostWeighedAsAdult: mostWeighedAsAdult,
-            //     ageAtAdultMostWeight: ageAtAdultMostWeight,
-            //     leastWeighedAsAdult: leastWeighedAsAdult,
-            //     ageAtAdultLeastWeight: ageAtAdultLeastWeight,
-            //     weightChangeDuringLife: weightChangeDuringLife,
-            //     weightGainedInPast: weightGainedInPast,
-            //     challengesOfWeightManagement: challengesOfWeightManagement,
-            //     hopesForWeightLossManagement: hopesForWeightLossManagement,
-            //     commitmentsToWeightLoss: commitmentsToWeightLoss,
-            //     onYourOwn: onYourOwn,
-            //     checkIfTried: checkIfTried,
-            //     onYourOwnStartDate: onYourOwnStartDate,
-            //     onYourOwnEndDate: onYourOwnEndDate,
-            //     onYourOwnWeightLoss: onYourOwnWeightLoss,
-            //     onYourOwnReasonForStopping: onYourOwnReasonForStopping,
-            //     onYourOwnReasonForRegain: onYourOwnReasonForRegain,
-            //     atkinsOrLowCarbohydrate: atkinsOrLowCarbohydrate,
-            //     atkinsOrLowCarbohydrateStartDate:
-            //       atkinsOrLowCarbohydrateStartDate,
-            //     atkinsOrLowCarbohydrateEndDate: atkinsOrLowCarbohydrateEndDate,
-            //     atkinsOrLowCarbohydrateWeightLoss:
-            //       atkinsOrLowCarbohydrateWeightLoss,
-            //     atkinsOrLowCarbohydrateReasonForStopping:
-            //       atkinsOrLowCarbohydrateReasonForStopping,
-            //     atkinsOrLowCarbohydrateReasonForRegain:
-            //       atkinsOrLowCarbohydrateReasonForRegain,
-            //     jennyCraig: jennyCraig,
-            //     jennyCraigStartDate: jennyCraigStartDate,
-            //     jennyCraigEndDate: jennyCraigEndDate,
-            //     jennyCraigWeightLoss: jennyCraigWeightLoss,
-            //     jennyCraigReasonForStopping: jennyCraigReasonForStopping,
-            //     jennyCraigReasonForRegain: jennyCraigReasonForRegain,
-            //     nutrisystem: nutrisystem,
-            //     nutrisystemStartDate: nutrisystemStartDate,
-            //     nutrisystemEndDate: nutrisystemEndDate,
-            //     nutrisystemWeightLoss: nutrisystemWeightLoss,
-            //     nutrisystemReasonForStopping: nutrisystemReasonForStopping,
-            //     nutrisystemReasonForRegain: nutrisystemReasonForRegain,
-            //     weightWatchers: weightWatchers,
-            //     weightWatchersStartDate: weightWatchersStartDate,
-            //     weightWatchersEndDate: weightWatchersEndDate,
-            //     weightWatchersWeightLoss: weightWatchersWeightLoss,
-            //     weightWatchersReasonForStopping: weightWatchersReasonForStopping,
-            //     weightWatchersReasonForRegain: weightWatchersReasonForRegain,
-            //     slimfast: slimfast,
-            //     slimfastStartDate: slimfastStartDate,
-            //     slimfastEndDate: slimfastEndDate,
-            //     slimfastWeightLoss: slimfastWeightLoss,
-            //     slimfastReasonForStopping: slimfastReasonForStopping,
-            //     slimfastReasonForRegain: slimfastReasonForRegain,
-            //     optifast: optifast,
-            //     optifastStartDate: optifastStartDate,
-            //     optifastEndDate: optifastEndDate,
-            //     optifastWeightLoss: optifastWeightLoss,
-            //     optifastReasonForStopping: optifastReasonForStopping,
-            //     optifastReasonForRegain: optifastReasonForRegain,
-            //     otherLiquidDiet: otherLiquidDiet,
-            //     otherLiquidDietStartDate: otherLiquidDietStartDate,
-            //     otherLiquidDietEndDate: otherLiquidDietEndDate,
-            //     otherLiquidDietWeightLoss: otherLiquidDietWeightLoss,
-            //     otherLiquidDietReasonForStopping:
-            //       otherLiquidDietReasonForStopping,
-            //     otherLiquidDietReasonForRegain: otherLiquidDietReasonForRegain,
-            //     other: other,
-            //     otherName: otherName,
-            //     otherStartDate: otherStartDate,
-            //     otherEndDate: otherEndDate,
-            //     otherWeightLoss: otherWeightLoss,
-            //     otherReasonForStopping: otherReasonForStopping,
-            //     otherReasonForRegain: otherReasonForRegain,
-            //     adipex: adipex,
-            //     adipexStartDate: adipexStartDate,
-            //     adipexEndDate: adipexEndDate,
-            //     adipexWeightLoss: adipexWeightLoss,
-            //     adipexReasonForStopping: adipexReasonForStopping,
-            //     adipexReasonForRegain: adipexReasonForRegain,
-            //     alli: alli,
-            //     alliStartDate: alliStartDate,
-            //     alliEndDate: alliEndDate,
-            //     alliWeightLoss: alliWeightLoss,
-            //     alliReasonForStopping: alliReasonForStopping,
-            //     alliReasonForRegain: alliReasonForRegain,
-            //     belviq: belviq,
-            //     belviqStartDate: belviqStartDate,
-            //     belviqEndDate: belviqEndDate,
-            //     belviqWeightLoss: belviqWeightLoss,
-            //     belviqReasonForStopping: belviqReasonForStopping,
-            //     belviqReasonForRegain: belviqReasonForRegain,
-            //     dexatrim: dexatrim,
-            //     dexatrimStartDate: dexatrimStartDate,
-            //     dexatrimEndDate: dexatrimEndDate,
-            //     dexatrimWeightLoss: dexatrimWeightLoss,
-            //     dexatrimReasonForStopping: dexatrimReasonForStopping,
-            //     dexatrimReasonForRegain: dexatrimReasonForRegain,
-            //     herbalWeightLoss: herbalWeightLoss,
-            //     herbalWeightLossStartDate: herbalWeightLossStartDate,
-            //     herbalWeightLossEndDate: herbalWeightLossEndDate,
-            //     herbalWeightLossWeightLoss: herbalWeightLossWeightLoss,
-            //     herbalWeightLossReasonForStopping:
-            //       herbalWeightLossReasonForStopping,
-            //     herbalWeightLossReasonForRegain: herbalWeightLossReasonForRegain,
-            //     meridia: meridia,
-            //     meridiaStartDate: meridiaStartDate,
-            //     meridiaEndDate: meridiaEndDate,
-            //     meridiaWeightLoss: meridiaWeightLoss,
-            //     meridiaReasonForStopping: meridiaReasonForStopping,
-            //     meridiaReasonForRegain: meridiaReasonForRegain,
-            //     phenfen: phenfen,
-            //     phenfenStartDate: phenfenStartDate,
-            //     phenfenEndDate: phenfenEndDate,
-            //     phenfenWeightLoss: phenfenWeightLoss,
-            //     phenfenReasonForStopping: phenfenReasonForStopping,
-            //     phenfenReasonForRegain: phenfenReasonForRegain,
-            //     qsymia: qsymia,
-            //     qsymiaStartDate: qsymiaStartDate,
-            //     qsymiaEndDate: qsymiaEndDate,
-            //     qsymiaWeightLoss: qsymiaWeightLoss,
-            //     qsymiaReasonForStopping: qsymiaReasonForStopping,
-            //     qsymiaReasonForRegain: qsymiaReasonForRegain,
-            //     redux: redux,
-            //     reduxStartDate: reduxStartDate,
-            //     reduxEndDate: reduxEndDate,
-            //     reduxWeightLoss: reduxWeightLoss,
-            //     reduxReasonForStopping: reduxReasonForStopping,
-            //     reduxReasonForRegain: reduxReasonForRegain,
-            //     otherSupplements: otherSupplements,
-            //     otherSupplementsName: otherSupplementsName,
-            //     otherSupplementsStartDate: otherSupplementsStartDate,
-            //     otherSupplementsEndDate: otherSupplementsEndDate,
-            //     otherSupplementsWeightLoss: otherSupplementsWeightLoss,
-            //     otherSupplementsReasonForStopping:
-            //       otherSupplementsReasonForStopping,
-            //     otherSupplementsReasonForRegain: otherSupplementsReasonForRegain,
-            //     childrenUnderEighteen: childrenUnderEighteen,
-            //     childrenUnderEighteenCheckBox: childrenUnderEighteenCheckBox,
-            //     familyMemebersObese: familyMemebersObese,
-            //     support: support,
-            //     supportExplaination: supportExplaination,
-            //     eatingDisorder: eatingDisorder,
-            //     anorexiaNervosa: anorexiaNervosa,
-            //     bingeEating: bingeEating,
-            //     bulimia: bulimia,
-            //     eatingTooMuch: eatingTooMuch,
-            //     sleepHours: sleepHours,
-            //     restedWhenWakeUp: restedWhenWakeUp,
-            //     doYouSnore: doYouSnore,
-            //     wearEquipment: wearEquipment,
-            //     howManyNights: howManyNights,
-            //     sleepWellness: sleepWellness,
-            //     sittingAndReading: sittingAndReading,
-            //     watchingTv: watchingTv,
-            //     sittingInPublic: sittingInPublic,
-            //     carPassanger: carPassanger,
-            //     lyingDown: lyingDown,
-            //     talkingToSomeone: talkingToSomeone,
-            //     sittingQuietlyAfterLunch: sittingQuietlyAfterLunch,
-            //     inCarWhileStopped: inCarWhileStopped,
-            //     total: total,
-            //     typicalDay: typicalDay,
-            //     enjoyExercise: enjoyExercise,
-            //     gymMembership: gymMembership,
-            //     exerciseEquipment: exerciseEquipment,
-            //     exerciseRegularly: exerciseRegularly,
-            //     badExerciseExperience: badExerciseExperience,
-            //     sixAm: sixAm,
-            //     nineAm: nineAm,
-            //     twelvePm: twelvePm,
-            //     threePm: threePm,
-            //     sixPm: sixPm,
-            //     ninePm: ninePm,
-            //     exerciseWeekly: exerciseWeekly,
-            //     describeExercise: describeExercise,
-            //     difficultyGettingUpFromFloor: difficultyGettingUpFromFloor,
-            //     typeOfExercise: typeOfExercise,
-            //     exercisePreference: exercisePreference,
-            //     athleteInSchool: athleteInSchool,
-            //     confidentIncrease: confidentIncrease,
-            //     majorBenefitsOfExercise: majorBenefitsOfExercise,
-            //     exerciseBarriers: exerciseBarriers,
-            //     minutesPerDay: minutesPerDay,
-            //     daysPerWeek: daysPerWeek,
-            //     confidenceWeightLossDiet: confidenceWeightLossDiet,
-            //     majorBarriersDiet: majorBarriersDiet,
-            //     favoriteFoods: favoriteFoods,
-            //     breakfastTypeOfFood: breakfastTypeOfFood,
-            //     breakfastProteinOrCarbs: breakfastProteinOrCarbs,
-            //     breakfastCalories: breakfastCalories,
-            //     lunchTypeOfFood: lunchTypeOfFood,
-            //     lunchProteinOrCarbs: lunchProteinOrCarbs,
-            //     lunchCalories: lunchCalories,
-            //     dinnerTypeOfFood: dinnerTypeOfFood,
-            //     dinnerProteinOrCarbs: dinnerProteinOrCarbs,
-            //     dinnerCalories: dinnerCalories,
-            //     snackOneTypeOfFood: snackOneTypeOfFood,
-            //     snackOneProteinOrCarbs: snackOneProteinOrCarbs,
-            //     snackOneCalories: snackOneCalories,
-            //     snackTwoTypeOfFood: snackTwoTypeOfFood,
-            //     snackTwoProteinOrCarbs: snackTwoProteinOrCarbs,
-            //     snackTwoCalories: snackTwoCalories,
-            //     coffeeTypeOfFood: coffeeTypeOfFood,
-            //     coffeeProteinOrCarbs: coffeeProteinOrCarbs,
-            //     coffeeCalories: coffeeCalories,
-            //     sodaTypeOfFood: sodaTypeOfFood,
-            //     sodaProteinOrCarbs: sodaProteinOrCarbs,
-            //     sodaCalories: sodaCalories,
-            //     candyOrSweetsTypeOfFood: candyOrSweetsTypeOfFood,
-            //     candyOrSweetsProteinOrCarbs: candyOrSweetsProteinOrCarbs,
-            //     candyOrSweetsCalories: candyOrSweetsCalories,
-            //     otherTypeOfFood: otherTypeOfFood,
-            //     otherProteinOrCarbs: otherProteinOrCarbs,
-            //     otherCalories: otherCalories,
-            //     numPeopleLiveWith: numPeopleLiveWith,
-            //     eatTogether: eatTogether,
-            //     whoDoesShopping: whoDoesShopping,
-            //     whoDoesCooking: whoDoesCooking,
-            //     foodIntolerance: foodIntolerance,
-            //     foodIntoleranceList: foodIntoleranceList,
-            //     stressEating: stressEating,
-            //     stressEatingList: stressEatingList,
-            //     bingeEatingExperience: bingeEatingExperience,
-            //     bingeEatingList: bingeEatingList,
-            //     snackingExperience: snackingExperience,
-            //     snackingList: snackingList,
-            //     eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
-            //     eatingMiddleOfNightList: eatingMiddleOfNightList,
-            //     skippingMealsExperience: skippingMealsExperience,
-            //     skippingMealsList: skippingMealsList,
-            //     eatingOutExperience: eatingOutExperience,
-            //     eatingOutList: eatingOutList,
-            //     eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
-            //     eatingInFrontOfTVList: eatingInFrontOfTVList,
-            //     eatingAtDeskExperience: eatingAtDeskExperience,
-            //     eatingAtDeskList: eatingAtDeskList,
-            //     portionSizeExperience: portionSizeExperience,
-            //     portionSizeList: portionSizeList,
-            //     eatingTooFastExperience: eatingTooFastExperience,
-            //     eatingTooFastList: eatingTooFastList,
-            //     notSatifiedExperience: notSatifiedExperience,
-            //     notSatifiedList: notSatifiedList,
-            //     regularSoda: regularSoda,
-            //     regularSodaList: regularSodaList,
-            //     juice: juice,
-            //     juiceList: juiceList,
-            //     sweetTea: sweetTea,
-            //     sweetTeaList: sweetTeaList,
-            //     alchoholBeverages: alchoholBeverages,
-            //     alchoholBeveragesList: alchoholBeveragesList,
-            //     friedFoods: friedFoods,
-            //     friedFoodsList: friedFoodsList,
-            //     fruitServings: fruitServings,
-            //     vegetableServings: vegetableServings,
-            //     wholeGrainServings: wholeGrainServings,
-            //     lowFatDairyServings: lowFatDairyServings,
-            //     leanProteinServings: leanProteinServings,
-            //     daysPerWeekExplination: daysPerWeekExplination,
-            //     medicalHistory: medicalHistory,
-            //     medicationsTaken: medicationsTaken,
-            //     medicationsTakenList: medicationsTakenList,
-            //   })
+            if (patientsName === '') {
+              setRequiredPatientsName(true)
+              router.push('/WeightLossSurvey/#patientsName').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (date === '') {
+              setRequiredDate(true)
+              router.push('/WeightLossSurvey/#date').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (whyLossWeight === '') {
+              setRequiredWhyLossWeight(true)
+              router.push('/WeightLossSurvey/#whyLossWeight').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (weightGoals === '') {
+              setRequiredWeightGoals(true)
+              router.push('/WeightLossSurvey/#weightGoals').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (mostWeighedAsAdult === '') {
+              setRequiredMostWeighedAsAdult(true)
+              router.push('/WeightLossSurvey/#mostWeighedAsAdult').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (ageAtAdultMostWeight === '') {
+              setRequiredAgeAtAdultMostWeight(true)
+              router.push('/WeightLossSurvey/#ageAtWeight').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (leastWeighedAsAdult === '') {
+              setRequiredLeastWeighedAsAdult(true)
+              router.push('/WeightLossSurvey/#leastWeighedAsAdult').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (ageAtAdultLeastWeight === '') {
+              setRequiredAgeAtAdultLeastWeight(true)
+              router
+                .push('/WeightLossSurvey/#ageAtAdultLeastWeight')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (weightChangeDuringLife === '') {
+              setRequiredWeightChangeDuringLife(true)
+              router
+                .push('/WeightLossSurvey/#howHasWeightChangedDuringLife')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (weightGainedInPast === '') {
+              setRequiredWeightGainedInPast(true)
+              router
+                .push('/WeightLossSurvey/#causeOfWeightGainInPast')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (hopesForWeightLossManagement === '') {
+              setRequiredHopesForWeightLossManagement(true)
+              router
+                .push('/WeightLossSurvey/#hopesForWeightLossManagement')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (currentDietAids === '') {
+              setRequiredCurrentDietAids(true)
+              router.push('/WeightLossSurvey/#currentlyOnDietAids').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (childrenUnderEighteen === '') {
+              setRequiredChildrenUnderEighteen(true)
+              router
+                .push('/WeightLossSurvey/#childrenUnderEighteen')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (eatingDisorder === '') {
+              setRequiredEatingDisorder(true)
+              router.push('/WeightLossSurvey/#eatingDisorder').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (anorexiaNervosa === '') {
+              setRequiredAnorexiaNervosa(true)
+              router.push('/WeightLossSurvey/#anorexiaNervosa').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (bingeEating === '') {
+              setRequiredBingeEating(true)
+              router.push('/WeightLossSurvey/#bingeEating').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (bulimia === '') {
+              setRequiredBulimia(true)
+              router.push('/WeightLossSurvey/#bulimia').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (eatingTooMuch === '') {
+              setRequiredEatingTooMuch(true)
+              router.push('/WeightLossSurvey/#eatingTooMuch').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (sleepHours === '') {
+              setRequiredSleepHours(true)
+              router.push('/WeightLossSurvey/#sleepHours').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (restedWhenWakeUp === '') {
+              setRequiredRestedWhenWakeUp(true)
+              router.push('/WeightLossSurvey/#restedWhenWakeUp').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (doYouSnore === '') {
+              setRequiredDoYouSnore(true)
+              router.push('/WeightLossSurvey/#doYouSnore').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (wearEquipment === '') {
+              setRequiredWearEquipment(true)
+              router.push('/WeightLossSurvey/#wearEquipment').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (sleepWellness === '') {
+              setRequiredSleepWellness(true)
+              router.push('/WeightLossSurvey/#sleepWellness').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (typicalDay === '') {
+              setRequiredTypicalDay(true)
+              router.push('/WeightLossSurvey/#typicalDay').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (exerciseBarriers === '') {
+              setRequiredExerciseBarriers(true)
+              router.push('/WeightLossSurvey/#exerciseBarriers').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (confidenceWeightLossDiet === '') {
+              setRequiredConfidenceWeightLossDiet(true)
+              router
+                .push('/WeightLossSurvey/#confidenceWeightlossDiet')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (majorBarriersDiet === '') {
+              setRequiredMajorBarriersDiet(true)
+              router.push('/WeightLossSurvey/#majorBarriersDiet').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (daysPerWeekExplination === '') {
+              setRequiredDaysPerWeekExplination(true)
+              router
+                .push('/WeightLossSurvey/#daysPerWeekExplination')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (medicalHistory === '') {
+              setRequiredMedicalHistory(true)
+              router.push('/WeightLossSurvey/#medicalHistory').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else {
+              alert('Survey Submitted Successfully')
+              SubmitWeightLossSurvey({
+                emailValue: auth.currentUser?.email,
+                patientsName: patientsName,
+                date: date,
+                primaryDoctor: primaryDoctor,
+                whyLossWeight: whyLossWeight,
+                weightGoals: weightGoals,
+                timeFrame: timeFrame,
+                mostWeighedAsAdult: mostWeighedAsAdult,
+                ageAtAdultMostWeight: ageAtAdultMostWeight,
+                leastWeighedAsAdult: leastWeighedAsAdult,
+                ageAtAdultLeastWeight: ageAtAdultLeastWeight,
+                weightChangeDuringLife: weightChangeDuringLife,
+                weightGainedInPast: weightGainedInPast,
+                challengesOfWeightManagement: challengesOfWeightManagement,
+                hopesForWeightLossManagement: hopesForWeightLossManagement,
+                commitmentsToWeightLoss: commitmentsToWeightLoss,
+                currentDietAids: currentDietAids,
+                onYourOwn: onYourOwn,
+                checkIfTried: checkIfTried,
+                onYourOwnStartDate: onYourOwnStartDate,
+                onYourOwnEndDate: onYourOwnEndDate,
+                onYourOwnWeightLoss: onYourOwnWeightLoss,
+                onYourOwnReasonForStopping: onYourOwnReasonForStopping,
+                onYourOwnReasonForRegain: onYourOwnReasonForRegain,
+                atkinsOrLowCarbohydrate: atkinsOrLowCarbohydrate,
+                atkinsOrLowCarbohydrateStartDate:
+                  atkinsOrLowCarbohydrateStartDate,
+                atkinsOrLowCarbohydrateEndDate: atkinsOrLowCarbohydrateEndDate,
+                atkinsOrLowCarbohydrateWeightLoss:
+                  atkinsOrLowCarbohydrateWeightLoss,
+                atkinsOrLowCarbohydrateReasonForStopping:
+                  atkinsOrLowCarbohydrateReasonForStopping,
+                atkinsOrLowCarbohydrateReasonForRegain:
+                  atkinsOrLowCarbohydrateReasonForRegain,
+                jennyCraig: jennyCraig,
+                jennyCraigStartDate: jennyCraigStartDate,
+                jennyCraigEndDate: jennyCraigEndDate,
+                jennyCraigWeightLoss: jennyCraigWeightLoss,
+                jennyCraigReasonForStopping: jennyCraigReasonForStopping,
+                jennyCraigReasonForRegain: jennyCraigReasonForRegain,
+                nutrisystem: nutrisystem,
+                nutrisystemStartDate: nutrisystemStartDate,
+                nutrisystemEndDate: nutrisystemEndDate,
+                nutrisystemWeightLoss: nutrisystemWeightLoss,
+                nutrisystemReasonForStopping: nutrisystemReasonForStopping,
+                nutrisystemReasonForRegain: nutrisystemReasonForRegain,
+                weightWatchers: weightWatchers,
+                weightWatchersStartDate: weightWatchersStartDate,
+                weightWatchersEndDate: weightWatchersEndDate,
+                weightWatchersWeightLoss: weightWatchersWeightLoss,
+                weightWatchersReasonForStopping:
+                  weightWatchersReasonForStopping,
+                weightWatchersReasonForRegain: weightWatchersReasonForRegain,
+                slimfast: slimfast,
+                slimfastStartDate: slimfastStartDate,
+                slimfastEndDate: slimfastEndDate,
+                slimfastWeightLoss: slimfastWeightLoss,
+                slimfastReasonForStopping: slimfastReasonForStopping,
+                slimfastReasonForRegain: slimfastReasonForRegain,
+                optifast: optifast,
+                optifastStartDate: optifastStartDate,
+                optifastEndDate: optifastEndDate,
+                optifastWeightLoss: optifastWeightLoss,
+                optifastReasonForStopping: optifastReasonForStopping,
+                optifastReasonForRegain: optifastReasonForRegain,
+                otherLiquidDiet: otherLiquidDiet,
+                otherLiquidDietStartDate: otherLiquidDietStartDate,
+                otherLiquidDietEndDate: otherLiquidDietEndDate,
+                otherLiquidDietWeightLoss: otherLiquidDietWeightLoss,
+                otherLiquidDietReasonForStopping:
+                  otherLiquidDietReasonForStopping,
+                otherLiquidDietReasonForRegain: otherLiquidDietReasonForRegain,
+                other: other,
+                otherName: otherName,
+                otherStartDate: otherStartDate,
+                otherEndDate: otherEndDate,
+                otherWeightLoss: otherWeightLoss,
+                otherReasonForStopping: otherReasonForStopping,
+                otherReasonForRegain: otherReasonForRegain,
+                adipex: adipex,
+                adipexStartDate: adipexStartDate,
+                adipexEndDate: adipexEndDate,
+                adipexWeightLoss: adipexWeightLoss,
+                adipexReasonForStopping: adipexReasonForStopping,
+                adipexReasonForRegain: adipexReasonForRegain,
+                alli: alli,
+                alliStartDate: alliStartDate,
+                alliEndDate: alliEndDate,
+                alliWeightLoss: alliWeightLoss,
+                alliReasonForStopping: alliReasonForStopping,
+                alliReasonForRegain: alliReasonForRegain,
+                belviq: belviq,
+                belviqStartDate: belviqStartDate,
+                belviqEndDate: belviqEndDate,
+                belviqWeightLoss: belviqWeightLoss,
+                belviqReasonForStopping: belviqReasonForStopping,
+                belviqReasonForRegain: belviqReasonForRegain,
+                dexatrim: dexatrim,
+                dexatrimStartDate: dexatrimStartDate,
+                dexatrimEndDate: dexatrimEndDate,
+                dexatrimWeightLoss: dexatrimWeightLoss,
+                dexatrimReasonForStopping: dexatrimReasonForStopping,
+                dexatrimReasonForRegain: dexatrimReasonForRegain,
+                herbalWeightLoss: herbalWeightLoss,
+                herbalWeightLossStartDate: herbalWeightLossStartDate,
+                herbalWeightLossEndDate: herbalWeightLossEndDate,
+                herbalWeightLossWeightLoss: herbalWeightLossWeightLoss,
+                herbalWeightLossReasonForStopping:
+                  herbalWeightLossReasonForStopping,
+                herbalWeightLossReasonForRegain:
+                  herbalWeightLossReasonForRegain,
+                meridia: meridia,
+                meridiaStartDate: meridiaStartDate,
+                meridiaEndDate: meridiaEndDate,
+                meridiaWeightLoss: meridiaWeightLoss,
+                meridiaReasonForStopping: meridiaReasonForStopping,
+                meridiaReasonForRegain: meridiaReasonForRegain,
+                phenfen: phenfen,
+                phenfenStartDate: phenfenStartDate,
+                phenfenEndDate: phenfenEndDate,
+                phenfenWeightLoss: phenfenWeightLoss,
+                phenfenReasonForStopping: phenfenReasonForStopping,
+                phenfenReasonForRegain: phenfenReasonForRegain,
+                qsymia: qsymia,
+                qsymiaStartDate: qsymiaStartDate,
+                qsymiaEndDate: qsymiaEndDate,
+                qsymiaWeightLoss: qsymiaWeightLoss,
+                qsymiaReasonForStopping: qsymiaReasonForStopping,
+                qsymiaReasonForRegain: qsymiaReasonForRegain,
+                redux: redux,
+                reduxStartDate: reduxStartDate,
+                reduxEndDate: reduxEndDate,
+                reduxWeightLoss: reduxWeightLoss,
+                reduxReasonForStopping: reduxReasonForStopping,
+                reduxReasonForRegain: reduxReasonForRegain,
+                otherSupplements: otherSupplements,
+                otherSupplementsName: otherSupplementsName,
+                otherSupplementsStartDate: otherSupplementsStartDate,
+                otherSupplementsEndDate: otherSupplementsEndDate,
+                otherSupplementsWeightLoss: otherSupplementsWeightLoss,
+                otherSupplementsReasonForStopping:
+                  otherSupplementsReasonForStopping,
+                otherSupplementsReasonForRegain:
+                  otherSupplementsReasonForRegain,
+                childrenUnderEighteen: childrenUnderEighteen,
+                childrenUnderEighteenCheckBox: childrenUnderEighteenCheckBox,
+                familyMemebersObese: familyMemebersObese,
+                support: support,
+                supportExplaination: supportExplaination,
+                eatingDisorder: eatingDisorder,
+                anorexiaNervosa: anorexiaNervosa,
+                bingeEating: bingeEating,
+                bulimia: bulimia,
+                eatingTooMuch: eatingTooMuch,
+                sleepHours: sleepHours,
+                restedWhenWakeUp: restedWhenWakeUp,
+                doYouSnore: doYouSnore,
+                wearEquipment: wearEquipment,
+                howManyNights: howManyNights,
+                sleepWellness: sleepWellness,
+                sittingAndReading: sittingAndReading,
+                watchingTv: watchingTv,
+                sittingInPublic: sittingInPublic,
+                carPassanger: carPassanger,
+                lyingDown: lyingDown,
+                talkingToSomeone: talkingToSomeone,
+                sittingQuietlyAfterLunch: sittingQuietlyAfterLunch,
+                inCarWhileStopped: inCarWhileStopped,
+                total: total,
+                typicalDay: typicalDay,
+                enjoyExercise: enjoyExercise,
+                gymMembership: gymMembership,
+                exerciseEquipment: exerciseEquipment,
+                exerciseRegularly: exerciseRegularly,
+                badExerciseExperience: badExerciseExperience,
+                encourageExercise: encourageExercise,
+                sixAm: sixAm,
+                nineAm: nineAm,
+                twelvePm: twelvePm,
+                threePm: threePm,
+                sixPm: sixPm,
+                ninePm: ninePm,
+                exerciseWeekly: exerciseWeekly,
+                describeExercise: describeExercise,
+                difficultyGettingUpFromFloor: difficultyGettingUpFromFloor,
+                typeOfExercise: typeOfExercise,
+                exercisePreference: exercisePreference,
+                athleteInSchool: athleteInSchool,
+                confidentIncrease: confidentIncrease,
+                majorBenefitsOfExercise: majorBenefitsOfExercise,
+                exerciseBarriers: exerciseBarriers,
+                minutesPerDay: minutesPerDay,
+                daysPerWeek: daysPerWeek,
+                confidenceWeightLossDiet: confidenceWeightLossDiet,
+                majorBarriersDiet: majorBarriersDiet,
+                favoriteFoods: favoriteFoods,
+                breakfastTypeOfFood: breakfastTypeOfFood,
+                breakfastProteinOrCarbs: breakfastProteinOrCarbs,
+                breakfastCalories: breakfastCalories,
+                lunchTypeOfFood: lunchTypeOfFood,
+                lunchProteinOrCarbs: lunchProteinOrCarbs,
+                lunchCalories: lunchCalories,
+                dinnerTypeOfFood: dinnerTypeOfFood,
+                dinnerProteinOrCarbs: dinnerProteinOrCarbs,
+                dinnerCalories: dinnerCalories,
+                snackOneTypeOfFood: snackOneTypeOfFood,
+                snackOneProteinOrCarbs: snackOneProteinOrCarbs,
+                snackOneCalories: snackOneCalories,
+                snackTwoTypeOfFood: snackTwoTypeOfFood,
+                snackTwoProteinOrCarbs: snackTwoProteinOrCarbs,
+                snackTwoCalories: snackTwoCalories,
+                coffeeTypeOfFood: coffeeTypeOfFood,
+                coffeeProteinOrCarbs: coffeeProteinOrCarbs,
+                coffeeCalories: coffeeCalories,
+                sodaTypeOfFood: sodaTypeOfFood,
+                sodaProteinOrCarbs: sodaProteinOrCarbs,
+                sodaCalories: sodaCalories,
+                candyOrSweetsTypeOfFood: candyOrSweetsTypeOfFood,
+                candyOrSweetsProteinOrCarbs: candyOrSweetsProteinOrCarbs,
+                candyOrSweetsCalories: candyOrSweetsCalories,
+                otherTypeOfFood: otherTypeOfFood,
+                otherProteinOrCarbs: otherProteinOrCarbs,
+                otherCalories: otherCalories,
+                numPeopleLiveWith: numPeopleLiveWith,
+                eatTogether: eatTogether,
+                whoDoesShopping: whoDoesShopping,
+                whoDoesCooking: whoDoesCooking,
+                foodIntolerance: foodIntolerance,
+                foodIntoleranceList: foodIntoleranceList,
+                stressEating: stressEating,
+                stressEatingList: stressEatingList,
+                bingeEatingExperience: bingeEatingExperience,
+                bingeEatingList: bingeEatingList,
+                snackingExperience: snackingExperience,
+                snackingList: snackingList,
+                eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
+                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                skippingMealsExperience: skippingMealsExperience,
+                skippingMealsList: skippingMealsList,
+                eatingOutExperience: eatingOutExperience,
+                eatingOutList: eatingOutList,
+                eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
+                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingAtDeskExperience: eatingAtDeskExperience,
+                eatingAtDeskList: eatingAtDeskList,
+                portionSizeExperience: portionSizeExperience,
+                portionSizeList: portionSizeList,
+                eatingTooFastExperience: eatingTooFastExperience,
+                eatingTooFastList: eatingTooFastList,
+                notSatifiedExperience: notSatifiedExperience,
+                notSatifiedList: notSatifiedList,
+                regularSoda: regularSoda,
+                regularSodaList: regularSodaList,
+                juice: juice,
+                juiceList: juiceList,
+                sweetTea: sweetTea,
+                sweetTeaList: sweetTeaList,
+                alchoholBeverages: alchoholBeverages,
+                alchoholBeveragesList: alchoholBeveragesList,
+                friedFoods: friedFoods,
+                friedFoodsList: friedFoodsList,
+                fruitServings: fruitServings,
+                vegetableServings: vegetableServings,
+                wholeGrainServings: wholeGrainServings,
+                lowFatDairyServings: lowFatDairyServings,
+                leanProteinServings: leanProteinServings,
+                daysPerWeekExplination: daysPerWeekExplination,
+                medicalHistory: medicalHistory,
+                medicationsTaken: medicationsTaken,
+                medicationsTakenList: medicationsTakenList,
+              })
+            }
           }}
         />
       </div>
