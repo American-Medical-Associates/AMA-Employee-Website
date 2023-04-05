@@ -15,7 +15,7 @@ export default function PatientDetailsPage() {
 
   useEffect(() => {
     // if (patientDetails.isInWeightLossProgram) {
-    setWeightLossProgram(patientDetails.isInWeightLossProgram)
+    setWeightLossProgram(patientDetails?.isInWeightLossProgram)
     // }
   }, [patientDetails])
 
@@ -25,23 +25,23 @@ export default function PatientDetailsPage() {
       <main>
         <div className="m-5">
           <h1 className=" text-center text-3xl text-[#496eff] ">
-            {patientDetails.fullName.toUpperCase()}
+            {patientDetails?.fullName.toUpperCase()}
           </h1>
           <div className=" flex flex-row justify-center">
             <div className=" flex flex-col justify-center">
               <h1 className=" text-center text-xl font-bold">
-                {patientDetails.DOB.slice(0, 2)}/
-                {patientDetails.DOB.slice(2, 4)}/
-                {patientDetails.DOB.slice(4, 8)}
+                {patientDetails?.DOB.slice(0, 2)}/
+                {patientDetails?.DOB.slice(2, 4)}/
+                {patientDetails?.DOB.slice(4, 8)}
               </h1>
               <h1 className=" text-md text-center">
-                {patientDetails.email.toLowerCase()}
+                {patientDetails?.email.toLowerCase()}
               </h1>
               <h1 className=" text-md text-center">
                 {/* format Phone Number */}
-                {patientDetails.phoneNumber.slice(0, 3)}-
-                {patientDetails.phoneNumber.slice(3, 6)}-
-                {patientDetails.phoneNumber.slice(6, 10)}
+                {patientDetails?.phoneNumber.slice(0, 3)}-
+                {patientDetails?.phoneNumber.slice(3, 6)}-
+                {patientDetails?.phoneNumber.slice(6, 10)}
               </h1>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function PatientDetailsPage() {
                 setWeightLossProgram(!weightLossProgram)
                 UpdatePatientInfoWeightLoss({
                   weightLossProgram: !weightLossProgram,
-                  emailValue: patientDetails.email,
+                  emailValue: patientDetails?.email,
                 })
               }}
               text="Weight Loss Program"
