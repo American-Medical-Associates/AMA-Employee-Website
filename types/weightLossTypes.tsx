@@ -215,37 +215,37 @@ export interface WeightLossSurveyTypes {
   foodIntolerance: string
   foodIntoleranceList: string
   stressEating: string
-  stressEatingList: Array<string>
+  stressEatingDetails: Array<string>
   bingeEatingExperience: string
-  bingeEatingList: Array<string>
+  bingeEatingDetails: Array<string>
   snackingExperience: string
-  snackingList: Array<string>
+  snackingDetails: Array<string>
   eatingMiddleOfNightExperience: string
-  eatingMiddleOfNightList: Array<string>
+  eatingMiddleOfNightDetails: Array<string>
   skippingMealsExperience: string
-  skippingMealsList: Array<string>
+  skippingMealsDetails: Array<string>
   eatingOutExperience: string
-  eatingOutList: Array<string>
+  eatingOutDetails: Array<string>
   eatingInFrontOfTVExperience: string
-  eatingInFrontOfTVList: Array<string>
+  eatingInFrontOfTVDetails: Array<string>
   eatingAtDeskExperience: string
-  eatingAtDeskList: Array<string>
+  eatingAtDeskDetails: Array<string>
   portionSizeExperience: string
-  portionSizeList: Array<string>
+  portionSizeDetails: Array<string>
   eatingTooFastExperience: string
-  eatingTooFastList: Array<string>
+  eatingTooFastDetails: Array<string>
   notSatifiedExperience: string
-  notSatifiedList: Array<string>
+  notSatifiedDetails: Array<string>
   regularSoda: string
-  regularSodaList: Array<string>
+  regularSodaCount: Array<string>
   juice: string
-  juiceList: Array<string>
+  juiceCount: Array<string>
   sweetTea: string
-  sweetTeaList: Array<string>
+  sweetTeaCount: Array<string>
   alchoholBeverage: string
   alchoholBeverageList: Array<string>
   friedFoods: string
-  friedFoodsList: Array<string>
+  friedFoodsCount: Array<string>
   fruitServings: string
   vegetablesServings: string
   wholeGrainsServings: string

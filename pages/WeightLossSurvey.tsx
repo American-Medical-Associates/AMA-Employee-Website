@@ -20,6 +20,7 @@ import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectWeightLossSurvey } from '../redux/slices/companySlice'
 import router from 'next/router'
+import LineDivider from '../components/lineDiveider'
 
 const WeightLossSurvey: NextPage<{}> = () => {
   const dispatch = useDispatch()
@@ -280,39 +281,40 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [foodIntolerance, setFoodIntolerance] = useState('')
   const [foodIntoleranceList, setFoodIntoleranceList] = useState('')
   const [stressEating, setStressEating] = useState('')
-  const [stressEatingList, setStressEatingList] = useState([])
+  const [stressEatingDetails, setStressEatingDetails] = useState('')
   const [bingeEatingExperience, setBingeEatingExperience] = useState('')
-  const [bingeEatingList, setBingeEatingList] = useState([])
+  const [bingeEatingDetails, setBingeEatingDetails] = useState('')
   const [snackingExperience, setSnackingExperience] = useState('')
-  const [snackingList, setSnackingList] = useState([])
+  const [snackingDetails, setSnackingDetails] = useState('')
   const [eatingMiddleOfNightExperience, setEatingMiddleOfNightExperience] =
     useState('')
-  const [eatingMiddleOfNightList, setEatingMiddleOfNightList] = useState([])
+  const [eatingMiddleOfNightDetails, setEatingMiddleOfNightDetails] =
+    useState('')
   const [skippingMealsExperience, setSkippingMealsExperience] = useState('')
-  const [skippingMealsList, setSkippingMealsList] = useState([])
+  const [skippingMealsDetails, setSkippingMealsDetails] = useState('')
   const [eatingOutExperience, setEatingOutExperience] = useState('')
-  const [eatingOutList, setEatingOutList] = useState([])
+  const [eatingOutDetails, setEatingOutDetails] = useState('')
   const [eatingInFrontOfTVExperience, setEatingInFrontOfTVExperience] =
     useState('')
-  const [eatingInFrontOfTVList, setEatingInFrontOfTVList] = useState([])
+  const [eatingInFrontOfTVDetails, setEatingInFrontOfTVDetails] = useState('')
   const [eatingAtDeskExperience, setEatingAtDeskExperience] = useState('')
-  const [eatingAtDeskList, setEatingAtDeskList] = useState([])
+  const [eatingAtDeskDetails, setEatingAtDeskDetails] = useState('')
   const [portionSizeExperience, setPortionSizeExperience] = useState('')
-  const [portionSizeList, setPortionSizeList] = useState([])
+  const [portionSizeDetails, setPortionSizeDetails] = useState('')
   const [eatingTooFastExperience, setEatingTooFastExperience] = useState('')
-  const [eatingTooFastList, setEatingTooFastList] = useState([])
+  const [eatingTooFastDetails, setEatingTooFastDetails] = useState('')
   const [notSatifiedExperience, setNotSatifiedExperience] = useState('')
-  const [notSatifiedList, setNotSatifiedList] = useState([])
+  const [notSatifiedDetails, setNotSatifiedDetails] = useState('')
   const [regularSoda, setRegularSoda] = useState('')
-  const [regularSodaList, setRegularSodaList] = useState([])
+  const [regularSodaCount, setRegularSodaCount] = useState('')
   const [juice, setJuice] = useState('')
-  const [juiceList, setJuiceList] = useState([])
+  const [juiceCount, setJuiceCount] = useState('')
   const [sweetTea, setSweetTea] = useState('')
-  const [sweetTeaList, setSweetTeaList] = useState([])
+  const [sweetTeaCount, setSweetTeaCount] = useState('')
   const [alchoholBeverages, setAlchoholBeverages] = useState('')
-  const [alchoholBeveragesList, setAlchoholBeveragesList] = useState([])
+  const [alchoholBeveragesCount, setAlchoholBeveragesCount] = useState('')
   const [friedFoods, setFriedFoods] = useState('')
-  const [friedFoodsList, setFriedFoodsList] = useState([])
+  const [friedFoodsCount, setFriedFoodsCount] = useState('')
   const [fruitServings, setFruitServings] = useState('')
   const [vegetableServings, setVegetableServings] = useState('')
   const [wholeGrainServings, setWholeGrainServings] = useState('')
@@ -321,7 +323,9 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [daysPerWeekExplination, setDaysPerWeekExplination] = useState('')
   const [medicalHistory, setMedicalHistory] = useState('')
   const [medicationsTaken, setMedicationsTaken] = useState('')
-  const [medicationsTakenList, setMedicationsTakenList] = useState([])
+  const [medicationsTakenList, setMedicationsTakenList] = useState<
+    Array<string>
+  >([])
   const [autoSaveWeightAge, setAutoSaveWeightAge] = useState<boolean>()
   const [autoSaveEighteen, setAutoSaveEighteen] = useState<boolean>()
   const [autoSaveDaysPerWeek, setAutoSaveDaysPerWeek] = useState<boolean>()
@@ -664,41 +668,43 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setFoodIntolerance(weightLossSelector.foodIntolerance)
       setFoodIntoleranceList(weightLossSelector.foodIntoleranceList)
       setStressEating(weightLossSelector.stressEating)
-      setStressEatingList(weightLossSelector.stressEatingList)
+      setStressEatingDetails(weightLossSelector.stressEatingDetails)
       setBingeEatingExperience(weightLossSelector.bingeEatingExperience)
-      setBingeEatingList(weightLossSelector.bingeEatingList)
+      setBingeEatingDetails(weightLossSelector.bingeEatingDetails)
       setSnackingExperience(weightLossSelector.snackingExperience)
-      setSnackingList(weightLossSelector.snackingList)
+      setSnackingDetails(weightLossSelector.snackingDetails)
       setEatingMiddleOfNightExperience(
         weightLossSelector.eatingMiddleOfNightExperience
       )
-      setEatingMiddleOfNightList(weightLossSelector.eatingMiddleOfNightList)
+      setEatingMiddleOfNightDetails(
+        weightLossSelector.eatingMiddleOfNightDetails
+      )
       setSkippingMealsExperience(weightLossSelector.skippingMealsExperience)
-      setSkippingMealsList(weightLossSelector.skippingMealsList)
+      setSkippingMealsDetails(weightLossSelector.skippingMealsDetails)
       setEatingOutExperience(weightLossSelector.eatingOutExperience)
-      setEatingOutList(weightLossSelector.eatingOutList)
+      setEatingOutDetails(weightLossSelector.eatingOutDetails)
       setEatingInFrontOfTVExperience(
         weightLossSelector.eatingInFrontOfTVExperience
       )
-      setEatingInFrontOfTVList(weightLossSelector.eatingInFrontOfTVList)
+      setEatingInFrontOfTVDetails(weightLossSelector.eatingInFrontOfTVDetails)
       setEatingAtDeskExperience(weightLossSelector.eatingAtDeskExperience)
-      setEatingAtDeskList(weightLossSelector.eatingAtDeskList)
+      setEatingAtDeskDetails(weightLossSelector.eatingAtDeskDetails)
       setPortionSizeExperience(weightLossSelector.portionSizeExperience)
-      setPortionSizeList(weightLossSelector.portionSizeList)
+      setPortionSizeDetails(weightLossSelector.portionSizeDetails)
       setEatingTooFastExperience(weightLossSelector.eatingTooFastExperience)
-      setEatingTooFastList(weightLossSelector.eatingTooFastList)
+      setEatingTooFastDetails(weightLossSelector.eatingTooFastDetails)
       setNotSatifiedExperience(weightLossSelector.notSatifiedExperience)
-      setNotSatifiedList(weightLossSelector.notSatifiedList)
+      setNotSatifiedDetails(weightLossSelector.notSatifiedDetails)
       setRegularSoda(weightLossSelector.regularSoda)
-      setRegularSodaList(weightLossSelector.regularSodaList)
+      setRegularSodaCount(weightLossSelector.regularSodaCount)
       setJuice(weightLossSelector.juice)
-      setJuiceList(weightLossSelector.juiceList)
+      setJuiceCount(weightLossSelector.juiceCount)
       setSweetTea(weightLossSelector.sweetTea)
-      setSweetTeaList(weightLossSelector.sweetTeaList)
+      setSweetTeaCount(weightLossSelector.sweetTeaCount)
       setAlchoholBeverages(weightLossSelector.alchoholBeverages)
-      setAlchoholBeveragesList(weightLossSelector.alchoholBeveragesList)
+      setAlchoholBeveragesCount(weightLossSelector.alchoholBeveragesCount)
       setFriedFoods(weightLossSelector.friedFoods)
-      setFriedFoodsList(weightLossSelector.friedFoodsList)
+      setFriedFoodsCount(weightLossSelector.friedFoodsCount)
       setFruitServings(weightLossSelector.fruitServings)
       setVegetableServings(weightLossSelector.vegetableServings)
       setWholeGrainServings(weightLossSelector.wholeGrainServings)
@@ -707,7 +713,18 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setDaysPerWeekExplination(weightLossSelector.daysPerWeekExplination)
       setMedicalHistory(weightLossSelector.medicalHistory)
       setMedicationsTaken(weightLossSelector.medicationsTaken)
-      setMedicationsTakenList(weightLossSelector.medicationsTakenList)
+      if (
+        weightLossSelector.medicationsTakenList &&
+        weightLossSelector.medicationsTakenList.length > 0
+      ) {
+        weightLossSelector.medicationsTakenList.forEach(
+          (medication: string) => {
+            if (medicationsTakenList.includes(medication) == false) {
+              medicationsTakenList.push(medication)
+            }
+          }
+        )
+      }
     }
   }, [weightLossSelector])
 
@@ -1066,37 +1083,37 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 foodIntolerance: foodIntolerance,
                 foodIntoleranceList: foodIntoleranceList,
                 stressEating: stressEating,
-                stressEatingList: stressEatingList,
+                stressEatingDetails: stressEatingDetails,
                 bingeEatingExperience: bingeEatingExperience,
-                bingeEatingList: bingeEatingList,
+                bingeEatingDetails: bingeEatingDetails,
                 snackingExperience: snackingExperience,
-                snackingList: snackingList,
+                snackingDetails: snackingDetails,
                 eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
-                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                eatingMiddleOfNightDetails: eatingMiddleOfNightDetails,
                 skippingMealsExperience: skippingMealsExperience,
-                skippingMealsList: skippingMealsList,
+                skippingMealsDetails: skippingMealsDetails,
                 eatingOutExperience: eatingOutExperience,
-                eatingOutList: eatingOutList,
+                eatingOutDetails: eatingOutDetails,
                 eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
-                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingInFrontOfTVDetails: eatingInFrontOfTVDetails,
                 eatingAtDeskExperience: eatingAtDeskExperience,
-                eatingAtDeskList: eatingAtDeskList,
+                eatingAtDeskDetails: eatingAtDeskDetails,
                 portionSizeExperience: portionSizeExperience,
-                portionSizeList: portionSizeList,
+                portionSizeDetails: portionSizeDetails,
                 eatingTooFastExperience: eatingTooFastExperience,
-                eatingTooFastList: eatingTooFastList,
+                eatingTooFastDetails: eatingTooFastDetails,
                 notSatifiedExperience: notSatifiedExperience,
-                notSatifiedList: notSatifiedList,
+                notSatifiedDetails: notSatifiedDetails,
                 regularSoda: regularSoda,
-                regularSodaList: regularSodaList,
+                regularSodaCount: regularSodaCount,
                 juice: juice,
-                juiceList: juiceList,
+                juiceCount: juiceCount,
                 sweetTea: sweetTea,
-                sweetTeaList: sweetTeaList,
+                sweetTeaCount: sweetTeaCount,
                 alchoholBeverages: alchoholBeverages,
-                alchoholBeveragesList: alchoholBeveragesList,
+                alchoholBeveragesCount: alchoholBeveragesCount,
                 friedFoods: friedFoods,
-                friedFoodsList: friedFoodsList,
+                friedFoodsCount: friedFoodsCount,
                 fruitServings: fruitServings,
                 vegetableServings: vegetableServings,
                 wholeGrainServings: wholeGrainServings,
@@ -1241,7 +1258,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="onYourOwnWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setOnYourOwnWeightLoss(text.target.value)
                   }}
@@ -1296,7 +1313,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="atkinsOrLowCarbohydrateWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setAtkinsOrLowCarbohydrateWeightLoss(text.target.value)
                   }}
@@ -1354,7 +1371,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="jennyCraigWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setJennyCraigWeightLoss(text.target.value)
                   }}
@@ -1409,7 +1426,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="nutrisystemWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setNutrisystemWeightLoss(text.target.value)
                   }}
@@ -1464,7 +1481,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="weightWatchersWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setWeightWatchersWeightLoss(text.target.value)
                   }}
@@ -1517,7 +1534,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="slimfastWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setSlimfastWeightLoss(text.target.value)
                   }}
@@ -1570,7 +1587,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="optifastWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setOptifastWeightLoss(text.target.value)
                   }}
@@ -1625,7 +1642,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="otherLiquidDietWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setOtherLiquidDietWeightLoss(text.target.value)
                   }}
@@ -1689,7 +1706,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 <TextInput
                   id="otherWeightLoss"
                   placeHolder="Amount of Weight Lost"
-                  widthPercentage="w-1/3"
+                  widthPercentage="w-1/2"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setOtherWeightLoss(text.target.value)
                   }}
@@ -1718,7 +1735,13 @@ const WeightLossSurvey: NextPage<{}> = () => {
           ]}
         />
       </div>
-      <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <p className="mt-10 text-center text-xl font-bold">
         Adipex®, Fastin® (Phentermine)
       </p>
@@ -1754,7 +1777,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="adipexWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setAdipexWeightLoss(text.target.value)
           }}
@@ -1816,7 +1839,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="alliWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setAlliWeightLoss(text.target.value)
           }}
@@ -1876,7 +1899,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="belviqWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setBelviqWeightLoss(text.target.value)
           }}
@@ -1936,7 +1959,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="dexatrimWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setDexatrimWeightLoss(text.target.value)
           }}
@@ -1998,7 +2021,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="herbalWeightLossWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setHerbalWeightLossWeightLoss(text.target.value)
           }}
@@ -2060,7 +2083,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="meridiaWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setMeridiaWeightLoss(text.target.value)
           }}
@@ -2120,7 +2143,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="phenfenWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setPhenfenWeightLoss(text.target.value)
           }}
@@ -2180,7 +2203,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="qsymiaWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setQsymiaWeightLoss(text.target.value)
           }}
@@ -2240,7 +2263,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="reduxWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setReduxWeightLoss(text.target.value)
           }}
@@ -2313,7 +2336,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="otherSupplementsWeightLoss"
           placeHolder="Amount of Weight Lost"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setOtherSupplementsWeightLoss(text.target.value)
           }}
@@ -2340,7 +2363,13 @@ const WeightLossSurvey: NextPage<{}> = () => {
           value={otherSupplementsReasonForRegain}
         />
       </div>
-      <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <AutoSaveLine success={autoSaveEighteen} />
       <div className="mt-10">
         <TextInput
@@ -2589,37 +2618,37 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 foodIntolerance: foodIntolerance,
                 foodIntoleranceList: foodIntoleranceList,
                 stressEating: stressEating,
-                stressEatingList: stressEatingList,
+                stressEatingDetails: stressEatingDetails,
                 bingeEatingExperience: bingeEatingExperience,
-                bingeEatingList: bingeEatingList,
+                bingeEatingDetails: bingeEatingDetails,
                 snackingExperience: snackingExperience,
-                snackingList: snackingList,
+                snackingDetails: snackingDetails,
                 eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
-                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                eatingMiddleOfNightDetails: eatingMiddleOfNightDetails,
                 skippingMealsExperience: skippingMealsExperience,
-                skippingMealsList: skippingMealsList,
+                skippingMealsDetails: skippingMealsDetails,
                 eatingOutExperience: eatingOutExperience,
-                eatingOutList: eatingOutList,
+                eatingOutDetails: eatingOutDetails,
                 eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
-                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingInFrontOfTVDetails: eatingInFrontOfTVDetails,
                 eatingAtDeskExperience: eatingAtDeskExperience,
-                eatingAtDeskList: eatingAtDeskList,
+                eatingAtDeskDetails: eatingAtDeskDetails,
                 portionSizeExperience: portionSizeExperience,
-                portionSizeList: portionSizeList,
+                portionSizeDetails: portionSizeDetails,
                 eatingTooFastExperience: eatingTooFastExperience,
-                eatingTooFastList: eatingTooFastList,
+                eatingTooFastDetails: eatingTooFastDetails,
                 notSatifiedExperience: notSatifiedExperience,
-                notSatifiedList: notSatifiedList,
+                notSatifiedDetails: notSatifiedDetails,
                 regularSoda: regularSoda,
-                regularSodaList: regularSodaList,
+                regularSodaCount: regularSodaCount,
                 juice: juice,
-                juiceList: juiceList,
+                juiceCount: juiceCount,
                 sweetTea: sweetTea,
-                sweetTeaList: sweetTeaList,
+                sweetTeaCount: sweetTeaCount,
                 alchoholBeverages: alchoholBeverages,
-                alchoholBeveragesList: alchoholBeveragesList,
+                alchoholBeveragesCount: alchoholBeveragesCount,
                 friedFoods: friedFoods,
-                friedFoodsList: friedFoodsList,
+                friedFoodsCount: friedFoodsCount,
                 fruitServings: fruitServings,
                 vegetableServings: vegetableServings,
                 wholeGrainServings: wholeGrainServings,
@@ -2735,7 +2764,13 @@ const WeightLossSurvey: NextPage<{}> = () => {
           isChecked={eatingTooMuch}
         />
       </div>
-      <div className="mt-10 mb-10 bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <p className="text-center text-lg font-bold">
         Please answer the following Sleep/Restfulness questions
       </p>
@@ -2786,7 +2821,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="howManyNights"
           placeHolder="How many nights per week?"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           value={howManyNights}
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setHowManyNights(text.target.value)
@@ -2818,7 +2853,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
         Would never doze, 1 = Slight chance of dozing, 2 = Moderate chance of
         dozing, 3 = High chance of dozing
       </p>
-
       <div className="flex justify-center text-lg">
         <div className="w-[25%]">
           <CustomCheckBoxFeild
@@ -2911,14 +2945,20 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="Total"
           placeHolder="Total"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           value={total}
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setTotal(text.target.value)
           }}
         />
       </div>
-      <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <div className="flex justify-center">
         <CustomCheckBoxFeild
           id="typicalDay"
@@ -3194,7 +3234,13 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />,
         ]}
       />
-      <div className="mt-10 mb-10 bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <SectionWithTitle
         title="Additional information related to diet"
         BgColor="bg-[#e8e8e8]"
@@ -3539,12 +3585,18 @@ const WeightLossSurvey: NextPage<{}> = () => {
           }}
         />
       </div>
-      <div className="bg-[#e8e8e8] p-3 shadow-md"></div>
+      <div className="my-10 flex items-center justify-center justify-self-center">
+        <LineDivider
+          lineColor="bg-[#e9e7e7b1]"
+          lineWidth="w-[80%]"
+          lineHeight="h-[10px]"
+        />
+      </div>
       <div className="mt-10">
         <TextInput
           id="numPeopleLiveWith"
           placeHolder="Number of People You Live With"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           value={numPeopleLiveWith}
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setNumPeopleLiveWith(text.target.value)
@@ -3591,7 +3643,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         <TextInput
           id="foodIntoleranceList"
           placeHolder="Please List"
-          widthPercentage="w-1/3"
+          widthPercentage="w-1/2"
           value={foodIntoleranceList}
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setFoodIntoleranceList(text.target.value)
@@ -3609,11 +3661,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={stressEating}
           />,
           stressEating === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="stressEatingList"
-              title="Please List"
-              list={stressEatingList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="stressEatingDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={stressEatingDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setStressEatingDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3623,11 +3678,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={bingeEatingExperience}
           />,
           bingeEatingExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="bingeEatingList"
-              title="Please List"
-              list={bingeEatingList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="bingeEatingDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={bingeEatingDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setBingeEatingDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3637,11 +3695,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={snackingExperience}
           />,
           snackingExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="snackingList"
-              title="Please List"
-              list={snackingList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="snackingDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={snackingDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setSnackingDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3651,11 +3712,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={eatingMiddleOfNightExperience}
           />,
           eatingMiddleOfNightExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="eatingMiddleOfNightList"
-              title="Please List"
-              list={eatingMiddleOfNightList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="eatingMiddleOfNightDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={eatingMiddleOfNightDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setEatingMiddleOfNightDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3665,11 +3729,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={skippingMealsExperience}
           />,
           skippingMealsExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="skippingMealsList"
-              title="Please List"
-              list={skippingMealsList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="skippingMealsDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={skippingMealsDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setSkippingMealsDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3679,11 +3746,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={eatingOutExperience}
           />,
           eatingOutExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="eatingOutList"
-              title="Please List"
-              list={eatingOutList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="eatingOutDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={eatingOutDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setEatingOutDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3693,11 +3763,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={eatingInFrontOfTVExperience}
           />,
           eatingInFrontOfTVExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="eatingInFrontOfTVList"
-              title="Please List"
-              list={eatingInFrontOfTVList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="eatingInFrontOfTVDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={eatingInFrontOfTVDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setEatingInFrontOfTVDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3707,11 +3780,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={eatingAtDeskExperience}
           />,
           eatingAtDeskExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="eatingAtDeskList"
-              title="Please List"
-              list={eatingAtDeskList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="eatingAtDeskDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={eatingAtDeskDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setEatingAtDeskDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3721,11 +3797,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={portionSizeExperience}
           />,
           portionSizeExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="portionSizeList"
-              title="Please List"
-              list={portionSizeList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="portionSizeDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={portionSizeDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setPortionSizeDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3735,11 +3814,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={eatingTooFastExperience}
           />,
           eatingTooFastExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="eatingTooFastList"
-              title="Please List"
-              list={eatingTooFastList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="eatingTooFastDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={eatingTooFastDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setEatingTooFastDetails(text.target.value)
+              }}
             />
           ),
           <CustomYesOrNo
@@ -3749,16 +3831,18 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={notSatifiedExperience}
           />,
           notSatifiedExperience === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="notSatifiedList"
-              title="Please List"
-              list={notSatifiedList}
-              inputBoxPlaceHolder="Details/Comments"
+            <TextInput
+              id="notSatifiedDetails"
+              placeHolder="Details/Comments"
+              widthPercentage="w-1/2"
+              value={notSatifiedDetails}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                setNotSatifiedDetails(text.target.value)
+              }}
             />
           ),
         ]}
       />
-
       <SectionWithTitle
         title="Which of the following do you consume more than once a week?"
         BgColor="bg-[#e8e8e8]"
@@ -3770,10 +3854,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={regularSoda}
           />,
           regularSoda === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="regularSodaList"
-              list={regularSodaList}
-              inputBoxPlaceHolder="Number Per Day (Average)"
+            <TextInput
+              placeHolder="Number Per Day (Average)"
+              id="regularSodaCount"
+              value={regularSodaCount}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+                setRegularSodaCount(text.target.value)
+              }
+              widthPercentage="w-1/2"
             />
           ),
           <CustomYesOrNo
@@ -3783,10 +3871,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={juice}
           />,
           juice === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="juiceList"
-              list={juiceList}
-              inputBoxPlaceHolder="Number Per Day (Average)"
+            <TextInput
+              placeHolder="Number Per Day (Average)"
+              id="juiceCount"
+              value={juiceCount}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+                setJuiceCount(text.target.value)
+              }
+              widthPercentage="w-1/2"
             />
           ),
           <CustomYesOrNo
@@ -3796,10 +3888,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={sweetTea}
           />,
           sweetTea === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="sweetTeaList"
-              list={sweetTeaList}
-              inputBoxPlaceHolder="Number Per Day (Average)"
+            <TextInput
+              placeHolder="Number Per Day (Average)"
+              id="sweetTeaCount"
+              value={sweetTeaCount}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+                setSweetTeaCount(text.target.value)
+              }
+              widthPercentage="w-1/2"
             />
           ),
           <CustomYesOrNo
@@ -3809,10 +3905,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={alchoholBeverages}
           />,
           alchoholBeverages === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="alchoholBeveragesList"
-              list={alchoholBeveragesList}
-              inputBoxPlaceHolder="Number Per Day (Average)"
+            <TextInput
+              placeHolder="Number Per Day (Average)"
+              id="alchoholBeveragesCount"
+              value={alchoholBeveragesCount}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+                setAlchoholBeveragesCount(text.target.value)
+              }
+              widthPercentage="w-1/2"
             />
           ),
           <CustomYesOrNo
@@ -3822,10 +3922,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
             isChecked={friedFoods}
           />,
           friedFoods === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="friedFoodsList"
-              list={friedFoodsList}
-              inputBoxPlaceHolder="Number Per Day (Average)"
+            <TextInput
+              placeHolder="Number Per Day (Average)"
+              id="friedFoodsCount"
+              value={friedFoodsCount}
+              onChange={(text: React.ChangeEvent<HTMLInputElement>) =>
+                setFriedFoodsCount(text.target.value)
+              }
+              widthPercentage="w-1/2"
             />
           ),
         ]}
@@ -4135,37 +4239,37 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 foodIntolerance: foodIntolerance,
                 foodIntoleranceList: foodIntoleranceList,
                 stressEating: stressEating,
-                stressEatingList: stressEatingList,
+                stressEatingDetails: stressEatingDetails,
                 bingeEatingExperience: bingeEatingExperience,
-                bingeEatingList: bingeEatingList,
+                bingeEatingDetails: bingeEatingDetails,
                 snackingExperience: snackingExperience,
-                snackingList: snackingList,
+                snackingDetails: snackingDetails,
                 eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
-                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                eatingMiddleOfNightDetails: eatingMiddleOfNightDetails,
                 skippingMealsExperience: skippingMealsExperience,
-                skippingMealsList: skippingMealsList,
+                skippingMealsDetails: skippingMealsDetails,
                 eatingOutExperience: eatingOutExperience,
-                eatingOutList: eatingOutList,
+                eatingOutDetails: eatingOutDetails,
                 eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
-                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingInFrontOfTVDetails: eatingInFrontOfTVDetails,
                 eatingAtDeskExperience: eatingAtDeskExperience,
-                eatingAtDeskList: eatingAtDeskList,
+                eatingAtDeskDetails: eatingAtDeskDetails,
                 portionSizeExperience: portionSizeExperience,
-                portionSizeList: portionSizeList,
+                portionSizeDetails: portionSizeDetails,
                 eatingTooFastExperience: eatingTooFastExperience,
-                eatingTooFastList: eatingTooFastList,
+                eatingTooFastDetails: eatingTooFastDetails,
                 notSatifiedExperience: notSatifiedExperience,
-                notSatifiedList: notSatifiedList,
+                notSatifiedDetails: notSatifiedDetails,
                 regularSoda: regularSoda,
-                regularSodaList: regularSodaList,
+                regularSodaCount: regularSodaCount,
                 juice: juice,
-                juiceList: juiceList,
+                juiceCount: juiceCount,
                 sweetTea: sweetTea,
-                sweetTeaList: sweetTeaList,
+                sweetTeaCount: sweetTeaCount,
                 alchoholBeverages: alchoholBeverages,
-                alchoholBeveragesList: alchoholBeveragesList,
+                alchoholBeveragesCount: alchoholBeveragesCount,
                 friedFoods: friedFoods,
-                friedFoodsList: friedFoodsList,
+                friedFoodsCount: friedFoodsCount,
                 fruitServings: fruitServings,
                 vegetableServings: vegetableServings,
                 wholeGrainServings: wholeGrainServings,
@@ -4238,24 +4342,27 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Other',
             ]}
           />,
-          <CustomYesOrNo
-            id="medicationsTaken"
-            text="Are you currently taking any medications?"
-            CheckState={setMedicationsTaken}
-            isChecked={medicationsTaken}
-          />,
-          medicationsTaken === 'Yes' && (
-            <UserCreatedListFromInputBox
-              id="medicationsTakenList"
-              list={medicationsTakenList}
-              inputBoxPlaceHolder="Medication Name"
-            />
-          ),
         ]}
       />
-      <div className="mt-10 flex items-center justify-center">
+      <div className=" flex flex-col items-center justify-center justify-self-center">
+        <CustomYesOrNo
+          id="medicationsTaken"
+          text="Are you currently taking any medications?"
+          CheckState={setMedicationsTaken}
+          isChecked={medicationsTaken}
+        />
+        {medicationsTaken === 'Yes' && (
+          <UserCreatedListFromInputBox
+            id="medicationsTakenList"
+            list={medicationsTakenList}
+            inputBoxPlaceHolder="Medication Name"
+          />
+        )}
+      </div>
+      <div className="my-20 flex items-center justify-center">
         <MainButton
           buttonText="Submit"
+          buttonWidth="w-[70%]"
           onClick={() => {
             if (patientsName === '') {
               setRequiredPatientsName(true)
@@ -4736,37 +4843,37 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 foodIntolerance: foodIntolerance,
                 foodIntoleranceList: foodIntoleranceList,
                 stressEating: stressEating,
-                stressEatingList: stressEatingList,
+                stressEatingDetails: stressEatingDetails,
                 bingeEatingExperience: bingeEatingExperience,
-                bingeEatingList: bingeEatingList,
+                bingeEatingDetails: bingeEatingDetails,
                 snackingExperience: snackingExperience,
-                snackingList: snackingList,
+                snackingDetails: snackingDetails,
                 eatingMiddleOfNightExperience: eatingMiddleOfNightExperience,
-                eatingMiddleOfNightList: eatingMiddleOfNightList,
+                eatingMiddleOfNightDetails: eatingMiddleOfNightDetails,
                 skippingMealsExperience: skippingMealsExperience,
-                skippingMealsList: skippingMealsList,
+                skippingMealsDetails: skippingMealsDetails,
                 eatingOutExperience: eatingOutExperience,
-                eatingOutList: eatingOutList,
+                eatingOutDetails: eatingOutDetails,
                 eatingInFrontOfTVExperience: eatingInFrontOfTVExperience,
-                eatingInFrontOfTVList: eatingInFrontOfTVList,
+                eatingInFrontOfTVDetails: eatingInFrontOfTVDetails,
                 eatingAtDeskExperience: eatingAtDeskExperience,
-                eatingAtDeskList: eatingAtDeskList,
+                eatingAtDeskDetails: eatingAtDeskDetails,
                 portionSizeExperience: portionSizeExperience,
-                portionSizeList: portionSizeList,
+                portionSizeDetails: portionSizeDetails,
                 eatingTooFastExperience: eatingTooFastExperience,
-                eatingTooFastList: eatingTooFastList,
+                eatingTooFastDetails: eatingTooFastDetails,
                 notSatifiedExperience: notSatifiedExperience,
-                notSatifiedList: notSatifiedList,
+                notSatifiedDetails: notSatifiedDetails,
                 regularSoda: regularSoda,
-                regularSodaList: regularSodaList,
+                regularSodaCount: regularSodaCount,
                 juice: juice,
-                juiceList: juiceList,
+                juiceCount: juiceCount,
                 sweetTea: sweetTea,
-                sweetTeaList: sweetTeaList,
+                sweetTeaCount: sweetTeaCount,
                 alchoholBeverages: alchoholBeverages,
-                alchoholBeveragesList: alchoholBeveragesList,
+                alchoholBeveragesCount: alchoholBeveragesCount,
                 friedFoods: friedFoods,
-                friedFoodsList: friedFoodsList,
+                friedFoodsCount: friedFoodsCount,
                 fruitServings: fruitServings,
                 vegetableServings: vegetableServings,
                 wholeGrainServings: wholeGrainServings,
