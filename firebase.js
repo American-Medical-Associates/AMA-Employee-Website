@@ -29,6 +29,7 @@ import {
   setDoc,
   doc,
   where,
+  getDocs,
 } from 'firebase/firestore'
 import {
   getAuth,
@@ -613,23 +614,63 @@ export async function addNewPatient({
   )
 }
 
-export function patientSearchListAMA({ patientArray, company }) {
+export async function patientSearchListAMA({
+  patientArray,
+  company,
+  searchName,
+  DOB,
+}) {
   try {
-    onSnapshot(
-      query(
-        collection(db, 'companys', company, 'patients')
-        // where('fullName', '>=', searchName)
-      ),
+    if (searchName != '' && DOB === '') {
+      onSnapshot(
+        query(
+          collection(db, 'companys', company, 'patients'),
+          where('fullName', '==', searchName)
+        ),
 
-      (querySnapshot) => {
-        const quantitysnap = []
+        (querySnapshot) => {
+          const quantitysnap = []
 
-        querySnapshot.forEach((snap) => {
-          quantitysnap.push(snap.data())
-        })
-        patientArray(quantitysnap)
-      }
-    )
+          querySnapshot.forEach((snap) => {
+            quantitysnap.push(snap.data())
+          })
+          patientArray(quantitysnap)
+        }
+      )
+    } else if (searchName === '' && DOB != '') {
+      onSnapshot(
+        query(
+          collection(db, 'companys', company, 'patients'),
+          where('DOB', '==', DOB)
+        ),
+
+        (querySnapshot) => {
+          const quantitysnap = []
+
+          querySnapshot.forEach((snap) => {
+            quantitysnap.push(snap.data())
+          })
+          patientArray(quantitysnap)
+        }
+      )
+    } else if (searchName != '' && DOB != '') {
+      onSnapshot(
+        query(
+          collection(db, 'companys', company, 'patients'),
+          where('DOB', '>=', DOB),
+          where('fullName', '>=', searchName)
+        ),
+
+        (querySnapshot) => {
+          const quantitysnap = []
+
+          querySnapshot.forEach((snap) => {
+            quantitysnap.push(snap.data())
+          })
+          patientArray(quantitysnap)
+        }
+      )
+    }
   } catch (e) {
     e
   }
@@ -974,9 +1015,12 @@ export async function submitNewPatientPacketAndCreateNewPatient({
       await setDoc(
         doc(db, 'companys', 'AMA', 'patients', emailValue),
         {
-          fullName: lastName + ', ' + firstName,
-          firstName: firstName,
-          lastName: lastName,
+          fullName:
+            lastName.toLowerCase().trim() +
+            ',' +
+            firstName.toLowerCase().trim(),
+          firstName: firstName.toLowerCase().trim(),
+          lastName: lastName.toLowerCase().trim(),
           email: emailValue,
           phoneNumber: phoneNumberValue,
           homePhone: homePhone,
@@ -4038,4 +4082,110 @@ export async function UpdatePatientInfoWeightLoss({
     },
     { merge: true }
   )
+}
+
+export async function savePatentForms(data) {
+  try {
+    const recordsRequestCollection = doc(
+      db,
+      'companys',
+      'AMA',
+      data.formName,
+      auth.currentUser.email
+    )
+    const recordsRequestCollectionInPatient = doc(
+      db,
+      'companys',
+      'AMA',
+      'patients',
+      auth.currentUser.email,
+      data.formName,
+      auth.currentUser.email
+    )
+
+    const docRef = await setDoc(
+      recordsRequestCollection,
+      {
+        ...data,
+      },
+      { merge: true }
+    ).then(() => {
+      setDoc(
+        recordsRequestCollectionInPatient,
+        {
+          ...data,
+        },
+        { merge: true }
+      )
+    })
+  } catch (error) {
+    console.error(`Error adding document: ${error}`)
+  }
+}
+
+// get all forms for a patient using a query
+export function getPatientForms({ setPatientDocs, selectedForm }) {
+  onSnapshot(
+    query(
+      collection(db, 'companys', 'AMA', 'patients', 'z@gmail.com', selectedForm)
+    ),
+    (querySnapshot) => {
+      const patientDocs = []
+      querySnapshot.forEach((doc) => {
+        patientDocs.push(doc.data())
+      })
+      setPatientDocs(patientDocs)
+    }
+  )
+}
+
+// Define the async function updateFieldsToLowerCase that takes a collection path as input
+export async function updateFieldsToLowerCase() {
+  const collectionPath = ['companys', 'AMA', 'patients']
+  // Get a reference to the collection using the provided path
+  const collectionRef = collection(db, 'companys', 'AMA', 'patients')
+  // Retrieve all documents in the collection
+  const querySnapshot = await getDocs(collectionRef)
+  try {
+    // Iterate through each document in the collection
+    querySnapshot.forEach(async (docSnapshot) => {
+      // Get the data of the current document
+      const data = docSnapshot.data()
+      // Initialize a flag to check if an update is needed and an object to store the updated data
+      let shouldUpdate = false
+      const updatedData = {}
+
+      // Check if the fullName field exists, set its value to lowercase, and update the flag
+      if (data.firstName) {
+        updatedData.firstName = data.firstName.toLowerCase().trim()
+        shouldUpdate = true
+      }
+      // Check if the firstName field exists, set its value to lowercase, and update the flag
+      if (data.fullName.includes(', ')) {
+        updatedData.fullName = data.fullName.replace(', ', ',').trim()
+        shouldUpdate = true
+      }
+      if (data.fullName.includes(' , ')) {
+        updatedData.fullName = data.fullName.replace(' , ', ',').trim()
+        shouldUpdate = true
+      }
+      if (data.fullName.includes(' ,')) {
+        updatedData.fullName = data.fullName.replace(', ', ',').trim()
+        shouldUpdate = true
+      }
+      // Check if the lastName field exists, set its value to lowercase, and update the flag
+      if (data.lastName) {
+        updatedData.lastName = data.lastName.toLowerCase()
+        shouldUpdate = true
+      }
+
+      // If any of the fields were updated, update the document in Firestore with the new data
+      if (shouldUpdate) {
+        const docRef = doc(db, 'companys', 'AMA', 'patients', docSnapshot.id)
+        await updateDoc(docRef, updatedData)
+      }
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }

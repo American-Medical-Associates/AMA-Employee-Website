@@ -40,6 +40,14 @@ export default function NewPatientPacketSubmitions() {
     functions,
     'addPatientToEclinicalPuppeteer'
   )
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    if (submissions.length > 0) {
+      setLoading(false)
+    } else {
+      setLoading(true)
+    }
+  }, [submissions])
 
   useEffect(() => {
     if (!auth.currentUser?.email) {

@@ -1520,7 +1520,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />,
               <TextInput
                 id="insurancePolicyNumber"
-                placeHolder="Primary Insurance ID"
+                placeHolder="Policy #"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsuranceID(text.target.value)
@@ -1530,7 +1530,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />,
               <TextInput
                 id="insuranceGroupNumber"
-                placeHolder="Primary Insurance Group"
+                placeHolder="Group #"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsuranceGroup(text.target.value)
@@ -1540,7 +1540,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />,
               <TextInput
                 id="insurancePhoneNumber"
-                placeHolder="primary Insurance Phone Number"
+                placeHolder="Phone Number"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimaryInsurancePhone(text.target.value)
@@ -1575,7 +1575,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />,
               <DateInput
                 id="subscriberDOB"
-                placeHolder="Subscriber Date Of Birth"
+                placeHolder="Subscriber DOB"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setPrimarySubscribersDOB(text.target.value)
@@ -1620,7 +1620,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={secondaryInsurance}
               />,
               <TextInput
-                placeHolder="Secondary Insurance ID"
+                placeHolder="Policy #"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsuranceID(text.target.value)
@@ -1628,7 +1628,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={secondaryInsuranceID}
               />,
               <TextInput
-                placeHolder="Secondary Insurance Group"
+                placeHolder="Group #"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsuranceGroup(text.target.value)
@@ -1636,7 +1636,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={secondaryInsuranceGroup}
               />,
               <TextInput
-                placeHolder="Secondary Insurance Phone Number"
+                placeHolder="Phone Number"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondaryInsurancePhone(text.target.value)
@@ -1666,7 +1666,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 value={secondarySubscribersName}
               />,
               <DateInput
-                placeHolder="Subscriber Date Of Birth"
+                placeHolder="Subscriber DOB"
                 widthPercentage="w-full"
                 onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                   setSecondarySubscribersDOB(text.target.value)

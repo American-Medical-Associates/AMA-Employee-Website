@@ -48,7 +48,7 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1>{auth.currentUser?.email}</h1>
-        {auth.currentUser?.emailVerified ? (
+        {/* {auth.currentUser?.emailVerified ? (
           <h1 className=" text-[#959494f6]">Email Verified</h1>
         ) : (
           <MainButton
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
               sendEmailVerification(auth.currentUser!)
             }}
           />
-        )}
+        )} */}
         <h1>Home Page!</h1>
 
         {/* <TensorFlowBert /> */}

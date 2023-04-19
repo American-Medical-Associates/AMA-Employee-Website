@@ -21,9 +21,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectWeightLossSurvey } from '../redux/slices/companySlice'
 import router from 'next/router'
 import LineDivider from '../components/lineDiveider'
+import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 
 const WeightLossSurvey: NextPage<{}> = () => {
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+  const [showGreenCheckMark, setShowGreenCheckMark] = useState(false)
   const [patientsName, setPatientsName] = useState('')
   const [date, setDate] = useState('')
   const [primaryDoctor, setPrimaryDoctor] = useState('')
@@ -34,8 +37,12 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [ageAtAdultMostWeight, setAgeAtAdultMostWeight] = useState('')
   const [leastWeighedAsAdult, setLeastWeighedAsAdult] = useState('')
   const [ageAtAdultLeastWeight, setAgeAtAdultLeastWeight] = useState('')
-  const [weightChangeDuringLife, setWeightChangeDuringLife] = useState('')
-  const [weightGainedInPast, setWeightGainedInPast] = useState('')
+  const [weightChangeDuringLife, setWeightChangeDuringLife] = useState<
+    Array<string>
+  >([])
+  const [weightGainedInPast, setWeightGainedInPast] = useState<Array<string>>(
+    []
+  )
   const [challengesOfWeightManagement, setChallengesOfWeightManagement] =
     useState('')
   const [hopesForWeightLossManagement, setHopesForWeightLossManagement] =
@@ -728,8 +735,11 @@ const WeightLossSurvey: NextPage<{}> = () => {
     }
   }, [weightLossSelector])
 
-  console.log('weightLossSelector', weightLossSelector)
-
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
   return (
     <div>
       <Header selectCompany={'AMA'} routePatientsHome={false} />
@@ -1160,7 +1170,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Menopause',
             'Medications',
             'Stress',
-            'Other',
           ]}
           required={requiredWeightGainedInPast}
         />
@@ -1189,7 +1198,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Lose weight',
             'Prevent medical problems',
             'Reverse medical problems/Allow me to stop medications',
-            'Other',
           ]}
           required={requiredHopesForWeightLossManagement}
         />
@@ -2670,7 +2678,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           checkBoxValues={childrenUnderEighteenCheckBox}
           setCheckBoxValues={setChildrenUnderEighteenCheckBox}
           allowMultipleCheckBoxes={true}
-          checkBoxTitles={['Child(ren)', 'Grandchild(ren)', 'Other']}
+          checkBoxTitles={['Child(ren)', 'Grandchild(ren)']}
         />
       </div>
       <div className="align-center flex justify-center text-lg">
@@ -2689,7 +2697,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Sister',
             'Brother',
             'Grandparent',
-            'Other',
           ]}
         />
       </div>
@@ -2844,7 +2851,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           ]}
         />
       </div>
-      <p className="mt-10 text-center text-lg font-bold">
+      <p className="mx-20 mt-10 text-center text-lg font-bold">
         Select the checkbox choice for how likely are you to doze off or fall
         asleep in the situations described below, in contrast to feeling just
         tired? This refers to your usual way of life in recent times. Even if
@@ -2972,7 +2979,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
             'Mostly walking',
             'Mostly heavy labor',
             'Unsure',
-            'Other',
           ]}
         />
       </div>
@@ -3128,7 +3134,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Yoga',
               'Zumba',
               'None',
-              'Other',
             ]}
           />,
           <CustomCheckBoxFeild
@@ -3155,7 +3160,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Yoga',
               'Zumba',
               'None',
-              'Other',
             ]}
           />,
           <CustomCheckBoxFeild
@@ -3190,7 +3194,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Improved health',
               'Improved arthritis',
               'Improved mobility',
-              'Other',
             ]}
           />,
           <CustomCheckBoxFeild
@@ -3207,7 +3210,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Lack of access to exercise facilities',
               'Injuries',
               'Health problems',
-              'Other',
             ]}
           />,
           <p className="text-2xl text-gray-700">
@@ -3280,7 +3282,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Lack of knowledge of food to eat/buy',
               'Time to plan/prepare healthy diet',
               'Work atmosphere',
-              'Other',
             ]}
           />,
           <TextInput
@@ -3618,7 +3619,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           checkBoxValues={whoDoesShopping}
           setCheckBoxValues={setWhoDoesShopping}
           allowMultipleCheckBoxes={true}
-          checkBoxTitles={['Self', 'Spouse', 'Parent', 'Other']}
+          checkBoxTitles={['Self', 'Spouse', 'Parent']}
         />
       </div>
       <div className="flex items-center justify-center">
@@ -3628,7 +3629,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           checkBoxValues={whoDoesCooking}
           setCheckBoxValues={setWhoDoesCooking}
           allowMultipleCheckBoxes={true}
-          checkBoxTitles={['Self', 'Spouse', 'Parent', 'Other']}
+          checkBoxTitles={['Self', 'Spouse', 'Parent']}
         />
       </div>
       <div className="flex items-center justify-center">
@@ -4339,7 +4340,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Hepatitis',
               'HIV/AID',
               'None of the above',
-              'Other',
             ]}
           />,
         ]}
@@ -4359,12 +4359,21 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         )}
       </div>
+      {showGreenCheckMark && (
+        <GreenCheckMark
+          checkMarkText="Thank You"
+          bottomText="Your information has been submitted"
+        />
+      )}
       <div className="my-20 flex items-center justify-center">
         <MainButton
           buttonText="Submit"
           buttonWidth="w-[70%]"
+          loading={loading}
           onClick={() => {
+            setLoading(true)
             if (patientsName === '') {
+              setLoading(false)
               setRequiredPatientsName(true)
               router.push('/WeightLossSurvey/#patientsName').then(() => {
                 setTimeout(() => {
@@ -4373,6 +4382,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (date === '') {
+              setLoading(false)
               setRequiredDate(true)
               router.push('/WeightLossSurvey/#date').then(() => {
                 setTimeout(() => {
@@ -4381,6 +4391,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (whyLossWeight === '') {
+              setLoading(false)
               setRequiredWhyLossWeight(true)
               router.push('/WeightLossSurvey/#whyLossWeight').then(() => {
                 setTimeout(() => {
@@ -4389,6 +4400,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (weightGoals === '') {
+              setLoading(false)
               setRequiredWeightGoals(true)
               router.push('/WeightLossSurvey/#weightGoals').then(() => {
                 setTimeout(() => {
@@ -4397,6 +4409,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (mostWeighedAsAdult === '') {
+              setLoading(false)
               setRequiredMostWeighedAsAdult(true)
               router.push('/WeightLossSurvey/#mostWeighedAsAdult').then(() => {
                 setTimeout(() => {
@@ -4405,6 +4418,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (ageAtAdultMostWeight === '') {
+              setLoading(false)
               setRequiredAgeAtAdultMostWeight(true)
               router.push('/WeightLossSurvey/#ageAtWeight').then(() => {
                 setTimeout(() => {
@@ -4413,6 +4427,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (leastWeighedAsAdult === '') {
+              setLoading(false)
               setRequiredLeastWeighedAsAdult(true)
               router.push('/WeightLossSurvey/#leastWeighedAsAdult').then(() => {
                 setTimeout(() => {
@@ -4421,6 +4436,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (ageAtAdultLeastWeight === '') {
+              setLoading(false)
               setRequiredAgeAtAdultLeastWeight(true)
               router
                 .push('/WeightLossSurvey/#ageAtAdultLeastWeight')
@@ -4430,7 +4446,8 @@ const WeightLossSurvey: NextPage<{}> = () => {
                   }, 100)
                 })
               return
-            } else if (weightChangeDuringLife === '') {
+            } else if (weightChangeDuringLife.length === 0) {
+              setLoading(false)
               setRequiredWeightChangeDuringLife(true)
               router
                 .push('/WeightLossSurvey/#howHasWeightChangedDuringLife')
@@ -4440,7 +4457,8 @@ const WeightLossSurvey: NextPage<{}> = () => {
                   }, 100)
                 })
               return
-            } else if (weightGainedInPast === '') {
+            } else if (weightGainedInPast.length === 0) {
+              setLoading(false)
               setRequiredWeightGainedInPast(true)
               router
                 .push('/WeightLossSurvey/#causeOfWeightGainInPast')
@@ -4451,6 +4469,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 })
               return
             } else if (hopesForWeightLossManagement === '') {
+              setLoading(false)
               setRequiredHopesForWeightLossManagement(true)
               router
                 .push('/WeightLossSurvey/#hopesForWeightLossManagement')
@@ -4461,6 +4480,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 })
               return
             } else if (currentDietAids === '') {
+              setLoading(false)
               setRequiredCurrentDietAids(true)
               router.push('/WeightLossSurvey/#currentlyOnDietAids').then(() => {
                 setTimeout(() => {
@@ -4469,6 +4489,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (childrenUnderEighteen === '') {
+              setLoading(false)
               setRequiredChildrenUnderEighteen(true)
               router
                 .push('/WeightLossSurvey/#childrenUnderEighteen')
@@ -4479,6 +4500,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 })
               return
             } else if (eatingDisorder === '') {
+              setLoading(false)
               setRequiredEatingDisorder(true)
               router.push('/WeightLossSurvey/#eatingDisorder').then(() => {
                 setTimeout(() => {
@@ -4487,6 +4509,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (anorexiaNervosa === '') {
+              setLoading(false)
               setRequiredAnorexiaNervosa(true)
               router.push('/WeightLossSurvey/#anorexiaNervosa').then(() => {
                 setTimeout(() => {
@@ -4495,6 +4518,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (bingeEating === '') {
+              setLoading(false)
               setRequiredBingeEating(true)
               router.push('/WeightLossSurvey/#bingeEating').then(() => {
                 setTimeout(() => {
@@ -4503,6 +4527,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (bulimia === '') {
+              setLoading(false)
               setRequiredBulimia(true)
               router.push('/WeightLossSurvey/#bulimia').then(() => {
                 setTimeout(() => {
@@ -4511,6 +4536,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (eatingTooMuch === '') {
+              setLoading(false)
               setRequiredEatingTooMuch(true)
               router.push('/WeightLossSurvey/#eatingTooMuch').then(() => {
                 setTimeout(() => {
@@ -4519,6 +4545,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (sleepHours === '') {
+              setLoading(false)
               setRequiredSleepHours(true)
               router.push('/WeightLossSurvey/#sleepHours').then(() => {
                 setTimeout(() => {
@@ -4527,6 +4554,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (restedWhenWakeUp === '') {
+              setLoading(false)
               setRequiredRestedWhenWakeUp(true)
               router.push('/WeightLossSurvey/#restedWhenWakeUp').then(() => {
                 setTimeout(() => {
@@ -4535,6 +4563,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (doYouSnore === '') {
+              setLoading(false)
               setRequiredDoYouSnore(true)
               router.push('/WeightLossSurvey/#doYouSnore').then(() => {
                 setTimeout(() => {
@@ -4543,6 +4572,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (wearEquipment === '') {
+              setLoading(false)
               setRequiredWearEquipment(true)
               router.push('/WeightLossSurvey/#wearEquipment').then(() => {
                 setTimeout(() => {
@@ -4551,6 +4581,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (sleepWellness === '') {
+              setLoading(false)
               setRequiredSleepWellness(true)
               router.push('/WeightLossSurvey/#sleepWellness').then(() => {
                 setTimeout(() => {
@@ -4559,6 +4590,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (typicalDay === '') {
+              setLoading(false)
               setRequiredTypicalDay(true)
               router.push('/WeightLossSurvey/#typicalDay').then(() => {
                 setTimeout(() => {
@@ -4567,6 +4599,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (exerciseBarriers === '') {
+              setLoading(false)
               setRequiredExerciseBarriers(true)
               router.push('/WeightLossSurvey/#exerciseBarriers').then(() => {
                 setTimeout(() => {
@@ -4575,6 +4608,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (confidenceWeightLossDiet === '') {
+              setLoading(false)
               setRequiredConfidenceWeightLossDiet(true)
               router
                 .push('/WeightLossSurvey/#confidenceWeightlossDiet')
@@ -4585,6 +4619,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 })
               return
             } else if (majorBarriersDiet === '') {
+              setLoading(false)
               setRequiredMajorBarriersDiet(true)
               router.push('/WeightLossSurvey/#majorBarriersDiet').then(() => {
                 setTimeout(() => {
@@ -4593,6 +4628,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else if (daysPerWeekExplination === '') {
+              setLoading(false)
               setRequiredDaysPerWeekExplination(true)
               router
                 .push('/WeightLossSurvey/#daysPerWeekExplination')
@@ -4603,6 +4639,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 })
               return
             } else if (medicalHistory === '') {
+              setLoading(false)
               setRequiredMedicalHistory(true)
               router.push('/WeightLossSurvey/#medicalHistory').then(() => {
                 setTimeout(() => {
@@ -4611,7 +4648,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
               })
               return
             } else {
-              alert('Survey Submitted Successfully')
               SubmitWeightLossSurvey({
                 emailValue: auth.currentUser?.email,
                 patientsName: patientsName,
@@ -4884,6 +4920,12 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 medicationsTaken: medicationsTaken,
                 medicationsTakenList: medicationsTakenList,
               })
+                .then(() => {
+                  setLoading(false)
+                })
+                .then(() => {
+                  setShowGreenCheckMark(true)
+                })
             }
           }}
         />

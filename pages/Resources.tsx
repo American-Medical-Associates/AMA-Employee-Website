@@ -97,7 +97,7 @@ const Resources: NextPage<{}> = () => {
               <div>
                 <MenuItem
                   icon={
-                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ClipboardIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text="Mental Health Survey"
                   onClick={() => {
@@ -110,7 +110,7 @@ const Resources: NextPage<{}> = () => {
                   icon={
                     <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
-                  text="Survey Submissions"
+                  text="MHD Survey Submissions"
                   onClick={() => {
                     router.push('/SurveySubmissions')
                   }}
@@ -119,9 +119,31 @@ const Resources: NextPage<{}> = () => {
               <div className="mt-5">
                 <MenuItem
                   icon={
-                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                    <ClipboardIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
                   }
                   text="Weight Loss Survey"
+                  onClick={() => {
+                    router.push('/WeightLossSurvey')
+                  }}
+                />
+              </div>
+              <div className="mt-5">
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="Weight Loss Survey Submissions"
+                  onClick={() => {
+                    router.push('/WeightLossSubmissions')
+                  }}
+                />
+              </div>
+              <div className="mt-5">
+                <MenuItem
+                  icon={
+                    <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  text="All Misc. Surveys & Docs"
                   onClick={() => {
                     router.push('/WeightLossSurvey')
                   }}

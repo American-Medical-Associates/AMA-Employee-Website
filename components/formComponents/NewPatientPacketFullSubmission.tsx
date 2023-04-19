@@ -19,7 +19,7 @@ function NewPatientPacketFullSubmission({
   // - Map through all the information in the submission
 
   return (
-    <div className=" ml-3 flex w-full flex-col items-center justify-center">
+    <div className="w-95 flex flex-col items-center justify-center">
       {/* This Main Button allows the user to access a PDF version of their New Patient Packet in case they wanted to print. */}
       <MainButton
         buttonText="Export PDF"

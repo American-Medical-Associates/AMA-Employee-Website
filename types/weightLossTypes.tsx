@@ -1,18 +1,22 @@
 export interface WeightLossSurveyTypes {
   emailValue: string
   patientsName: string
+
   whyLossWeight: string
   weightGoals: string
   timeFrame: string
+
   mostWeighedAsAdult: string
   ageAtAdultWeight: string
   leastWeighedAsAdult: string
   ageAtAdultLeastWeight: string
-  weightChangeDuringLife: string
-  weightGainedInPast: string
+  weightChangeDuringLife: Array<string>
+  weightGainedInPast: Array<string>
+
   challengesOfWeightManagement: string
   hopesForWeightLossManagement: string
   commitmentsToWeightLoss: string
+
   onYourOwn: string
   checkIfTried: Array<string>
   onYourOwnStartDate: string
@@ -69,6 +73,7 @@ export interface WeightLossSurveyTypes {
   otherWeightLoss: string
   otherReasonForStopping: string
   otherReasonForRegain: string
+
   adipex: string
   adipexStartDate: string
   adipexEndDate: string
@@ -130,11 +135,13 @@ export interface WeightLossSurveyTypes {
   otherSupplimentsWeightLoss: string
   otherSupplimentsReasonForStopping: string
   otherSupplimentsReasonForRegain: string
+
   childrenUnderEighteen: string
   childrenUnderEighteenCheckBox: string
   familyMembersObese: string
   support: string
   supportExplination: string
+
   eatingDisorder: string
   anorexiaNervosa: string
   bingeEating: string
@@ -156,6 +163,7 @@ export interface WeightLossSurveyTypes {
   inCarWhileStopped: string
   total: string
   typicalDay: string
+
   enjoyExercise: string
   gymMembership: string
   exerciseEquipment: string
@@ -178,6 +186,7 @@ export interface WeightLossSurveyTypes {
   exerciseBarriers: string
   minutesPerDay: string
   daysPerWeek: string
+
   confidenceWeightLossDiet: string
   majorBarriersDiet: string
   favoriteFoods: string

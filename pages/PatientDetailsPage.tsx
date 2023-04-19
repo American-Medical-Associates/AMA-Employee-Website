@@ -6,12 +6,24 @@ import {
 } from '../redux/slices/companySlice'
 import CustomCheckBox from '../components/formComponents/CustomCheckBox'
 import Header from '../components/Header'
-import { UpdatePatientInfoWeightLoss } from '../firebase'
+import { UpdatePatientInfoWeightLoss, getPatientForms } from '../firebase'
+import MainButton from '../components/MainButton'
+import WeightLossPacketFullSubmission from '../components/formComponents/WeightLossFullPacketSubmission'
 
 export default function PatientDetailsPage() {
   const patientDetails = useSelector(selectPatientDetails)
-  const company = useSelector(selectCompany)
+
   const [weightLossProgram, setWeightLossProgram] = useState(false)
+  const [weightLossPacket, setWeightLossPacket] = useState([] as any)
+  const company = useSelector(selectCompany)
+
+  useEffect(() => {
+    getPatientForms({
+      selectedForm: 'WeightLoss',
+      setPatientDocs: setWeightLossPacket,
+    })
+  }, [])
+  // console.log(weightLossPacket)
 
   useEffect(() => {
     // if (patientDetails.isInWeightLossProgram) {
@@ -19,43 +31,114 @@ export default function PatientDetailsPage() {
     // }
   }, [patientDetails])
 
+  //format date example '11111111' => 11/11/1111
+  const formatDate = (date: string) => {
+    const year = date.slice(0, 4)
+
+    const month = date.slice(4, 6)
+
+    const day = date.slice(6, 8)
+
+    return `${month}/${day}/${year}`
+  }
+
   return (
     <div>
       <Header selectCompany={company} routePatientsHome={true} />
-      <main>
-        <div className="m-5">
-          <h1 className=" text-center text-3xl text-[#496eff] ">
-            {patientDetails?.fullName.toUpperCase()}
-          </h1>
-          <div className=" flex flex-row justify-center">
-            <div className=" flex flex-col justify-center">
-              <h1 className=" text-center text-xl font-bold">
-                {patientDetails?.DOB.slice(0, 2)}/
-                {patientDetails?.DOB.slice(2, 4)}/
-                {patientDetails?.DOB.slice(4, 8)}
-              </h1>
-              <h1 className=" text-md text-center">
-                {patientDetails?.email.toLowerCase()}
-              </h1>
-              <h1 className=" text-md text-center">
-                {/* format Phone Number */}
-                {patientDetails?.phoneNumber.slice(0, 3)}-
-                {patientDetails?.phoneNumber.slice(3, 6)}-
-                {patientDetails?.phoneNumber.slice(6, 10)}
-              </h1>
+      <main className="  my-[50px] flex flex-col items-center justify-center">
+        {/* differnt files for patient, docs, contracts etc */}
+        <div
+          style={{
+            scrollbarWidth: 'none',
+            overflowY: 'scroll',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
+          className=" flex h-[20%] w-full flex-row justify-center overflow-x-auto  px-10 "
+        >
+          <div className=" mr-5 ml-[200px]">
+            <MainButton
+              buttonText="Weight Loss Packet"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          {/* <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div>
+          <div className="mx-5">
+            <MainButton
+              buttonText="coming soon"
+              buttonWidth="w-[250px]"
+              onClick={() => {}}
+            />
+          </div> */}
+        </div>
+
+        <div className=" flex w-full flex-row">
+          {/* settings Panel */}
+          <div className=" flex h-full w-[45%] p-2 ">
+            <div className=" flex h-[600px] w-full flex-col items-center rounded-3xl bg-[#d8d7d77b]">
+              {/* <h1 className="text-white">Weight Loss Packet</h1> */}
+              <div className="flex h-[12%] w-full flex-col items-center justify-center rounded-t-3xl bg-[#bbbbbb]  p-2">
+                <h1 className="text-center text-3xl text-white">
+                  {patientDetails?.fullName.toUpperCase()}
+                </h1>
+                <h3 className="text-center text-xl text-white">
+                  {formatDate(patientDetails?.DOB)}
+                </h3>
+              </div>
+              <div className="m-5">
+                <CustomCheckBox
+                  isChecked={weightLossProgram}
+                  checkedState={() => {
+                    setWeightLossProgram(!weightLossProgram)
+                    UpdatePatientInfoWeightLoss({
+                      weightLossProgram: !weightLossProgram,
+                      emailValue: patientDetails?.email,
+                    })
+                  }}
+                  text="Weight Loss Program"
+                />
+              </div>
             </div>
           </div>
-          <div className=" my-[300px] flex w-full items-center justify-center">
-            <CustomCheckBox
-              isChecked={weightLossProgram}
-              checkedState={() => {
-                setWeightLossProgram(!weightLossProgram)
-                UpdatePatientInfoWeightLoss({
-                  weightLossProgram: !weightLossProgram,
-                  emailValue: patientDetails?.email,
-                })
-              }}
-              text="Weight Loss Program"
+          {/* place to view any selcted doc */}
+          <div className="w-[55%] overflow-y-auto overflow-x-clip ">
+            <WeightLossPacketFullSubmission
+              selectedPacket={weightLossPacket[0]}
             />
           </div>
         </div>

@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { XMarkIcon, UserPlusIcon } from '@heroicons/react/24/outline'
+import {
+  XMarkIcon,
+  UserPlusIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline'
 import SearchComponent from './searchComponent'
 import DateInput from './DateInput'
 import TextInput from './TextInput'
 import PhoneNumberInput from './PhoneNumberInput'
 import MainButton from './MainButton'
-import { addNewPatient, patientSearchListAMA } from '../firebase'
+import {
+  addNewPatient,
+  patientSearchListAMA,
+  updateFieldsToLowerCase,
+} from '../firebase'
 import { selectCompany, setPatientDetails } from '../redux/slices/companySlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomCheckBox from './formComponents/CustomCheckBox'
 import { useRouter } from 'next/router'
+import { CircularButton } from './CircularButtonIcon'
 
 const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [showAddNewUser, setShowAddNewUser] = useState(false)
@@ -28,22 +37,30 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const router = useRouter()
   const dispatch = useDispatch()
 
+  const handleSearch = async () => {
+    setLoading(true)
+    setPatientListArray([])
+    setSearched(null)
+    await patientSearchListAMA({
+      patientArray: setPatientListArray,
+      company: company,
+      searchName: searchName.replaceAll(' ', '').toLowerCase(),
+      DOB: searchDob,
+    })
+  }
+  console.log(loading)
   useEffect(() => {
-    if (patientListArray.length < 1) {
-      patientSearchListAMA({
-        patientArray: setPatientListArray,
-        company: company,
-      })
-    }
-  }, [])
-  console.log(patientListArray.length)
-  useEffect(() => {
-    if (patientListArray.length > 0) {
-      setLoading(true)
-    } else {
+    if (
+      searched.map((item: any) => {
+        return item.DOB
+      }) >= searchDob ||
+      searched.map((item: any) => {
+        return item.fullName
+      }) >= searchName
+    ) {
       setLoading(false)
     }
-  }, [patientListArray])
+  }, [searched, patientListArray, searchDob, searchName])
 
   useEffect(() => {
     if (searchName == ' ' || searchDob == '') {
@@ -66,15 +83,13 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
             searchedPatient.push(item)
           }
         }
-
-        // }
       })
       setSearched(searchedPatient)
     } else {
       searchedPatient = []
       setSearched(null)
     }
-  }, [searchName, searchDob])
+  }, [searchName, searchDob, patientListArray])
 
   const patientList = () => {
     if (searched != null) {
@@ -118,29 +133,45 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
         <div className=" flex h-[85%] flex-col items-center ">
           <div className=" flex h-[20%] w-full flex-row items-start justify-center px-5 ">
             <div className=" mx-10">
-              <TextInput
-                value={searchName}
-                onChange={(text: any) => {
-                  setSearchName(text.target.value)
-                }}
-                placeHolder="Last Name , First Name"
-              />
+              {searchDob.length == 0 && (
+                <TextInput
+                  value={searchName}
+                  onChange={(text: any) => {
+                    setSearchName(text.target.value)
+                  }}
+                  placeHolder="Last Name , First Name"
+                />
+              )}
             </div>
 
             <div className=" mx-10">
-              <DateInput
-                placeHolder="DOB"
-                value={searchDob}
-                onChange={(text: any) => {
-                  setSearchDob(text.target.value)
+              {searchName.length == 0 && (
+                <DateInput
+                  placeHolder="DOB"
+                  value={searchDob}
+                  onChange={(text: any) => {
+                    setSearchDob(text.target.value)
+                  }}
+                />
+              )}
+            </div>
+            <div className=" flex h-full items-center  justify-center">
+              <CircularButton
+                isSelection={true}
+                icon={<MagnifyingGlassIcon className="h-6 w-6 text-white" />}
+                onClick={() => {
+                  handleSearch()
                 }}
               />
             </div>
           </div>
           <div className="  flex h-[75%] w-[75%] flex-col overflow-y-auto p-5 ">
             {loading && (
-              <div className="flex h-[10%] w-full items-center justify-center">
-                <h1 className="text-lg text-[#0b7ee9]">Loading...</h1>
+              <div className="my-5 flex h-[20%] w-full flex-col items-center justify-center">
+                <div className="flex items-center justify-center">
+                  <div className="h-20 w-20 animate-spin rounded-full border-b-4 border-[#2e65ff]"></div>
+                </div>
+                <h2 className="mt-10 text-[#2e65ff]">Loading Patients...</h2>
               </div>
             )}
             {patientList()}
@@ -247,28 +278,30 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   return (
     <div className="fixed flex h-[100vh] w-full translate-y-[-13%] items-center justify-center bg-[#dcdcdcac]">
       <div className=" h-[70%] w-[60%] rounded-[30px] bg-[#ffffff] shadow-2xl ">
-        <div className="flex h-[15%] grid-rows-3 flex-row  rounded-tr-[30px] rounded-tl-[30px] bg-[#76a3ff] ">
+        <div className="flex h-[15%] grid-rows-3 flex-row  rounded-tr-[30px] rounded-tl-[30px] bg-[#0b5ce9db] ">
           <div className=" mx-10 mt-5 w-full">
             <UserPlusIcon
               onClick={() => {
                 setShowAddNewUser(!showAddNewUser)
               }}
-              className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in"
+              className=" h-10 w-7 cursor-pointer  text-white duration-[500s] ease-in"
             />
           </div>
           <div className=" mx-10 mt-5 w-full ">
-            <h3 className="w-full text-center text-2xl">Patients</h3>
+            <h3 className="w-full text-center text-2xl text-white">Patients</h3>
           </div>
           <div className=" mx-10 mt-5 flex w-full justify-end">
             <XMarkIcon
               onClick={() => {
                 setClose(false)
               }}
-              className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in"
+              className=" h-10 w-7 cursor-pointer  text-white duration-[500s] ease-in"
             />
           </div>
         </div>
-        <h3 className="text-md w-full text-center text-[#0b7ee9]">{company}</h3>
+        <h3 className="text-md w-full text-center text-[#4f4f4fdb]">
+          {company},{patientListArray.length},{searched?.length}
+        </h3>
         {showAddPatientOrSearch()}
       </div>
     </div>
