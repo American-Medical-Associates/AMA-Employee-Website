@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CustomCheckBox from './formComponents/CustomCheckBox'
 import { useRouter } from 'next/router'
 import { CircularButton } from './CircularButtonIcon'
+import { LoadingSpinner } from './LoadingSpinner'
 
 const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [showAddNewUser, setShowAddNewUser] = useState(false)
@@ -167,12 +168,12 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
           </div>
           <div className="  flex h-[75%] w-[75%] flex-col overflow-y-auto p-5 ">
             {loading && (
-              <div className="my-5 flex h-[20%] w-full flex-col items-center justify-center">
-                <div className="flex items-center justify-center">
-                  <div className="h-20 w-20 animate-spin rounded-full border-b-4 border-[#2e65ff]"></div>
-                </div>
-                <h2 className="mt-10 text-[#2e65ff]">Loading Patients...</h2>
-              </div>
+              <LoadingSpinner
+                lineWidth="border-b-4"
+                hight="h-20"
+                width="w-20"
+                loadingText="Loading Patients..."
+              />
             )}
             {patientList()}
           </div>

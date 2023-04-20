@@ -1664,13 +1664,13 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
 export function GetNewPatientPacketSubmissions({
   company,
   NewPatientPacketsState,
+  archived,
 }) {
   onSnapshot(
     query(
-      collection(db, 'companys', 'AMA', 'NewPatientPacket')
-      //orderBy('timestamp', 'desc')
+      collection(db, 'companys', 'AMA', 'NewPatientPacket'),
+      where('archived', '==', archived)
     ),
-    limit(10),
 
     (querySnapshot) => {
       const arrays = []
@@ -1683,6 +1683,7 @@ export function GetNewPatientPacketSubmissions({
     }
   )
 }
+
 export function BookAnAppointment({
   firstName,
   lastName,

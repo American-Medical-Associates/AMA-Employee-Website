@@ -17,6 +17,7 @@ import { Firestore } from 'firebase/firestore'
 import { InformationSection } from '../components/formComponents/InformationSection'
 import NewPatientPacketFullSubmission from '../components/formComponents/NewPatientPacketFullSubmission'
 import router from 'next/router'
+import { LoadingSpinner } from '../components/LoadingSpinner'
 
 export default function NewPatientPacketSubmitions() {
   const [submissions, setSubmissions] = useState<Array<any>>([])
@@ -88,8 +89,9 @@ export default function NewPatientPacketSubmitions() {
     GetNewPatientPacketSubmissions({
       company: company,
       NewPatientPacketsState: setSubmissions,
+      archived: showArchived,
     })
-  }, [])
+  }, [showArchived])
 
   useEffect(() => {
     var searchResults: any = []
@@ -117,7 +119,7 @@ export default function NewPatientPacketSubmitions() {
       setSubmissionSearchResults(searchResults)
     }
   }, [submissions, SearchInputForNewPatientPacket])
-  const listOfSubmissions = submissionSearchResults.map((submission: any) => {
+  var listOfSubmissions = submissionSearchResults.map((submission: any) => {
     if (showArchived == true) {
       if (submission.archived == true) {
         return (
@@ -168,6 +170,9 @@ export default function NewPatientPacketSubmitions() {
                 buttonText="Hide Archived"
                 onClick={() => {
                   setShowArchived(false)
+                  setSubmissions([])
+
+                  //empty the submissions array
                 }}
               />
             )}
@@ -176,6 +181,7 @@ export default function NewPatientPacketSubmitions() {
                 buttonText="Show Archived"
                 onClick={() => {
                   setShowArchived(true)
+                  setSubmissions([])
                 }}
               />
             )}
@@ -195,7 +201,17 @@ export default function NewPatientPacketSubmitions() {
             />
           </div>
           <div className={`flex w-full flex-col items-center justify-center `}>
-            {listOfSubmissions}
+            {submissions.length > 0 ? (
+              listOfSubmissions
+            ) : (
+              <LoadingSpinner
+                lineWidth="border-b-[3px]"
+                hight="h-20"
+                width="w-20"
+                loadingText="Loading Submissions..."
+              />
+            )}
+            {/* )} */}
           </div>
         </div>
         <div className="flex  w-[75%] flex-col items-center justify-center   p-[20px]">

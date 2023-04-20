@@ -201,25 +201,27 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
               /> */}
             </div>
             <div className="flex w-[75%] flex-col items-center justify-center">
-              {numberOfNewPatientPackets && data != undefined && data != null && (
-                //@ts-ignore
-                <BarGraph
-                  data={data}
-                  day={day}
-                  week={week}
-                  month={month}
-                  year={year}
-                  all={all}
-                  setDay={setDay}
-                  setWeek={setWeek}
-                  setMonth={setMonth}
-                  setYear={setYear}
-                  setAll={setAll}
-                  curentTimeFrame={PickedDate(selectedDate)}
-                  totalForTimeFrame={totalDayNumber}
-                  toolTipText="Number_Of_Tickets"
-                />
-              )}
+              {numberOfNewPatientPackets &&
+                data != undefined &&
+                data != null && (
+                  //@ts-ignore
+                  <BarGraph
+                    data={data}
+                    day={day}
+                    week={week}
+                    month={month}
+                    year={year}
+                    all={all}
+                    setDay={setDay}
+                    setWeek={setWeek}
+                    setMonth={setMonth}
+                    setYear={setYear}
+                    setAll={setAll}
+                    curentTimeFrame={PickedDate(selectedDate)}
+                    totalForTimeFrame={totalDayNumber}
+                    toolTipText="Number_Of_Tickets"
+                  />
+                )}
             </div>
           </div>
         </div>
