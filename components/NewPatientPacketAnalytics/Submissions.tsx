@@ -68,6 +68,7 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
       GetNewPatientPacketSubmissions({
         company: 'AMA',
         NewPatientPacketsState: setNewPatientPacketAnalyticsArray,
+        archived: true,
       })
     }
   }, [month, year, all, day, week])

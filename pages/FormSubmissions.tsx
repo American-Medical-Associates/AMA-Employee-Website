@@ -77,6 +77,7 @@ const FormSubmissions: NextPage<{}> = () => {
     GetNewPatientPacketSubmissions({
       company: company,
       NewPatientPacketsState: setSubmissions,
+      archived: true,
     })
   }, [])
 
