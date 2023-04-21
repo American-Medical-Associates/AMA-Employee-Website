@@ -78,6 +78,7 @@ const FormSubmissions: NextPage<{}> = () => {
       company: company,
       NewPatientPacketsState: setSubmissions,
       archived: true,
+      setLoading: () => {},
     })
   }, [])
 

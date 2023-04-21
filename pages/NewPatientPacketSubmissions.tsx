@@ -42,13 +42,14 @@ export default function NewPatientPacketSubmitions() {
     'addPatientToEclinicalPuppeteer'
   )
   const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    if (submissions.length > 0) {
-      setLoading(false)
-    } else {
-      setLoading(true)
-    }
-  }, [submissions])
+  console.log(loading)
+  // useEffect(() => {
+  //   if (submissions.length > 0) {
+  //     setLoading(false)
+  //   } else {
+  //     setLoading(true)
+  //   }
+  // }, [submissions])
 
   useEffect(() => {
     if (!auth.currentUser?.email) {
@@ -90,6 +91,7 @@ export default function NewPatientPacketSubmitions() {
       company: company,
       NewPatientPacketsState: setSubmissions,
       archived: showArchived,
+      setLoading: setLoading,
     })
   }, [showArchived])
 
@@ -171,6 +173,7 @@ export default function NewPatientPacketSubmitions() {
                 onClick={() => {
                   setShowArchived(false)
                   setSubmissions([])
+                  setLoading(true)
 
                   //empty the submissions array
                 }}
@@ -182,6 +185,7 @@ export default function NewPatientPacketSubmitions() {
                 onClick={() => {
                   setShowArchived(true)
                   setSubmissions([])
+                  setLoading(true)
                 }}
               />
             )}
@@ -203,13 +207,17 @@ export default function NewPatientPacketSubmitions() {
           <div className={`flex w-full flex-col items-center justify-center `}>
             {submissions.length > 0 ? (
               listOfSubmissions
-            ) : (
+            ) : loading ? (
               <LoadingSpinner
                 lineWidth="border-b-[3px]"
                 hight="h-20"
                 width="w-20"
                 loadingText="Loading Submissions..."
               />
+            ) : (
+              <h1 className="text-center text-lg text-[#707070]">
+                No Submissions Haley so don't @ me
+              </h1>
             )}
             {/* )} */}
           </div>

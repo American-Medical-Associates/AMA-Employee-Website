@@ -1661,10 +1661,11 @@ export async function AddPictureOfDriverLicenseToStorageAndToDB({
     }
   )
 }
-export function GetNewPatientPacketSubmissions({
+export async function GetNewPatientPacketSubmissions({
   company,
   NewPatientPacketsState,
   archived,
+  setLoading,
 }) {
   onSnapshot(
     query(
@@ -1679,6 +1680,7 @@ export function GetNewPatientPacketSubmissions({
         // key: snap.id;
       })
       NewPatientPacketsState(arrays)
+      setLoading(false)
       // console.log(arrays)
     }
   )
