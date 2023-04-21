@@ -33,10 +33,12 @@ export default function PatientDetailsPage() {
 
   //format date example '11111111' => 11/11/1111
   const formatDate = (date: string) => {
+    if (!date) {
+      return 'N/A'
+    }
+
     const year = date.slice(0, 4)
-
     const month = date.slice(4, 6)
-
     const day = date.slice(6, 8)
 
     return `${month}/${day}/${year}`
@@ -47,15 +49,7 @@ export default function PatientDetailsPage() {
       <Header selectCompany={company} routePatientsHome={true} />
       <main className="  my-[50px] flex flex-col items-center justify-center">
         {/* differnt files for patient, docs, contracts etc */}
-        <div
-          style={{
-            scrollbarWidth: 'none',
-            overflowY: 'scroll',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-          }}
-          className=" flex h-[20%] w-full flex-row justify-center overflow-x-auto  px-10 "
-        >
+        <div className=" flex h-[20%] w-full flex-row justify-center overflow-x-auto  px-10 ">
           <div className=" mr-5 ml-[200px]">
             <MainButton
               buttonText="Weight Loss Packet"
@@ -63,48 +57,6 @@ export default function PatientDetailsPage() {
               onClick={() => {}}
             />
           </div>
-          {/* <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div>
-          <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div>
-          <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div>
-          <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div>
-          <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div>
-          <div className="mx-5">
-            <MainButton
-              buttonText="coming soon"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
-            />
-          </div> */}
         </div>
 
         <div className=" flex w-full flex-row">
