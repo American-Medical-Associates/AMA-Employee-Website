@@ -227,7 +227,7 @@ export default function NewPatientPacketSubmitions() {
           {/* {fullPacket} */}
           {Array.isArray(selectedPacket) == false && (
             <div className="flex w-full flex-col items-center justify-center ">
-              {/* <h3 className="text-[#696969]">
+              <h3 className="text-[#696969]">
                 Add the patient to ECW by entering your ECW username and
                 password and clicking the "Add to ECW" button{' '}
                 <span className="font-extrabold text-red-600">
@@ -254,7 +254,7 @@ export default function NewPatientPacketSubmitions() {
                     }
                   />
                 </div>
-              </div> */}
+              </div>
 
               <div className=" flex flex-row items-center justify-center rounded-[30px] bg-[#e6e6e697] p-3">
                 <div className=" m-3">
