@@ -27,6 +27,7 @@ function ForgotPassword() {
             setEmail(event.target.value)
           }
         />
+
         <div className="flex flex-col items-center justify-center">
           <MainButton
             buttonText="Reset Password"
@@ -38,10 +39,14 @@ function ForgotPassword() {
               ) {
                 setErrorMessage(true)
               } else {
-                sendPasswordResetEmail(auth, email).then(() => {
-                  alert('Password reset email sent!')
-                  router.push('/PatientLogin')
-                })
+                try {
+                  sendPasswordResetEmail(auth, email).then(() => {
+                    alert('Password reset email sent!')
+                    router.push('/PatientLogin')
+                  })
+                } catch (error: any) {
+                  alert(error.message)
+                }
               }
             }}
           />

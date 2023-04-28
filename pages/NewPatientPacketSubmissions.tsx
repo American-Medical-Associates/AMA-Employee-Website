@@ -43,13 +43,10 @@ export default function NewPatientPacketSubmitions() {
   )
   const [loading, setLoading] = useState(false)
   console.log(loading)
-  // useEffect(() => {
-  //   if (submissions.length > 0) {
-  //     setLoading(false)
-  //   } else {
-  //     setLoading(true)
-  //   }
-  // }, [submissions])
+  const [successMessage, setSuccessMessage] = useState('')
+  const [ECWUserName, setECWUserName] = useState('')
+  const [ECWPassword, setECWPassword] = useState('')
+  const [addToECWDisabled, setAddToECWDisabled] = useState(false)
 
   useEffect(() => {
     if (!auth.currentUser?.email) {
@@ -163,7 +160,12 @@ export default function NewPatientPacketSubmitions() {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
+
       <Header selectCompany={'AMA'} routePatientsHome={true} />
+      {/* @ts-ignore */}
+      <py-config src="./pyscript.toml"></py-config>
+      {/* @ts-ignore */}
+      <py-script src="./main.py"></py-script>
       <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" m-5 flex h-[80vh] w-[25%] flex-col overflow-y-auto rounded-[30px] bg-[#d2d1d18b]">
           <div className=" flex flex-col items-center justify-center">
@@ -189,7 +191,6 @@ export default function NewPatientPacketSubmitions() {
                 }}
               />
             )}
-
             <SearchComponent
               placeHolder="Search For Submissions"
               value={SearchInputForNewPatientPacket}
@@ -226,6 +227,35 @@ export default function NewPatientPacketSubmitions() {
           {/* {fullPacket} */}
           {Array.isArray(selectedPacket) == false && (
             <div className="flex w-full flex-col items-center justify-center ">
+              <h3 className="text-[#696969]">
+                Add the patient to ECW by entering your ECW username and
+                password and clicking the "Add to ECW" button{' '}
+                <span className="font-extrabold text-red-600">
+                  ('Alpha ,please pay attention')
+                </span>
+              </h3>
+              <div className=" flex flex-row">
+                <div className="mx-2">
+                  <TextInput
+                    placeHolder="ECW Username"
+                    type="text"
+                    value={ECWUserName}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setECWUserName(event.target.value)
+                    }
+                  />
+                </div>
+                <div className="mx-2">
+                  <TextInput
+                    placeHolder="ECW Password"
+                    value={ECWPassword}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setECWPassword(event.target.value)
+                    }
+                  />
+                </div>
+              </div>
+
               <div className=" flex flex-row items-center justify-center rounded-[30px] bg-[#e6e6e697] p-3">
                 <div className=" m-3">
                   {!showArchived && (
@@ -258,82 +288,44 @@ export default function NewPatientPacketSubmitions() {
                   )}
                 </div>
 
-                {auth.currentUser?.email ==
-                  'h.fontaine@americanmedicalassociatesaz.com' ||
-                  auth.currentUser?.email ==
-                    'j.cervantes@americanmedicalassociatesaz.com' ||
-                  (auth.currentUser?.email == 'juju@gmail.com' && (
-                    <div className=" mx-3">
-                      <MainButton
-                        buttonText="Add to ECW"
-                        onClick={() => {
-                          addPatientToEclinicalPuppeteer({
-                            //@ts-ignore
-                            firstName: selectedPacket.firstName,
-                            //@ts-ignore
-                            lastName: selectedPacket.lastName,
-                            //@ts-ignore
-                            BirthDateValue: selectedPacket.BirthDateValue,
-                            //@ts-ignore
-                            preferredName: selectedPacket.preferredName,
-                            //@ts-ignore
-                            phoneNumberValue: selectedPacket.phoneNumberValue,
-                            //@ts-ignore
-                            emailValue: selectedPacket.emailValue,
-                            //@ts-ignore
-                            addressValue: selectedPacket.addressValue,
-                            //@ts-ignore
-                            addressValue2: selectedPacket.addressValue2,
-                            //@ts-ignore
-                            cityValue: selectedPacket.cityValue,
-                            //@ts-ignore
-                            USStateValue: selectedPacket.USStateValue,
-                            //@ts-ignore
-                            zipCodeValue: selectedPacket.zipCodeValue,
-                            //@ts-ignore
-                            socialValue: selectedPacket.socialValue,
-                            //@ts-ignore
-                            isCheckedMale: selectedPacket.isCheckedMale,
-                            //@ts-ignore
-                            isCheckedFemale: selectedPacket.isCheckedFemale,
-                            //@ts-ignore
-                            isCheckedOther: selectedPacket.isCheckedOther,
-                            //@ts-ignore
-                            EmergencyContactRelationShip:
-                              //@ts-ignore
-                              selectedPacket.EmergencyContactRelationShip,
-                            //@ts-ignore
-                            nameOfEmergencyContact:
-                              //@ts-ignore
-                              selectedPacket.nameOfEmergencyContact,
-                            //@ts-ignore
-                            EmergencyContactPhoneNumber:
-                              //@ts-ignore
-                              selectedPacket.EmergencyContactPhoneNumber,
-                            //@ts-ignore
-                            married: selectedPacket.married,
-                            //@ts-ignore
-                            single: selectedPacket.single,
-                            //@ts-ignore
-                            divorced: selectedPacket.divorced,
-                            //@ts-ignore
-                            widowed: selectedPacket.widowed,
-                            //@ts-ignore
-
-                            //@ts-ignore
-                            separated: selectedPacket.separated,
-                            //@ts-ignore
-                            withPartner: selectedPacket.withPartner,
-                            //@ts-ignore
-                            Ethnicity: selectedPacket.Ethnicity,
-                            //@ts-ignore
-                          })
-                        }}
-                      />
-                    </div>
-                  ))}
+                <div className=" mx-3">
+                  <MainButton
+                    disabled={
+                      ECWUserName == '' || ECWPassword == '' || addToECWDisabled
+                    }
+                    buttonText="Add to ECW"
+                    onClick={async () => {
+                      if (ECWUserName == '' || ECWPassword == '') {
+                        alert('Please enter your ECW username and password')
+                      } else {
+                        setAddToECWDisabled(true)
+                        const response = await fetch('/api/scrape', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
+                            data: selectedPacket,
+                            username: ECWUserName,
+                            password: ECWPassword,
+                          }),
+                        })
+                        const data = await response.json()
+                        setSuccessMessage(data.SuccessMessage)
+                        if (
+                          data.SuccessMessage == 'Patient Added Successfully'
+                        ) {
+                          setAddToECWDisabled(false)
+                        }
+                      }
+                    }}
+                  />
+                </div>
               </div>
-
+              <h1 className="text-center text-lg text-[#f06666]">
+                {successMessage}
+              </h1>
               <NewPatientPacketFullSubmission selectedPacket={selectedPacket} />
             </div>
           )}
