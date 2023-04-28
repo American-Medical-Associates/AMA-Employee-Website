@@ -1,5 +1,10 @@
 // pages/api/scrape.js
-import puppeteer from 'puppeteer'
+// import puppeteer from 'puppeteer'
+// At the top of the file, change the import for Puppeteer:
+import puppeteer from 'puppeteer-core'
+
+// Then, import the chrome-aws-lambda package:
+import chromium from 'chrome-aws-lambda'
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -8,7 +13,10 @@ function sleep(ms) {
 export default async function handler(req, res) {
   const { url, data, username, password } = req.body
   const browser = await puppeteer.launch({
-    headless: false,
+    executablePath: await chromium.executablePath,
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    headless: chromium.headless,
   })
   const page = await browser.newPage()
   await page.goto(url)
