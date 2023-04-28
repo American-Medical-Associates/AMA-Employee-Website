@@ -299,23 +299,34 @@ export default function NewPatientPacketSubmitions() {
                         alert('Please enter your ECW username and password')
                       } else {
                         setAddToECWDisabled(true)
-                        const response = await fetch('/api/scrape', {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                          },
-                          body: JSON.stringify({
-                            url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
-                            data: selectedPacket,
-                            username: ECWUserName,
-                            password: ECWPassword,
-                          }),
-                        })
-                        const data = await response.json()
-                        setSuccessMessage(data.SuccessMessage)
-                        if (
-                          data.SuccessMessage == 'Patient Added Successfully'
-                        ) {
+                        try {
+                          const response = await fetch('/api/scrape', {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
+                              data: selectedPacket,
+                              username: ECWUserName,
+                              password: ECWPassword,
+                            }),
+                          })
+
+                          if (!response.ok) {
+                            throw new Error('Error fetching data')
+                          }
+
+                          const data = await response.json()
+                          setSuccessMessage(data.SuccessMessage)
+                          if (
+                            data.SuccessMessage == 'Patient Added Successfully'
+                          ) {
+                            setAddToECWDisabled(false)
+                          }
+                        } catch (error) {
+                          console.error('Error:', error)
+                          alert('Error fetching data')
                           setAddToECWDisabled(false)
                         }
                       }
