@@ -18,6 +18,7 @@ import { InformationSection } from '../components/formComponents/InformationSect
 import NewPatientPacketFullSubmission from '../components/formComponents/NewPatientPacketFullSubmission'
 import router from 'next/router'
 import { LoadingSpinner } from '../components/LoadingSpinner'
+import axios from 'axios'
 
 export default function NewPatientPacketSubmitions() {
   const [submissions, setSubmissions] = useState<Array<any>>([])
@@ -42,11 +43,31 @@ export default function NewPatientPacketSubmitions() {
     'addPatientToEclinicalPuppeteer'
   )
   const [loading, setLoading] = useState(false)
-  console.log(loading)
-  const [successMessage, setSuccessMessage] = useState('')
+  // console.log(loading)
+  const [successMessage, setSuccessMessage] = useState<Array<any>>([])
   const [ECWUserName, setECWUserName] = useState('')
   const [ECWPassword, setECWPassword] = useState('')
   const [addToECWDisabled, setAddToECWDisabled] = useState(false)
+
+  const addPatient = async (e: any) => {
+    e.preventDefault()
+    try {
+      const response = await axios.post(
+        'http://192.168.3.187:5000/add_patient',
+        {
+          data: selectedPacket,
+          url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLogin.jsp#/mobiledoc/jsp/webemr/jellybean/officevisit/officeVisits.jsp',
+          username: ECWUserName,
+          password: ECWPassword,
+        }
+      )
+      //append response to the success message
+      setSuccessMessage([...successMessage, response.data])
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error calling the API:', error)
+    }
+  }
 
   useEffect(() => {
     if (!auth.currentUser?.email) {
@@ -294,48 +315,14 @@ export default function NewPatientPacketSubmitions() {
                       ECWUserName == '' || ECWPassword == '' || addToECWDisabled
                     }
                     buttonText="Add to ECW"
-                    onClick={async () => {
-                      if (ECWUserName == '' || ECWPassword == '') {
-                        alert('Please enter your ECW username and password')
-                      } else {
-                        setAddToECWDisabled(true)
-                        try {
-                          const response = await fetch('/api/scrape', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
-                              data: selectedPacket,
-                              username: ECWUserName,
-                              password: ECWPassword,
-                            }),
-                          })
-
-                          if (!response.ok) {
-                            throw new Error('Error fetching data')
-                          }
-
-                          const data = await response.json()
-                          setSuccessMessage(data.SuccessMessage)
-                          if (
-                            data.SuccessMessage == 'Patient Added Successfully'
-                          ) {
-                            setAddToECWDisabled(false)
-                          }
-                        } catch (error) {
-                          console.error('Error:', error)
-                          alert('Error fetching data')
-                          setAddToECWDisabled(false)
-                        }
-                      }
-                    }}
+                    onClick={addPatient}
                   />
                 </div>
               </div>
               <h1 className="text-center text-lg text-[#f06666]">
-                {successMessage}
+                {successMessage.map((message: any) => {
+                  return <p>{message.SuccessMessage}</p>
+                })}
               </h1>
               <NewPatientPacketFullSubmission selectedPacket={selectedPacket} />
             </div>
