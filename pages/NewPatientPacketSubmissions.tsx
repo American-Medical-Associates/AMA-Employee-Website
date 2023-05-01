@@ -48,12 +48,13 @@ export default function NewPatientPacketSubmitions() {
   const [ECWUserName, setECWUserName] = useState('')
   const [ECWPassword, setECWPassword] = useState('')
   const [addToECWDisabled, setAddToECWDisabled] = useState(false)
+  const [ServerIPAddress, setServerIPAddress] = useState('192.168.3.187')
 
   const addPatient = async (e: any) => {
     e.preventDefault()
     try {
       const response = await axios.post(
-        'http://192.168.3.187:5000/add_patient',
+        `http://${ServerIPAddress.trim()}:5000/add_patient`,
         {
           data: selectedPacket,
           url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLogin.jsp#/mobiledoc/jsp/webemr/jellybean/officevisit/officeVisits.jsp',
@@ -275,6 +276,17 @@ export default function NewPatientPacketSubmitions() {
                     }
                   />
                 </div>
+              </div>
+              <div className=" flex w-full flex-col  items-center justify-center text-[#ff5410]">
+                <h5>Server IP, Dont change unless needed</h5>
+                <TextInput
+                  widthPercentage="w-[60%]"
+                  placeHolder="Server IP, Dont change unless needed"
+                  value={ServerIPAddress}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                    setServerIPAddress(event.target.value)
+                  }
+                />
               </div>
 
               <div className=" flex flex-row items-center justify-center rounded-[30px] bg-[#e6e6e697] p-3">
