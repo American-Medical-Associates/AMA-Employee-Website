@@ -16,6 +16,7 @@
     "@tensorflow/tfjs": "^3.18.0",
     "@twilio/conversations": "^2.1.0",
     "@types/recharts": "^1.8.23",
+    "axios": "^1.4.0",
     "chromedriver": "^103.0.0",
     "classnames": "^2.3.1",
     "compressorjs": "^1.1.1",
