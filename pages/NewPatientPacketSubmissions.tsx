@@ -19,7 +19,8 @@ import NewPatientPacketFullSubmission from '../components/formComponents/NewPati
 import router from 'next/router'
 import { LoadingSpinner } from '../components/LoadingSpinner'
 import axios from 'axios'
-
+import { CircularButton } from '../components/CircularButtonIcon'
+import { Cog6ToothIcon, XMarkIcon } from '@heroicons/react/24/outline'
 export default function NewPatientPacketSubmitions() {
   const [submissions, setSubmissions] = useState<Array<any>>([])
   const [SearchInputForNewPatientPacket, setSearchInputForNewPatientPacket] =
@@ -43,31 +44,34 @@ export default function NewPatientPacketSubmitions() {
     'addPatientToEclinicalPuppeteer'
   )
   const [loading, setLoading] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   // console.log(loading)
   const [successMessage, setSuccessMessage] = useState<Array<any>>([])
   const [ECWUserName, setECWUserName] = useState('')
   const [ECWPassword, setECWPassword] = useState('')
   const [addToECWDisabled, setAddToECWDisabled] = useState(false)
-  const [ServerIPAddress, setServerIPAddress] = useState('192.168.3.187')
-  const proxyURL = 'https://cors-anywhere.herokuapp.com/'
-  const targetURL = `http://${ServerIPAddress.trim()}:5000/add_patient`
-  const fullURL = proxyURL + targetURL
+  const [serverIPAddress, setServerIPAddress] = useState('e789-24-255-110-228')
+  const [cancelServerRequest, setCancelServerRequest] = useState(false)
+
   const addPatient = async (e: any) => {
     e.preventDefault()
+    setAddToECWDisabled(true)
     try {
       //https://cf99-24-255-110-228.ngrok-free.app
-      const response = await axios.post(
-        `https://cf99-24-255-110-228.ngrok-free.app/add_patient`,
-        {
+      const response = await axios
+        .post(`https://${serverIPAddress}.ngrok-free.app/add_patient`, {
           data: selectedPacket,
           url: 'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLogin.jsp#/mobiledoc/jsp/webemr/jellybean/officevisit/officeVisits.jsp',
           username: ECWUserName,
           password: ECWPassword,
-        }
-      )
-      //append response to the success message
-      setSuccessMessage([...successMessage, response.data])
-      console.log(response.data)
+        })
+        .then((response) => {
+          if (response.data.SuccessMessage) {
+            setAddToECWDisabled(false)
+          }
+          setSuccessMessage([...successMessage, response.data])
+          console.log(response.data)
+        })
     } catch (error) {
       console.error('Error calling the API:', error)
     }
@@ -322,7 +326,39 @@ export default function NewPatientPacketSubmitions() {
                     onClick={addPatient}
                   />
                 </div>
+                <CircularButton
+                  icon={
+                    <Cog6ToothIcon className="  h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  isSelection={settingsOpen}
+                  onClick={() => {
+                    setSettingsOpen(!settingsOpen)
+                  }}
+                />
               </div>
+              {settingsOpen && (
+                <div className=" mx-2 flex flex-col items-center justify-center">
+                  <TextInput
+                    placeHolder="Server IP Address"
+                    type="text"
+                    value={serverIPAddress}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      setServerIPAddress(event.target.value)
+                    }
+                  />
+                  <div>
+                    <CircularButton
+                      icon={
+                        <XMarkIcon className="  h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                      }
+                      deletion={true}
+                      onClick={() => {
+                        setAddToECWDisabled(false)
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
               <h1 className="text-center text-lg text-[#f06666]">
                 {successMessage.map((message: any) => {
                   return <p>{message.SuccessMessage}</p>
