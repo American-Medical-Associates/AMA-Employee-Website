@@ -50,7 +50,7 @@ export default function NewPatientPacketSubmitions() {
   const [ECWUserName, setECWUserName] = useState('')
   const [ECWPassword, setECWPassword] = useState('')
   const [addToECWDisabled, setAddToECWDisabled] = useState(false)
-  const [serverIPAddress, setServerIPAddress] = useState('e789-24-255-110-228')
+  const [serverIPAddress, setServerIPAddress] = useState('f868-24-255-110-228')
   const [cancelServerRequest, setCancelServerRequest] = useState(false)
 
   const addPatient = async (e: any) => {
