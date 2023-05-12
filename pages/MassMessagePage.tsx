@@ -141,8 +141,8 @@ const MassMessagePage: NextPage<{}> = () => {
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[3]} </h1>
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[16]} </h1>
           <h1 className=" ml-5 text-lg text-[#ffff]">{item[31]} </h1>
-          <h1 className=" ml-5 text-lg text-[#ffff]">Account: {item[38]} </h1>
-          <h1 className=" ml-5 text-lg text-[#ffff]">Personal: {item[37]}</h1>
+          <h1 className=" ml-5 text-lg text-[#ffff]">Personal: {item[38]}</h1>
+          <h1 className=" ml-5 text-lg text-[#ffff]">Account: {item[39]} </h1>
         </div>
       )
     } else {
@@ -161,8 +161,8 @@ const MassMessagePage: NextPage<{}> = () => {
           <h1 className=" ml-5 text-lg text-[#707070]">{item[3]} </h1>
           <h1 className=" ml-5 text-lg text-[#707070]">{item[16]} </h1>
           <h1 className=" ml-5 text-lg text-[#707070]">{item[31]} </h1>
-          <h1 className=" ml-5 text-lg text-[#707070]">Account: {item[38]}</h1>
-          <h1 className=" ml-5 text-lg text-[#707070]">Personal: {item[37]}</h1>
+          <h1 className=" ml-5 text-lg text-[#707070]">Personal: {item[38]}</h1>
+          <h1 className=" ml-5 text-lg text-[#707070]">Account: {item[39]}</h1>
         </div>
       )
     }
@@ -229,7 +229,7 @@ const MassMessagePage: NextPage<{}> = () => {
 
         if (sendBalance) {
           if (item[37] > 0) {
-            message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[37]}, please be prepared to pay your balance before your next appointment.`
+            message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[38]}, please be prepared to pay your balance before your next appointment.`
           }
         }
         if (customCheckBox && customMessage != null) {
@@ -345,7 +345,7 @@ const MassMessagePage: NextPage<{}> = () => {
             </div>
 
             {leaveAReviewMessageCheckBox && (
-              <div className="flex w-full  flex-row items-center justify-center">
+              <div className="flex w-full flex-row items-center justify-center text-center">
                 <h1>
                   Message Preview: `Thank You "patientName" for visiting
                   American Medical Associates. Please let us know how we did by

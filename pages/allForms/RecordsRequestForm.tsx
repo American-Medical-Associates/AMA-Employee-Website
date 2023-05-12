@@ -42,7 +42,7 @@ const RecordsRequestForm = () => {
   return (
     <div>
       <Header selectCompany={'AMA'} routePatientsHome={false} />
-      <main className=" container my-[50px] mx-auto">
+      <main className=" container mx-auto my-[50px]">
         <h1 className="text-center text-3xl">Records Request</h1>
         <div className="mb-5">
           <TextInput

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
   selectCompany,
@@ -9,21 +9,38 @@ import Header from '../components/Header'
 import { UpdatePatientInfoWeightLoss, getPatientForms } from '../firebase'
 import MainButton from '../components/MainButton'
 import WeightLossPacketFullSubmission from '../components/formComponents/WeightLossFullPacketSubmission'
+import { MenuItem } from '../components/MenuItem'
+import submittedControlledSubstanceContract from '../components/formComponents/submittedControlledSubstanceContract'
+import { CircularButton } from '../components/CircularButtonIcon'
+import { PencilIcon } from '@heroicons/react/24/outline'
+import { ro } from 'date-fns/locale'
+import { useRouter } from 'next/router'
+import { set } from 'date-fns'
+import submittedPhentermineContractForm from '../components/formComponents/submittedPhentermineContractForm'
 
 export default function PatientDetailsPage() {
   const patientDetails = useSelector(selectPatientDetails)
 
+  const pdfRef = useRef(null)
+
+  const [selectControlledSubstance, setSelectControlledSubstance] =
+    useState(false)
+  const [selectPhentermineContract, setSelectPhentermineContract] =
+    useState(false)
+  const [selectWeightLossPacket, setSelectWeightLossPacket] = useState(false)
+
   const [weightLossProgram, setWeightLossProgram] = useState(false)
   const [weightLossPacket, setWeightLossPacket] = useState([] as any)
+  const [controlledSubstanceForm, setControlledSubstanceForm] = useState(
+    [] as any
+  )
+  const [phentermineContractForm, setPhentermineContractForm] = useState(
+    [] as any
+  )
+
   const company = useSelector(selectCompany)
 
-  useEffect(() => {
-    getPatientForms({
-      selectedForm: 'WeightLoss',
-      setPatientDocs: setWeightLossPacket,
-    })
-  }, [])
-  // console.log(weightLossPacket)
+  const router = useRouter()
 
   useEffect(() => {
     // if (patientDetails.isInWeightLossProgram) {
@@ -47,21 +64,67 @@ export default function PatientDetailsPage() {
   return (
     <div>
       <Header selectCompany={company} routePatientsHome={true} />
-      <main className="  my-[50px] flex flex-col items-center justify-center">
+      <main className="  my-[10px] flex flex-col items-center justify-center">
         {/* differnt files for patient, docs, contracts etc */}
-        <div className=" flex h-[20%] w-full flex-row justify-center overflow-x-auto  px-10 ">
-          <div className=" mr-5 ml-[200px]">
-            <MainButton
-              buttonText="Weight Loss Packet"
-              buttonWidth="w-[250px]"
-              onClick={() => {}}
+        <div className=" z-50 flex h-[100px] w-full flex-row items-center justify-center overflow-x-auto px-10 ">
+          <div className=" mx-5 w-[200px]">
+            <MenuItem
+              onClick={() => {
+                getPatientForms({
+                  selectedForm: 'WeightLoss',
+                  setPatientDocs: setWeightLossPacket,
+                  patientEmail: patientDetails?.email,
+                })
+                setControlledSubstanceForm([])
+                setPhentermineContractForm([])
+                setSelectWeightLossPacket(true)
+                setSelectControlledSubstance(false)
+                setSelectPhentermineContract(false)
+              }}
+              text="Weight Loss Packet"
+            />
+          </div>
+          <div className=" mx-5 w-[300px]">
+            <MenuItem
+              onClick={() => {
+                getPatientForms({
+                  selectedForm: 'Controlled Substance Contract',
+                  setPatientDocs: setControlledSubstanceForm,
+                  patientEmail: patientDetails?.email,
+                })
+
+                setWeightLossPacket([])
+                setPhentermineContractForm([])
+                setSelectControlledSubstance(true)
+                setSelectWeightLossPacket(false)
+              }}
+              text="Controlled Substance Contract"
+            />
+          </div>
+
+          <div className="w-[300px]">
+            <MenuItem
+              onClick={() => {
+                getPatientForms({
+                  selectedForm: 'Phentermine Contract',
+                  setPatientDocs: setPhentermineContractForm,
+                  patientEmail: patientDetails?.email,
+                })
+                setWeightLossPacket([])
+                setControlledSubstanceForm([])
+                setSelectPhentermineContract(true)
+                setSelectWeightLossPacket(false)
+                setSelectControlledSubstance(false)
+                console.log(phentermineContractForm)
+              }}
+              text="Phentermine Contract Form"
             />
           </div>
         </div>
 
         <div className=" flex w-full flex-row">
           {/* settings Panel */}
-          <div className=" flex h-full w-[45%] p-2 ">
+          <div className=" sticky top-20 flex h-full w-[45%] p-2 ">
             <div className=" flex h-[600px] w-full flex-col items-center rounded-3xl bg-[#d8d7d77b]">
               {/* <h1 className="text-white">Weight Loss Packet</h1> */}
               <div className="flex h-[12%] w-full flex-col items-center justify-center rounded-t-3xl bg-[#bbbbbb]  p-2">
@@ -88,10 +151,49 @@ export default function PatientDetailsPage() {
             </div>
           </div>
           {/* place to view any selcted doc */}
-          <div className="w-[55%] overflow-y-auto overflow-x-clip ">
-            <WeightLossPacketFullSubmission
-              selectedPacket={weightLossPacket[0]}
-            />
+          <div
+            className='className=" bg-black"
+           w-[55%] flex-col overflow-y-auto overflow-x-clip'
+          >
+            <div className="flex w-full items-center justify-end  px-5 py-2">
+              {weightLossPacket.length == 0 && (
+                <CircularButton
+                  icon={
+                    <PencilIcon className="  h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
+                  }
+                  onClick={() => {
+                    {
+                      selectControlledSubstance
+                        ? router.push('/allForms/ControlledSubstanceContract')
+                        : selectPhentermineContract
+                        ? router.push('/allForms/PhentermineContractForm')
+                        : null
+                    }
+                  }}
+                />
+              )}
+            </div>
+            <div className="flex w-full items-center justify-center overflow-y-auto overflow-x-clip  ">
+              {weightLossPacket.length > 0 && (
+                <WeightLossPacketFullSubmission
+                  selectedPacket={weightLossPacket[0]}
+                />
+              )}
+            </div>
+            <div className="flex w-full items-center justify-center overflow-y-auto overflow-x-clip  ">
+              {controlledSubstanceForm.length > 0 &&
+                submittedControlledSubstanceContract({
+                  selectedPacket: controlledSubstanceForm[0],
+                  pdfRef: pdfRef,
+                })}
+            </div>
+            <div className="flex w-full items-center justify-center overflow-y-auto overflow-x-clip  ">
+              {phentermineContractForm.length > 0 &&
+                submittedPhentermineContractForm({
+                  selectedPacket: phentermineContractForm[0],
+                  pdfRef: pdfRef,
+                })}
+            </div>
           </div>
         </div>
       </main>

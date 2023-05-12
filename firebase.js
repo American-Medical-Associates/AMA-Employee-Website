@@ -41,6 +41,7 @@ import { emit } from 'process'
 import { async } from '@firebase/util'
 import { Faxes } from './pages/Faxes'
 import { setChannelID, setNewPatientPacket } from './redux/slices/companySlice'
+import { da } from 'date-fns/locale'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -3531,6 +3532,9 @@ export async function SubmitWeightLossSurvey({
   medicalHistory,
   medicationsTaken,
   medicationsTakenList,
+  photoConsentSignature,
+  photoConsentDate,
+  photoConsentagreeThatTheirSignatureIsValid,
 }) {
   await setDoc(
     doc(
@@ -3805,6 +3809,10 @@ export async function SubmitWeightLossSurvey({
       medicalHistory: medicalHistory,
       medicationsTaken: medicationsTaken,
       medicationsTakenList: medicationsTakenList,
+      photoConsentSignature: photoConsentSignature,
+      photoConsentDate: photoConsentDate,
+      photoConsentagreeThatTheirSignatureIsValid:
+        photoConsentagreeThatTheirSignatureIsValid,
     }
   ).then(async () => {
     await setDoc(doc(db, 'companys', 'AMA', 'WeightLoss', emailValue), {
@@ -4070,6 +4078,10 @@ export async function SubmitWeightLossSurvey({
       medicalHistory: medicalHistory,
       medicationsTaken: medicationsTaken,
       medicationsTakenList: medicationsTakenList,
+      photoConsentSignature: photoConsentSignature,
+      photoConsentDate: photoConsentDate,
+      photoConsentagreeThatTheirSignatureIsValid:
+        photoConsentagreeThatTheirSignatureIsValid,
     })
   })
 }
@@ -4094,22 +4106,23 @@ export async function savePatentForms(data) {
       'companys',
       'AMA',
       data.formName,
-      auth.currentUser.email
+      data.email
     )
     const recordsRequestCollectionInPatient = doc(
       db,
       'companys',
       'AMA',
       'patients',
-      auth.currentUser.email,
+      data.email,
       data.formName,
-      auth.currentUser.email
+      data.email
     )
 
     const docRef = await setDoc(
       recordsRequestCollection,
       {
         ...data,
+        timestamp: serverTimestamp(),
       },
       { merge: true }
     ).then(() => {
@@ -4117,6 +4130,8 @@ export async function savePatentForms(data) {
         recordsRequestCollectionInPatient,
         {
           ...data,
+          email: data.email,
+          timestamp: serverTimestamp(),
         },
         { merge: true }
       )
@@ -4127,10 +4142,14 @@ export async function savePatentForms(data) {
 }
 
 // get all forms for a patient using a query
-export function getPatientForms({ setPatientDocs, selectedForm }) {
+export function getPatientForms({
+  setPatientDocs,
+  selectedForm,
+  patientEmail,
+}) {
   onSnapshot(
     query(
-      collection(db, 'companys', 'AMA', 'patients', 'z@gmail.com', selectedForm)
+      collection(db, 'companys', 'AMA', 'patients', patientEmail, selectedForm)
     ),
     (querySnapshot) => {
       const patientDocs = []

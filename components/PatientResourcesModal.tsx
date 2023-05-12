@@ -131,8 +131,8 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const showAddPatientOrSearch = () => {
     if (showAddNewUser == false) {
       return (
-        <div className=" flex h-[85%] flex-col items-center ">
-          <div className=" flex h-[20%] w-full flex-row items-start justify-center px-5 ">
+        <div className=" flex h-[85%] flex-col justify-center md:items-center ">
+          <div className=" flex w-full flex-col justify-center px-5 md:h-[20%] md:flex-row md:items-start ">
             <div className=" mx-10">
               {searchDob.length == 0 && (
                 <TextInput
@@ -166,7 +166,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
               />
             </div>
           </div>
-          <div className="  flex h-[75%] w-[75%] flex-col overflow-y-auto p-5 ">
+          <div className="  flex h-[75%] flex-col overflow-y-auto p-5 md:w-[75%] ">
             {loading && (
               <LoadingSpinner
                 lineWidth="border-b-4"
@@ -279,7 +279,7 @@ const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   return (
     <div className="fixed flex h-[100vh] w-full translate-y-[-13%] items-center justify-center bg-[#dcdcdcac]">
       <div className=" h-[70%] w-[60%] rounded-[30px] bg-[#ffffff] shadow-2xl ">
-        <div className="flex h-[15%] grid-rows-3 flex-row  rounded-tr-[30px] rounded-tl-[30px] bg-[#0b5ce9db] ">
+        <div className="flex h-[15%] grid-rows-3 flex-row  rounded-tl-[30px] rounded-tr-[30px] bg-[#0b5ce9db] ">
           <div className=" mx-10 mt-5 w-full">
             <UserPlusIcon
               onClick={() => {

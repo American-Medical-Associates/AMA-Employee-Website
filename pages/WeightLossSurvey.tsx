@@ -22,6 +22,7 @@ import { selectWeightLossSurvey } from '../redux/slices/companySlice'
 import router from 'next/router'
 import LineDivider from '../components/lineDiveider'
 import GreenCheckMark from '../components/formComponents/GreenCheckMark'
+import Signature from '../components/formComponents/Signature'
 
 const WeightLossSurvey: NextPage<{}> = () => {
   const dispatch = useDispatch()
@@ -333,6 +334,14 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [medicationsTakenList, setMedicationsTakenList] = useState<
     Array<string>
   >([])
+
+  const [photoConsentCheckBoxes, setPhotoConsentCheckBoxes] = useState([])
+
+  const [photoConsentSignature, setPhotoConsentSignature] = useState('')
+  const [photoConsentDate, setPhotoConsentDate] = useState('')
+  const [agreeThatTheirSignatureIsValid, setAgreeThatTheirSignatureIsValid] =
+    useState(false)
+
   const [autoSaveWeightAge, setAutoSaveWeightAge] = useState<boolean>()
   const [autoSaveEighteen, setAutoSaveEighteen] = useState<boolean>()
   const [autoSaveDaysPerWeek, setAutoSaveDaysPerWeek] = useState<boolean>()
@@ -383,6 +392,15 @@ const WeightLossSurvey: NextPage<{}> = () => {
   const [requiredDaysPerWeekExplination, setRequiredDaysPerWeekExplination] =
     useState(false)
   const [requiredMedicalHistory, setRequiredMedicalHistory] = useState(false)
+
+  const [requiredPhotoConsent, setRequiredPhotoConsent] = useState(false)
+
+  const [requiredPhotoConsentSignature, setRequiredPhotoConsentSignature] =
+    useState(false)
+  const [requiredPhotoConsentDate, setRequiredPhotoConsentDate] =
+    useState(false)
+  const [requiredPhotoConsentCheckBox, setRequiredPhotoConsentCheckBox] =
+    useState(false)
 
   const weightLossSelector = useSelector(selectWeightLossSurvey)
 
@@ -4359,6 +4377,69 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         )}
       </div>
+
+      <SectionWithTitle
+        title="PHOTO CONSENT AND RELEASE FORM "
+        subTitle="Please read the following and sign:"
+        BgColor="bg-[#e8e8e8]"
+        children={[
+          <p>
+            {' '}
+            I consent for photographs and/or video images to be taken of me by
+            American Medical Associates or a representative. I understand the
+            images will be a part of my medical record and may be used for
+            purposes of medical teaching or training or for marketing purposes
+            (website, print, digital or social media). By consenting to
+            photographs and/or video images I understand I will not be
+            compensated from any party. Although photographs and/or video images
+            will be used without identifying information such as name, I
+            understand it is possible someone may recognize me. I further
+            acknowledge that my participation is voluntary and agree that use of
+            any photographs and/or video images confers no rights of ownership
+            or royalties whatsoever. I authorize the use of photographs and/or
+            video images:
+          </p>,
+          <CustomCheckBoxFeild
+            id="photoConsent"
+            checkBoxValues={photoConsentCheckBoxes}
+            setCheckBoxValues={setPhotoConsentCheckBoxes}
+            allowMultipleCheckBoxes={true}
+            required={requiredPhotoConsent}
+            checkBoxTitles={[
+              'For educational purposes (medical teaching or training)',
+              'For marketing and advertising purposes (website, print, digital, or social media)',
+              'At my request, my photographs and/or video images will only be used as part of my medical record.',
+            ]}
+          />,
+          <p>
+            I hereby American Medical Associates, its employees, and any third
+            parties involved in the creation of or publication of educational or
+            marketing materials, from liability for any claims by me or any
+            third party in connection with my participation. By signing this
+            form, I confirm understanding of this consent. If I wish to withdraw
+            my consent in the future, I may do so via a written request
+            submitted to American Medical Associates or by completion of a new
+            form.{' '}
+          </p>,
+          <div className="flex w-full items-center justify-center">
+            <Signature
+              id="photoConsentSignature"
+              signatureValue={photoConsentSignature}
+              signatureState={setPhotoConsentSignature}
+              date={photoConsentDate}
+              dateState={setPhotoConsentDate}
+              requiredSignature={requiredPhotoConsentSignature}
+              requiredDate={requiredPhotoConsentDate}
+              agreeThatTheirSignatureIsValid={agreeThatTheirSignatureIsValid}
+              agreeThatTheirSignatureIsValidState={
+                setAgreeThatTheirSignatureIsValid
+              }
+              requiredCheckBox={requiredPhotoConsentCheckBox}
+            />
+            ,
+          </div>,
+        ]}
+      />
       {showGreenCheckMark && (
         <GreenCheckMark
           checkMarkText="Thank You"
@@ -4647,6 +4728,49 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 }, 100)
               })
               return
+            } else if (photoConsentCheckBoxes.length < 3) {
+              setLoading(false)
+              setRequiredPhotoConsent(true)
+              alert('Please check all boxes')
+              router.push('/WeightLossSurvey/#photoConsent').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              return
+            } else if (photoConsentSignature === '') {
+              setLoading(false)
+              setRequiredPhotoConsentSignature(true)
+              router
+                .push('/WeightLossSurvey/#photoConsentSignature')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (photoConsentDate === '') {
+              setLoading(false)
+              setRequiredPhotoConsentDate(true)
+              router
+                .push('/WeightLossSurvey/#photoConsentSignature')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
+            } else if (agreeThatTheirSignatureIsValid === false) {
+              setLoading(false)
+              setRequiredPhotoConsentCheckBox(true)
+              router
+                .push('/WeightLossSurvey/#photoConsentSignature')
+                .then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+              return
             } else {
               SubmitWeightLossSurvey({
                 emailValue: auth.currentUser?.email,
@@ -4919,6 +5043,10 @@ const WeightLossSurvey: NextPage<{}> = () => {
                 medicalHistory: medicalHistory,
                 medicationsTaken: medicationsTaken,
                 medicationsTakenList: medicationsTakenList,
+                photoConsentSignature: photoConsentSignature,
+                photoConsentDate: photoConsentDate,
+                photoConsentagreeThatTheirSignatureIsValid:
+                  agreeThatTheirSignatureIsValid,
               })
                 .then(() => {
                   setLoading(false)

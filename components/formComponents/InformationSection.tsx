@@ -56,12 +56,14 @@ export const InformationSection: React.FC<{
                 </div>
               )
             } else {
-              return (
-                <div key={index} className="flex flex-row items-center">
-                  <div className="mr-2 h-2 w-2 rounded-full bg-gray-400"></div>
-                  <p className="text-lg">{item}</p>
-                </div>
-              )
+              if (item.length > 0) {
+                return (
+                  <div key={index} className="flex flex-row items-center">
+                    <div className="mr-2 h-2 w-2 rounded-full bg-gray-400"></div>
+                    <p className="text-lg">{item}</p>
+                  </div>
+                )
+              }
             }
           }
         )
