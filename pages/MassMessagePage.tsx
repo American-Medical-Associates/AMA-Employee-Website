@@ -228,7 +228,7 @@ const MassMessagePage: NextPage<{}> = () => {
         }
 
         if (sendBalance) {
-          if (item[37] > 0) {
+          if (item[38] > 0) {
             message = `Hello ${item[1]}, your current balance with AMERICAN MEDICAL ASSOCIATES is $${item[38]}, please be prepared to pay your balance before your next appointment.`
           }
         }
