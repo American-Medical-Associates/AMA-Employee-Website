@@ -4211,3 +4211,18 @@ export async function updateFieldsToLowerCase() {
     console.log(error)
   }
 }
+
+// update patient Name and DOB
+export async function updatePatientNameAndDOB({ firstName, lastName, dob }) {
+  const docRef = doc(db, 'companys', 'AMA', 'patients', auth.currentUser.email)
+  await setDoc(
+    docRef,
+    {
+      firstName: firstName,
+      lastName: lastName,
+      DOB: dob,
+      fullName: lastName + ',' + firstName,
+    },
+    { merge: true }
+  )
+}

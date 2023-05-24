@@ -17,7 +17,11 @@ const RegisterPatient = () => {
   const router = useRouter()
 
   const register = () => {
-    createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+    createUserWithEmailAndPassword(
+      auth,
+      registerEmail.toLowerCase().trim(),
+      registerPassword.toLowerCase().trim()
+    )
       .then(async (userCredential) => {
         const user = userCredential.user.uid
         try {
@@ -103,7 +107,9 @@ const RegisterPatient = () => {
                 alert('Please confirm your password.')
                 setRequiredRegisterPassword(true)
               } else if (registerPassword !== password) {
-                alert('Passwords do not match.')
+                alert(
+                  'Passwords do not match. make sure there is no space before or after the password.'
+                )
               } else {
                 register()
               }

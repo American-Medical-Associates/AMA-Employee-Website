@@ -17,6 +17,9 @@ import {
   selectWeightLossSurvey,
   setWeightLossSurvey,
 } from '../redux/slices/companySlice'
+import { Cog6ToothIcon } from '@heroicons/react/24/outline'
+import classNames from 'classnames'
+import { EditPatientInfo } from '../components/EditPatientInfo'
 
 const PatientPage: NextPage = () => {
   const router = useRouter()
@@ -36,7 +39,14 @@ const PatientPage: NextPage = () => {
   const [noFoundWeightLoss, setNoFoundWeightLoss] = useState(false)
   const weightLossAutoSaveSubmission = useSelector(selectWeightLossSurvey)
 
+  const [showEditPatientInfo, setShowEditPatientInfo] = useState(false)
+
   const dispatch = useDispatch()
+
+  console.log(
+    'weightLossAutoSaveSubmission',
+    patientInfo?.isInWeightLossProgram
+  )
 
   useEffect(() => {
     if (auth.currentUser?.email) {
@@ -100,6 +110,8 @@ const PatientPage: NextPage = () => {
   interface Info {
     email: string
     isInWeightLossProgram: boolean
+    DOB: string
+    fullName: string
   }
 
   useEffect(() => {
@@ -121,22 +133,47 @@ const PatientPage: NextPage = () => {
     <div className="flex w-full flex-col items-center justify-center">
       <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[85%] rounded-[30px] shadow-2xl md:w-[50%]">
-        <div className="  item-center flex justify-end p-3">
-          <p
-            onClick={() => {
-              router.push('/PatientHelpPage')
-            }}
-            className=" mx-10 cursor-pointer text-[#377adf] underline"
-          >
-            Need Help?
-          </p>
+        <div className=" flex w-full ">
+          <div className="m-2 w-1/2 ">
+            <Cog6ToothIcon
+              onClick={() => {
+                setShowEditPatientInfo(!showEditPatientInfo)
+              }}
+              className={classNames(
+                `h-10 w-7 cursor-pointer  ${
+                  showEditPatientInfo == true ? 'text-[#5289F6]' : 'text-black'
+                } duration-[500s] ease-in`
+              )}
+            />
+          </div>
+          <div className="  item-center flex w-1/2 justify-end p-3">
+            <p
+              onClick={() => {
+                router.push('/PatientHelpPage')
+              }}
+              className=" mx-10 cursor-pointer text-[#377adf] underline"
+            >
+              Need Help?
+            </p>
+          </div>
         </div>
+        {showEditPatientInfo && <EditPatientInfo />}
         <h1 className="m-2 text-center text-4xl font-bold text-[#377adf] opacity-100">
           Patient Page
         </h1>
         {patientInfo && (
-          <div className="flex items-center justify-center">
-            Welcome {patientInfo.email}!
+          <div className="flex flex-col items-center justify-center">
+            <p>Welcome {patientInfo.email}!</p>
+            {/* format DOB  (MM/DD/YYYY) */}
+            <p>
+              {' '}
+              {patientInfo.DOB.slice(0, 2) +
+                '/' +
+                patientInfo.DOB.slice(2, 4) +
+                '/' +
+                patientInfo.DOB.slice(4)}
+            </p>
+            <p>{patientInfo.fullName}</p>
           </div>
         )}
         <div className="flex flex-col items-center justify-center">
