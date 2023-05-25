@@ -165,14 +165,15 @@ const PatientPage: NextPage = () => {
           <div className="flex flex-col items-center justify-center">
             <p>Welcome {patientInfo.email}!</p>
             {/* format DOB  (MM/DD/YYYY) */}
-            <p>
-              {' '}
-              {patientInfo.DOB.slice(0, 2) +
-                '/' +
-                patientInfo.DOB.slice(2, 4) +
-                '/' +
-                patientInfo.DOB.slice(4)}
-            </p>
+            {patientInfo.DOB && (
+              <p>
+                {patientInfo.DOB.slice(0, 2) +
+                  '/' +
+                  patientInfo.DOB.slice(2, 4) +
+                  '/' +
+                  patientInfo.DOB.slice(4)}
+              </p>
+            )}
             <p>{patientInfo.fullName}</p>
           </div>
         )}
