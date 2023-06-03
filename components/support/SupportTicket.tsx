@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import MainButton from '../MainButton'
-import TextInput from '../TextInput'
-import LargeTextBox from '../LargeTextBox'
+import MainButton from '../Buttons/MainButton'
+import TextInput from '../userInput/TextInput'
+import LargeTextBox from '../userInput/LargeTextBox'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectCompany,
@@ -11,11 +11,11 @@ import {
   AddScreenShotForSupportTicketsStorageAndDB,
   AddSupportTicket,
 } from '../../firebase'
-import CustomCheckBoxFeild from '../formComponents/CustomCheckBoxFeild'
+import CustomCheckBoxFeild from '../formComponents/CustomCheckBoxField'
 import CustomYesOrNo from '../formComponents/CustomYesOrNo'
 import { auth, functions } from '../../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
-import PhoneNumberInput from '../PhoneNumberInput'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
 
 const SupportTicket: React.FC<{}> = () => {
   const [subject, setSubject] = useState('')

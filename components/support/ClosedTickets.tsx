@@ -5,7 +5,7 @@ import {
   CloseSupportTicket,
   GetSupportTickets,
 } from '../../firebase'
-import { MenuItem } from '../MenuItem'
+import { MenuItem } from '../navigation/MenuItem'
 import {
   ChartBarIcon,
   CubeIcon,

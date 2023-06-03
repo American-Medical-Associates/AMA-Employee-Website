@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import LargeTextBox from './LargeTextBox'
+import LargeTextBox from '../userInput/LargeTextBox'
 import * as tf from '@tensorflow/tfjs'
 import * as qna from '@tensorflow-models/qna'
-import TextInput from './TextInput'
-import MainButton from './MainButton'
+import TextInput from '../userInput/TextInput'
+import MainButton from '../Buttons/MainButton'
 
 function TensorFlowBert() {
   const [answer, setAnswer] = useState([])

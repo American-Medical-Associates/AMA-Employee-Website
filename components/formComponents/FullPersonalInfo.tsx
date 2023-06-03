@@ -1,8 +1,8 @@
 import React from 'react'
-import AddressInput from '../AddressInput'
-import DateInput from '../DateInput'
-import PhoneNumberInput from '../PhoneNumberInput'
-import TextInput from '../TextInput'
+import AddressInput from '../userInput/AddressInput'
+import DateInput from '../userInput/DateInput'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
+import TextInput from '../userInput/TextInput'
 import FullNameField from '../formComponents/FullNameField'
 
 const FullPersonalInfo: React.FC<{

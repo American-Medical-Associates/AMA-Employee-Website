@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import TextInput from '../../components/TextInput'
-import DateInput from '../../components/DateInput'
-import MainButton from '../../components/MainButton'
-import Header from '../../components/Header'
+import TextInput from '../../components/userInput/TextInput'
+import DateInput from '../../components/userInput/DateInput'
+import MainButton from '../../components/Buttons/MainButton'
+import Header from '../../components/navigation/Header'
 import { savePatentForms } from '../../firebase'
 import GreenCheckMark from '../../components/formComponents/GreenCheckMark'
 

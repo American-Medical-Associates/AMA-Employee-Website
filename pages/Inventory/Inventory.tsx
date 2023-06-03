@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/Header'
-import { MenuItem } from '../../components/MenuItem'
+import Header from '../../components/navigation/Header'
+import { MenuItem } from '../../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import {
   ClipboardDocumentListIcon,
@@ -9,8 +9,8 @@ import {
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
 import { auth, editSpravatoTracking, GetSpravatoTracking } from '../../firebase'
-import TextInput from '../../components/TextInput'
-import Datepicker from '../../components/Datepicker'
+import TextInput from '../../components/userInput/TextInput'
+import Datepicker from '../../components/userInput/Datepicker'
 
 const Inventory: NextPage<{}> = () => {
   useEffect(() => {

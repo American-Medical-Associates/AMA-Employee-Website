@@ -1,13 +1,13 @@
 import React from 'react'
-import TextInput from '../components/TextInput'
+import TextInput from '../components/userInput/TextInput'
 import { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Image from 'next/image'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import { SignInToAccount, auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useRouter } from 'next/router'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 const Login: NextPage<{}> = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

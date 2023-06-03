@@ -9,8 +9,8 @@ import {
   StyleSheet,
   Canvas,
 } from '@react-pdf/renderer'
-import MainButton from '../MainButton'
-import { RoundAddButton } from '../RoundAddButton'
+import MainButton from '../Buttons/MainButton'
+import { RoundAddButton } from '../Buttons/RoundAddButton'
 import { AddSignatureToStorage } from '../../firebase'
 
 interface SignatureFieldProps {}

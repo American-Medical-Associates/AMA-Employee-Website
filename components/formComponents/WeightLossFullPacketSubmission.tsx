@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import MainButton from '../MainButton'
+import MainButton from '../Buttons/MainButton'
 import { InformationSection } from './InformationSection'
 import { jsPDF } from 'jspdf'
 import { WeightLossSurveyTypes } from '../../types/weightLossTypes'

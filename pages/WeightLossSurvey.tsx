@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/Header'
-import DateInput from '../components/DateInput'
-import TextInput from '../components/TextInput'
+import Header from '../components/navigation/Header'
+import DateInput from '../components/userInput/DateInput'
+import TextInput from '../components/userInput/TextInput'
 import { NextPage } from 'next'
-import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxFeild'
+import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxField'
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
 import UserCreatedListFromInputBox from '../components/formComponents/UserCreatedListFromInputBox'
 import SectionWithTitle from '../components/formComponents/SectionWithTitle'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import {
   auth,
   GetWeightLossSurveyPatient,
@@ -20,7 +20,7 @@ import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectWeightLossSurvey } from '../redux/slices/companySlice'
 import router from 'next/router'
-import LineDivider from '../components/lineDiveider'
+import LineDivider from '../components/formComponents/lineDiveider'
 import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 import Signature from '../components/formComponents/Signature'
 

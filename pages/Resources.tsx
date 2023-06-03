@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Header from '../components/Header'
-import { MenuItem } from '../components/MenuItem'
+import Header from '../components/navigation/Header'
+import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import {
   ChartBarIcon,

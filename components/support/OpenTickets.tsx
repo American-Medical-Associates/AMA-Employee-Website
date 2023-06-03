@@ -5,7 +5,7 @@ import {
   CreateChannelMessageToSupport,
   GetSupportTickets,
 } from '../../firebase'
-import { MenuItem } from '../MenuItem'
+import { MenuItem } from '../navigation/MenuItem'
 
 import { auth, functions, AddNoteToSupportTicket } from '../../firebase'
 import ClosedTickets from './ClosedTickets'
@@ -16,14 +16,14 @@ import {
   setSupportTicketNumber,
   setChannelID,
 } from '../../redux/slices/companySlice'
-import { CircularButton } from '../CircularButtonIcon'
+import { CircularButton } from '../Buttons/CircularButtonIcon'
 import {
   PaperAirplaneIcon,
   WrenchIcon,
   XMarkIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline'
-import LargeTextBox from '../LargeTextBox'
+import LargeTextBox from '../userInput/LargeTextBox'
 
 const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
   const dispatch = useDispatch()

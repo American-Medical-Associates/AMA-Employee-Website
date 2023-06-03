@@ -1,7 +1,7 @@
 import { title } from 'process'
 import React from 'react'
-import RadioButton from './RadioButton'
-import TextInput from './TextInput'
+import RadioButton from '../userInput/RadioButton'
+import TextInput from '../userInput/TextInput'
 
 function EducationBox({
   highSchoolState,

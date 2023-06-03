@@ -1,7 +1,7 @@
 import { AnyNaptrRecord } from 'dns'
 import React, { useState, useEffect } from 'react'
-import MainButton from '../MainButton'
-import TextInput from '../TextInput'
+import MainButton from '../Buttons/MainButton'
+import TextInput from '../userInput/TextInput'
 import CustomCheckBox from './CustomCheckBox'
 import classnames from 'classnames'
 const CustomCheckBoxFeild: React.FC<{

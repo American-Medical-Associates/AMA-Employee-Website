@@ -1,5 +1,5 @@
 import React from 'react'
-import CheckBox from '../CheckBox'
+import CheckBox from '../userInput/CheckBox'
 import { useEffect } from 'react'
 
 const CustomCheckBox: React.FC<{

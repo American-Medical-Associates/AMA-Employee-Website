@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import PhoneNumberInput from '../PhoneNumberInput'
-import TextInput from '../TextInput'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
+import TextInput from '../userInput/TextInput'
 import Signature from './Signature'
 
 const HIPPAconsentForm: React.FC<{

@@ -11,8 +11,8 @@ import { SelectionMode } from '@react-pdf-viewer/selection-mode'
 import { toolbarPlugin } from '@react-pdf-viewer/toolbar'
 // Import the styles
 import '@react-pdf-viewer/core/lib/styles/index.css'
-import MainButton from '../MainButton'
-import ArrowButton from '../ArrowButton'
+import MainButton from '../Buttons/MainButton'
+import ArrowButton from '../Buttons/ArrowButton'
 // const PdfDocument = ({ locationX, locationY, svg }) => {
 //   const [numPages, setNumPages] = useState(null)
 //   const [pageNumber, setPageNumber] = useState(1)

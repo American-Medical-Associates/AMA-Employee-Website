@@ -4,22 +4,25 @@ import {
   UserPlusIcon,
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline'
-import SearchComponent from './searchComponent'
-import DateInput from './DateInput'
-import TextInput from './TextInput'
-import PhoneNumberInput from './PhoneNumberInput'
-import MainButton from './MainButton'
+import SearchComponent from '../userInput/searchComponent'
+import DateInput from '../userInput/DateInput'
+import TextInput from '../userInput/TextInput'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
+import MainButton from '../Buttons/MainButton'
 import {
   addNewPatient,
   patientSearchListAMA,
   updateFieldsToLowerCase,
-} from '../firebase'
-import { selectCompany, setPatientDetails } from '../redux/slices/companySlice'
+} from '../../firebase'
+import {
+  selectCompany,
+  setPatientDetails,
+} from '../../redux/slices/companySlice'
 import { useDispatch, useSelector } from 'react-redux'
-import CustomCheckBox from './formComponents/CustomCheckBox'
+import CustomCheckBox from '../formComponents/CustomCheckBox'
 import { useRouter } from 'next/router'
-import { CircularButton } from './CircularButtonIcon'
-import { LoadingSpinner } from './LoadingSpinner'
+import { CircularButton } from '../Buttons/CircularButtonIcon'
+import { LoadingSpinner } from '../General/LoadingSpinner'
 
 const PatientResourcesModal: React.FC<{ setClose: any }> = ({ setClose }) => {
   const [showAddNewUser, setShowAddNewUser] = useState(false)

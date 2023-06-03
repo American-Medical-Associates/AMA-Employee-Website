@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import TextInput from '../components/TextInput'
-import RadioButton from '../components/RadioButton'
-import Datepicker from './Datepicker.tsx'
-import LargeTextBox from './LargeTextBox'
-import MainButton from './MainButton'
+import TextInput from '../userInput/TextInput'
+import RadioButton from '../userInput/RadioButton'
+import Datepicker from '../userInput/Datepicker'
+import LargeTextBox from '../userInput/LargeTextBox'
+import MainButton from '../Buttons/MainButton'
 
-import { RoundAddButton } from './RoundAddButton'
-import PhoneNumberInput from './PhoneNumberInput'
+import { RoundAddButton } from '../Buttons/RoundAddButton'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
 // todo add google address auto complete
 export default function WorkHistory({
   selectedDateStart1,

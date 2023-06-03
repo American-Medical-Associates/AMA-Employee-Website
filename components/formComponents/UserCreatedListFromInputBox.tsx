@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import MainButton from '../MainButton'
-import TextInput from '../TextInput'
+import MainButton from '../Buttons/MainButton'
+import TextInput from '../userInput/TextInput'
 
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import DateInput from '../DateInput'
+import DateInput from '../userInput/DateInput'
 
 const UserCreatedListFromInputBox: React.FC<{
   list: Array<any>

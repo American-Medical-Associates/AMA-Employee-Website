@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/Header'
-import { MenuItem } from '../components/MenuItem'
+import Header from '../components/navigation/Header'
+import { MenuItem } from '../components/navigation/MenuItem'
 import { useRouter } from 'next/router'
 import {
   ChartBarIcon,
@@ -9,7 +9,7 @@ import {
   ChartPieIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
-import Datepicker from '../components/Datepicker'
+import Datepicker from '../components/userInput/Datepicker'
 import Submissions from '../components/NewPatientPacketAnalytics/Submissions'
 import HowTheyFoundUs from '../components/NewPatientPacketAnalytics/HowTheyFoundUs'
 import { auth } from '../firebase'

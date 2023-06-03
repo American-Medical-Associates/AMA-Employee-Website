@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useMemo } from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 import { jsPDF } from 'jspdf'
 import { Worker } from '@react-pdf-viewer/core'
 // Import the main component
@@ -14,14 +14,14 @@ import { SelectionMode } from '@react-pdf-viewer/selection-mode'
 import { toolbarPlugin } from '@react-pdf-viewer/toolbar'
 // Import the styles
 import '@react-pdf-viewer/core/lib/styles/index.css'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import PdfDocument from '../components/pdfCompnents/PdfDocument'
-import ArrowButton from '../components/ArrowButton'
+import ArrowButton from '../components/Buttons/ArrowButton'
 import * as pdfjs from 'pdfjs-dist'
-import { RoundAddButton } from '../components/RoundAddButton'
-import { CircularButton } from '../components/CircularButtonIcon'
+import { RoundAddButton } from '../components/Buttons/RoundAddButton'
+import { CircularButton } from '../components/Buttons/CircularButtonIcon'
 import 'react-tooltip/dist/react-tooltip.css'
-import TextInput from '../components/TextInput'
+import TextInput from '../components/userInput/TextInput'
 import {
   ArrowDownTrayIcon,
   PlusIcon,
@@ -105,7 +105,7 @@ const PdfSignatures = () => {
     //create a ref for the drag node
 
     return (
-      <div className=" my-3 mx-2 flex flex-row items-center rounded-md bg-white">
+      <div className=" mx-2 my-3 flex flex-row items-center rounded-md bg-white">
         <img
           onDragStart={(e) => {
             setSvgUrl(signature.signature)
@@ -137,7 +137,7 @@ const PdfSignatures = () => {
 
   const MyDocs = allMyDocs.map((doc, index) => {
     return (
-      <div className=" grid-2-col my-3 mx-2 flex flex-row  rounded-md bg-white">
+      <div className=" grid-2-col mx-2 my-3 flex flex-row  rounded-md bg-white">
         <div
           onClick={() => {
             setSelectedPDF(doc.pdf)
@@ -184,7 +184,7 @@ const PdfSignatures = () => {
             }
           }
         }}
-        className={` my-3 mx-2 flex w-[90%] cursor-pointer flex-col items-center rounded-md ${
+        className={` mx-2 my-3 flex w-[90%] cursor-pointer flex-col items-center rounded-md ${
           usersSent.includes(user) ? 'bg-[#458ef3]' : 'bg-white'
         } `}
       >
@@ -655,14 +655,14 @@ const PdfSignatures = () => {
           <div className=" h-full  w-full justify-center overflow-y-scroll  ">
             {/* <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.1.81/build/pdf.worker.min.js">
               <Toolbar />
-             
+
               <Viewer
                 viewerRef={viewer}
                 plugins={[toolbarPluginInstance]}
                 fileUrl={pdfURL}
                 renderPage={renderSignature}
               />
-            
+
             </Worker> */}
             <TextInput
               // ref={filePicker}

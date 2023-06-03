@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 //@ts-ignore
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts'
 import { selectDate } from '../../redux/slices/companySlice'
-import Datepicker from '../Datepicker'
+import Datepicker from '../userInput/Datepicker'
 import Segment from './segment'
 
 const PieGraph: React.FC<{

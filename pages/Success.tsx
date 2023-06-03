@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React from 'react'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 
 const Success: NextPage<{}> = () => {
   return (

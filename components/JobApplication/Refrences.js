@@ -1,7 +1,7 @@
 import { title } from 'process'
 import React from 'react'
-import PhoneNumberInput from './PhoneNumberInput'
-import TextInput from './TextInput'
+import PhoneNumberInput from '../userInput/PhoneNumberInput'
+import TextInput from '../userInput/TextInput'
 
 function References({
   ReferenceNameValue,

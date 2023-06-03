@@ -23,8 +23,8 @@ import {
 } from '@heroicons/react/24/outline'
 // import Box from './box'
 import { getAuth, signOut, sendEmailVerification } from 'firebase/auth'
-import MainButton from './MainButton'
-import { auth, isAdmin, GetAllPatientInfo } from '../firebase'
+import MainButton from '../Buttons/MainButton'
+import { auth, isAdmin, GetAllPatientInfo } from '../../firebase'
 import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
 

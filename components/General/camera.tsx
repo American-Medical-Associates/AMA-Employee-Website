@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import MainButton from './MainButton'
+import MainButton from '../Buttons/MainButton'
 
 const Camera: React.FC<{ picture: any; setPicture: any; key: number }> = ({
   picture,

@@ -4226,3 +4226,40 @@ export async function updatePatientNameAndDOB({ firstName, lastName, dob }) {
     { merge: true }
   )
 }
+
+export async function addAMAInternalMedicineMIS({ mis }) {
+  const docRef = collection(db, 'companys', 'AMA', 'InternalMedicineMIS')
+  await addDoc(docRef, {
+    mis: mis,
+    timestamp: serverTimestamp(),
+    whoAddedIt: auth.currentUser.email,
+  })
+}
+
+//add Component Doc
+export async function addComponentDoc(data) {
+  const docRef = collection(db, 'documentation', 'components', 'components')
+  await addDoc(docRef, {
+    ...data,
+    addedBy: auth.currentUser.email,
+    dateAdded: serverTimestamp(),
+  })
+}
+
+//get Component Doc
+export async function getComponentDoc({ setComponentDocs }) {
+  onSnapshot(
+    query(
+      collection(db, 'documentation', 'components', 'components'),
+
+      orderBy('dateAdded', 'desc')
+    ),
+    (querySnapshot) => {
+      const componentDocs = []
+      querySnapshot.forEach((doc) => {
+        componentDocs.push(doc.data())
+      })
+      setComponentDocs(componentDocs)
+    }
+  )
+}

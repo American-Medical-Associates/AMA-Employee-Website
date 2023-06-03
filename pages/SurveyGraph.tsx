@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 import { useRouter } from 'next/router'
 import { auth } from '../firebase'
 import { GetSurveys } from '../firebase'
 import PieGraph2 from '../components/GraphComponents/PieGraph2'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 
 const SurveyGraph: NextPage<{}> = () => {
   const router = useRouter()
@@ -118,7 +118,7 @@ const SurveyGraph: NextPage<{}> = () => {
     }
   }, [age, refresh])
 
-  /* This useEffect is for the Gender Graph. The first IF statement is to make sure that the code only renders once and then 
+  /* This useEffect is for the Gender Graph. The first IF statement is to make sure that the code only renders once and then
   grabs the genderCount index. The second IF statement will look at the index and value of that index and increment the value
   by 1 if that index name already exists. And if it doesnt exist already then the value will set to 0 and be ready for
   the next possible increment. */
@@ -218,9 +218,9 @@ const SurveyGraph: NextPage<{}> = () => {
 
   // This is for the OneOnOne Graph
   /* Here is the explanation for the code below:
-  1. We are running the useEffect only once by checking the hasRunOneOnOne boolean value. 
+  1. We are running the useEffect only once by checking the hasRunOneOnOne boolean value.
   2. We are iterating through the OneOnOne array and checking if the name of the item is present in OneOnOneCount array. If it is not present, we are adding that item to OneOnOneCount array. If it is present, we are just increasing the value of that item.
-  3. We are using the setOneOnOneCount function to update the OneOnOneCount array. We are using the spread operator to make sure that the array is updated and not replaced. 
+  3. We are using the setOneOnOneCount function to update the OneOnOneCount array. We are using the spread operator to make sure that the array is updated and not replaced.
   4. We are also updating the hasRunOneOnOne boolean value to true so that the useEffect does not run again. */
   useEffect(() => {
     if (!hasRunOneOnOne) {
@@ -416,7 +416,7 @@ const SurveyGraph: NextPage<{}> = () => {
     // This is for the Gender Graph
     /* Here is the explanation for the code below:
     1. genderTotal is a variable that stores the total number of participants in the survey.
-    2. genderCount is an array of objects, where each object has a name and value property. 
+    2. genderCount is an array of objects, where each object has a name and value property.
     3. The forEach method iterates through the genderCount array and adds the value property of each object to the genderTotal variable.
     4. The conditional statement checks to see if the value of genderTotal is greater than 0. If it is, then set the value of hasRunGender to true.
     5. The conditional statement checks to see if the name property of any of the objects in the array is undefined. If it is, then the splice method removes that object from the array. */
@@ -437,7 +437,7 @@ const SurveyGraph: NextPage<{}> = () => {
     // This is for the focusArea Graph
     /* Here is the explanation for the code below:
     1. I create a variable called focusAreaTotal and set it to 0. This variable is going to be used to determine whether or not the focus area chart has any values.
-    2. I use a forEach method to loop through the focusAreaCount array and add the value of each item to the focusAreaTotal variable. 
+    2. I use a forEach method to loop through the focusAreaCount array and add the value of each item to the focusAreaTotal variable.
     3. I use an if statement to check if the focusAreaTotal variable is greater than 0. If it is, I set the hasRunFocusArea state to true. This is so that the chart will render if the value is greater than 0. If the value is 0, the chart will not render.
     4. I use an if statement to check if the name of the item is undefined. If it is, I get the index of the item and use the splice method to remove it from the array. This is so that the user doesn't see a value for undefined in the chart. */
     var focusAreaTotal = 0

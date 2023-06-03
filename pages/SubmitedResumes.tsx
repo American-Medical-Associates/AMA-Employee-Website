@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 import Head from 'next/head'
 import {
   getResumes,
@@ -8,16 +8,16 @@ import {
   SearchForApplicationsNOTArchived,
   auth,
 } from '../firebase'
-import ListItem from '../components/ListItem'
+import ListItem from '../components/navigation/ListItem'
 import { ReactDOM } from 'react'
 import classnames from 'classnames'
-import ApplicationItem from '../components/ApplicationItem'
+import ApplicationItem from '../components/JobApplication/ApplicationItem'
 import Image from 'next/image'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import Router, { useRouter } from 'next/router'
-import ItemPicker from '../components/ItemPicker'
-import LineDivider from '../components/lineDiveider'
-import SearchComponent from '../components/searchComponent'
+import ItemPicker from '../components/userInput/ItemPicker'
+import LineDivider from '../components/formComponents/lineDiveider'
+import SearchComponent from '../components/userInput/searchComponent'
 import { jsPDF } from 'jspdf'
 import { async } from '@firebase/util'
 

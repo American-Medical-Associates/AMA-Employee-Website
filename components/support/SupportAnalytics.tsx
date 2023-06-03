@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { auth, GetSpravatoTracking, GetSupportTickets } from '../../firebase'
 import { useRouter } from 'next/router'
-import Header from '../Header'
-import { MenuItem } from '../MenuItem'
+import Header from '../navigation/Header'
+import { MenuItem } from '../navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
-import Datepicker from '../Datepicker'
+import Datepicker from '../userInput/Datepicker'
 import BarGraph from '../GraphComponents/BarGraph'
 const SupportAnalytics: React.FC<{
   selectedDate: any

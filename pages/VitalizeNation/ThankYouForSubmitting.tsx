@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import Header from '../../components/Header'
-import MainButton from '../../components/MainButton'
+import Header from '../../components/navigation/Header'
+import MainButton from '../../components/Buttons/MainButton'
 import router, { useRouter } from 'next/router'
 import { auth } from '../../firebase'
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header'
-import { MenuItem } from '../components/MenuItem'
+import Header from '../components/navigation/Header'
+import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import { auth, getMessages } from '../firebase'
@@ -9,8 +9,8 @@ import {
   selectChannelID,
 } from '../redux/slices/companySlice'
 import { useDispatch, useSelector } from 'react-redux'
-import TextInput from '../components/TextInput'
-import { CircularButton } from '../components/CircularButtonIcon'
+import TextInput from '../components/userInput/TextInput'
+import { CircularButton } from '../components/Buttons/CircularButtonIcon'
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline'
 
 const MessagingPage: NextPage<{}> = () => {

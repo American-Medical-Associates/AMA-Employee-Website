@@ -1,12 +1,12 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import Datepicker from '../components/Datepicker'
-import Header from '../components/Header'
-import MainButton from '../components/MainButton'
-import TextInput from '../components/TextInput'
+import Datepicker from '../components/userInput/Datepicker'
+import Header from '../components/navigation/Header'
+import MainButton from '../components/Buttons/MainButton'
+import TextInput from '../components/userInput/TextInput'
 import { addSpravatoTracking, auth } from '../firebase'
-import DateInput from '../components/DateInput'
-import PhoneNumberInput from '../components/PhoneNumberInput'
+import DateInput from '../components/userInput/DateInput'
+import PhoneNumberInput from '../components/userInput/PhoneNumberInput'
 import { useRouter } from 'next/router'
 
 const SpravatoTracking: NextPage<{}> = () => {

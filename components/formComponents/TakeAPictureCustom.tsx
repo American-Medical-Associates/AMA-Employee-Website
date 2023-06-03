@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Camera from '../camera'
-import MainButton from '../MainButton'
-import TextInput from '../TextInput'
+import Camera from '../General/camera'
+import MainButton from '../Buttons/MainButton'
+import TextInput from '../userInput/TextInput'
 //import Compressor from 'compressorjs'
 
 const TakeAPictureCustom: React.FC<{

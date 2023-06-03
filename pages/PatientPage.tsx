@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 import { useRouter } from 'next/router'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import {
   GetPatientAutoSaveInfo,
   GetPatientInfo,
@@ -19,7 +19,7 @@ import {
 } from '../redux/slices/companySlice'
 import { Cog6ToothIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
-import { EditPatientInfo } from '../components/EditPatientInfo'
+import { EditPatientInfo } from '../components/General/EditPatientInfo'
 
 const PatientPage: NextPage = () => {
   const router = useRouter()

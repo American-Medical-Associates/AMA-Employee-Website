@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/Header'
+import Header from '../../components/navigation/Header'
 import { useRouter } from 'next/router'
-import { MenuItem } from '../../components/MenuItem'
+import { MenuItem } from '../../components/navigation/MenuItem'
 import {
   ClipboardIcon,
   ChartBarIcon,
@@ -15,7 +15,7 @@ import SupportAnalytics from '../../components/support/SupportAnalytics'
 import OpenTickets from '../../components/support/OpenTickets'
 import ClosedTickets from '../../components/support/ClosedTickets'
 import { auth, GetSupportTickets } from '../../firebase'
-import Datepicker from '../../components/Datepicker'
+import Datepicker from '../../components/userInput/Datepicker'
 
 const TechSupport: NextPage<{}> = () => {
   const router = useRouter()

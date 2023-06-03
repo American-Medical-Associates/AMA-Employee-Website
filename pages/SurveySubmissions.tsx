@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/Header'
+import Header from '../components/navigation/Header'
 import { GetSurveys } from '../firebase'
 import { Timestamp } from 'firebase/firestore'
-import MainButton from '../components/MainButton'
+import MainButton from '../components/Buttons/MainButton'
 import Router, { useRouter } from 'next/router'
 import { auth } from '../firebase'
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Header from '../../components/Header'
-import TextInput from '../../components/TextInput'
-import PhoneNumberInput from '../../components/PhoneNumberInput'
-import Datepicker from '../../components/Datepicker'
+import Header from '../../components/navigation/Header'
+import TextInput from '../../components/userInput/TextInput'
+import PhoneNumberInput from '../../components/userInput/PhoneNumberInput'
+import Datepicker from '../../components/userInput/Datepicker'
 import { TimeSelector } from '../../components/formComponents/TimeSelector'
-import MainButton from '../../components/MainButton'
-import LargeTextBox from '../../components/LargeTextBox'
+import MainButton from '../../components/Buttons/MainButton'
+import LargeTextBox from '../../components/userInput/LargeTextBox'
 import {
   BookAnAppointment,
   BookAnAppointmentToTrackUserInput,

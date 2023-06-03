@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/Header'
-import { MenuItem } from '../../components/MenuItem'
+import Header from '../../components/navigation/Header'
+import { MenuItem } from '../../components/navigation/MenuItem'
 import { useRouter } from 'next/router'
 import {
   ClipboardDocumentListIcon,
@@ -12,8 +12,8 @@ import {
   GetInventory,
   GetSpravatoTracking,
 } from '../../firebase'
-import TextInput from '../../components/TextInput'
-import Datepicker from '../../components/Datepicker'
+import TextInput from '../../components/userInput/TextInput'
+import Datepicker from '../../components/userInput/Datepicker'
 import { auth } from '../../firebase'
 import { NextPage } from 'next'
 import { UserIcon } from '@heroicons/react/24/outline'

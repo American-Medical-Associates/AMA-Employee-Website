@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import Header from '../../components/Header'
+import Header from '../../components/navigation/Header'
 import router, { useRouter } from 'next/router'
-import { MenuItem } from '../../components/MenuItem'
+import { MenuItem } from '../../components/navigation/MenuItem'
 import {
   ChartBarIcon,
   ClipboardIcon,

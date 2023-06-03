@@ -1,6 +1,6 @@
 import React from 'react'
-import DateInput from '../DateInput'
-import TextInput from '../TextInput'
+import DateInput from '../userInput/DateInput'
+import TextInput from '../userInput/TextInput'
 import CustomCheckBox from './CustomCheckBox'
 
 const Signature: React.FC<{

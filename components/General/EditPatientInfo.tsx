@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import TextInput from './TextInput'
-import MainButton from './MainButton'
-import DateInput from './DateInput'
-import { updatePatientNameAndDOB } from '../firebase'
+import TextInput from '../userInput/TextInput'
+import MainButton from '../Buttons/MainButton'
+import DateInput from '../userInput/DateInput'
+import { updatePatientNameAndDOB } from '../../firebase'
 
 export const EditPatientInfo: React.FC<{}> = () => {
   const [firstName, setFirstName] = useState('')
