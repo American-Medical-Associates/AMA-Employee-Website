@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import FullPersonalInfo from '../components/formComponents/FullPersonalInfo'
 import Header from '../components/navigation/Header'
 import SocialInput from '../components/userInput/SocialInput'
-import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import SexCheckBox from '../components/formComponents/SexCheckBox'
 import Camera from '../components/General/camera'
 import TakeAPictureCustom from '../components/formComponents/TakeAPictureCustom'
@@ -1417,7 +1417,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />
           </div>
         </div>
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="Ethnicity"
           checkBoxValues={Ethnicity}
           allowMultipleCheckBoxes={false}
@@ -1472,7 +1472,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             />,
           ]}
         />
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="howDidYouHearAboutUs"
           checkBoxValues={HowDidTheyHearAboutUs}
           allowMultipleCheckBoxes={false}
@@ -1492,7 +1492,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           ]}
           required={requiredHowDidTheyHearAboutUs}
         />
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="howDoTheyWishToPay"
           checkBoxValues={howDoTheyWishToPay}
           allowMultipleCheckBoxes={false}
@@ -1857,7 +1857,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               value={dateOfLastPAP}
             />,
 
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Was the pap smear normal?"
               checkBoxValues={wasPapNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
@@ -1873,7 +1873,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               }}
               value={dateOfLastMammogram}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Was the mammogram normal?"
               checkBoxValues={wasMammogramNormalOrAbnormal}
               allowMultipleCheckBoxes={false}
@@ -1895,7 +1895,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               }}
               value={dateOfLastPSA}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Was the PSA normal?"
               checkBoxValues={wasPSANormalOrAbnormal}
               allowMultipleCheckBoxes={false}
@@ -1966,7 +1966,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />
             ),
             boneDensityScreening == 'Yes' && (
-              <CustomCheckBoxFeild
+              <CustomCheckBoxField
                 id="boneDensityScreeningResults"
                 title="Was the bone density screening normal?"
                 checkBoxValues={wasBoneDensityScreeningNormalOrAbnormal}
@@ -1998,7 +1998,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               />
             ),
             colonoscopyScreening == 'Yes' && (
-              <CustomCheckBoxFeild
+              <CustomCheckBoxField
                 id="colonoscopyScreeningResults"
                 title="Was the colonoscopy normal?"
                 checkBoxValues={wasColonoscopyScreeningNormalOrAbnormal}
@@ -2016,7 +2016,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           subTitle="Check if you have had the following (check ALL that apply):"
           BgColor="#ffffff"
           children={[
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               checkBoxValues={allMedicalHistoryOfDisease}
               allowMultipleCheckBoxes={true}
               checkBoxTitles={[
@@ -2407,7 +2407,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     CheckState={setDoYouCryFrequently}
                     required={requiredDoYouCryFrequently}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouHaveLittleInterest"
                     title="Do you have little interest or pleasure in doing things?"
                     checkBoxTitles={[
@@ -2421,7 +2421,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouHaveLittleInterestInDoingThings}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouFeelHopeless"
                     title="Do you feel down, depressed, or hopeless?"
                     checkBoxTitles={[
@@ -2435,7 +2435,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouFeelHopelessDownOrDepressed}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouHaveTroubleFallingAsleep"
                     title="Do you have trouble falling or staying asleep, or sleeping too much?"
                     checkBoxTitles={[
@@ -2455,7 +2455,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                       requiredDoYouHaveTroubleFallingAsleepOrSleepingTooMuch
                     }
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouFeelTired"
                     title="Do you feel tired or have little energy?"
                     checkBoxTitles={[
@@ -2469,7 +2469,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouFeelTiredOrHaveLittleEnergy}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouHavAPoorAppetite"
                     title="Do you have poor appetite or overeating?"
                     checkBoxTitles={[
@@ -2483,7 +2483,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouHavAPoorAppetiteOrOverEating}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouFeelBadAboutYourself"
                     title="Do you feel bad about yourself or that you are a failure or have let yourself or your family down?"
                     checkBoxTitles={[
@@ -2497,7 +2497,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouFeelBadAboutYourself}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="troubleConcentrating"
                     title="Do you have trouble concentrating on things, such as reading the newspaper or watching television?"
                     checkBoxTitles={[
@@ -2511,7 +2511,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredTroubleConcentrating}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="doYouMoveOrSpeakSlowly"
                     title="Do you move or speak so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?"
                     checkBoxTitles={[
@@ -2525,7 +2525,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                     allowMultipleCheckBoxes={false}
                     required={requiredDoYouMoveOrSpeakSlowly}
                   />
-                  <CustomCheckBoxFeild
+                  <CustomCheckBoxField
                     id="thoughtsYouWouldBeBetterOffDead"
                     title="Do you have thoughts that you would be better off dead, or of hurting yourself?"
                     checkBoxTitles={[
@@ -2568,7 +2568,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           subTitle="Select one or more family members if they had any of the medical conditions below."
           BgColor="bg-[#e9e7e7b1]"
           children={[
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Alcoholism/Addiction"
               checkBoxTitles={[
                 'Mother',
@@ -2582,7 +2582,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalAlcoholismAddiction}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Bleeding Disorder"
               checkBoxTitles={[
                 'Mother',
@@ -2596,7 +2596,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalBleedingDisorders}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Cancer"
               checkBoxTitles={[
                 'Mother',
@@ -2610,7 +2610,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalCancer}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Diabetes"
               checkBoxTitles={[
                 'Mother',
@@ -2624,7 +2624,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalDiabetes}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Heart Attack"
               checkBoxTitles={[
                 'Mother',
@@ -2638,7 +2638,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalHeartAttack}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="High Blood Pressure"
               checkBoxTitles={[
                 'Mother',
@@ -2652,7 +2652,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalHighBloodPressure}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="High Cholesterol"
               checkBoxTitles={[
                 'Mother',
@@ -2666,7 +2666,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalHighCholesterol}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Kidney Disease"
               checkBoxTitles={[
                 'Mother',
@@ -2680,7 +2680,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalKidneyDisease}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Mental Health Disorders"
               checkBoxTitles={[
                 'Mother',
@@ -2694,7 +2694,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalMentalIllness}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Stroke"
               checkBoxTitles={[
                 'Mother',
@@ -2708,7 +2708,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
               checkBoxValues={familyMedicalStroke}
               allowMultipleCheckBoxes={true}
             />,
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               title="Tuberculosis"
               checkBoxTitles={[
                 'Mother',

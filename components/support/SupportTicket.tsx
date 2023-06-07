@@ -11,7 +11,7 @@ import {
   AddScreenShotForSupportTicketsStorageAndDB,
   AddSupportTicket,
 } from '../../firebase'
-import CustomCheckBoxFeild from '../formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../formComponents/CustomCheckBoxField'
 import CustomYesOrNo from '../formComponents/CustomYesOrNo'
 import { auth, functions } from '../../firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
@@ -64,7 +64,7 @@ const SupportTicket: React.FC<{}> = () => {
         }}
         value={firstName}
       />
-      <CustomCheckBoxFeild
+      <CustomCheckBoxField
         allowMultipleCheckBoxes={false}
         checkBoxTitles={[
           'Setting up computer, printer, monitor,etc...',

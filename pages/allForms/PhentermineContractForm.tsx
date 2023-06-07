@@ -6,7 +6,7 @@ import Signature from '../../components/formComponents/Signature'
 import CustomCheckBox from '../../components/formComponents/CustomCheckBox'
 import Header from '../../components/navigation/Header'
 import Head from 'next/head'
-import CustomCheckBoxFeild from '../../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxField'
 import { savePatentForms } from '../../firebase'
 import { CircularButton } from '../../components/Buttons/CircularButtonIcon'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
@@ -108,7 +108,7 @@ const PhentermineContract = () => {
           />
 
           <div>
-            <CustomCheckBoxFeild
+            <CustomCheckBoxField
               required={requireCheckBoxes}
               checkBoxValues={checkBoxesToAgreeTo}
               allowMultipleCheckBoxes={true}

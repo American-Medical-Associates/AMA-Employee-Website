@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import MainButton from '../components/Buttons/MainButton'
 import GreenCheckMark from '../components/formComponents/GreenCheckMark'
-import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import TextInput from '../components/userInput/TextInput'
 import Header from '../components/navigation/Header'
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
@@ -60,7 +60,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
           />
         </div>
 
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="gender"
           checkBoxValues={gender}
           allowMultipleCheckBoxes={false}
@@ -99,7 +99,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         />
 
         {/* The list is in the email, impliment them when you can. */}
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="FocusArea"
           checkBoxValues={focusArea}
           allowMultipleCheckBoxes={true}
@@ -123,7 +123,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         />
 
         {/* Create a list of days with check boxes. */}
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="joinTherapy"
           checkBoxValues={daysOfWeek}
           allowMultipleCheckBoxes={true}
@@ -140,7 +140,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         />
 
         {/* List of times are located in the email. */}
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="time"
           checkBoxValues={timeOfDay}
           allowMultipleCheckBoxes={true}
@@ -158,7 +158,7 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
         />
 
         {/* List can be found in email. */}
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="sessionLength"
           checkBoxValues={sessionLength}
           allowMultipleCheckBoxes={true}

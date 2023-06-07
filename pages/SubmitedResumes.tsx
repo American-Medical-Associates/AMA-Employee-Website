@@ -8,7 +8,7 @@ import {
   SearchForApplicationsNOTArchived,
   auth,
 } from '../firebase'
-import ListItem from '../components/navigation/ListItem'
+
 import { ReactDOM } from 'react'
 import classnames from 'classnames'
 import ApplicationItem from '../components/JobApplication/ApplicationItem'

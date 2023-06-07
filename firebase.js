@@ -4257,9 +4257,33 @@ export async function getComponentDoc({ setComponentDocs }) {
     (querySnapshot) => {
       const componentDocs = []
       querySnapshot.forEach((doc) => {
-        componentDocs.push(doc.data())
+        componentDocs.push({
+          id: doc.id, // Include the document ID
+          ...doc.data(), // Include the document data
+        })
       })
       setComponentDocs(componentDocs)
     }
   )
+}
+
+//edit Component Doc
+export async function editComponentDoc({
+  title,
+  description,
+  code,
+  location,
+  tags,
+  docId,
+}) {
+  const docRef = doc(db, 'documentation', 'components', 'components', docId)
+  await updateDoc(docRef, {
+    title: title,
+    description: description,
+    code: code,
+    location: location,
+    tags: tags,
+    editedBy: auth.currentUser.email,
+    dateEdited: serverTimestamp(),
+  })
 }

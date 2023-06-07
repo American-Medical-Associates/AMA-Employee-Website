@@ -3,7 +3,7 @@ import Header from '../components/navigation/Header'
 import DateInput from '../components/userInput/DateInput'
 import TextInput from '../components/userInput/TextInput'
 import { NextPage } from 'next'
-import CustomCheckBoxFeild from '../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
 import UserCreatedListFromInputBox from '../components/formComponents/UserCreatedListFromInputBox'
 import SectionWithTitle from '../components/formComponents/SectionWithTitle'
@@ -1158,7 +1158,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <AutoSaveLine success={autoSaveWeightAge} />
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="howHasWeightChangedDuringLife"
           title="How has your weight changed during your life? (Check all that apply)"
           checkBoxValues={weightChangeDuringLife}
@@ -1173,7 +1173,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="causeOfWeightGainInPast"
           title="What has caused you to gain weight in the past? (Mark all that apply)"
           checkBoxValues={weightGainedInPast}
@@ -1204,7 +1204,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="hopesForWeightLossManagement"
           title="What are you hoping that weight loss management can do for you? (Mark all that apply)"
           checkBoxValues={hopesForWeightLossManagement}
@@ -2690,7 +2690,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="childrenUnderEighteenCheckBox"
           title="Select"
           checkBoxValues={childrenUnderEighteenCheckBox}
@@ -2700,7 +2700,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="familyMemebersObese"
           title="Please check if any family members are (or were) overweight or obese: (Mark all that apply)"
           checkBoxValues={familyMemebersObese}
@@ -2719,7 +2719,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="align-center flex justify-center text-lg">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="support"
           title="Will your family/friends support you in your weight loss?"
           checkBoxValues={support}
@@ -2854,7 +2854,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="flex justify-center">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="sleepWellness"
           title="How well have you slept over the past month?"
           required={requiredSleepWellness}
@@ -2880,7 +2880,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </p>
       <div className="flex justify-center text-lg">
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="sittingAndReading"
             title="Sitting and reading"
             checkBoxValues={sittingAndReading}
@@ -2890,7 +2890,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         </div>
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="watchingTv"
             title="Watching TV"
             checkBoxValues={watchingTv}
@@ -2902,7 +2902,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <div className="flex justify-center text-lg">
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="sittingInPublic"
             title="Sitting in a public place (theater or meeting)"
             checkBoxValues={sittingInPublic}
@@ -2912,7 +2912,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         </div>
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="carPassanger"
             title="Passenger in a car for one hour or more"
             checkBoxValues={carPassanger}
@@ -2924,7 +2924,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <div className="flex justify-center text-lg">
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="lyingDown"
             title="Lying down to rest in the afternoon"
             checkBoxValues={lyingDown}
@@ -2934,7 +2934,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         </div>
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="talkingToSomeone"
             title="Sitting and talking to someone"
             checkBoxValues={talkingToSomeone}
@@ -2946,7 +2946,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       </div>
       <div className="flex justify-center text-lg">
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="sittingQuietlyAfterLunch"
             title="Sitting quietly after lunch without alcohol"
             checkBoxValues={sittingQuietlyAfterLunch}
@@ -2956,7 +2956,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
           />
         </div>
         <div className="w-[25%]">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="inCarWhileStopped"
             title="In a car, while stopped for a few minutes in traffic"
             checkBoxValues={inCarWhileStopped}
@@ -2985,7 +2985,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="flex justify-center">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="typicalDay"
           title="On a typical day, which describes you?"
           required={requiredTypicalDay}
@@ -3114,7 +3114,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               setDescribeExercise(text.target.value)
             }}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="difficultyGettingUpFromFloor"
             title="Difficulty level getting back up from the floor"
             checkBoxValues={difficultyGettingUpFromFloor}
@@ -3128,7 +3128,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Cannot get up unassisted',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="typeOfExercise"
             title="What type of exercise are you currently involved in? (Mark all that apply)"
             checkBoxValues={typeOfExercise}
@@ -3154,7 +3154,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'None',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="typeOfExercise"
             title="What type of exercise do you prefer or would enjoy the most? (Mark all that apply)"
             checkBoxValues={exercisePreference}
@@ -3180,7 +3180,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'None',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="athleteInSchool"
             title="Were you an athlete in school?"
             checkBoxValues={athleteInSchool}
@@ -3188,7 +3188,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             allowMultipleCheckBoxes={true}
             checkBoxTitles={['Yes, in High School', 'Yes, in College', 'No']}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="confidentIncrease"
             title="How confident are you that you could increase the amount of exercise you do? (Check One)"
             checkBoxValues={confidentIncrease}
@@ -3201,7 +3201,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Not at all confident',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="majorBenefitsOfExercise"
             title="What are the major benefits of exercise for you? (Mark all that apply)"
             checkBoxValues={majorBenefitsOfExercise}
@@ -3214,7 +3214,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Improved mobility',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="exerciseBarriers"
             title="What are your major barriers to increasing the amount of exercise you do? (Mark all that apply)"
             required={requiredExerciseBarriers}
@@ -3265,7 +3265,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         title="Additional information related to diet"
         BgColor="bg-[#e8e8e8]"
         children={[
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="confidenceWeightlossDiet"
             title="How confident are you that you can follow a weight loss diet? (Check One)"
             required={requiredConfidenceWeightLossDiet}
@@ -3279,7 +3279,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
               'Not at all confident',
             ]}
           />,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="majorBarriersDiet"
             title="What are your major barriers to following a weight loss diet? (Mark all that apply)"
             required={requiredMajorBarriersDiet}
@@ -3631,7 +3631,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="flex items-center justify-center">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="whoDoesShopping"
           title="Who does the grocery shopping?"
           checkBoxValues={whoDoesShopping}
@@ -3641,7 +3641,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         />
       </div>
       <div className="flex items-center justify-center">
-        <CustomCheckBoxFeild
+        <CustomCheckBoxField
           id="whoDoesCooking"
           title="Who cooks/prepares the meals?"
           checkBoxValues={whoDoesCooking}
@@ -4307,7 +4307,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
         title="Past Medical History"
         BgColor="bg-[#e8e8e8]"
         children={[
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="medicalHistory"
             title="Please check all that apply"
             required={requiredMedicalHistory}
@@ -4399,7 +4399,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             or royalties whatsoever. I authorize the use of photographs and/or
             video images:
           </p>,
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             id="photoConsent"
             checkBoxValues={photoConsentCheckBoxes}
             setCheckBoxValues={setPhotoConsentCheckBoxes}

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import MainButton from '../../components/Buttons/MainButton'
 import TextInput from '../../components/userInput/TextInput'
 import DateInput from '../../components/userInput/DateInput'
-import CustomCheckBoxFeild from '../../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxField'
 import { CircularButton } from '../../components/Buttons/CircularButtonIcon'
 import { PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { RoundAddButton } from '../../components/Buttons/RoundAddButton'
@@ -108,7 +108,7 @@ const InternalMedicine: NextPage<{}> = () => {
           </div>
         )}
         {selectedProvider.length <= 0 ? (
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             title="Select Provider"
             checkBoxValues={selectedProvider}
             allowMultipleCheckBoxes={false}

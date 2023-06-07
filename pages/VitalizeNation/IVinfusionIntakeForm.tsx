@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { NextPage } from 'next'
 import TextInput from '../../components/userInput/TextInput'
-import CustomCheckBoxFeild from '../../components/formComponents/CustomCheckBoxField'
+import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxField'
 import DateInput from '../../components/userInput/DateInput'
 import MainButton from '../../components/Buttons/MainButton'
 import PhoneNumberInput from '../../components/userInput/PhoneNumberInput'
@@ -82,7 +82,7 @@ const IVinfusionIntakeForm: NextPage<{}> = () => {
           widthPercentage="w-1/2"
         />
         <div className=" my-8 flex w-[50%] items-center justify-center">
-          <CustomCheckBoxFeild
+          <CustomCheckBoxField
             checkBoxValues={whatTheyConsentTo}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[

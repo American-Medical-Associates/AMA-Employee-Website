@@ -16,15 +16,19 @@ import {
 import TextInput from '../components/userInput/TextInput'
 import LargeTextBox from '../components/userInput/LargeTextBox'
 import { el } from 'date-fns/locale'
+import { set } from 'date-fns'
+import SearchComponent from '../components/userInput/searchComponent'
+import CustomCheckBox from '../components/formComponents/CustomCheckBox'
+import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 
 // CURRENTLY A WORK IN PROGRESS
 
 const CodeDocumentation: NextPage = () => {
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/PatientLogin')
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!auth.currentUser?.email) {
+  //     router.push('/PatientLogin')
+  //   }
+  // }, [])
 
   const [addComponent, setAddComponent] = useState(false)
   const [title, setTitle] = useState('')
@@ -33,32 +37,74 @@ const CodeDocumentation: NextPage = () => {
   const [location, setLocation] = useState('')
   const [tags, setTags] = useState<Array<string>>([])
   const [componentDocs, setComponentDocs] = useState<Array<any>>([])
+  const [search, setSearch] = useState('')
+  const [showSearch, setShowSearch] = useState(false)
+  const [filterBy, setFilterBy] = useState('')
 
   useEffect(() => {
     getComponentDoc({ setComponentDocs: setComponentDocs })
   }, [])
 
-  const componentDocsList = componentDocs.map((componentDoc) => {
-    if (!componentDoc) {
-      return
-    } else {
-      return (
-        <ComponentDoc
-          title={componentDoc.title}
-          description={componentDoc.description}
-          dateAdded={
-            componentDoc.dateAdded
-              ? componentDoc.dateAdded.toDate().toDateString()
-              : null
-          }
-          dateEdited={componentDoc.dateEdited}
-          code={componentDoc.code}
-          location={componentDoc.location}
-          tags={componentDoc.tags}
-        />
-      )
-    }
-  })
+  const componentDocsList = componentDocs
+    .filter((componentDoc: any) => {
+      if (!componentDoc) {
+        return false
+      }
+      // Check if there's a search query
+      if (search === '') {
+        // If not, don't filter out any docs
+        return true
+      }
+
+      const searchTextLower = search.toLowerCase()
+      type FilterOption = {
+        [key: string]: () => boolean
+      }
+      const filterByOption: FilterOption = {
+        'Title Only': () =>
+          componentDoc.title.toLowerCase().includes(searchTextLower),
+        'Description Only': () =>
+          componentDoc.description.toLowerCase().includes(searchTextLower),
+        'Code Only': () =>
+          componentDoc.code.toLowerCase().includes(searchTextLower),
+        'Location Only': () =>
+          componentDoc.location.toLowerCase().includes(searchTextLower),
+        'Tags Only': () =>
+          componentDoc.tags.some((tag: any) =>
+            tag.toLowerCase().includes(searchTextLower)
+          ),
+      }
+
+      // Check if any text field contains the search text based on the filter
+      return filterByOption[filterBy] ? filterByOption[filterBy]() : false
+    })
+
+    .map((componentDoc) => {
+      if (componentDoc == undefined) {
+        return
+      } else {
+        return (
+          <ComponentDoc
+            docId={componentDoc.id}
+            title={componentDoc.title}
+            description={componentDoc.description}
+            dateAdded={
+              componentDoc.dateAdded
+                ? componentDoc.dateAdded.toDate().toDateString()
+                : null
+            }
+            dateEdited={
+              componentDoc.dateEdited
+                ? componentDoc.dateEdited.toDate().toDateString()
+                : null
+            }
+            code={componentDoc.code}
+            location={componentDoc.location}
+            tags={componentDoc.tags}
+          />
+        )
+      }
+    })
 
   return (
     <div>
@@ -69,22 +115,68 @@ const CodeDocumentation: NextPage = () => {
       <div className=" flex w-full items-center justify-center">
         <div className=" my-2 flex grid-rows-3">
           <div className="mx-2">
-            <CircularButton />
+            {/* <CircularButton
+            onClick={() => {}
+
+            /> */}
           </div>
           <div className="mx-2">
             <CircularButton
               icon={<MagnifyingGlassIcon className=" h-7 w-7 text-black" />}
+              onClick={() => {
+                setShowSearch(!showSearch)
+
+                setAddComponent(false)
+              }}
+              isSelection={showSearch}
             />
           </div>
           <div className="mx-2">
             <CircularButton
               isSelection={addComponent}
               icon={<PencilSquareIcon className=" h-7 w-7 text-black" />}
-              onClick={() => setAddComponent(!addComponent)}
+              onClick={() => {
+                setAddComponent(!addComponent)
+                setShowSearch(false)
+              }}
             />
           </div>
         </div>
       </div>
+      {showSearch && (
+        <div className="my-10 flex w-full items-center justify-center">
+          <div className="flex w-[90%] flex-col items-center  justify-center">
+            <div className=" my-10">
+              <SearchComponent
+                placeHolder="Search"
+                onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
+                  setSearch(text.target.value)
+                }}
+                value={search}
+                widthPercentage="w-[90%]"
+              />
+            </div>
+
+            <div className=" flex">
+              <CustomCheckBoxField
+                allowMultipleCheckBoxes={false}
+                checkBoxTitles={[
+                  'Title Only',
+                  'Description Only',
+                  'Code Only',
+                  'Location Only',
+                  'Tags Only',
+                ]}
+                setCheckBoxValues={(values: string) => {
+                  setFilterBy(values)
+                }}
+                checkBoxValues={filterBy}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {addComponent && (
         <div className="flex w-full items-center justify-center">
           <div className="  flex w-[80%] flex-col items-center justify-center">
@@ -141,6 +233,8 @@ const CodeDocumentation: NextPage = () => {
                   code,
                   location,
                   tags,
+                }).then(() => {
+                  setAddComponent(false)
                 })
               }}
               isSelection={true}
@@ -161,7 +255,7 @@ const CodeDocumentation: NextPage = () => {
           location=""
           tags={tags}
         /> */}
-        {componentDocsList}
+        {componentDocs.length > 1 && componentDocsList}
       </div>
     </div>
   )

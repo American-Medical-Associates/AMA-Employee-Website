@@ -31,6 +31,7 @@
     "mocha": "^10.0.0",
     "net": "^1.0.2",
     "next": "latest",
+    "next-transpile-modules": "^10.0.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^3.2.146",
     "pspdfkit": "^2022.3.0",

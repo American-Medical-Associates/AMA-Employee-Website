@@ -4,7 +4,7 @@ import MainButton from '../Buttons/MainButton'
 import TextInput from '../userInput/TextInput'
 import CustomCheckBox from './CustomCheckBox'
 import classnames from 'classnames'
-const CustomCheckBoxFeild: React.FC<{
+const CustomCheckBoxField: React.FC<{
   id?: string
   checkBoxTitles: Array<string>
   title?: string
@@ -187,4 +187,4 @@ const CustomCheckBoxFeild: React.FC<{
     </div>
   )
 }
-export default CustomCheckBoxFeild
+export default CustomCheckBoxField
