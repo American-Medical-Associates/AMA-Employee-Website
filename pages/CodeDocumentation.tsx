@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import Header from '../components/navigation/Header'
-import { addComponentDoc, auth, getComponentDoc } from '../firebase'
+import { addComponentDoc, auth, getComponentDoc, yo } from '../firebase'
 import Router, { useRouter } from 'next/router'
 import router from 'next/router'
 import { ComponentDoc } from '../components/CodeDocumentation/ComponentDoc'
@@ -40,6 +40,7 @@ const CodeDocumentation: NextPage = () => {
   const [search, setSearch] = useState('')
   const [showSearch, setShowSearch] = useState(false)
   const [filterBy, setFilterBy] = useState('')
+  const [maindoc, setMaindoc] = useState('')
 
   useEffect(() => {
     getComponentDoc({ setComponentDocs: setComponentDocs })
@@ -116,8 +117,9 @@ const CodeDocumentation: NextPage = () => {
         <div className=" my-2 flex grid-rows-3">
           <div className="mx-2">
             {/* <CircularButton
-            onClick={() => {}
-
+              onClick={() => {
+                yo({ maindoc: setMaindoc })
+              }}
             /> */}
           </div>
           <div className="mx-2">
