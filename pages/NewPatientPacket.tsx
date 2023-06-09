@@ -580,7 +580,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setBirthDateValue(newPatientPackSelector.BirthDateValue)
       setPhoneNumberValue(newPatientPackSelector.phoneNumberValue)
       setHomePhone(newPatientPackSelector.homePhone)
-      setEmailValue(newPatientPackSelector.emailValue)
+      setEmailValue(newPatientPackSelector.emailValue.trim().toLowerCase())
       setSocialValue(newPatientPackSelector.socialValue)
       setIsCheckedMale(newPatientPackSelector.isCheckedMale)
       setIsCheckedFemale(newPatientPackSelector.isCheckedFemale)
@@ -4178,7 +4178,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   BirthDateValue: BirthDateValue,
                   phoneNumberValue: phoneNumberValue,
                   homePhone: homePhone,
-                  emailValue: emailValue.trim(),
+                  emailValue: emailValue.trim().toLowerCase(),
                   socialValue: socialValue,
                   isCheckedMale: isCheckedMale,
                   isCheckedFemale: isCheckedFemale,

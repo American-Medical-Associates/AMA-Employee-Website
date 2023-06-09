@@ -4287,3 +4287,92 @@ export async function editComponentDoc({
     dateEdited: serverTimestamp(),
   })
 }
+
+//sleep
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+export async function yo({ maindoc }) {
+  // Get a reference to the 'users' collection
+  let usersRef = collection(db, 'companys', 'AMA', 'patients')
+
+  // Retrieve all documents from the 'users' collection
+  let allUsersSnapshot = await getDocs(usersRef)
+
+  // Initialize an object to store a mapping of email addresses to document IDs
+  let emailToDocId = {}
+
+  // Initialize an object to store email addresses that have duplicate documents
+  let duplicates = {}
+
+  let updateDocs = []
+  console.log('start ____________')
+  // Iterate through all the user documents
+  allUsersSnapshot.forEach((docSnapshot) => {
+    // Normalize the email address by converting it to lowercase
+    let emailLower = docSnapshot.id.toLowerCase()
+
+    // If this email address hasn't been seen before, store it in the emailToDocId object
+    if (!emailToDocId[emailLower]) {
+      emailToDocId[emailLower] = [docSnapshot.id]
+    } else {
+      // If this email address has been seen before, add the document ID to the list of document IDs
+      emailToDocId[emailLower].push(docSnapshot.id)
+
+      // If this is the second time seeing this email address, add it to the duplicates object
+      if (emailToDocId[emailLower].length == 2) {
+        duplicates[emailLower] = emailToDocId[emailLower]
+      }
+    }
+  })
+  console.log(duplicates)
+  // Iterate through all the duplicate email addresses
+  for (let email in duplicates) {
+    // Get the list of document IDs for this email address
+    let docIds = duplicates[email]
+
+    // Initialize the data of the main document to an empty object
+    let mainDocData = {}
+
+    // Iterate through all the document IDs
+    for (let i = 0; i < docIds.length; i++) {
+      // Get the data of this document
+      let docSnapshot = await getDoc(
+        doc(db, 'companys', 'AMA', 'patients', docIds[i])
+      )
+      let docData = docSnapshot.data()
+
+      // If docData is null or undefined, continue to the next iteration
+      if (!docData) {
+        continue
+      }
+
+      // Merge the data of this document into the main document data
+      mainDocData = { ...mainDocData, ...docData }
+      updateDocs.push(docData)
+      maindoc(docIds)
+
+      // Delete this document
+      //if docIds[i] is uppercase
+      if (docIds[i] == docIds[i].toUpperCase()) {
+        print('delete uppercase:' + docIds[i])
+        await deleteDoc(doc(db, 'companys', 'AMA', 'patients', docIds[i]))
+      }
+
+      // await deleteDoc(doc(db, 'companys', 'AMA', 'patients', docIds[i]))
+    }
+    sleep(3000)
+    // Update the document with the lowercase email as the ID with the merged data
+    await setDoc(
+      doc(db, 'companys', 'AMA', 'patients', email.toLowerCase()),
+      mainDocData
+    )
+    console.log('updated:', email.toLowerCase())
+  }
+  //check if duplicates are the same length as updateDocs
+  console.log('updateDocs:', updateDocs.length)
+  console.log('duplicates:', Object.keys(duplicates).length)
+
+  console.log(duplicates)
+}
