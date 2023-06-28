@@ -965,7 +965,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         BirthDateValue: BirthDateValue,
         phoneNumberValue: phoneNumberValue,
         homePhone: homePhone,
-        emailValue: auth.currentUser?.email,
+        emailValue: auth.currentUser?.email?.trim().toLowerCase(),
         socialValue: socialValue,
         isCheckedMale: isCheckedMale,
         isCheckedFemale: isCheckedFemale,
@@ -1201,7 +1201,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 BirthDateValue: BirthDateValue,
                 phoneNumberValue: phoneNumberValue,
                 homePhone: homePhone,
-                emailValue: auth.currentUser?.email,
+                emailValue: auth.currentUser?.email?.trim().toLocaleLowerCase(),
                 socialValue: socialValue,
                 isCheckedMale: isCheckedMale,
                 isCheckedFemale: isCheckedFemale,
@@ -3116,7 +3116,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 //scroll up 200px
                 // window.scrollBy(0, -200)
                 return
-              } else if (emailValue === '') {
+              } else if (emailValue.trim().toLowerCase() === '') {
                 setRequiredEmail(true)
                 router.push('/NewPatientPacket/#email').then(() => {
                   setTimeout(() => {
@@ -4332,35 +4332,35 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   .then(() => {
                     AddPictureOfPatientFaceToStorageAndToDB({
                       selectedFile: pictureOfTheirFace,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
                   .then(() => {
                     AddPictureOfPatientInsuranceToStorageAndToDB({
                       selectedFile: primaryPictureOfInsuranceCardFront,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
                   .then(() => {
                     AddPictureOfPatientInsuranceBackToStorageAndToDB({
                       selectedFile: primaryPictureOfInsuranceCardBack,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
                   .then(() => {
                     AddPictureOfPatientInsuranceSecondaryToStorageAndToDB({
                       selectedFile: secondaryPictureOfInsuranceCardFront,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
                   .then(() => {
                     AddPictureOfPatientInsuranceSecondaryBackToStorageAndToDB({
                       selectedFile: secondaryPictureOfInsuranceCardBack,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
@@ -4368,7 +4368,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                   .then(() => {
                     AddPictureOfDriverLicenseToStorageAndToDB({
                       selectedFile: pictureOfFrontOfDriverLicense,
-                      emailValue: emailValue,
+                      emailValue: emailValue.trim().toLowerCase(),
                       company: company,
                     })
                   })
@@ -4400,10 +4400,6 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         </div>
       </main>
     </div>
-    ///jjj
   )
-  //q:add new repository to be able to push to it this is the url https://github.com/zachrizzo/AMA_Employee_Website
-  //a: git remote add origin https://github.com/zachrizzo/AMA_Employee_Website
-  //q: how to push to new repository
 }
 export default NewPatientPacket
