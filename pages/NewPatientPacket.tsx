@@ -919,7 +919,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   //console.log(newPatientPackSelector.listOfAllCurrentMedications)
 
   useEffect(() => {
-    if (!auth.currentUser?.email) {
+    if (!auth.currentUser?.email?.trim().toLowerCase()) {
       router.push('/PatientLogin')
     }
   }, [])
