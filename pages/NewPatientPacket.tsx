@@ -1163,7 +1163,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           phoneNumberValue={phoneNumberValue}
           phoneNumberState={setPhoneNumberValue}
           emailState={setEmailValue}
-          emailValue={emailValue}
+          emailValue={emailValue.trim().toLowerCase()}
           firstNameRequired={requiredFirstName}
           addressRequired={requiredAddress}
           dateOfBirthRequired={requiredDateOfBirth}
@@ -1201,7 +1201,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 BirthDateValue: BirthDateValue,
                 phoneNumberValue: phoneNumberValue,
                 homePhone: homePhone,
-                emailValue: auth.currentUser?.email?.trim().toLocaleLowerCase(),
+                emailValue: auth.currentUser?.email?.trim().toLowerCase(),
                 socialValue: socialValue,
                 isCheckedMale: isCheckedMale,
                 isCheckedFemale: isCheckedFemale,
