@@ -8,7 +8,7 @@
     "copy-pdfjs-worker": "cp ./node_modules/pdfjs-dist/build/pdf.worker.js public/scripts"
   },
   "dependencies": {
-    "@heroicons/react": "^2.0.12",
+    "@heroicons/react": "^2.0.18",
     "@react-pdf-viewer/core": "3.10.0",
     "@react-pdf-viewer/toolbar": "^3.10.0",
     "@react-pdf/renderer": "^3.0.2",
@@ -39,7 +39,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-pdf": "^6.2.1",
-    "react-redux": "^8.0.2",
+    "react-redux": "^8.1.1",
     "react-scrolllock": "^5.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-tooltip": "^5.5.1",

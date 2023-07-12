@@ -1124,7 +1124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heroicons/react@npm:^2.0.12":
+"@heroicons/react@npm:^2.0.18":
   version: 2.0.18
   resolution: "@heroicons/react@npm:2.0.18"
   peerDependencies:
@@ -12085,7 +12085,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-redux@npm:^8.0.2":
+"react-redux@npm:^8.1.1":
   version: 8.1.1
   resolution: "react-redux@npm:8.1.1"
   dependencies:
@@ -12644,7 +12644,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@heroicons/react": ^2.0.12
+    "@heroicons/react": ^2.0.18
     "@react-pdf-viewer/core": 3.10.0
     "@react-pdf-viewer/toolbar": ^3.10.0
     "@react-pdf/renderer": ^3.0.2
@@ -12684,7 +12684,7 @@ __metadata:
     react: ^18.2.0
     react-dom: ^18.2.0
     react-pdf: ^6.2.1
-    react-redux: ^8.0.2
+    react-redux: ^8.1.1
     react-scrolllock: ^5.0.1
     react-syntax-highlighter: ^15.5.0
     react-tooltip: ^5.5.1
