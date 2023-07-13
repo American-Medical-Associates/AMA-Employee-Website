@@ -30,7 +30,7 @@
     "jspdf": "^2.5.1",
     "mocha": "^10.2.0",
     "net": "^1.0.2",
-    "next": "latest",
+    "next": "13.4.8",
     "next-transpile-modules": "^10.0.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^3.8.162",
