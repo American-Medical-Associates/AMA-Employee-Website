@@ -86,7 +86,7 @@ const SupportTicket: React.FC<{}> = () => {
       {urgent == 'Yes' && (
         <div className=" flex w-full flex-col items-center justify-center">
           <p className=" my-10 text-red-500">
-            If it is urgent Zach will get a text message and get back to you as
+            If it is urgent Mckade will get a text message and get back to you as
             soon as possible
           </p>
           <PhoneNumberInput
