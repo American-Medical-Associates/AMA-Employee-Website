@@ -127,7 +127,7 @@ const Resources: NextPage<{}> = () => {
                   }}
                 />
               </div>
-              <div className="mt-5">
+              {/* <div className="mt-5">
                 <MenuItem
                   icon={
                     <ClipboardDocumentListIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
@@ -137,7 +137,7 @@ const Resources: NextPage<{}> = () => {
                     router.push('/WeightLossSubmissions')
                   }}
                 />
-              </div>
+              </div> */}
               {/* <div className="mt-5">
                 <MenuItem
                   icon={
