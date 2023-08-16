@@ -80,7 +80,16 @@ export default function WorkHistory({
   const [showWorkExperience3, setShowWorkExperience3] = useState(false)
   return (
     <div className=" flex w-full flex-col items-center justify-center">
-      <div className=" mt-20 flex w-full  flex-col items-center justify-center rounded-[20px]   outline outline-2 outline-[#8b8b8b]">
+      <span className="flex items-center justify-center mt-10 font-bold italic text-xl">
+        Please list the names of your present and/or preveious employers in
+        chronological order with present or most recent employer list first.
+        Provide information for at least the most recent (10) year period. You
+        may include any varifiable work performed on a volunteer basis,
+        internships, or military service. Your failure to completely respond to
+        each inquire may disqualify you for consideration from employment. Do
+        not answer "see resume".
+      </span>
+      <div className=" mt-10 flex w-full  flex-col items-center justify-center rounded-[20px]   outline outline-2 outline-[#8b8b8b]">
         <h2 className=" text-2xl"> Work History</h2>
         {WorkHistoryItem({
           selectedDateStart: selectedDateStart1,
@@ -167,20 +176,25 @@ export default function WorkHistory({
         </div>
       )}
       {showWorkExperience3 == false && (
-        <RoundAddButton
-          PlusOrMinus="plus"
-          onClick={() => {
-            if (showWorkExperience2) {
-              setShowWorkExperience3(true)
-            }
-            if (showWorkExperience2 == false) {
-              setShowWorkExperience2(true)
-            } else if (showWorkExperience3 && showWorkExperience2) {
-              setShowWorkExperience2(!showWorkExperience2)
-              setShowWorkExperience3(!showWorkExperience3)
-            }
-          }}
-        />
+        <div className="flex items-center justify-center mt-2">
+          <RoundAddButton
+            PlusOrMinus="plus"
+            onClick={() => {
+              if (showWorkExperience2) {
+                setShowWorkExperience3(true)
+              }
+              if (showWorkExperience2 == false) {
+                setShowWorkExperience2(true)
+              } else if (showWorkExperience3 && showWorkExperience2) {
+                setShowWorkExperience2(!showWorkExperience2)
+                setShowWorkExperience3(!showWorkExperience3)
+              }
+            }}
+          />
+          <span className="ml-4 text-lg">
+            Click here to add another employer
+          </span>
+        </div>
       )}
 
       {showWorkExperience3 && (
