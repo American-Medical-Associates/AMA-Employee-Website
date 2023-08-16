@@ -81,10 +81,10 @@ export default function WorkHistory({
   return (
     <div className=" flex w-full flex-col items-center justify-center">
       <span className="flex items-center justify-center mt-10 font-bold italic text-xl">
-        Please list the names of your present and/or preveious employers in
-        chronological order with present or most recent employer list first.
-        Provide information for at least the most recent (10) year period. You
-        may include any varifiable work performed on a volunteer basis,
+        Please list the names of your present and/or previous employers in
+        chronological order with the present or most recent employer first.
+        Provide information for at least the most recent ten(10) year period.
+        You may include any verifiable work performed on a volunteer basis,
         internships, or military service. Your failure to completely respond to
         each inquire may disqualify you for consideration from employment. Do
         not answer "see resume".
