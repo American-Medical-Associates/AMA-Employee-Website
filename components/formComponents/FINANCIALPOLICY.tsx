@@ -62,7 +62,7 @@ const FINANCIALPOLICY: React.FC<{}> = () => {
               termination from our practice. "No-Show" fees will be billed to
               the patient. This fee is NOT covered by any insurance plan and
               will be your responsibility. Our practice fees are listed below.
-              $50.00 - Request to complete Disability, FMLA, Life, and various
+              $50.00(Primary) $100(Specialist) - Request to complete Disability, FMLA, Life, and various
               other types of independent health forms. Forms MUST be present at
               the time of visit, or you will be asked to be rescheduled. $25.00
               - Returned checks for non-sufficient funds will have a processing
