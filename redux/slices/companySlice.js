@@ -32,6 +32,7 @@ export const companySlice = createSlice({
     setChannelID: (state, action) => {
       state.ChannelID = action.payload
     },
+    // Figure out how to clear the NPP state for login bug
     setNewPatientPacket: (state, action) => {
       state.newPatientPacket = action.payload
     },
@@ -40,6 +41,20 @@ export const companySlice = createSlice({
     },
     setPatientDetails: (state, action) => {
       state.patientDetails = action.payload
+    },
+    logout: (state) => {
+      return {
+        ...state,
+        company: null,
+        date: null,
+        isAuthUser: false,
+        taskID: null,
+        supportTicketNumber: null,
+        ChannelID: null,
+        newPatientPacket: null,
+        weightLossSurvey: null,
+        patientDetails: null,
+      }
     },
   },
 })
@@ -54,6 +69,7 @@ export const {
   setNewPatientPacket,
   setWeightLossSurvey,
   setPatientDetails,
+  logout,
 } = companySlice.actions
 export const selectCompany = (state) => state.global.company
 export const selectDate = (state) => state.global.date

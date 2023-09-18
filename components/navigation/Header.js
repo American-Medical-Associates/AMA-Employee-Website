@@ -27,8 +27,12 @@ import MainButton from '../Buttons/MainButton'
 import { auth, isAdmin, GetAllPatientInfo } from '../../firebase'
 import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
+import { useDispatch } from 'react-redux'
+import { logout } from '../../redux/slices/companySlice'
+import { log } from 'console'
 
 const Header = ({ selectCompany, routePatientsHome }) => {
+  const dispatch = useDispatch()
   const [isUserAdmin, setIsUserAdmin] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
   const [showPatientLookup, setShowPatientLookup] = useState(false)
@@ -55,6 +59,7 @@ const Header = ({ selectCompany, routePatientsHome }) => {
   const Logout = () => {
     const auth = getAuth()
     signOut(auth).then(() => {
+      dispatch(logout())
       router.push('/PatientLogin')
     })
   }
