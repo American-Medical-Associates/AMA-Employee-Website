@@ -29,7 +29,6 @@ import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../redux/slices/companySlice'
-import { log } from 'console'
 
 const Header = ({ selectCompany, routePatientsHome }) => {
   const dispatch = useDispatch()
