@@ -12,10 +12,11 @@ import { auth, editSpravatoTracking, GetSpravatoTracking } from '../firebase'
 import TextInput from '../components/userInput/TextInput'
 import Datepicker from '../components/userInput/Datepicker'
 import { addSpravatoTracking } from '../firebase'
+import MainButton from '../components/Buttons/MainButton'
 
 const Spravato: NextPage<{}> = () => {
   const [spravtoTrackingArray, setSpravtoTrackingArray] = useState<Array<any>>(
-    []
+    [],
   )
   const [searched, setSearched] = useState('')
   const [showFullItem, setShowFullItem] = useState(false)
@@ -68,6 +69,83 @@ const Spravato: NextPage<{}> = () => {
       setSparavotoSearchedArray(spravtoTrackingArray)
     }
   }, [searched, spravtoTrackingArray])
+
+  // const predefinedHeaders = [
+  //   'dateAdministeredString',
+  //   'DOB',
+  //   'MA',
+  //   'email',
+  //   'dateReceivedString',
+  //   'dateAddedToDB',
+  //   'lotNumber',
+  //   'spravatoTracking',
+  //   'dateEdited',
+  //   'dateOrderedString',
+  //   'dateOrdered',
+  //   'firstName',
+  //   'phoneNumber',
+  //   'dateReceived',
+  //   'lastName',
+  //   'dose',
+  //   'dateAdministered',
+  //   'snNumber',
+  //   'numberOfDevices',
+  // ]
+  // @ts-ignore
+  function JSONToCSV(jsonData) {
+    if (!jsonData.length) return '';
+  
+    // Remove Timestamp fields and get headers
+    jsonData = jsonData.map(item => {
+        for (let key in item) {
+            if (item[key] && item[key].seconds) {
+                delete item[key];  // Remove the timestamp
+            }
+        }
+        return item;
+    });
+
+    const headers = Object.keys(jsonData[0]);
+    let csv = headers.join(',') + '\n';
+  
+    // Loop through each data entry
+    jsonData.forEach(item => {
+      let row = headers.map(header => {
+        let value = item[header];
+  
+        // If value contains comma, new line or double-quote, 
+        // then wrap it with double quotes
+        if (typeof value === 'string' && /[",\n]/.test(value)) {
+          value = `"${value.replace(/"/g, '""')}"`;
+        }
+  
+        return value;
+      }).join(',');
+      csv += row + '\n';
+    });
+  
+    return csv;
+}
+  
+// const data = [spravtoTrackingArray];
+const csvData = JSONToCSV(spravtoTrackingArray);
+console.log(csvData);
+  // Combine headers and rows to form CSV
+  // @ts-ignore
+  function downloadCSV(csvString, filename = 'output.csv') {
+    const blob = new Blob([csvString], { type: 'text/csv' })
+    const link = document.createElement('a')
+
+    link.href = URL.createObjectURL(blob)
+    link.download = filename
+
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  // Remove the following line, you don't need it.
+  // downloadCSV(csvString);
 
   const sparavtoTrackingList = () => {
     const list = sparavotoSearchedArray.map((item) => {
@@ -395,6 +473,7 @@ const Spravato: NextPage<{}> = () => {
       <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-8">
         <h1 className=" text-center text-4xl text-[#0008ff]">Spravato</h1>
+
         <div className=" mt-10 flex flex-row ">
           <div className=" mx-10 flex h-20 w-[23%] flex-col ">
             <MenuItem
@@ -417,6 +496,14 @@ const Spravato: NextPage<{}> = () => {
             />
           </div>
           <div className="  flex w-[77%] flex-col items-center justify-center p-20">
+            <MainButton
+              onClick={() => {
+                // @ts-ignore
+                const csvString = JSONToCSV(spravtoTrackingArray)
+                downloadCSV(csvString)
+              }}
+              buttonText={'Download Spreadsheet CSV'}
+            />
             <TextInput
               widthPercentage="w-[80%]"
               placeHolder="SN Number"

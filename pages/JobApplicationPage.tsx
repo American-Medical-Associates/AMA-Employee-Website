@@ -43,20 +43,18 @@ const JobApplicationPage: NextPage<{}> = () => {
   const [checkBoxAgree, setCheckBoxAgree] = useState(false)
   const [checkBoxAgree2, setCheckBoxAgree2] = useState(false)
   const [checkBoxAgree3, setCheckBoxAgree3] = useState(false)
-
   const [scrollComplete, setScrollComplete] = useState(true)
   const [scrollComplete2, setScrollComplete2] = useState(true)
-
   const [statmentOfAvailability, setStatmentOfAvailability] =
     useState('Immediately')
   const [fullLegalName, setFullLegalName] = useState(null)
   const [disabilityStatus, setDisabilityStatus] = useState(
-    'Yes I have disability (or previously had a disability)'
+    'Yes I have disability (or previously had a disability)',
   )
   const [race, setRace] = useState('Hispanic or Latino')
   const [gender, setGender] = useState('Male')
   const [veteranStatus, setVeteranStatus] = useState(
-    'I am not a protected veteran'
+    'I am not a protected veteran',
   )
   const [positionApplyingfor, setPositionApplyingfor] = useState('')
   const [addressState, setAddressState] = useState('')
@@ -203,11 +201,7 @@ const JobApplicationPage: NextPage<{}> = () => {
       !radio6 ||
       !radio7 ||
       !fullLegalName ||
-      // !race ||
-      // !gender ||
-      // !veteranStatus ||
       !statmentOfAvailability ||
-      // !disabilityStatus ||
       !highSchoolState ||
       !referenceNameState ||
       !checkBoxAgree3 ||
@@ -219,7 +213,7 @@ const JobApplicationPage: NextPage<{}> = () => {
     ) {
       alert('Please make sure all the fields are filled out')
     } else if (phoneNumber.length != 10) {
-      alert('Plaese make sure your Phone Number is a standard 10 digit number')
+      alert('Please make sure your Phone Number is a standard 10 digit number')
     } else if (phoneNumber.includes('9999999999') == true) {
       alert('Please make sure your phone number is valid')
     } else if (phoneNumber.includes('0000000000') == true) {
@@ -228,7 +222,7 @@ const JobApplicationPage: NextPage<{}> = () => {
       alert('Please make sure your email valid')
     } else if (checkBoxAgree != true) {
       alert(
-        'Please acknowledge with checkboxes that you have read all of the information '
+        'Please acknowledge with checkboxes that you have read all of the information ',
       )
     } else {
       try {
@@ -244,7 +238,6 @@ const JobApplicationPage: NextPage<{}> = () => {
           applicantCity: city,
           applicantState: state,
           applicantZip: zipCode,
-
           email: email,
           firstName: firstName,
           lastName: lastName,
@@ -262,10 +255,6 @@ const JobApplicationPage: NextPage<{}> = () => {
           under_the_age_of_18: under18Bool,
           havePreviouslyApplied: previouslyApplied,
           fullLegalName: fullLegalName,
-          // race: race,
-          //gender: gender,
-          //veteranStatus: veteranStatus,
-          //DisabilityStatus: disabilityStatus,
           statmentOfAvailbilty: statmentOfAvailability,
           checkbox1: checkBoxAgree,
           checkbox2: checkBoxAgree2,
@@ -291,7 +280,6 @@ const JobApplicationPage: NextPage<{}> = () => {
           tradeGraduate: tradeGraduateState,
           tradeNumberOfYearsCompleted: tradeNumberOfYearsCompletedState,
           tradeHonorsReceived: tradeHonorsReceivedState,
-
           selectedDateStart1: selectedDateStart1,
           selectedDateStart2: selectedDateStart2,
           selectedDateStart3: selectedDateStart3,
@@ -326,39 +314,24 @@ const JobApplicationPage: NextPage<{}> = () => {
           mayWeContactValue2: mayWeContactState2,
           mayWeContactValue3: mayWeContactState3,
           referenceNameState: referenceNameState,
-
           referencePositionState: referencePositionState,
-
           referenceWorkRelationshipState: referenceWorkRelationshipState,
           referenceCompanyState: referenceCompanyState,
-
           referencePhoneNumberState: referencePhoneNumberState,
-
           referenceNameValue2: referenceNameValue2,
-
           referencePositionState2: referencePositionState2,
-
           referenceWorkRelationshipState2: referenceWorkRelationshipState2,
           referenceCompanyValue2: referenceCompanyValue2,
-
           referencePhoneNumberValue2: referencePhoneNumberValue2,
-
           referenceNameState3: referenceNameState3,
-
           referencePositionState3: referencePositionState3,
-
           referenceWorkRelationshipState3: referenceWorkRelationshipState3,
           referenceCompanyState3: referenceCompanyState3,
-
           referencePhoneNumberState3: referencePhoneNumberState3,
-
           referenceNameState4: referenceNameState4,
-
           referencePositionValue4: referencePositionValue4,
-
           referenceWorkRelationshipState4: referenceWorkRelationshipState4,
           referenceCompanyState4: referenceCompanyState4,
-
           referencePhoneNumberState4: referencePhoneNumberState4,
           WhyTerminatedTextBox: whyTerminatedTextBox,
           resumeFileType: resumeFileType,
@@ -390,7 +363,9 @@ const JobApplicationPage: NextPage<{}> = () => {
           .then(() => {
             sendMessage({
               message: `${firstName} ${lastName}, Submitted an application for ${positionApplyingfor} on ${currentDate}`,
-              phone: `+15204294899`,
+              // LEFT OFF TESTING THIS. PICK UP AGAIN ON TUESDAY!
+              phone: '+14802660723',
+              // phone: `+15204294899`,
             })
               .then((result) => {
                 console.log(result)
