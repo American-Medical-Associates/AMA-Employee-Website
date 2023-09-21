@@ -92,7 +92,7 @@ const Spravato: NextPage<{}> = () => {
   //   'numberOfDevices',
   // ]
   // @ts-ignore
-  function JSONToCSV(jsonData) {
+  function JSONToCSV(jsonData: Array<{[key: string]: any}>): string {
     if (!jsonData.length) return '';
   
     // Remove Timestamp fields and get headers
@@ -105,13 +105,13 @@ const Spravato: NextPage<{}> = () => {
         return item;
     });
 
-    const headers = Object.keys(jsonData[0]);
-    let csv = headers.join(',') + '\n';
+    const headers: string[] = Object.keys(jsonData[0]);
+    let csv: string = headers.join(',') + '\n';
   
     // Loop through each data entry
     jsonData.forEach(item => {
-      let row = headers.map(header => {
-        let value = item[header];
+      let row: string = headers.map(header => {
+        let value: string | number | boolean | undefined = item[header];
   
         // If value contains comma, new line or double-quote, 
         // then wrap it with double quotes
