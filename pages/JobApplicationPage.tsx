@@ -353,9 +353,11 @@ const JobApplicationPage: NextPage<{}> = () => {
               message: ` Hello ${firstName}, Thank you for applying to American Medical Associates for the position of ${positionApplyingfor}. We will reach out as soon as possible!`,
               phone: `+1${phoneNumber}`,
             })
+            // @ts-ignore
               .then((result) => {
                 console.log(result)
               })
+              // @ts-ignore
               .catch((e) => {
                 console.log(e)
               })
@@ -367,9 +369,11 @@ const JobApplicationPage: NextPage<{}> = () => {
               phone: '+14802660723',
               // phone: `+15204294899`,
             })
+              // @ts-ignore
               .then((result) => {
                 console.log(result)
               })
+              // @ts-ignore
               .catch((e) => {
                 console.log(e)
               })
