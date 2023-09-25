@@ -365,9 +365,7 @@ const JobApplicationPage: NextPage<{}> = () => {
           .then(() => {
             sendMessage({
               message: `${firstName} ${lastName}, Submitted an application for ${positionApplyingfor} on ${currentDate}`,
-              // LEFT OFF TESTING THIS. PICK UP AGAIN ON TUESDAY!
-              phone: '+14802660723',
-              // phone: `+15204294899`,
+              phone: `+15204294899`,
             })
               // @ts-ignore
               .then((result) => {
