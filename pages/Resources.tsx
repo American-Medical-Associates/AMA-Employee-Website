@@ -127,6 +127,15 @@ const Resources: NextPage<{}> = () => {
                   }}
                 />
               </div>
+              <div className='mt-5'>
+                <MenuItem icon={
+                  <ClipboardIcon className='h-10 w-7 cursor-pointer text-black duration-[500s] ease-in' />
+                }
+                text="MADRS"
+                onClick={() => {
+                  router.push('/MADRS')
+                }} />
+              </div>
               {/* <div className="mt-5">
                 <MenuItem
                   icon={

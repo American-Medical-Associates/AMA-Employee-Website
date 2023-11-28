@@ -101,185 +101,118 @@ const Header = ({ selectCompany, routePatientsHome }) => {
   }, [isPatient])
 
   const router = useRouter()
+
   const showMenu = () => {
     if (openMenu) {
+      let menuItems = []
+
       if (auth.currentUser && !isPatient) {
-        return (
-          <div
-            ref={ref}
-            className=" absolute flex justify-start duration-[500s] ease-in"
-          >
-            <DropDownMenu
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-              item={[
-                <MenuItem
-                  icon={
-                    <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Home'}
-                  onClick={() => {
-                    router.push('/Login')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <UsersIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Patients'}
-                  onClick={() => {
-                    setShowPatientLookup(!showPatientLookup)
-                    setOpenMenu(false)
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <InboxArrowDownIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Resumes'}
-                  onClick={() => {
-                    router.push('/SubmitedResumes')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <EnvelopeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Messaging'}
-                  onClick={() => {
-                    router.push('/MassMessagePage')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <BeakerIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Spravato'}
-                  onClick={() => {
-                    router.push('/Spravato')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <ClipboardIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Resources'}
-                  onClick={() => {
-                    router.push('/Resources')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <CloudIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Vitalize'}
-                  onClick={() => {
-                    router.push('/VitalizeNation/Vitalize')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <ComputerDesktopIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Support'}
-                  onClick={() => {
-                    router.push('/techSupportPages/TechSupport')
-                  }}
-                />,
-                <MenuItem
-                  icon={
-                    <InboxStackIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Inventory'}
-                  onClick={() => {
-                    router.push('/Inventory/Inventory')
-                  }}
-                />,
-
-                <MenuItem
-                  icon={
-                    <ArrowRightOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Logout'}
-                  onClick={() => {
-                    Logout()
-                  }}
-                />,
-              ]}
-            />
-          </div>
-        )
+        menuItems = [
+          {
+            icon: HomeIcon,
+            text: "Home",
+            onClick: () => router.push('/Login')
+          },
+          {
+            icon: UsersIcon,
+            text: "Patients",
+            onClick: () => {
+              setShowPatientLookup(!showPatientLookup)
+              setOpenMenu(false)
+            }
+          },
+          {
+            icon: InboxArrowDownIcon,
+            text: "Resumes",
+            onClick: () => router.push('/SubmitedResumes')
+          },
+          {
+            icon: EnvelopeIcon,
+            text: "Messaging",
+            onClick: () => router.push('/MassMessagePage')
+          },
+          {
+            icon: BeakerIcon,
+            text: "Spravato",
+            onClick: () => router.push('/Spravato')
+          },
+          {
+            icon: ClipboardIcon,
+            text: "Resources",
+            onClick: () => router.push('/Resources')
+          },
+          {
+            icon: CloudIcon,
+            text: "Vitalize",
+            onClick: () => router.push('/VitalizeNation/Vitalize')
+          },
+          {
+            icon: ComputerDesktopIcon,
+            text: "Support",
+            onClick: () => router.push('/techSupportPages/TechSupport')
+          },
+          {
+            icon: InboxStackIcon,
+            text: "Inventory",
+            onClick: () => router.push('/Inventory/Inventory')
+          },
+          {
+            icon: ArrowRightOnRectangleIcon,
+            text: "Logout",
+            onClick: () => {Logout()}
+          },
+        ];
       } else if (auth.currentUser && isPatient) {
-        return (
-          <div
-            ref={ref}
-            className=" absolute flex justify-start duration-[500s] ease-in"
-          >
-            <DropDownMenu
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-              item={[
-                <MenuItem
-                  icon={
-                    <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Home'}
-                  onClick={() => {
-                    router.push('/PatientPage')
-                  }}
-                />,
-
-                <MenuItem
-                  icon={
-                    <ArrowRightOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Logout'}
-                  onClick={() => {
-                    Logout()
-                  }}
-                />,
-              ]}
-            />
-          </div>
-        )
+          menuItems = [
+            {
+              icon: HomeIcon,
+              text: "Home",
+              onClick: () => router.push('/PatientPage')
+            },
+            {
+              icon: ArrowRightOnRectangleIcon,
+              text: "Logout",
+              onClick: () => {Logout()}
+            },
+          ];
       } else {
-        return (
-          <div
-            ref={ref}
-            className=" absolute flex justify-start  duration-[500s] ease-in"
-          >
-            <DropDownMenu
-              openMenu={openMenu}
-              setOpenMenu={setOpenMenu}
-              item={[
-                // <MenuItem
-                //   icon={
-                //     <HomeIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                //   }
-                //   text={'Home'}
-                //   onClick={() => {
-                //     router.push('/')
-                //   }}
-                // />,
-                <MenuItem
-                  icon={
-                    <ArrowLeftOnRectangleIcon className=" h-10 w-7 cursor-pointer  text-black duration-[500s] ease-in" />
-                  }
-                  text={'Login'}
-                  onClick={() => {
-                    router.push('/PatientLogin')
-                  }}
-                />,
-              ]}
-            />
-          </div>
-        )
-      }
-    } else {
-      return null
-    }
+        menuItems = [
+          {
+            icon: ArrowLeftOnRectangleIcon,
+            text: "Login",
+            onClick: () => router.push('/PatientLogin')
+          },
+        ];
+    } 
+
+    // menuItems.push({
+    //   icon: ArrowRightOnRectangleIcon,
+    //   text: 'Logout',
+    //   onClick: Logout,
+    // });
+
+    const renderedMenuItems = menuItems.map(({ icon: Icon, text, onClick }, index) => (
+      <MenuItem
+        key={index}
+        icon={<Icon className="h-10 w-7 cursor-pointer text-black" />}
+        text={text}
+        onClick={onClick}
+        isDropdownItem={true}
+      />
+    ));
+    return (
+      <div ref={ref} className="absolute flex justify-start duration-500 ease-in">
+        <DropDownMenu
+          openMenu={openMenu}
+          setOpenMenu={setOpenMenu}
+          item={renderedMenuItems}
+        />
+      </div>
+    );
+  } else {
+    return null;
   }
-  // const { data: session } = useSession()
+};
   return (
     <header className=" w-full">
       <div className=" sticky top-0 z-50 grid  w-full grid-cols-3 flex-row bg-white p-5 shadow-md  md:px-10">
