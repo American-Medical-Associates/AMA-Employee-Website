@@ -20,7 +20,7 @@ const Resources: NextPage<{}> = () => {
 
   const router = useRouter()
   return (
-    <div className=" flex flex-col items-center justify-center">
+    <div className=" flex flex-col bg-gray-200 items-center justify-center">
       <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Resources</h1>
@@ -80,6 +80,9 @@ const Resources: NextPage<{}> = () => {
                 router.push('/BookedAppointments')
               }}
             />
+          </div>
+          <div className="justify-content flex h-[80vh] w-full grid-flow-col items-center">
+            <div className="h-[80vh] w-[25%] p-5">
             <div className="mb-5 mt-5">
               <MenuItem
                 icon={
@@ -91,9 +94,6 @@ const Resources: NextPage<{}> = () => {
                 }}
               />
             </div>
-          </div>
-          <div className="justify-content flex h-[80vh] w-full grid-flow-col items-center">
-            <div className="h-[80vh] w-[25%] p-5">
               <div>
                 <MenuItem
                   icon={
