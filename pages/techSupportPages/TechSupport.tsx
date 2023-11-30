@@ -14,7 +14,7 @@ import SupportTicket from '../../components/support/SupportTicket'
 import SupportAnalytics from '../../components/support/SupportAnalytics'
 import OpenTickets from '../../components/support/OpenTickets'
 import ClosedTickets from '../../components/support/ClosedTickets'
-import { auth, GetSupportTickets } from '../../firebase'
+import { auth, GetSupportTickets } from '../../firebase/firebase'
 import Datepicker from '../../components/userInput/Datepicker'
 
 const TechSupport: NextPage<{}> = () => {

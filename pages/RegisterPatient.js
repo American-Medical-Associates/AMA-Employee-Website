@@ -3,7 +3,7 @@ import Header from '../components/navigation/Header'
 import TextInput from '../components/userInput/TextInput'
 import MainButton from '../components/Buttons/MainButton'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth, db } from '../firebase'
+import { auth, db } from '../firebase/firebase'
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 

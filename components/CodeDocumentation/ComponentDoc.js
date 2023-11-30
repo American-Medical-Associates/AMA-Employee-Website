@@ -12,7 +12,7 @@ import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 // import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import TextInput from '../userInput/TextInput'
 import LargeTextBox from '../userInput/LargeTextBox'
-import { editComponentDoc } from '../../firebase'
+import { editComponentDoc } from '../../firebase/firebase'
 
 export const ComponentDoc = ({
   tags,

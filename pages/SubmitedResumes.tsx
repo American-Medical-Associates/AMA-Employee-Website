@@ -7,7 +7,7 @@ import {
   isAdmin,
   SearchForApplicationsNOTArchived,
   auth,
-} from '../firebase'
+} from '../firebase/firebase'
 
 import { ReactDOM } from 'react'
 import classnames from 'classnames'

@@ -11,10 +11,10 @@ import {
   editSpravatoTracking,
   GetInventory,
   GetSpravatoTracking,
-} from '../../firebase'
+} from '../../firebase/firebase'
 import TextInput from '../../components/userInput/TextInput'
 import Datepicker from '../../components/userInput/Datepicker'
-import { auth } from '../../firebase'
+import { auth } from '../../firebase/firebase'
 import { NextPage } from 'next'
 import { UserIcon } from '@heroicons/react/24/outline'
 import PieGraph from '../../components/GraphComponents/PieGraph'

@@ -3,7 +3,7 @@ import TextInput from '../../components/userInput/TextInput'
 import DateInput from '../../components/userInput/DateInput'
 import MainButton from '../../components/Buttons/MainButton'
 import Header from '../../components/navigation/Header'
-import { savePatentForms } from '../../firebase'
+import { savePatentForms } from '../../firebase/firebase'
 import GreenCheckMark from '../../components/formComponents/GreenCheckMark'
 
 const RecordsRequestForm = () => {

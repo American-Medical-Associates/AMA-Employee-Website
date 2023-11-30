@@ -12,7 +12,7 @@ import { NextPage } from 'next'
 import Datepicker from '../components/userInput/Datepicker'
 import Submissions from '../components/NewPatientPacketAnalytics/Submissions'
 import HowTheyFoundUs from '../components/NewPatientPacketAnalytics/HowTheyFoundUs'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 const NewPatientPacketAnalytics: NextPage<{}> = () => {
   const router = useRouter()
   const [submissions, setSubmissions] = useState(false)

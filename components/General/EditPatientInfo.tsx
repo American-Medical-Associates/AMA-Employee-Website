@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import TextInput from '../userInput/TextInput'
 import MainButton from '../Buttons/MainButton'
 import DateInput from '../userInput/DateInput'
-import { updatePatientNameAndDOB } from '../../firebase'
+import { updatePatientNameAndDOB } from '../../firebase/firebase'
 
 export const EditPatientInfo: React.FC<{}> = () => {
   const [firstName, setFirstName] = useState('')

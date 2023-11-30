@@ -4,7 +4,7 @@ import {
   AddPersonWorkingOnSupportTicket,
   CloseSupportTicket,
   GetSupportTickets,
-} from '../../firebase'
+} from '../../firebase/firebase'
 import { MenuItem } from '../navigation/MenuItem'
 import {
   ChartBarIcon,
@@ -12,7 +12,7 @@ import {
   XMarkIcon,
   FolderOpenIcon,
 } from '@heroicons/react/24/outline'
-import { auth, functions } from '../../firebase'
+import { auth, functions } from '../../firebase/firebase'
 
 const ClosedTickets: React.FC<{ supportTickets: any }> = ({
   supportTickets,

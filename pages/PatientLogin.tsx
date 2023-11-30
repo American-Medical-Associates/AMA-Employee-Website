@@ -6,8 +6,8 @@ import MainButton from '../components/Buttons/MainButton'
 import { useRouter } from 'next/router'
 import { Main } from 'next/document'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../firebase'
-import { SignInToAccount } from '../firebase'
+import { auth } from '../firebase/firebase'
+import { SignInToAccount } from '../firebase/firebase'
 
 const PatientLogin: NextPage<{}> = () => {
   const [email, setEmail] = useState('')

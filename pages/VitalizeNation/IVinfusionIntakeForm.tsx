@@ -8,7 +8,7 @@ import MainButton from '../../components/Buttons/MainButton'
 import PhoneNumberInput from '../../components/userInput/PhoneNumberInput'
 import Header from '../../components/navigation/Header'
 import Signature from '../../components/formComponents/Signature'
-import { AddIVinfusionIntakeForm, auth } from '../../firebase'
+import { AddIVinfusionIntakeForm, auth } from '../../firebase/firebase'
 
 const IVinfusionIntakeForm: NextPage<{}> = () => {
   const router = useRouter()

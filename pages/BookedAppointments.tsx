@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Header from '../components/navigation/Header'
-import { auth, GetBookedAppointments } from '../firebase'
+import { auth, GetBookedAppointments } from '../firebase/firebase'
 import router from 'next/router'
 const BookedAppointments: NextPage<{}> = () => {
   const [appointments, setAppointments] = useState<Array<any>>([])

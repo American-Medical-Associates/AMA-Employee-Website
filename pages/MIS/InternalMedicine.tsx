@@ -9,7 +9,7 @@ import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxF
 import { CircularButton } from '../../components/Buttons/CircularButtonIcon'
 import { PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { RoundAddButton } from '../../components/Buttons/RoundAddButton'
-import { addAMAInternalMedicineMIS } from '../../firebase'
+import { addAMAInternalMedicineMIS } from '../../firebase/firebase'
 
 const InternalMedicine: NextPage<{}> = () => {
   const [selectedProvider, setSelectedProvider] = useState<Array<string>>([])

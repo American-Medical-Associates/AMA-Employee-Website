@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { auth } from '../../firebase'
+import { auth } from '../../firebase/firebase'
 import Header from '../navigation/Header'
 import { MenuItem } from '../navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
 import Datepicker from '../userInput/Datepicker'
 import BarGraph from '../GraphComponents/BarGraph'
-import { GetNewPatientPacketSubmissions } from '../../firebase'
+import { GetNewPatientPacketSubmissions } from '../../firebase/firebase'
 
 const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
   const [NewPatientPacketAnalyticsArray, setNewPatientPacketAnalyticsArray] =

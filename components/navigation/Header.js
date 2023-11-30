@@ -24,7 +24,7 @@ import {
 // import Box from './box'
 import { getAuth, signOut, sendEmailVerification } from 'firebase/auth'
 import MainButton from '../Buttons/MainButton'
-import { auth, isAdmin, GetAllPatientInfo } from '../../firebase'
+import { auth, isAdmin, GetAllPatientInfo } from '../../firebase/firebase'
 import PatientResourcesModal from './PatientResourcesModal'
 import ScrollLock, { TouchScrollable } from 'react-scrolllock'
 import { useDispatch } from 'react-redux'

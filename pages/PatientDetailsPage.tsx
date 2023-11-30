@@ -6,7 +6,7 @@ import {
 } from '../redux/slices/companySlice'
 import CustomCheckBox from '../components/formComponents/CustomCheckBox'
 import Header from '../components/navigation/Header'
-import { UpdatePatientInfoWeightLoss, getPatientForms } from '../firebase'
+import { UpdatePatientInfoWeightLoss, getPatientForms } from '../firebase/firebase'
 import MainButton from '../components/Buttons/MainButton'
 import WeightLossPacketFullSubmission from '../components/formComponents/WeightLossFullPacketSubmission'
 import { MenuItem } from '../components/navigation/MenuItem'

@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import Header from '../components/navigation/Header'
-import { addComponentDoc, auth, getComponentDoc, yo } from '../firebase'
+import { addComponentDoc, auth, getComponentDoc, yo } from '../firebase/firebase'
 import Router, { useRouter } from 'next/router'
 import router from 'next/router'
 import { ComponentDoc } from '../components/CodeDocumentation/ComponentDoc'

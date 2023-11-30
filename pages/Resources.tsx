@@ -9,7 +9,7 @@ import {
   CodeBracketIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 
 const Resources: NextPage<{}> = () => {
   useEffect(() => {

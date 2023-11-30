@@ -3,7 +3,7 @@ import Header from '../components/navigation/Header'
 import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import { NextPage } from 'next'
-import { auth, getMessages } from '../firebase'
+import { auth, getMessages } from '../firebase/firebase'
 import {
   selectSupportTicketNumber,
   selectChannelID,

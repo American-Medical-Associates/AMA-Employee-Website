@@ -10,10 +10,10 @@ import {
 import {
   AddScreenShotForSupportTicketsStorageAndDB,
   AddSupportTicket,
-} from '../../firebase'
+} from '../../firebase/firebase'
 import CustomCheckBoxField from '../formComponents/CustomCheckBoxField'
 import CustomYesOrNo from '../formComponents/CustomYesOrNo'
-import { auth, functions } from '../../firebase'
+import { auth, functions } from '../../firebase/firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 import PhoneNumberInput from '../userInput/PhoneNumberInput'
 

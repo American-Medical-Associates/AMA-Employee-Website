@@ -34,7 +34,7 @@ import {
   AddPictureOfPatientInsuranceToStorageAndToDB,
   auth,
   submitNewPatientPacketAndCreateNewPatient,
-} from '../firebase'
+} from '../firebase/firebase'
 
 import { useSelector } from 'react-redux'
 import {
@@ -45,7 +45,7 @@ import Head from 'next/head'
 import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 import { MenuItem } from '../components/navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
-import { NewPatientPacketAutoSave } from '../firebase'
+import { NewPatientPacketAutoSave } from '../firebase/firebase'
 import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 
 const NewPatientPacket: NextPage<{}> = ({}) => {

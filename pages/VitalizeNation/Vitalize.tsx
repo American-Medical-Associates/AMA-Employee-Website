@@ -8,7 +8,7 @@ import {
   ClipboardDocumentListIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
-import { auth } from '../../firebase'
+import { auth } from '../../firebase/firebase'
 
 const Vitalize: NextPage<{}> = () => {
   const router = useRouter()

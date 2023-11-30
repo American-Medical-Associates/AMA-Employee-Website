@@ -11,7 +11,7 @@ import {
 } from '@react-pdf/renderer'
 import MainButton from '../Buttons/MainButton'
 import { RoundAddButton } from '../Buttons/RoundAddButton'
-import { AddSignatureToStorage } from '../../firebase'
+import { AddSignatureToStorage } from '../../firebase/firebase'
 
 interface SignatureFieldProps {}
 

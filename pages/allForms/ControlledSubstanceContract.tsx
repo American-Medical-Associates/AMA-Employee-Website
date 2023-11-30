@@ -5,7 +5,7 @@ import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxF
 import Signature from '../../components/formComponents/Signature'
 import MainButton from '../../components/Buttons/MainButton'
 import Header from '../../components/navigation/Header'
-import { savePatentForms } from '../../firebase'
+import { savePatentForms } from '../../firebase/firebase'
 import { useRouter } from 'next/router'
 import { CircularButton } from '../../components/Buttons/CircularButtonIcon'
 import { ArrowDownLeftIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'

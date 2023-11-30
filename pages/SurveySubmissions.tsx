@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import Header from '../components/navigation/Header'
-import { GetSurveys } from '../firebase'
+import { GetSurveys } from '../firebase/firebase'
 import { Timestamp } from 'firebase/firestore'
 import MainButton from '../components/Buttons/MainButton'
 import Router, { useRouter } from 'next/router'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 
 const SurveySubmissions: NextPage<{}> = () => {
   interface Survey {

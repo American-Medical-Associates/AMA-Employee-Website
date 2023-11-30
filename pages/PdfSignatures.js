@@ -44,7 +44,7 @@ import {
   GetSignatures,
   GetUsers,
   GetUsersPDFs,
-} from '../firebase'
+} from '../firebase/firebase'
 import { image } from '@tensorflow/tfjs'
 import { async } from '@firebase/util'
 import { Tooltip } from 'react-tooltip'

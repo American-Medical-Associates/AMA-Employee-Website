@@ -8,10 +8,10 @@ import {
   PencilIcon,
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
-import { auth, editSpravatoTracking, GetSpravatoTracking } from '../firebase'
+import { auth, editSpravatoTracking, GetSpravatoTracking } from '../firebase/firebase'
 import TextInput from '../components/userInput/TextInput'
 import Datepicker from '../components/userInput/Datepicker'
-import { addSpravatoTracking } from '../firebase'
+import { addSpravatoTracking } from '../firebase/firebase'
 import MainButton from '../components/Buttons/MainButton'
 
 const Spravato: NextPage<{}> = () => {

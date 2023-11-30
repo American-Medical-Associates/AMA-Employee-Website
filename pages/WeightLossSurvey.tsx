@@ -14,7 +14,7 @@ import {
   SubmitWeightLossSurvey,
   WeightLossAutoSave,
   // SubmitWeightLossSurvey,
-} from '../firebase'
+} from '../firebase/firebase'
 import { WeightLossSurveyTypes } from '../types/weightLossTypes'
 import AutoSaveLine from '../components/formComponents/AutoSaveLine'
 import { useDispatch, useSelector } from 'react-redux'

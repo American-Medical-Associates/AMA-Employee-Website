@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/navigation/Header'
 import { sendPasswordResetEmail } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 import TextInput from '../components/userInput/TextInput'
 import MainButton from '../components/Buttons/MainButton'
 import router from 'next/router'

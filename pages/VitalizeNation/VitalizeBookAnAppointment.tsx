@@ -11,8 +11,8 @@ import LargeTextBox from '../../components/userInput/LargeTextBox'
 import {
   BookAnAppointment,
   BookAnAppointmentToTrackUserInput,
-} from '../../firebase'
-import { auth, functions } from '../../firebase'
+} from '../../firebase/firebase'
+import { auth, functions } from '../../firebase/firebase'
 import { httpsCallable, getFunctions } from 'firebase/functions'
 
 const vitalizeBookAnAppointment: NextPage<{}> = () => {

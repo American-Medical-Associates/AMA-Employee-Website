@@ -13,7 +13,7 @@ import {
   addNewPatient,
   patientSearchListAMA,
   updateFieldsToLowerCase,
-} from '../../firebase'
+} from '../../firebase/firebase'
 import {
   selectCompany,
   setPatientDetails,

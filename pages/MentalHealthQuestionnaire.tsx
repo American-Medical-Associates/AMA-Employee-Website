@@ -7,9 +7,9 @@ import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxFiel
 import TextInput from '../components/userInput/TextInput'
 import Header from '../components/navigation/Header'
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
-import { submitMentalHeathGroupSurvey } from '../firebase'
+import { submitMentalHeathGroupSurvey } from '../firebase/firebase'
 import { useRouter } from 'next/router'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 
 const MentalHealthQuestionnaire: NextPage<{}> = () => {
   const router = useRouter()

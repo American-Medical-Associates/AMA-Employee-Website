@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { auth, GetSpravatoTracking, GetSupportTickets } from '../../firebase'
+import { auth, GetSpravatoTracking, GetSupportTickets } from '../../firebase/firebase'
 import { useRouter } from 'next/router'
 import Header from '../navigation/Header'
 import { MenuItem } from '../navigation/MenuItem'

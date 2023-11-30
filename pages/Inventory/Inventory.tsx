@@ -8,7 +8,7 @@ import {
   PencilIcon,
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
-import { auth, editSpravatoTracking, GetSpravatoTracking } from '../../firebase'
+import { auth, editSpravatoTracking, GetSpravatoTracking } from '../../firebase/firebase'
 import TextInput from '../../components/userInput/TextInput'
 import Datepicker from '../../components/userInput/Datepicker'
 

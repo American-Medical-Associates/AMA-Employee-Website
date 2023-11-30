@@ -8,8 +8,8 @@ import {
   GetPatientInfo,
   GetWeightLossSurveyPatient,
   SubmittedPacket,
-} from '../firebase'
-import { auth } from '../firebase'
+} from '../firebase/firebase'
+import { auth } from '../firebase/firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import NewPatientPacketFullSubmission from '../components/formComponents/NewPatientPacketFullSubmission'
 import { PacketInfo } from '../types/NewPatientPacketTypes'

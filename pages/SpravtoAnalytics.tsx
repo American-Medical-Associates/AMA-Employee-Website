@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Header from '../components/navigation/Header'
 
-import { auth, GetSpravatoTracking } from '../firebase'
+import { auth, GetSpravatoTracking } from '../firebase/firebase'
 import { MenuItem } from '../components/navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
 import Segment from '../components/GraphComponents/segment'

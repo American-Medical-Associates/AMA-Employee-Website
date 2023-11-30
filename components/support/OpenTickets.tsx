@@ -4,10 +4,10 @@ import {
   CloseSupportTicket,
   CreateChannelMessageToSupport,
   GetSupportTickets,
-} from '../../firebase'
+} from '../../firebase/firebase'
 import { MenuItem } from '../navigation/MenuItem'
 
-import { auth, functions, AddNoteToSupportTicket } from '../../firebase'
+import { auth, functions, AddNoteToSupportTicket } from '../../firebase/firebase'
 import ClosedTickets from './ClosedTickets'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'

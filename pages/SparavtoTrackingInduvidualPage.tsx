@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import router from 'next/router'
 import React, { useEffect } from 'react'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase'
 
 // useEffect(() => {
 //   if (!auth.currentUser?.email) {
