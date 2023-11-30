@@ -12,8 +12,9 @@ import { auth } from '../../firebase'
 
 const Vitalize: NextPage<{}> = () => {
   const router = useRouter()
+
   return (
-    <div>
+    <div className='bg-gray-100'>
       <Header selectCompany={'Vitalize'} routePatientsHome={true} />
       <main className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Vitalize</h1>
