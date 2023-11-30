@@ -1,7 +1,19 @@
 import React from 'react'
-import Header from '../components/navigation/Header'
+import { useEffect, useState } from 'react';
+import Header from '../components/navigation/Header';
+import Router, { useRouter } from 'next/router';
+import {auth} from '../firebase/firebaseConfig';
 
 export default function MADRS() {
+
+// Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
+const router = useRouter();
+useEffect(() => {
+  if (!auth.currentUser?.email) {
+    router.push('/PatientLogin')
+  }
+}, [])
+
   return (
     <div>
       <Header selectCompany={'AMA'} routePatientsHome={true} />
