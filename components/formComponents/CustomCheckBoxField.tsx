@@ -23,7 +23,6 @@ const CustomCheckBoxField: React.FC<{
   title,
   marginLeft,
   setCheckBoxValues,
-
   checkBoxValues,
   allowMultipleCheckBoxes,
   required,
