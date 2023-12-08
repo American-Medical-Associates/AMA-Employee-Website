@@ -14,6 +14,8 @@ export default function MADRS() {
   const [requiredInnerTension, setRequiredInnerTension] = useState(false)
   const [reducedSleep, setReducedSleep] = useState([])
   const [requiredReducedSleep, setRequiredReducedSleep] = useState(false)
+  const [reducedAppetite, setReducedAppetite] = useState([])
+  const [requiredReducedAppetite, setRequiredReducedAppetite] = useState(false)
 
   // Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
   const router = useRouter()
@@ -24,7 +26,7 @@ export default function MADRS() {
   }, [])
 
   return (
-    <div className='bg-gray-100'>
+    <div className="bg-gray-100">
       <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="text-center mx-10 my-5">
         <h1 className="mb-3 font-bold text-xl">
@@ -45,8 +47,13 @@ export default function MADRS() {
           but this must be recorded.
         </p>
       </div>
-      <div className='flex flex-wrap justify-center items-start mx-8 my-5 bg-white border-4 border-solid rounded-xl shadow-outline shadow-xl shadow-gray'>
-        <div className='w-full md:w-1/2 px-4'>
+      <div className="flex flex-wrap justify-center items-start mx-8 my-5 bg-white border-4 border-solid rounded-xl shadow-outline shadow-xl shadow-gray">
+        <div className="w-full md:w-1/2 px-4">
+          <p>
+            Representing despondency, gloom and despair, (more than just
+            ordinary transient low spirits) reflected in speech, facial
+            expression, and posture. Rate on depth of inability to brighten up.
+          </p>
           <CustomCheckBoxField
             id="apparentSadness"
             title="Apparent Sadness"
@@ -65,7 +72,14 @@ export default function MADRS() {
             required={requiredApparentSadness}
           />
         </div>
-        <div className='w-full md:w-1/2 px-4'>
+        <div className="w-full md:w-1/2 px-4">
+          <p>
+            Representing reports of depressed mood, regardless of whether it is
+            reflected in appearance or not. Includes low spirits, despondency or
+            feeling of being beyond help wihtout hope. Rate according to
+            intensity, duration and the extent to which the mood is reported to
+            be influenced by events.
+          </p>
           <CustomCheckBoxField
             id="reportedSadness"
             title="Reported Sadness"
@@ -84,7 +98,13 @@ export default function MADRS() {
             required={requiredReportedSadness}
           />
         </div>
-        <div className='w-full md:w-1/2 px-4'>
+        <div className="w-full md:w-1/2 px-4">
+          <p>
+            Representing feelings of ill-defined discomfort, edginess, inner
+            turmoil mounting to either panic, dread or anguish. Rate according
+            to intensity, frequency, duration and the extent of reassurance
+            called for.
+          </p>
           <CustomCheckBoxField
             id="innerTension"
             title="Inner Tension"
@@ -103,7 +123,11 @@ export default function MADRS() {
             required={requiredInnerTension}
           />
         </div>
-        <div className='w-full md:w-1/2 px-4'>
+        <div className="w-full md:w-1/2 px-4">
+          <p>
+            Representing the experience of reduced duration or depth of sleep
+            compared to the subject's own normal pattern when well.
+          </p>
           <CustomCheckBoxField
             id="reducedSleep"
             title="Reduced Sleep"
@@ -120,6 +144,30 @@ export default function MADRS() {
               '6 Less than two or three hours of sleep.',
             ]}
             required={requiredReducedSleep}
+          />
+        </div>
+        <div className="w-full md:w-1/2 px-4">
+          <p>
+            Representing the feeling of loss of appetite compared with when
+            well. Rate by loss of desire for food or the need to force oneself
+            to eat.
+          </p>
+          <CustomCheckBoxField
+            id="reducedAppetite"
+            title="Reduced Appetite"
+            checkBoxValues={reducedAppetite}
+            setCheckBoxValues={setReducedAppetite}
+            allowMultipleCheckBoxes={true}
+            checkBoxTitles={[
+              '0 Normal or increased appetite.',
+              '1',
+              '2 Slightly reduced appetite',
+              '3',
+              '4 No appetite. Food is tasteless',
+              '5',
+              '6 Needs persuasion to eat.',
+            ]}
+            required={requiredReducedAppetite}
           />
         </div>
       </div>
