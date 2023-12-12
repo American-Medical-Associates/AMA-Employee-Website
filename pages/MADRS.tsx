@@ -12,31 +12,66 @@ export default function MADRS() {
   const [requiredName, setRequiredName] = useState(false)
   const [date, setDate] = useState()
   const [requiredDate, setRequiredDate] = useState(false)
-  const [apparentSadness, setApparentSadness] = useState([])
+  const [apparentSadness, setApparentSadness] = useState<String[]>([])
   const [requiredApparentSadness, setRequiredApparentSadness] = useState(false)
-  const [reportedSadness, setReportedSadness] = useState([])
+  const [reportedSadness, setReportedSadness] = useState<String[]>([])
   const [requiredReportedSadness, setRequiredReportedSadness] = useState(false)
-  const [innerTension, setInnerTension] = useState([])
+  const [innerTension, setInnerTension] = useState<String[]>([])
   const [requiredInnerTension, setRequiredInnerTension] = useState(false)
-  const [reducedSleep, setReducedSleep] = useState([])
+  const [reducedSleep, setReducedSleep] = useState<String[]>([])
   const [requiredReducedSleep, setRequiredReducedSleep] = useState(false)
-  const [reducedAppetite, setReducedAppetite] = useState([])
+  const [reducedAppetite, setReducedAppetite] = useState<String[]>([])
   const [requiredReducedAppetite, setRequiredReducedAppetite] = useState(false)
-  const [concentrationDifficulties, setConcentrationDifficulties] = useState([])
+  const [concentrationDifficulties, setConcentrationDifficulties] = useState<String[]>([])
   const [
     requiredConcentrationDifficulties,
     setRequiredConcentrationDifficulties,
   ] = useState(false)
-  const [lassitude, setLassitude] = useState([])
+  const [lassitude, setLassitude] = useState<String[]>([])
   const [requiredLassitude, setRequiredLassitude] = useState(false)
-  const [inabilityToFeel, setInabilityToFeel] = useState([])
+  const [inabilityToFeel, setInabilityToFeel] = useState<String[]>([])
   const [requiredInabilityToFeel, setRequiredInabilityToFeel] = useState(false)
-  const [pessimisticThoughts, setPessimisticThoughts] = useState([])
+  const [pessimisticThoughts, setPessimisticThoughts] = useState<String[]>([])
   const [requiredPessimisticThoughts, setRequiredPessimisticThoughts] =
     useState(false)
-  const [suicidalThoughts, setSuicidalThoughts] = useState([])
+  const [suicidalThoughts, setSuicidalThoughts] = useState<String[]>([])
   const [requiredSuicidalThoughts, setRequiredSuicidalThoughts] =
     useState(false)
+
+    const calculateTotalScore = () => {
+      const checkBoxArrays = [
+        apparentSadness,
+        reportedSadness,
+        innerTension,
+        reducedSleep,
+        reducedAppetite,
+        concentrationDifficulties,
+        lassitude,
+        inabilityToFeel,
+        pessimisticThoughts,
+        suicidalThoughts,
+      ];
+  
+      const totalScore = checkBoxArrays.reduce((total, checkBoxArray) => {
+        const score = checkBoxArray.reduce((sum, value) => {
+
+          // Extracting the first character as the number (assuming it's 0-6)
+          const number = parseInt(value.charAt(0), 10);
+          
+          // If the extracted value is a number, add it to the sum
+          return sum + (isNaN(number) ? 0 : number);
+        }, 0);
+  
+        return total + score;
+      }, 0);
+  
+      console.log("Total Score: ", totalScore);
+      return totalScore;
+    };
+
+    useEffect(() => {
+      calculateTotalScore();
+    }, [apparentSadness, reportedSadness, innerTension, reducedSleep, reducedAppetite, concentrationDifficulties, lassitude, inabilityToFeel, pessimisticThoughts, suicidalThoughts]);
 
   // Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
   const router = useRouter()
