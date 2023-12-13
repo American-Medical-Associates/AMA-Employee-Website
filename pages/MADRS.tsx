@@ -2,13 +2,16 @@ import React, { use } from 'react'
 import { useEffect, useState } from 'react'
 import Header from '../components/navigation/Header'
 import Router, { useRouter } from 'next/router'
-import { auth } from '../firebase/firebaseConfig'
+import { auth, submitMadrs } from '../firebase/firebase'
 import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import TextInput from '../components/userInput/TextInput'
 import DateInput from '../components/userInput/DateInput'
+import MainButton from '../components/Buttons/MainButton'
+import { availableParallelism } from 'os'
 
 export default function MADRS() {
-  const [Name, setName] = useState('')
+  const [validationError, setValidationError] = useState("");
+  const [name, setName] = useState('')
   const [requiredName, setRequiredName] = useState(false)
   const [date, setDate] = useState()
   const [requiredDate, setRequiredDate] = useState(false)
@@ -68,6 +71,54 @@ export default function MADRS() {
       console.log("Total Score: ", totalScore);
       return totalScore;
     };
+
+    // Makes sure that only one checkbox is selected for each question.
+    const validateSelections = () => {
+      const questions = [
+        {title: "Apparent Sadness", value: apparentSadness},
+        {title: "Reported Sadness", value: reportedSadness},
+        {title: "Inner Tension", value: innerTension},
+        {title: "Reduced Sleep", value: reducedSleep},
+        {title: "Reduced Appetite", value: reducedAppetite},
+        {title: "Concentration Difficulties", value: concentrationDifficulties},
+        {title: "Lassitude", value: lassitude},
+        {title: "Inability to Feel", value: inabilityToFeel},
+        {title: "Pessimistic Thoughts", value: pessimisticThoughts},
+        {title: "Suicidal Thoughts", value: suicidalThoughts},
+      ];
+
+      const invalidQuestion = questions.find(question => question.value.length > 1);
+
+      if (invalidQuestion){
+        alert(`Please select only one option for '${invalidQuestion.title}'.`);
+        return false;
+      }
+
+      setValidationError("");
+      return true;
+    };
+
+    const handleSubmit = () => {
+      if (validateSelections()) {
+        const totalScore = calculateTotalScore();
+        submitMadrs({
+          name: name,
+          date: date,
+          totalScore: totalScore,
+          apparentSadness: apparentSadness[0],
+          reportedSadness: reportedSadness[0],
+          innerTension: innerTension[0],
+          reducedSleep: reducedSleep[0],
+          reducedAppetite: reducedAppetite[0],
+          concentrationDifficulties: concentrationDifficulties[0],
+          lassitude: lassitude[0],
+          inabilityToFeel: inabilityToFeel[0],
+          pessimisticThoughts: pessimisticThoughts[0],
+          suicidalThoughts: suicidalThoughts[0],
+        });
+      }
+    };
+    
 
     useEffect(() => {
       calculateTotalScore();
@@ -360,6 +411,61 @@ export default function MADRS() {
             required={requiredSuicidalThoughts}
           />
         </div>
+
+        {validationError && (
+          <div className="alert">
+            {validationError}
+          </div>
+        )}
+
+          <MainButton 
+            typeOfButton='submit'
+            buttonText='Submit'
+            buttonWidth='w-[20%]'
+            onClick={() => {
+              handleSubmit
+              if (name === ""){
+                setRequiredName(true)
+                alert("Please enter your name.")
+              } else if (date === "") {
+                setRequiredDate(true)
+                alert("Please enter the current date.")
+              } else if (apparentSadness.length === 0) {
+                setRequiredApparentSadness(true)
+                alert("Please enter you score for Apparent Sadness.")
+              } else if (reportedSadness.length === 0) {
+                setRequiredReportedSadness(true)
+                alert("Please enter your score for Reported Sadness.")
+              } else if (innerTension.length === 0) {
+                setRequiredInnerTension(true)
+                alert("Please enter your score for Inner Tension.")
+              } else if (reducedSleep.length === 0) {
+                setRequiredReducedSleep(true)
+                alert("Please enter your score for Reduced Sleep.")
+              } else if (reducedAppetite.length === 0) {
+                setRequiredReducedAppetite(true)
+                alert("Please enter your score for Reduced Appetite.")
+              } else if (concentrationDifficulties.length === 0) {
+                setRequiredConcentrationDifficulties(true)
+                alert("Please enter your score for Concentration Difficulties.")
+              } else if (lassitude.length === 0) {
+                setRequiredLassitude(true)
+                alert("Please enter your score for Lassitude.")
+              } else if (inabilityToFeel.length === 0) {
+                setRequiredInabilityToFeel(true)
+                alert("Please enter your score for Inability to Feel.")
+              } else if (pessimisticThoughts.length === 0) {
+                setRequiredPessimisticThoughts(true)
+                alert("Please enter your score for Pessimistic Thoughts.")
+              } else if (suicidalThoughts.length === 0) {
+                setRequiredSuicidalThoughts(true)
+                alert("Please enter your score for Suicidal Thoughts.")
+              } else {
+                handleSubmit()
+                alert("Thank you! Your submission has been recorded.")
+              }
+            }}
+          />
       </div>
     </div>
   )
