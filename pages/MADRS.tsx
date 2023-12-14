@@ -10,7 +10,7 @@ import MainButton from '../components/Buttons/MainButton'
 
 export default function MADRS() {
   const [validationError, setValidationError] = useState("");
-  const [name, setName] = useState('')
+  const [name, setName] = useState("")
   const [requiredName, setRequiredName] = useState(false)
   const [date, setDate] = useState("")
   const [requiredDate, setRequiredDate] = useState(false)
