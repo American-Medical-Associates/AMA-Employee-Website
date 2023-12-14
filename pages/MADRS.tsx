@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React from 'react'
 import { useEffect, useState } from 'react'
 import Header from '../components/navigation/Header'
 import Router, { useRouter } from 'next/router'
@@ -7,37 +7,36 @@ import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxFiel
 import TextInput from '../components/userInput/TextInput'
 import DateInput from '../components/userInput/DateInput'
 import MainButton from '../components/Buttons/MainButton'
-import { availableParallelism } from 'os'
 
 export default function MADRS() {
   const [validationError, setValidationError] = useState("");
   const [name, setName] = useState('')
   const [requiredName, setRequiredName] = useState(false)
-  const [date, setDate] = useState()
+  const [date, setDate] = useState("")
   const [requiredDate, setRequiredDate] = useState(false)
-  const [apparentSadness, setApparentSadness] = useState<String[]>([])
+  const [apparentSadness, setApparentSadness] = useState<string[]>([])
   const [requiredApparentSadness, setRequiredApparentSadness] = useState(false)
-  const [reportedSadness, setReportedSadness] = useState<String[]>([])
+  const [reportedSadness, setReportedSadness] = useState<string[]>([])
   const [requiredReportedSadness, setRequiredReportedSadness] = useState(false)
-  const [innerTension, setInnerTension] = useState<String[]>([])
+  const [innerTension, setInnerTension] = useState<string[]>([])
   const [requiredInnerTension, setRequiredInnerTension] = useState(false)
-  const [reducedSleep, setReducedSleep] = useState<String[]>([])
+  const [reducedSleep, setReducedSleep] = useState<string[]>([])
   const [requiredReducedSleep, setRequiredReducedSleep] = useState(false)
-  const [reducedAppetite, setReducedAppetite] = useState<String[]>([])
+  const [reducedAppetite, setReducedAppetite] = useState<string[]>([])
   const [requiredReducedAppetite, setRequiredReducedAppetite] = useState(false)
-  const [concentrationDifficulties, setConcentrationDifficulties] = useState<String[]>([])
+  const [concentrationDifficulties, setConcentrationDifficulties] = useState<string[]>([])
   const [
     requiredConcentrationDifficulties,
     setRequiredConcentrationDifficulties,
   ] = useState(false)
-  const [lassitude, setLassitude] = useState<String[]>([])
+  const [lassitude, setLassitude] = useState<string[]>([])
   const [requiredLassitude, setRequiredLassitude] = useState(false)
-  const [inabilityToFeel, setInabilityToFeel] = useState<String[]>([])
+  const [inabilityToFeel, setInabilityToFeel] = useState<string[]>([])
   const [requiredInabilityToFeel, setRequiredInabilityToFeel] = useState(false)
-  const [pessimisticThoughts, setPessimisticThoughts] = useState<String[]>([])
+  const [pessimisticThoughts, setPessimisticThoughts] = useState<string[]>([])
   const [requiredPessimisticThoughts, setRequiredPessimisticThoughts] =
     useState(false)
-  const [suicidalThoughts, setSuicidalThoughts] = useState<String[]>([])
+  const [suicidalThoughts, setSuicidalThoughts] = useState<string[]>([])
   const [requiredSuicidalThoughts, setRequiredSuicidalThoughts] =
     useState(false)
 
@@ -100,22 +99,26 @@ export default function MADRS() {
 
     const handleSubmit = () => {
       if (validateSelections()) {
-        const totalScore = calculateTotalScore();
-        submitMadrs({
-          name: name,
-          date: date,
-          totalScore: totalScore,
-          apparentSadness: apparentSadness[0],
-          reportedSadness: reportedSadness[0],
-          innerTension: innerTension[0],
-          reducedSleep: reducedSleep[0],
-          reducedAppetite: reducedAppetite[0],
-          concentrationDifficulties: concentrationDifficulties[0],
-          lassitude: lassitude[0],
-          inabilityToFeel: inabilityToFeel[0],
-          pessimisticThoughts: pessimisticThoughts[0],
-          suicidalThoughts: suicidalThoughts[0],
-        });
+        try {
+          const totalScore = calculateTotalScore();
+          submitMadrs({
+            name: name,
+            date: date,
+            totalScore: totalScore,
+            apparentSadness: apparentSadness[0],
+            reportedSadness: reportedSadness[0],
+            innerTension: innerTension[0],
+            reducedSleep: reducedSleep[0],
+            reducedAppetite: reducedAppetite[0],
+            concentrationDifficulties: concentrationDifficulties[0],
+            lassitude: lassitude[0],
+            inabilityToFeel: inabilityToFeel[0],
+            pessimisticThoughts: pessimisticThoughts[0],
+            suicidalThoughts: suicidalThoughts[0],
+          });
+        } catch (error) {
+          console.log("Error Submitting MADRS:", error);
+        }
       }
     };
     
@@ -156,14 +159,14 @@ export default function MADRS() {
       </div>
       <div className="grid grid-flow-col grid-rows-1 w-[100%]">
         <TextInput
-          placeHolder="Full Name"
-          onChange={setName}
+          placeHolder="First and Last Name"
+          onChange={(e: { target: { value: string } }) => setName(e.target.value)}
           widthPercentage={'w-[75%]'}
           required={true}
         />
         <DateInput
           placeHolder="Date (MM/DD/YYYY)"
-          onChange={setDate}
+          onChange={(e: { target: { value: string } }) => setDate(e.target.value)}
           widthPercentage={'w-[75%]'}
           required={true}
         />
@@ -176,6 +179,7 @@ export default function MADRS() {
             expression, and posture. Rate on depth of inability to brighten up.
           </p>
           <CustomCheckBoxField
+            key={"apparentSadness"}
             id="apparentSadness"
             title="Apparent Sadness"
             checkBoxValues={apparentSadness}
@@ -202,6 +206,7 @@ export default function MADRS() {
             be influenced by events.
           </p>
           <CustomCheckBoxField
+            key={"reportedSadness"}
             id="reportedSadness"
             title="Reported Sadness"
             checkBoxValues={reportedSadness}
@@ -227,6 +232,7 @@ export default function MADRS() {
             called for.
           </p>
           <CustomCheckBoxField
+            key={"innerTension"}
             id="innerTension"
             title="Inner Tension"
             checkBoxValues={innerTension}
@@ -250,6 +256,7 @@ export default function MADRS() {
             compared to the subject's own normal pattern when well.
           </p>
           <CustomCheckBoxField
+            key={"reducedSleep"}
             id="reducedSleep"
             title="Reduced Sleep"
             checkBoxValues={reducedSleep}
@@ -274,6 +281,7 @@ export default function MADRS() {
             to eat.
           </p>
           <CustomCheckBoxField
+            key={"reducedAppetite"}
             id="reducedAppetite"
             title="Reduced Appetite"
             checkBoxValues={reducedAppetite}
@@ -298,6 +306,7 @@ export default function MADRS() {
             frequency, and degree of incapacity produced.
           </p>
           <CustomCheckBoxField
+            key={"concentrationDifficulties"}
             id="concentrationDifficulties"
             title="Concentration Difficulties"
             checkBoxValues={concentrationDifficulties}
@@ -321,6 +330,7 @@ export default function MADRS() {
             performing everyday activities.
           </p>
           <CustomCheckBoxField
+            key={"lassitude"}
             id="lassitude"
             title="Lassitude"
             checkBoxValues={lassitude}
@@ -346,6 +356,7 @@ export default function MADRS() {
             reduced.
           </p>
           <CustomCheckBoxField
+            key={"inabilityToFeel"}
             id="inabilityToFeel"
             title="Inability to Feel"
             checkBoxValues={inabilityToFeel}
@@ -369,6 +380,7 @@ export default function MADRS() {
             sinfulness, remorse and ruin.
           </p>
           <CustomCheckBoxField
+            key={"pessimisticThoughts"}
             id="pessimisticThoughts"
             title="Pessimistic Thoughts"
             checkBoxValues={pessimisticThoughts}
@@ -394,6 +406,7 @@ export default function MADRS() {
             influence the rating.
           </p>
           <CustomCheckBoxField
+            key={"suicidalThoughts"}
             id="suicidalThoughts"
             title="Suicidal Thoughts"
             checkBoxValues={suicidalThoughts}
@@ -423,7 +436,6 @@ export default function MADRS() {
             buttonText='Submit'
             buttonWidth='w-[20%]'
             onClick={() => {
-              handleSubmit
               if (name === ""){
                 setRequiredName(true)
                 alert("Please enter your name.")
