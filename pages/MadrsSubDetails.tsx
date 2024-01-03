@@ -1,8 +1,8 @@
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
-// import { GetMadrs } from '../firebase/firebase'; // Modify according to your Firebase functions
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { GetMadrs } from '../firebase/firebase'; // Modify according to your Firebase functions
 
-// const MadrsSubDetails = () => {
+const MadrsSubDetails = () => {
 //   const router = useRouter();
 //   const { id } = router.query;
 //   const [submissionDetails, setSubmissionDetails] = useState(null);
@@ -25,6 +25,6 @@
 //       {/* Display other details */}
 //     </div>
 //   );
-// };
+};
 
-// export default MadrsSubDetails;
+export default MadrsSubDetails;
