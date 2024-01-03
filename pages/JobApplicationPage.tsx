@@ -979,10 +979,9 @@ const JobApplicationPage: NextPage<{}> = () => {
               ReferencePhoneNumberValue4={referencePhoneNumberState4}
               ReferencePhoneNumberState4={setReferencePhoneNumberState4}
             />
-            <h4 className=" my-10 text-center text-3xl text-[#4e4e4e]">
+            <h4 className="my-10 text-center text-3xl text-[#4e4e4e]">
               Acknowledgment
             </h4>
-
             <p className=" text-lg">
               1. I certify that all statements I have made on this application
               and on my resume or any other supplementary materials are true and

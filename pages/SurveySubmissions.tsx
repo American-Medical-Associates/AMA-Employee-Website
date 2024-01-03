@@ -9,17 +9,9 @@ import { auth } from '../firebase/firebase'
 
 const SurveySubmissions: NextPage<{}> = () => {
   interface Survey {
-    gender: string
-    age: string
-    currentClient: string
-    medication: string
-    OneonOne: string
+    name: string
     interest: string
-    insuranceCoverage: string
     focusArea: Array<string>
-    daysOfWeek: Array<string>
-    timeOfDay: Array<string>
-    sessionLength: Array<string>
     id: string
     timestamp: Timestamp
   }
@@ -53,6 +45,7 @@ const SurveySubmissions: NextPage<{}> = () => {
         >
           <div className=" my-5">
             <h3 className=" text-center text-2xl text-[#457aff]">Submission</h3>
+            <p className=" text-center">{survey.name}</p>
             <p className=" text-center">{survey.id}</p>
             <p>{survey.timestamp.toDate().toDateString()}</p>
           </div>
@@ -67,40 +60,12 @@ const SurveySubmissions: NextPage<{}> = () => {
           }}
         >
           <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">Gender:</h3>
-            <p className=" text-center">{survey.gender}</p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">Age: </h3>
-            <p className=" text-center">{survey.age}</p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Current Client:
-            </h3>
-            <p className=" text-center">{survey.currentClient}</p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Medication:
-            </h3>
-            <p className=" text-center">{survey.medication}</p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              One on One:
-            </h3>
-            <p className=" text-center">{survey.OneonOne}</p>
+            <h3 className=" text-center text-2xl text-[#457aff]">Name:</h3>
+            <p className=" text-center">{survey.name}</p>
           </div>
           <div className=" my-5">
             <h3 className=" text-center text-2xl text-[#457aff]">Interest:</h3>
             <p className=" text-center">{survey.interest}</p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Insurance Coverage:
-            </h3>
-            <p className=" text-center">{survey.insuranceCoverage}</p>
           </div>
           <div className=" my-5">
             <h3 className=" text-center text-2xl text-[#457aff]">
@@ -111,48 +76,6 @@ const SurveySubmissions: NextPage<{}> = () => {
                 return (
                   <div className=" flex items-center justify-center">
                     <p className=" text-center">{focus}</p>
-                  </div>
-                )
-              })}
-            </p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Days of the Week:
-            </h3>
-            <p className=" text-center">
-              {survey.daysOfWeek.map((join) => {
-                return (
-                  <div className=" flex items-center justify-center">
-                    <p className=" text-center">{join}</p>
-                  </div>
-                )
-              })}
-            </p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Time of day:
-            </h3>
-            <p className=" text-center">
-              {survey.timeOfDay.map((time) => {
-                return (
-                  <div className=" flex items-center justify-center">
-                    <p className=" text-center">{time}</p>
-                  </div>
-                )
-              })}
-            </p>
-          </div>
-          <div className=" my-5">
-            <h3 className=" text-center text-2xl text-[#457aff]">
-              Session Length:
-            </h3>
-            <p className=" text-center">
-              {survey.sessionLength.map((length) => {
-                return (
-                  <div className=" flex items-center justify-center">
-                    <p className=" text-center">{length}</p>
                   </div>
                 )
               })}

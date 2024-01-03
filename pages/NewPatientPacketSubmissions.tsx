@@ -45,7 +45,6 @@ export default function NewPatientPacketSubmitions() {
   )
   const [loading, setLoading] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
-  // console.log(loading)
   const [successMessage, setSuccessMessage] = useState<Array<any>>([])
   const [ECWUserName, setECWUserName] = useState('')
   const [ECWPassword, setECWPassword] = useState('')
