@@ -80,52 +80,53 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
           bottomText="Your information has been submitted."
         />
       )}
-
-      <MainButton
-        onClick={() => {
-          if (name === '') {
-            alert('Please enter your name')
-            setRequiredAge(true)
-            router.push('/MentalHealthQuestionnaire/#age').then(() => {
-              setTimeout(() => {
-                window.scrollBy(0, -150)
-              }, 100)
-              //scroll up 200px
+      <div className='text-center'>
+        <MainButton
+          onClick={() => {
+            if (name === '') {
+              alert('Please enter your name')
+              setRequiredAge(true)
+              router.push('/MentalHealthQuestionnaire/#age').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+                //scroll up 200px
+              })
+              setLoading(false)
+              return
+            } else if (interest === '') {
+              setRequiredInterest(true)
+              router.push('/MentalHealthQuestionnaire/#Interest').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              setLoading(false)
+              return
+            } else if (focusArea.length <= 0) {
+              setRequiredFocusArea(true)
+              router.push('/MentalHealthQuestionnaire/#FocusArea').then(() => {
+                setTimeout(() => {
+                  window.scrollBy(0, -150)
+                }, 100)
+              })
+              setLoading(false)
+              return
+            } 
+            setLoading(true)
+            submitMentalHeathGroupSurvey({
+              name: name,
+              interest: interest,
+              focusArea: focusArea,
+            }).then(() => {
+              setLoading(false)
+              setCheckMark(true)
             })
-            setLoading(false)
-            return
-          } else if (interest === '') {
-            setRequiredInterest(true)
-            router.push('/MentalHealthQuestionnaire/#Interest').then(() => {
-              setTimeout(() => {
-                window.scrollBy(0, -150)
-              }, 100)
-            })
-            setLoading(false)
-            return
-          } else if (focusArea.length <= 0) {
-            setRequiredFocusArea(true)
-            router.push('/MentalHealthQuestionnaire/#FocusArea').then(() => {
-              setTimeout(() => {
-                window.scrollBy(0, -150)
-              }, 100)
-            })
-            setLoading(false)
-            return
-          } 
-          setLoading(true)
-          submitMentalHeathGroupSurvey({
-            name: name,
-            interest: interest,
-            focusArea: focusArea,
-          }).then(() => {
-            setLoading(false)
-            setCheckMark(true)
-          })
-        }}
-        buttonText="Submit"
-        loading={loading}
-      />
+          }}
+          buttonText="Submit"
+          loading={loading}
+        />
+      </div>
     </div>
   </div>
   )
