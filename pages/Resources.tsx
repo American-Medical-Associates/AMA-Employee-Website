@@ -75,16 +75,16 @@ const Resources: NextPage<{}> = () => {
               text="MHD Survey Submissions"
               onClick={() => { router.push('/SurveySubmissions') }}
             />
-            {/* <MenuItem
+            <MenuItem
               icon={<ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />}
-              text="MADRS"
+              text="MADRS Form"
               onClick={() => { router.push('/MADRS') }}
             />
             <MenuItem
               icon={<ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />}
               text="MADRS Submissions"
               onClick={() => { router.push('/MadrsSubmissions') }}
-            /> */}
+            />
           </div>
           {/* Add more rows of buttons here if necessary */}
         </div>

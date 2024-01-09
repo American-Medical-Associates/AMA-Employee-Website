@@ -7,13 +7,25 @@ import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxFiel
 import TextInput from '../components/userInput/TextInput'
 import DateInput from '../components/userInput/DateInput'
 import MainButton from '../components/Buttons/MainButton'
+import { set } from 'date-fns'
+
+const formatDate = (date: string | number | Date) => {
+  const d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+  return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/');
+};
 
 export default function MADRS() {
-  const [validationError, setValidationError] = useState("");
-  const [name, setName] = useState("")
+  const [validationError, setValidationError] = useState('')
+  const [name, setName] = useState('')
   const [requiredName, setRequiredName] = useState(false)
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState(formatDate(new Date()));
   const [requiredDate, setRequiredDate] = useState(false)
+  const [dob, setDob] = useState('')
+  const [requiredDob, setRequiredDob] = useState(false)
   const [apparentSadness, setApparentSadness] = useState<string[]>([])
   const [requiredApparentSadness, setRequiredApparentSadness] = useState(false)
   const [reportedSadness, setReportedSadness] = useState<string[]>([])
@@ -24,7 +36,9 @@ export default function MADRS() {
   const [requiredReducedSleep, setRequiredReducedSleep] = useState(false)
   const [reducedAppetite, setReducedAppetite] = useState<string[]>([])
   const [requiredReducedAppetite, setRequiredReducedAppetite] = useState(false)
-  const [concentrationDifficulties, setConcentrationDifficulties] = useState<string[]>([])
+  const [concentrationDifficulties, setConcentrationDifficulties] = useState<
+    string[]
+  >([])
   const [
     requiredConcentrationDifficulties,
     setRequiredConcentrationDifficulties,
@@ -39,105 +53,134 @@ export default function MADRS() {
   const [suicidalThoughts, setSuicidalThoughts] = useState<string[]>([])
   const [requiredSuicidalThoughts, setRequiredSuicidalThoughts] =
     useState(false)
-
-    const calculateTotalScore = () => {
-      const checkBoxArrays = [
-        apparentSadness,
-        reportedSadness,
-        innerTension,
-        reducedSleep,
-        reducedAppetite,
-        concentrationDifficulties,
-        lassitude,
-        inabilityToFeel,
-        pessimisticThoughts,
-        suicidalThoughts,
-      ];
-  
-      const totalScore = checkBoxArrays.reduce((total, checkBoxArray) => {
-        const score = checkBoxArray.reduce((sum, value) => {
-
-          // Extracting the first character as the number (assuming it's 0-6)
-          const number = parseInt(value.charAt(0), 10);
-          
-          // If the extracted value is a number, add it to the sum
-          return sum + (isNaN(number) ? 0 : number);
-        }, 0);
-  
-        return total + score;
-      }, 0);
-  
-      console.log("Total Score: ", totalScore);
-      return totalScore;
-    };
-
-    // Makes sure that only one checkbox is selected for each question.
-    const validateSelections = () => {
-      const questions = [
-        {title: "Apparent Sadness", value: apparentSadness},
-        {title: "Reported Sadness", value: reportedSadness},
-        {title: "Inner Tension", value: innerTension},
-        {title: "Reduced Sleep", value: reducedSleep},
-        {title: "Reduced Appetite", value: reducedAppetite},
-        {title: "Concentration Difficulties", value: concentrationDifficulties},
-        {title: "Lassitude", value: lassitude},
-        {title: "Inability to Feel", value: inabilityToFeel},
-        {title: "Pessimistic Thoughts", value: pessimisticThoughts},
-        {title: "Suicidal Thoughts", value: suicidalThoughts},
-      ];
-
-      const invalidQuestion = questions.find(question => question.value.length > 1);
-
-      if (invalidQuestion){
-        alert(`Please select only one option for '${invalidQuestion.title}'.`);
-        return false;
-      }
-
-      setValidationError("");
-      return true;
-    };
-
-    const handleSubmit = () => {
-      if (validateSelections()) {
-        try {
-          const totalScore = calculateTotalScore();
-          submitMadrs({
-            name: name,
-            date: date,
-            totalScore: totalScore,
-            apparentSadness: apparentSadness[0],
-            reportedSadness: reportedSadness[0],
-            innerTension: innerTension[0],
-            reducedSleep: reducedSleep[0],
-            reducedAppetite: reducedAppetite[0],
-            concentrationDifficulties: concentrationDifficulties[0],
-            lassitude: lassitude[0],
-            inabilityToFeel: inabilityToFeel[0],
-            pessimisticThoughts: pessimisticThoughts[0],
-            suicidalThoughts: suicidalThoughts[0],
-          });
-        } catch (error) {
-          console.log("Error Submitting MADRS:", error);
-        }
-      }
-    };
-    
-
-    useEffect(() => {
-      calculateTotalScore();
-    }, [apparentSadness, reportedSadness, innerTension, reducedSleep, reducedAppetite, concentrationDifficulties, lassitude, inabilityToFeel, pessimisticThoughts, suicidalThoughts]);
-
-  // Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const router = useRouter()
-  useEffect(() => {
-    if (!auth.currentUser?.email) {
-      router.push('/PatientLogin')
+
+// Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
+useEffect(() => {
+  if (!auth.currentUser?.email) {
+    router.push('/PatientLogin')
+  }
+}, [])
+
+  const calculateTotalScore = () => {
+    const checkBoxArrays = [
+      apparentSadness,
+      reportedSadness,
+      innerTension,
+      reducedSleep,
+      reducedAppetite,
+      concentrationDifficulties,
+      lassitude,
+      inabilityToFeel,
+      pessimisticThoughts,
+      suicidalThoughts,
+    ]
+
+    const totalScore = checkBoxArrays.reduce((total, checkBoxArray) => {
+      const score = checkBoxArray.reduce((sum, value) => {
+        // Split the string by space and take the first part
+        const numberPart = value.split(' ')[0]
+
+        // Convert the number part to an integer
+        const number = parseInt(numberPart, 10)
+
+        // If the extracted value is a number, add it to the sum
+        return sum + (isNaN(number) ? 0 : number)
+      }, 0)
+
+      return total + score
+    }, 0)
+
+    console.log('Total Score: ', totalScore)
+    return totalScore
+  }
+
+  // Makes sure that only one checkbox is selected for each question.
+  const validateSelections = () => {
+    const questions = [
+      { title: 'Apparent Sadness', value: apparentSadness },
+      { title: 'Reported Sadness', value: reportedSadness },
+      { title: 'Inner Tension', value: innerTension },
+      { title: 'Reduced Sleep', value: reducedSleep },
+      { title: 'Reduced Appetite', value: reducedAppetite },
+      { title: 'Concentration Difficulties', value: concentrationDifficulties },
+      { title: 'Lassitude', value: lassitude },
+      { title: 'Inability to Feel', value: inabilityToFeel },
+      { title: 'Pessimistic Thoughts', value: pessimisticThoughts },
+      { title: 'Suicidal Thoughts', value: suicidalThoughts },
+    ]
+
+    const invalidQuestion = questions.find(
+      (question) => question.value.length > 1,
+    )
+
+    if (invalidQuestion) {
+      alert(`Please select only one option for '${invalidQuestion.title}'.`)
+      return false
     }
-  }, [])
+
+    setValidationError('')
+    return true
+  }
+
+  const extractNumber = (value: string) => {
+    return value.split(' ')[0]
+  }
+
+  const handleSubmit = async () => {
+    if (isSubmitted) {
+      alert("The form has already been submitted.");
+      return;
+    }
+    if (validateSelections()) {
+      try {
+        const totalScore = calculateTotalScore()
+        submitMadrs({
+          name: name,
+          date: date,
+          dob: dob,
+          totalScore: totalScore,
+          apparentSadness: extractNumber(apparentSadness[0]),
+          reportedSadness: extractNumber(reportedSadness[0]),
+          innerTension: extractNumber(innerTension[0]),
+          reducedSleep: extractNumber(reducedSleep[0]),
+          reducedAppetite: extractNumber(reducedAppetite[0]),
+          concentrationDifficulties: extractNumber(
+            concentrationDifficulties[0],
+          ),
+          lassitude: extractNumber(lassitude[0]),
+          inabilityToFeel: extractNumber(inabilityToFeel[0]),
+          pessimisticThoughts: extractNumber(pessimisticThoughts[0]),
+          suicidalThoughts: extractNumber(suicidalThoughts[0]),
+        })
+          router.push('/MadrsThankYou');
+          auth.signOut();
+          setIsSubmitted(true);
+      } catch (error) {
+        console.log('Error Submitting MADRS:', error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    calculateTotalScore()
+  }, [
+    apparentSadness,
+    reportedSadness,
+    innerTension,
+    reducedSleep,
+    reducedAppetite,
+    concentrationDifficulties,
+    lassitude,
+    inabilityToFeel,
+    pessimisticThoughts,
+    suicidalThoughts,
+  ])
 
   return (
     <div className="bg-gray-100">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
+      {/* <Header selectCompany={'AMA'} routePatientsHome={true} /> */}
       <div className="text-center mx-10 my-5">
         <h1 className="mb-3 font-bold text-xl">
           Montgomery-Asberg Depression Scale (MADRS)
@@ -160,15 +203,28 @@ export default function MADRS() {
       <div className="grid grid-flow-col grid-rows-1 w-[100%]">
         <TextInput
           placeHolder="First and Last Name"
-          onChange={(e: { target: { value: string } }) => setName(e.target.value)}
+          onChange={(e: { target: { value: string } }) =>
+            setName(e.target.value)
+          }
+          widthPercentage={'w-[75%]'}
+          required={true}
+        />
+        <TextInput
+          placeHolder="Date of Birth (MM/DD/YYYY)"
+          onChange={(e: { target: { value: string } }) =>
+            setDob(e.target.value)
+          }
           widthPercentage={'w-[75%]'}
           required={true}
         />
         <DateInput
           placeHolder="Date (MM/DD/YYYY)"
-          onChange={(e: { target: { value: string } }) => setDate(e.target.value)}
+          onChange={(e: { target: { value: string } }) =>
+            setDate(e.target.value)
+          }
           widthPercentage={'w-[75%]'}
           required={true}
+          value={date}
         />
       </div>
       <div className="flex flex-wrap justify-center items-start mx-8 my-5 bg-white border-4 border-solid rounded-xl shadow-outline shadow-xl shadow-gray">
@@ -179,7 +235,7 @@ export default function MADRS() {
             expression, and posture. Rate on depth of inability to brighten up.
           </p>
           <CustomCheckBoxField
-            key={"apparentSadness"}
+            key={'apparentSadness'}
             id="apparentSadness"
             title="Apparent Sadness"
             checkBoxValues={apparentSadness}
@@ -206,7 +262,7 @@ export default function MADRS() {
             be influenced by events.
           </p>
           <CustomCheckBoxField
-            key={"reportedSadness"}
+            key={'reportedSadness'}
             id="reportedSadness"
             title="Reported Sadness"
             checkBoxValues={reportedSadness}
@@ -232,7 +288,7 @@ export default function MADRS() {
             called for.
           </p>
           <CustomCheckBoxField
-            key={"innerTension"}
+            key={'innerTension'}
             id="innerTension"
             title="Inner Tension"
             checkBoxValues={innerTension}
@@ -256,7 +312,7 @@ export default function MADRS() {
             compared to the subject's own normal pattern when well.
           </p>
           <CustomCheckBoxField
-            key={"reducedSleep"}
+            key={'reducedSleep'}
             id="reducedSleep"
             title="Reduced Sleep"
             checkBoxValues={reducedSleep}
@@ -281,7 +337,7 @@ export default function MADRS() {
             to eat.
           </p>
           <CustomCheckBoxField
-            key={"reducedAppetite"}
+            key={'reducedAppetite'}
             id="reducedAppetite"
             title="Reduced Appetite"
             checkBoxValues={reducedAppetite}
@@ -306,7 +362,7 @@ export default function MADRS() {
             frequency, and degree of incapacity produced.
           </p>
           <CustomCheckBoxField
-            key={"concentrationDifficulties"}
+            key={'concentrationDifficulties'}
             id="concentrationDifficulties"
             title="Concentration Difficulties"
             checkBoxValues={concentrationDifficulties}
@@ -330,7 +386,7 @@ export default function MADRS() {
             performing everyday activities.
           </p>
           <CustomCheckBoxField
-            key={"lassitude"}
+            key={'lassitude'}
             id="lassitude"
             title="Lassitude"
             checkBoxValues={lassitude}
@@ -356,7 +412,7 @@ export default function MADRS() {
             reduced.
           </p>
           <CustomCheckBoxField
-            key={"inabilityToFeel"}
+            key={'inabilityToFeel'}
             id="inabilityToFeel"
             title="Inability to Feel"
             checkBoxValues={inabilityToFeel}
@@ -380,7 +436,7 @@ export default function MADRS() {
             sinfulness, remorse and ruin.
           </p>
           <CustomCheckBoxField
-            key={"pessimisticThoughts"}
+            key={'pessimisticThoughts'}
             id="pessimisticThoughts"
             title="Pessimistic Thoughts"
             checkBoxValues={pessimisticThoughts}
@@ -406,7 +462,7 @@ export default function MADRS() {
             influence the rating.
           </p>
           <CustomCheckBoxField
-            key={"suicidalThoughts"}
+            key={'suicidalThoughts'}
             id="suicidalThoughts"
             title="Suicidal Thoughts"
             checkBoxValues={suicidalThoughts}
@@ -425,59 +481,57 @@ export default function MADRS() {
           />
         </div>
 
-        {validationError && (
-          <div className="alert">
-            {validationError}
-          </div>
-        )}
+        {validationError && <div className="alert">{validationError}</div>}
 
-          <MainButton 
-            typeOfButton='submit'
-            buttonText='Submit'
-            buttonWidth='w-[20%]'
-            onClick={() => {
-              if (name === ""){
-                setRequiredName(true)
-                alert("Please enter your name.")
-              } else if (date === "") {
-                setRequiredDate(true)
-                alert("Please enter the current date.")
-              } else if (apparentSadness.length === 0) {
-                setRequiredApparentSadness(true)
-                alert("Please enter you score for Apparent Sadness.")
-              } else if (reportedSadness.length === 0) {
-                setRequiredReportedSadness(true)
-                alert("Please enter your score for Reported Sadness.")
-              } else if (innerTension.length === 0) {
-                setRequiredInnerTension(true)
-                alert("Please enter your score for Inner Tension.")
-              } else if (reducedSleep.length === 0) {
-                setRequiredReducedSleep(true)
-                alert("Please enter your score for Reduced Sleep.")
-              } else if (reducedAppetite.length === 0) {
-                setRequiredReducedAppetite(true)
-                alert("Please enter your score for Reduced Appetite.")
-              } else if (concentrationDifficulties.length === 0) {
-                setRequiredConcentrationDifficulties(true)
-                alert("Please enter your score for Concentration Difficulties.")
-              } else if (lassitude.length === 0) {
-                setRequiredLassitude(true)
-                alert("Please enter your score for Lassitude.")
-              } else if (inabilityToFeel.length === 0) {
-                setRequiredInabilityToFeel(true)
-                alert("Please enter your score for Inability to Feel.")
-              } else if (pessimisticThoughts.length === 0) {
-                setRequiredPessimisticThoughts(true)
-                alert("Please enter your score for Pessimistic Thoughts.")
-              } else if (suicidalThoughts.length === 0) {
-                setRequiredSuicidalThoughts(true)
-                alert("Please enter your score for Suicidal Thoughts.")
-              } else {
-                handleSubmit()
-                alert("Thank you! Your submission has been recorded.")
-              }
-            }}
-          />
+        <MainButton
+          typeOfButton="submit"
+          buttonText="Submit"
+          buttonWidth="w-[20%]"
+          onClick={() => {
+            if (name === '') {
+              setRequiredName(true)
+              alert('Please enter your name.')
+            } else if (dob === '') {
+              setRequiredDob(true)
+              alert('Please enter your Date of Birth.')
+            } else if (date === '') {
+              setRequiredDate(true)
+              alert('Please enter the current date.')
+            } else if (apparentSadness.length === 0) {
+              setRequiredApparentSadness(true)
+              alert('Please enter you score for Apparent Sadness.')
+            } else if (reportedSadness.length === 0) {
+              setRequiredReportedSadness(true)
+              alert('Please enter your score for Reported Sadness.')
+            } else if (innerTension.length === 0) {
+              setRequiredInnerTension(true)
+              alert('Please enter your score for Inner Tension.')
+            } else if (reducedSleep.length === 0) {
+              setRequiredReducedSleep(true)
+              alert('Please enter your score for Reduced Sleep.')
+            } else if (reducedAppetite.length === 0) {
+              setRequiredReducedAppetite(true)
+              alert('Please enter your score for Reduced Appetite.')
+            } else if (concentrationDifficulties.length === 0) {
+              setRequiredConcentrationDifficulties(true)
+              alert('Please enter your score for Concentration Difficulties.')
+            } else if (lassitude.length === 0) {
+              setRequiredLassitude(true)
+              alert('Please enter your score for Lassitude.')
+            } else if (inabilityToFeel.length === 0) {
+              setRequiredInabilityToFeel(true)
+              alert('Please enter your score for Inability to Feel.')
+            } else if (pessimisticThoughts.length === 0) {
+              setRequiredPessimisticThoughts(true)
+              alert('Please enter your score for Pessimistic Thoughts.')
+            } else if (suicidalThoughts.length === 0) {
+              setRequiredSuicidalThoughts(true)
+              alert('Please enter your score for Suicidal Thoughts.')
+            } else {
+              handleSubmit()
+            }
+          }}
+        />
       </div>
     </div>
   )

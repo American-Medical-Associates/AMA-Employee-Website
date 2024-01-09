@@ -27,6 +27,7 @@
     "firebase-tools": "^12.4.3",
     "fs": "^0.0.1-security",
     "geckodriver": "^4.0.4",
+    "html2pdf.js": "^0.10.1",
     "jspdf": "^2.5.1",
     "mocha": "^10.2.0",
     "net": "^1.0.2",
