@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getSpecificAims } from '../../firebase/firebase'
+import { auth, getSpecificAims } from '../../firebase/firebase'
 import Header from '../../components/navigation/Header'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
@@ -22,6 +22,12 @@ function AimsDetails() {
   const router = useRouter()
   const [submission, setSubmission] = useState<Submission | null>(null)
   const printRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   useEffect(() => {
     const fetchSubmission = async () => {

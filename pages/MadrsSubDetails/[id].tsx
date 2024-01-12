@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { getSpecificMadrs } from '../../firebase/firebase' // Adjust the import path as necessary
+import { auth, getSpecificMadrs } from '../../firebase/firebase' // Adjust the import path as necessary
 import Header from '../../components/navigation/Header'
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -27,6 +27,12 @@ const MadrsSubDetail = () => {
   const { id } = router.query
   const [submissionDetails, setSubmissionDetails] =
     useState<MadrsSubmission | null>(null)
+
+    useEffect(() => {
+      if (!auth.currentUser?.email) {
+        router.push('/PatientLogin')
+      }
+    }, [])
 
   useEffect(() => {
     if (id) {

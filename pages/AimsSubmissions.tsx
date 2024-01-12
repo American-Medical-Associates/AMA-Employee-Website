@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
-import { db } from '../firebase/firebase'
+import { auth, db } from '../firebase/firebase'
 import router from 'next/router'
 import Header from '../components/navigation/Header'
 
@@ -17,6 +17,12 @@ function AimsSubmissions() {
   const [searchTerm, setSearchTerm] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [submissionsPerPage] = useState(10)
+
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   useEffect(() => {
     const fetchSubmissions = async () => {
