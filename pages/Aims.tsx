@@ -5,6 +5,7 @@ import { auth, submitAims } from '../firebase/firebase'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import router from 'next/router'
+import { set } from 'date-fns'
 
 function Aims() {
   const [patientName, setPatientName] = useState('')
@@ -30,6 +31,7 @@ function Aims() {
   const [endentia, setEndentia] = useState('')
   const [movementsDissappearSleeping, setMovementsDissappearSleeping] =
     useState('')
+  const [rater, setRater] = useState('')
 
   const today = new Date()
   const todayDate = `${
@@ -51,6 +53,7 @@ function Aims() {
     if (
       !patientName ||
       !dateOfBirth ||
+      !rater ||
       [
         muscleFacialExpression,
         lipsAndPerioralArea,
@@ -77,6 +80,7 @@ function Aims() {
       patientName,
       date: todayDate,
       dateOfBirth,
+      rater,
       submissionTime: timestamp,
       answers: [
         {
@@ -122,6 +126,7 @@ function Aims() {
       })
       setPatientName('')
       setDateOfBirth('')
+      setRater('')
       setMuscleFacialExpression('')
       setLipsAndPerioralArea('')
       setJaw('')
@@ -179,6 +184,7 @@ function Aims() {
           >
             Date of Birth
           </label>
+          
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="dateOfBirth"
@@ -190,9 +196,42 @@ function Aims() {
           />
         </div>
         <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="rater"
+          >
+            Evaluating Provider (Rater)
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="rater"
+            name="rater"
+            type="text"
+            placeholder="Evaluting Provider's Name"
+            value={rater}
+            onChange={(e) => setRater(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Date: {todayDate}
           </label>
+        </div>
+        <div className='text-center mb-8'>
+          <p className='text-md font-bold'>
+            Code: 0 = None, 1 = Minimal, 2 = Mild, 3 = Moderate, 4 = Severe
+          </p>
+          <h2 className='mt-3 font-bold'>Movement Ratings:</h2>
+          <p className='font-semibold'>
+            - Rate highest severity observed in category I, II, III.
+          </p>
+          <p className='font-semibold'>
+          - Rate movements that occur upon activation one point less than those observed spontaneously.
+          </p>
+          <p className='font-semibold'>
+          - Select movements as well as code number that applies.
+          </p>
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm mb-2">
@@ -455,7 +494,7 @@ function Aims() {
           <label className="block text-gray-700 text-sm mb-2">
             <strong>14. Do movements disappear with sleep?</strong>
           </label>
-          {['Yes', 'No'].map((option) => (
+          {['Yes', 'No', 'N/A'].map((option) => (
             <label key={option} className="inline-flex items-center ml-4">
               <input
                 type="radio"

@@ -14,6 +14,7 @@ interface Submission {
   id: string
   patientName: string
   dateOfBirth: string
+  rater: string
   date: string
   answers: SubmissionAnswer[]
 }
@@ -95,6 +96,9 @@ function AimsDetails() {
       <div id="export" className="container mx-auto p-4">
         <div className="bg-white shadow-md rounded-lg p-6" ref={printRef}>
           <h1 className="text-2xl font-semibold mb-4">Submission Details</h1>
+          <p className="text-lg mb-2">
+            <strong>Evaluating Provider:</strong> {submission.rater}
+          </p>
           <p className="text-lg mb-2">
             <strong>Patient Name:</strong> {submission.patientName}
           </p>
