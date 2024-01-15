@@ -136,7 +136,7 @@ useEffect(() => {
     if (validateSelections()) {
       try {
         const totalScore = calculateTotalScore();
-        await submitMadrs({
+        submitMadrs({
           name: name,
           date: date,
           dob: dob,
@@ -151,14 +151,11 @@ useEffect(() => {
           inabilityToFeel: extractNumber(inabilityToFeel[0]),
           pessimisticThoughts: extractNumber(pessimisticThoughts[0]),
           suicidalThoughts: extractNumber(suicidalThoughts[0]),
+        }).then(async() => {
+          setIsSubmitted(true)
+            await auth.signOut(); // Sign out the user after the form is submitted.
+            router.push('/MadrsThankYou');
         });
-        setIsSubmitted(true);
-  
-        // Delay the sign-out by 2 seconds (adjust the time as needed).
-        setTimeout(async () => {
-          await auth.signOut(); // Sign out the user after the form is submitted.
-          router.push('/MadrsThankYou');
-        }, 1000); // 1000 milliseconds (1 second) delay
       } catch (error) {
         console.log('Error Submitting MADRS:', error);
       }
