@@ -147,10 +147,28 @@ const Resources: NextPage<{}> = () => {
         </div>
 
         {/* Misc Row */}
-        <h2 className="text-center text-2xl">Misc.</h2>
+        <h2 className="text-center text-2xl">Universal</h2>
         <div className="my-5">
           <div className="flex justify-center items-center">
             {/* Misc Buttons */}
+            <MenuItem
+                icon={
+                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Controlled Substance Contract"
+                onClick={() => {
+                  router.push('/SubstanceContract')
+                }}
+              />
+              <MenuItem
+                icon={
+                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Controlled Substance Submissions"
+                onClick={() => {
+                  router.push('/SubstanceContractSubmissions')
+                }}
+              />
             <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
