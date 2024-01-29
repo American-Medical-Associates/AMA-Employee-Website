@@ -13,7 +13,7 @@ interface Submission {
   // Other relevant fields from your form
 }
 
-function SubstanceContractSubmissions() {
+function RecordsRequestSubmissions() {
   // State declarations
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -46,7 +46,7 @@ function SubstanceContractSubmissions() {
     const fetchSubmissions = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(db, 'companys', 'AMA', 'ControlledSubstanceContracts'),
+          collection(db, 'companys', 'AMA', 'Records Request'),
         )
         const submissionsData = querySnapshot.docs.map((doc) => {
           const data = doc.data() as Submission
@@ -99,7 +99,7 @@ function SubstanceContractSubmissions() {
 
   // Handle row click to navigate to a specific submission detail
   const handleRowClick = (submissionId: string) => {
-    router.push(`/DynamicSubstance/${submissionId}`)
+    router.push(`/DynamicRecords/${submissionId}`)
   }
 
   return (
@@ -170,4 +170,4 @@ function SubstanceContractSubmissions() {
   )
 }
 
-export default SubstanceContractSubmissions
+export default RecordsRequestSubmissions

@@ -189,6 +189,26 @@ const Resources: NextPage<{}> = () => {
             />
             {/* Add more buttons here if necessary */}
           </div>
+          <div className="flex justify-center items-center">            
+              <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Records Request Form"
+              onClick={() => {
+                router.push('/RecordsRequest')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Records Request Submissions"
+              onClick={() => {
+                router.push('/RecordsRequestSubmissions')
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>
