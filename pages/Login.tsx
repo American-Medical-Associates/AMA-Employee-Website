@@ -64,12 +64,13 @@ const Login: NextPage<{}> = () => {
 
       {/* Right side - Logo and Gradient */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-300 relative">
-        <Image
+      <Image
           alt="AMA"
           src="/American Medical Associates.png"
-          width={400} // Adjusted size
-          height={200} // Adjusted size
-          priority // Load the image immediately
+          width={400}
+          height={200}
+          priority
+          className="slow-spin" // Apply the spinning effect
         />
       </div>
     </div>
