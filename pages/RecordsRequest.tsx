@@ -122,7 +122,7 @@ function recordsRequest() {
       <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
         <h1 className="text-center text-3xl font-bold text-gray-700 mb-6">
-          Records Request
+          Hosptial Records Request
         </h1>
         <div className="space-y-4">
           <div>

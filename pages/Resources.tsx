@@ -194,7 +194,7 @@ const Resources: NextPage<{}> = () => {
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
-              text="Records Request Form"
+              text="Hospital Records Request Form"
               onClick={() => {
                 router.push('/RecordsRequest')
               }}
@@ -203,7 +203,7 @@ const Resources: NextPage<{}> = () => {
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
-              text="Records Request Submissions"
+              text=" Hospital Records Request Submissions"
               onClick={() => {
                 router.push('/RecordsRequestSubmissions')
               }}
