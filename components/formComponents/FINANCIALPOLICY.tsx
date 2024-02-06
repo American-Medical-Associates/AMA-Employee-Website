@@ -70,7 +70,7 @@ const FINANCIALPOLICY: React.FC<{}> = () => {
               accept any personal checks after the first occurrence. $50.00 -
               Charge for missed appointments or appointments canceled with less
               than 24-hour notice with the Physician, Nurse Practitioner, or
-              Physicians' Assistant. $75.00 - Charge for missed appointments or
+              Physicians' Assistant. $100.00 - Charge for missed appointments or
               appointments canceled with less than 24-hour notice with the
               Psychiatric Nurse Practitioner and Nephrologist. By signing below,
               I acknowledge that I have read and understood the financial and
