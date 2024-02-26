@@ -113,7 +113,7 @@ const Resources: NextPage<{}> = () => {
             />
             <MenuItem
               icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
               text="MADRS Submissions"
               onClick={() => {
@@ -134,13 +134,31 @@ const Resources: NextPage<{}> = () => {
               />
               <MenuItem
                 icon={
-                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
                 }
                 text="AIMS Submissions"
                 onClick={() => {
                   router.push('/AimsSubmissions')
                 }}
               />
+              <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Cancellation Policy"
+              onClick={() => {
+                router.push('/CancelPolicy')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Cancellation Policy Sub..."
+              onClick={() => {
+                router.push('/CancelPolicySubmissions')
+              }}
+            />
             </div>
           </div>
           {/* Add more rows of buttons here if necessary */}
@@ -162,7 +180,7 @@ const Resources: NextPage<{}> = () => {
               />
               <MenuItem
                 icon={
-                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
                 }
                 text="Controlled Substance Submissions"
                 onClick={() => {
@@ -201,9 +219,9 @@ const Resources: NextPage<{}> = () => {
             />
             <MenuItem
               icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
-              text=" Hospital Records Request Submissions"
+              text="Hospital Records Request Submissions"
               onClick={() => {
                 router.push('/RecordsRequestSubmissions')
               }}
