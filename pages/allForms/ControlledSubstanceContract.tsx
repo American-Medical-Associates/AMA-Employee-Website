@@ -4,11 +4,10 @@ import DateInput from '../../components/userInput/DateInput'
 import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxField'
 import Signature from '../../components/formComponents/Signature'
 import MainButton from '../../components/Buttons/MainButton'
-import Header from '../../components/navigation/Header'
 import { savePatentForms } from '../../firebase/firebase'
 import { useRouter } from 'next/router'
 import { CircularButton } from '../../components/Buttons/CircularButtonIcon'
-import { ArrowDownLeftIcon, ArrowLeftIcon } from '@heroicons/react/24/outline'
+import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { useSelector } from 'react-redux'
 import { selectPatientDetails } from '../../redux/slices/companySlice'
 import Head from 'next/head'
@@ -17,7 +16,7 @@ const ControlledSubstanceContract = () => {
   const [name, setName] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState('')
   const [controlledSubstances, setControlledSubstances] = useState(
-    Array(6).fill('')
+    Array(6).fill(''),
   )
   const [pharmacyName, setPharmacyName] = useState('')
   const [crossStreets, setCrossStreets] = useState('')

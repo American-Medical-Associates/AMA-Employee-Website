@@ -75,6 +75,15 @@ const Resources: NextPage<{}> = () => {
                 router.push('/WeightLossSurvey')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Phentermine Contract"
+              onClick={() => {
+                router.push('/PhentermineForm')
+              }}
+            />
             {/* Add more buttons here if necessary */}
           </div>
         </div>
@@ -142,23 +151,23 @@ const Resources: NextPage<{}> = () => {
                 }}
               />
               <MenuItem
-              icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-              }
-              text="Cancellation Policy"
-              onClick={() => {
-                router.push('/CancelPolicy')
-              }}
-            />
-            <MenuItem
-              icon={
-                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-              }
-              text="Cancellation Policy Sub..."
-              onClick={() => {
-                router.push('/CancelPolicySubmissions')
-              }}
-            />
+                icon={
+                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Cancellation Policy"
+                onClick={() => {
+                  router.push('/CancelPolicy')
+                }}
+              />
+              <MenuItem
+                icon={
+                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Cancellation Policy Sub..."
+                onClick={() => {
+                  router.push('/CancelPolicySubmissions')
+                }}
+              />
             </div>
           </div>
           {/* Add more rows of buttons here if necessary */}
@@ -170,23 +179,23 @@ const Resources: NextPage<{}> = () => {
           <div className="flex justify-center items-center">
             {/* Misc Buttons */}
             <MenuItem
-                icon={
-                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-                }
-                text="Controlled Substance Contract"
-                onClick={() => {
-                  router.push('/SubstanceContract')
-                }}
-              />
-              <MenuItem
-                icon={
-                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-                }
-                text="Controlled Substance Submissions"
-                onClick={() => {
-                  router.push('/SubstanceContractSubmissions')
-                }}
-              />
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Controlled Substance Contract"
+              onClick={() => {
+                router.push('/SubstanceContract')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Controlled Substance Submissions"
+              onClick={() => {
+                router.push('/SubstanceContractSubmissions')
+              }}
+            />
             <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
@@ -207,8 +216,8 @@ const Resources: NextPage<{}> = () => {
             />
             {/* Add more buttons here if necessary */}
           </div>
-          <div className="flex justify-center items-center">            
-              <MenuItem
+          <div className="flex justify-center items-center">
+            <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
