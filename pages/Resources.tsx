@@ -84,6 +84,15 @@ const Resources: NextPage<{}> = () => {
                 router.push('/PhentermineForm')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Phentermine Submissions"
+              onClick={() => {
+                router.push('/PhentermineSubmissions')
+              }}
+            />
             {/* Add more buttons here if necessary */}
           </div>
         </div>
