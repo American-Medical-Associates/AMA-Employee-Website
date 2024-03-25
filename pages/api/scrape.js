@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   console.log('logged in')
 
   await page.click(
-    '#JellyBeanCountCntrl > div.lookup-toogle > div.dropdown.pull-left.lookdropdown'
+    '#JellyBeanCountCntrl > div.lookup-toogle > div.dropdown.pull-left.lookdropdown',
   )
   await sleep(5000)
 
@@ -52,16 +52,16 @@ export default async function handler(req, res) {
   // context.send(imageBuffer)
   //click patient
   await page.click(
-    '#rule-table2 > tbody > tr.ng-scope.highlight > td.w17p.patientName > span > span'
+    '#rule-table2 > tbody > tr.ng-scope.highlight > td.w17p.patientName > span > span',
   )
   console.log('clicked patient')
 
   await sleep(5000)
   await page.waitForSelector(
-    '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
+    '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor',
   )
   await page.click(
-    '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
+    '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor',
   )
   console.log('clicked info button')
   await sleep(5000)
@@ -133,7 +133,7 @@ export default async function handler(req, res) {
   //add slashes to date of birth
   const dateOfBirthWithSlashes = data.BirthDateValue.replace(
     /(\d{2})(\d{2})(\d{4})/,
-    '$1/$2/$3'
+    '$1/$2/$3',
   )
   console.log(dateOfBirthWithSlashes)
 
@@ -185,7 +185,7 @@ export default async function handler(req, res) {
 
   // select PCP
   await page.click(
-    '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(2) > div > div > div > button'
+    '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(2) > div > div > div > button',
   )
   await sleep(4000)
   await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
@@ -197,7 +197,7 @@ export default async function handler(req, res) {
   console.log('added PCP')
   //referring provider
   await page.click(
-    '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button'
+    '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button',
   )
   await sleep(4000)
   await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
@@ -259,7 +259,7 @@ export default async function handler(req, res) {
   await page.click('#patient-demographicsBtn46')
   await sleep(5000)
   const defaultFacility = await page.$(
-    '#infofacility > div > form > div > div > div> input'
+    '#infofacility > div > form > div > div > div> input',
   )
   await defaultFacility.click({ clickCount: 3 })
   await sleep(1000)
@@ -299,7 +299,7 @@ export default async function handler(req, res) {
   await sleep(5000)
   try {
     await page.click(
-      'body > div.bootbox.modal.fade.bluetheme.medium-width.in > div > div > div.modal-footer > button.btn.btn.btn-lblue.btn-lgrey.btn-xs.btn-default.btn-yes'
+      'body > div.bootbox.modal.fade.bluetheme.medium-width.in > div > div > div.modal-footer > button.btn.btn.btn-lblue.btn-lgrey.btn-xs.btn-default.btn-yes',
     )
     await sleep(1000)
   } catch (error) {

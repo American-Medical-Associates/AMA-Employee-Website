@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 function MadrsThankYou() {
   return (
@@ -12,7 +12,7 @@ function MadrsThankYou() {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default MadrsThankYou;
+export default MadrsThankYou

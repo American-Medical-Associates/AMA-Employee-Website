@@ -59,7 +59,7 @@ const PhoneNumberInput: React.FC<{
         className={classnames(
           `${missing ? 'bg-[#ff1818]' : 'bg-[#cacaca71]'}
           
-          ${widthPercentage} cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`
+          ${widthPercentage} cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`,
         )}
         onChange={onChange}
       />

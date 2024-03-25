@@ -148,7 +148,7 @@ export const ComponentDoc = ({
             .replace(/### ([^#\n]+)/g, '<strong>$1</strong>')
             .replace(
               /## ([^#\n]+)/g,
-              '<h2 style="font-size: 1.5em; text-transform: uppercase;">$1</h2>'
+              '<h2 style="font-size: 1.5em; text-transform: uppercase;">$1</h2>',
             ),
         }}
       />

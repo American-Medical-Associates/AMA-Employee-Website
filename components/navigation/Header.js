@@ -110,109 +110,118 @@ const Header = ({ selectCompany, routePatientsHome }) => {
         menuItems = [
           {
             icon: HomeIcon,
-            text: "Home",
-            onClick: () => router.push('/Login')
+            text: 'Home',
+            onClick: () => router.push('/Login'),
           },
           {
             icon: UsersIcon,
-            text: "Patients",
+            text: 'Patients',
             onClick: () => {
               setShowPatientLookup(!showPatientLookup)
               setOpenMenu(false)
-            }
+            },
           },
           {
             icon: InboxArrowDownIcon,
-            text: "Resumes",
-            onClick: () => router.push('/SubmitedResumes')
+            text: 'Resumes',
+            onClick: () => router.push('/SubmitedResumes'),
           },
           {
             icon: EnvelopeIcon,
-            text: "Messaging",
-            onClick: () => router.push('/MassMessagePage')
+            text: 'Messaging',
+            onClick: () => router.push('/MassMessagePage'),
           },
           {
             icon: BeakerIcon,
-            text: "Spravato",
-            onClick: () => router.push('/Spravato')
+            text: 'Spravato',
+            onClick: () => router.push('/Spravato'),
           },
           {
             icon: ClipboardIcon,
-            text: "Resources",
-            onClick: () => router.push('/Resources')
+            text: 'Resources',
+            onClick: () => router.push('/Resources'),
           },
           {
             icon: CloudIcon,
-            text: "Vitalize",
-            onClick: () => router.push('/VitalizeNation/Vitalize')
+            text: 'Vitalize',
+            onClick: () => router.push('/VitalizeNation/Vitalize'),
           },
           {
             icon: ComputerDesktopIcon,
-            text: "Support",
-            onClick: () => router.push('/techSupportPages/TechSupport')
+            text: 'Support',
+            onClick: () => router.push('/techSupportPages/TechSupport'),
           },
           {
             icon: InboxStackIcon,
-            text: "Inventory",
-            onClick: () => router.push('/Inventory/Inventory')
+            text: 'Inventory',
+            onClick: () => router.push('/Inventory/Inventory'),
           },
           {
             icon: ArrowRightOnRectangleIcon,
-            text: "Logout",
-            onClick: () => {Logout()}
+            text: 'Logout',
+            onClick: () => {
+              Logout()
+            },
           },
-        ];
+        ]
       } else if (auth.currentUser && isPatient) {
-          menuItems = [
-            {
-              icon: HomeIcon,
-              text: "Home",
-              onClick: () => router.push('/PatientPage')
+        menuItems = [
+          {
+            icon: HomeIcon,
+            text: 'Home',
+            onClick: () => router.push('/PatientPage'),
+          },
+          {
+            icon: ArrowRightOnRectangleIcon,
+            text: 'Logout',
+            onClick: () => {
+              Logout()
             },
-            {
-              icon: ArrowRightOnRectangleIcon,
-              text: "Logout",
-              onClick: () => {Logout()}
-            },
-          ];
+          },
+        ]
       } else {
         menuItems = [
           {
             icon: ArrowLeftOnRectangleIcon,
-            text: "Login",
-            onClick: () => router.push('/PatientLogin')
+            text: 'Login',
+            onClick: () => router.push('/PatientLogin'),
           },
-        ];
-    } 
+        ]
+      }
 
-    // menuItems.push({
-    //   icon: ArrowRightOnRectangleIcon,
-    //   text: 'Logout',
-    //   onClick: Logout,
-    // });
+      // menuItems.push({
+      //   icon: ArrowRightOnRectangleIcon,
+      //   text: 'Logout',
+      //   onClick: Logout,
+      // });
 
-    const renderedMenuItems = menuItems.map(({ icon: Icon, text, onClick }, index) => (
-      <MenuItem
-        key={index}
-        icon={<Icon className="h-10 w-7 cursor-pointer text-black" />}
-        text={text}
-        onClick={onClick}
-        isDropdownItem={true}
-      />
-    ));
-    return (
-      <div ref={ref} className="absolute flex justify-start duration-500 ease-in">
-        <DropDownMenu
-          openMenu={openMenu}
-          setOpenMenu={setOpenMenu}
-          item={renderedMenuItems}
-        />
-      </div>
-    );
-  } else {
-    return null;
+      const renderedMenuItems = menuItems.map(
+        ({ icon: Icon, text, onClick }, index) => (
+          <MenuItem
+            key={index}
+            icon={<Icon className="h-10 w-7 cursor-pointer text-black" />}
+            text={text}
+            onClick={onClick}
+            isDropdownItem={true}
+          />
+        ),
+      )
+      return (
+        <div
+          ref={ref}
+          className="absolute flex justify-start duration-500 ease-in"
+        >
+          <DropDownMenu
+            openMenu={openMenu}
+            setOpenMenu={setOpenMenu}
+            item={renderedMenuItems}
+          />
+        </div>
+      )
+    } else {
+      return null
+    }
   }
-};
   return (
     <header className=" w-full">
       <div className=" sticky top-0 z-50 grid  w-full grid-cols-3 flex-row bg-white p-5 shadow-md  md:px-10">

@@ -18,7 +18,7 @@ const cors = require('cors')
 app.use(
   cors({
     origin: true,
-  })
+  }),
 )
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms))
@@ -69,7 +69,7 @@ exports.addPatientToEclinical = functions.https.onCall(
         .build()
 
       await driver.get(
-        'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp'
+        'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
       )
       await sleep(3000)
       //input  login info
@@ -101,7 +101,7 @@ exports.addPatientToEclinical = functions.https.onCall(
       //click patient
       await driver
         .findElement(
-          By.xpath('//*[@id="rule-table2"]/tbody/tr[2]/td[5]/span/span')
+          By.xpath('//*[@id="rule-table2"]/tbody/tr[2]/td[5]/span/span'),
         )
         .click()
       await sleep(5000)
@@ -109,8 +109,8 @@ exports.addPatientToEclinical = functions.https.onCall(
       await driver
         .findElement(
           By.xpath(
-            '//*[@id="phub_dialog"]/div/div[2]/div/div[2]/div/div[1]/div/div[1]/div[2]/div[1]/span[2]'
-          )
+            '//*[@id="phub_dialog"]/div/div[2]/div/div[2]/div/div[1]/div/div[1]/div[2]/div[1]/span[2]',
+          ),
         )
         .click()
       await sleep(2000)
@@ -131,7 +131,7 @@ exports.addPatientToEclinical = functions.https.onCall(
       functions.logger.log(error)
     }
     return 'done'
-  }
+  },
 )
 
 exports.addPatientToEclinicalPuppeteer = functions
@@ -152,7 +152,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       // });
       const page = await browser.newPage()
       await page.goto(
-        'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp'
+        'https://azamasapp.ecwcloud.com/mobiledoc/jsp/webemr/login/newLoginStep2.jsp',
       )
 
       await page.type('#doctorID', 'zachrizzo')
@@ -176,7 +176,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       console.log('logged in')
 
       await page.click(
-        '#JellyBeanCountCntrl > div.lookup-toogle > div.dropdown.pull-left.lookdropdown'
+        '#JellyBeanCountCntrl > div.lookup-toogle > div.dropdown.pull-left.lookdropdown',
       )
       await sleep(5000)
 
@@ -193,16 +193,16 @@ exports.addPatientToEclinicalPuppeteer = functions
       // context.send(imageBuffer)
       //click patient
       await page.click(
-        '#rule-table2 > tbody > tr.ng-scope.highlight > td.w17p.patientName > span > span'
+        '#rule-table2 > tbody > tr.ng-scope.highlight > td.w17p.patientName > span > span',
       )
       console.log('clicked patient')
 
       await sleep(5000)
       await page.waitForSelector(
-        '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
+        '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor',
       )
       await page.click(
-        '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor'
+        '#phub_dialog > div > div.modal-body.grey-bg > div > div.nopadding > div > div.progress-tab3.nopadtop.ml-62.w827 > div > div.col-sm-12.pad2-10.whitebg.grey-bd > div.col-sm-6 > div.col-sm-12.pad5.grey-bd.nomarleft > span.label.label-blue.cursor',
       )
       console.log('clicked info button')
       await sleep(5000)
@@ -273,7 +273,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       //add slashes to date of birth
       const dateOfBirthWithSlashes = data.BirthDateValue.replace(
         /(\d{2})(\d{2})(\d{4})/,
-        '$1/$2/$3'
+        '$1/$2/$3',
       )
       console.log(dateOfBirthWithSlashes)
 
@@ -325,7 +325,7 @@ exports.addPatientToEclinicalPuppeteer = functions
 
       // select PCP
       await page.click(
-        '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(2) > div > div > div > button'
+        '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(2) > div > div > div > button',
       )
       await sleep(4000)
       await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
@@ -337,7 +337,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       console.log('added PCP')
       //referring provider
       await page.click(
-        '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button'
+        '#ptInfo > div > div > div.modal-body.grey-bg.middle_cont-main > div.col-sm-12.nopadding.borTop > div.col-sm-3.nopadding > div > div.det-view.per_box > div > div:nth-child(4) > div > div > div > button',
       )
       await sleep(4000)
       await page.type('#ProviderLookupPickListIpt1', 'NADIR,Ehreema')
@@ -395,7 +395,7 @@ exports.addPatientToEclinicalPuppeteer = functions
       await page.click('#patient-demographicsBtn46')
       await sleep(5000)
       const defaultFacility = await page.$(
-        '#infofacility > div > form > div > div > div> input'
+        '#infofacility > div > form > div > div > div> input',
       )
       await defaultFacility.click({ clickCount: 3 })
       await sleep(1000)

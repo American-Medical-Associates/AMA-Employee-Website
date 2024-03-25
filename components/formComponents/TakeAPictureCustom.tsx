@@ -101,7 +101,7 @@ const TakeAPictureCustom: React.FC<{
                 }
               },
               MIME_TYPE,
-              QUALITY
+              QUALITY,
             )
           }
         }

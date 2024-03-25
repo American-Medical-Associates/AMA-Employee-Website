@@ -59,7 +59,7 @@ const DateInput: React.FC<{
         className={classnames(
           `${widthPercentage}  ${
             missing ? 'bg-[#ff1818]' : 'bg-[#cacaca71]'
-          }  cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`
+          }  cursor-pointer  rounded-[30px] border-2   p-4 text-lg outline-none`,
         )}
         onChange={onChange}
         required={required}

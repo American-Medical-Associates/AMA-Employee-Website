@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 function SubstanceContractThankYou() {
   return (
@@ -12,7 +12,7 @@ function SubstanceContractThankYou() {
         </p>
       </div>
     </div>
-  );
+  )
 }
 
-export default SubstanceContractThankYou;
+export default SubstanceContractThankYou
