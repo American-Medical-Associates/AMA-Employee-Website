@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, {
+  useState,
+  useEffect,
+  ChangeEventHandler,
+  ChangeEvent,
+} from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Header from '../components/navigation/Header'
 import { auth, submitPhentermineForm } from '../firebase/firebase'
 import router from 'next/router'
+import DateFormatter from './Formatters/DateFormatter'
 
-function PhentermineForm() {
+const PhentermineForm = () => {
   // State declarations for form fields
   const [patientName, setPatientName] = useState('')
   const [dateOfBirth, setDateOfBirth] = useState({
@@ -17,14 +23,7 @@ function PhentermineForm() {
   const [witnessSignature, setWitnessSignature] = useState('')
 
   // Sets the current date as default for the 'date' field
-  const [date, setDate] = useState(() => {
-    const today = new Date()
-    const formattedDate = `${today.getFullYear()}-${String(
-      today.getMonth() + 1,
-    ).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`
-    return formattedDate
-  })
-
+  const [date, setDate] = useState(() => DateFormatter.formatDate(new Date()))
   const [initials, setInitials] = useState<string[]>(new Array(12).fill(''))
 
   // Redirects to login page if no user is authenticated
@@ -56,6 +55,36 @@ function PhentermineForm() {
     const newInitials = [...initials]
     newInitials[index] = value
     setInitials(newInitials)
+  }
+
+  const handlePatientName: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setPatientName(event.target.value)
+  }
+
+  const handleDateOfBirthChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    field: 'month' | 'day' | 'year',
+  ) => {
+    setDateOfBirth((prevState) => ({
+      ...prevState,
+      [field]: event.target.value,
+    }))
+  }
+
+  const handlePatientSignatureChange: ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setPatientSignature(event.target.value)
+  }
+
+  const handleWitnessSignatureChange: ChangeEventHandler<HTMLInputElement> = (
+    event,
+  ) => {
+    setWitnessSignature(event.target.value)
+  }
+
+  const handleDateChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setDate(event.target.value)
   }
 
   // Handles form submission
@@ -91,22 +120,13 @@ function PhentermineForm() {
 
     // Submit the form data to the server/database
     submitPhentermineForm(formData)
-      .then(() => {
+      .then(async () => {
         toast.success('Form submitted successfully!')
-
-        // Reset form fields to initial state
-        setPatientName('')
-        setDateOfBirth({ month: '', day: '', year: '' })
-        setInitials(new Array(12).fill(''))
-        setPatientSignature('')
-        setWitnessSignature('')
-        setDate('')
-
-        // Delay the sign-out and redirection by 2 seconds
-        setTimeout(async () => {
-          auth.signOut() // Sign out the user
-          router.push('/SubstanceContractThankYou') // Redirect to Thank You page
-        }, 1000)
+        // TODO: Change thank you page to use a Model instead of individual thank you pages.
+        router.push('/SubstanceContractThankYou') // Redirect to Thank You page
+      })
+      .then(() => {
+        auth.signOut()
       })
       .catch((error) => {
         toast.error('Error submitting form: ' + error.message)
@@ -116,7 +136,6 @@ function PhentermineForm() {
   return (
     <div>
       <ToastContainer position={'bottom-right'} />
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
         <h1 className="text-center text-3xl font-bold text-gray-700 mb-6">
           Phentermine Contract
@@ -128,7 +147,7 @@ function PhentermineForm() {
               placeholder="Full Name"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none flex-1"
               value={patientName}
-              onChange={(e) => setPatientName(e.target.value)}
+              onChange={handlePatientName}
             />
             <div className="flex items-center ml-4">
               <span className="whitespace-nowrap text-lg text-gray-700 mr-2">
@@ -140,9 +159,7 @@ function PhentermineForm() {
                 maxLength={2}
                 className="p-2 w-12 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
                 value={dateOfBirth.month}
-                onChange={(e) =>
-                  setDateOfBirth({ ...dateOfBirth, month: e.target.value })
-                }
+                onChange={(e) => handleDateOfBirthChange(e, 'month')}
               />
               /
               <input
@@ -151,9 +168,7 @@ function PhentermineForm() {
                 maxLength={2}
                 className="p-2 w-12 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
                 value={dateOfBirth.day}
-                onChange={(e) =>
-                  setDateOfBirth({ ...dateOfBirth, day: e.target.value })
-                }
+                onChange={(e) => handleDateOfBirthChange(e, 'day')}
               />
               /
               <input
@@ -162,9 +177,7 @@ function PhentermineForm() {
                 maxLength={4}
                 className="p-2 w-20 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
                 value={dateOfBirth.year}
-                onChange={(e) =>
-                  setDateOfBirth({ ...dateOfBirth, year: e.target.value })
-                }
+                onChange={(e) => handleDateOfBirthChange(e, 'year')}
               />
             </div>
           </div>
@@ -193,20 +206,22 @@ function PhentermineForm() {
               placeholder="Patient Signature"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={patientSignature}
-              onChange={(e) => setPatientSignature(e.target.value)}
+              onChange={handlePatientSignatureChange}
             />
             <input
               type="text"
               placeholder="Witness Signature"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={witnessSignature}
-              onChange={(e) => setWitnessSignature(e.target.value)}
+              onChange={handleWitnessSignatureChange}
             />
             <input
               type="date"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={handleDateChange}
+              pattern="\d{4}-\d{2}-\d{2}"
+              max={new Date().toISOString().split('T')[0]}
             />
           </div>
 
