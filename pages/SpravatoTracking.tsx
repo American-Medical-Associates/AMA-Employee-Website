@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import Datepicker from '../components/userInput/Datepicker'
-import Header from '../components/navigation/Header'
+
 import MainButton from '../components/Buttons/MainButton'
 import TextInput from '../components/userInput/TextInput'
 import { addSpravatoTracking, auth } from '../firebase/firebase'
@@ -34,7 +34,6 @@ const SpravatoTracking: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-10">
         <div className="flex flex-col items-center justify-center">
           <TextInput

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../../components/navigation/Header'
+
 import router, { useRouter } from 'next/router'
 import { MenuItem } from '../../components/navigation/MenuItem'
 import {
@@ -14,8 +14,7 @@ const Vitalize: NextPage<{}> = () => {
   const router = useRouter()
 
   return (
-    <div className='bg-gray-100'>
-      <Header selectCompany={'Vitalize'} routePatientsHome={true} />
+    <div className="bg-gray-100">
       <main className=" mt-5 flex h-full  w-full flex-col ">
         <h1 className=" text-center text-2xl ">Vitalize</h1>
         <div className=" flex h-[80vh] w-full grid-flow-col items-center justify-center">

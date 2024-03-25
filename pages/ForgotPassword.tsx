@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Header from '../components/navigation/Header'
+
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '../firebase/firebase'
 import TextInput from '../components/userInput/TextInput'
@@ -15,7 +15,6 @@ function ForgotPassword() {
   return (
     <div className="flex w-full flex-col items-center justify-center">
       {/* TODO: Add prop to header component */}
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
 
       <div className="w-[80%] rounded-[30px] p-5 text-center shadow-2xl md:w-[50%]">
         <h1 className="text-3xl font-bold text-[#377adf]">Reset Password</h1>

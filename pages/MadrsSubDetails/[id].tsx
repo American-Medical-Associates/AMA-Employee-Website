@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { auth, getSpecificMadrs } from '../../firebase/firebase' // Adjust the import path as necessary
-import Header from '../../components/navigation/Header'
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 interface MadrsSubmission {
   name: string
@@ -28,11 +28,11 @@ const MadrsSubDetail = () => {
   const [submissionDetails, setSubmissionDetails] =
     useState<MadrsSubmission | null>(null)
 
-    useEffect(() => {
-      if (!auth.currentUser?.email) {
-        router.push('/PatientLogin')
-      }
-    }, [])
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   useEffect(() => {
     if (id) {
@@ -46,28 +46,30 @@ const MadrsSubDetail = () => {
   }
 
   const exportAsPDF = () => {
-    const input = document.getElementById('export') as HTMLElement; // Type assertion
+    const input = document.getElementById('export') as HTMLElement // Type assertion
     html2canvas(input)
       .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/png')
         const pdf = new jsPDF({
           orientation: 'portrait',
           unit: 'px',
-          format: [canvas.width, canvas.height]
-        });
+          format: [canvas.width, canvas.height],
+        })
         // @ts-ignore
-        pdf.addImage(imgData, 'PNG', 0, 0);
-        pdf.save('MADRS-Depression-Scale.pdf');
+        pdf.addImage(imgData, 'PNG', 0, 0)
+        pdf.save('MADRS-Depression-Scale.pdf')
       })
       .catch((error) => {
-        console.error('Error exporting PDF:', error);
-      });
-  };
+        console.error('Error exporting PDF:', error)
+      })
+  }
 
   return (
     <div className="bg-gray-200">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
-      <div id="export" className="max-w-xl mx-auto mt-5 p-6 bg-white shadow-md rounded-lg">
+      <div
+        id="export"
+        className="max-w-xl mx-auto mt-5 p-6 bg-white shadow-md rounded-lg"
+      >
         <h2 className="mb-8 text-2xl font-bold text-[#457aff] text-center">
           MADRS Depression Scale
         </h2>

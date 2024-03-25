@@ -3,7 +3,7 @@ import TextInput from '../../components/userInput/TextInput'
 import DateInput from '../../components/userInput/DateInput'
 import MainButton from '../../components/Buttons/MainButton'
 import Signature from '../../components/formComponents/Signature'
-import Header from '../../components/navigation/Header'
+
 import { savePatentForms } from '../../firebase/firebase'
 import GreenCheckMark from '../../components/formComponents/GreenCheckMark'
 
@@ -66,7 +66,6 @@ const PelletInsertionForm = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" container mx-auto my-[50px]">
         <h1 className="text-center text-3xl">Pellet Insertion Consent Form</h1>
         {/* Add your form content here */}

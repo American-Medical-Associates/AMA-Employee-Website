@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
 
 import { auth, GetSpravatoTracking } from '../firebase/firebase'
 import { MenuItem } from '../components/navigation/MenuItem'
@@ -90,7 +89,7 @@ const SpravtoAnalytics: NextPage<{}> = () => {
   const daysInMonth = new Date(
     new Date().getFullYear(),
     selectedDate.getMonth() + 1,
-    0
+    0,
   ).getDate()
   const daysInMonthArray = []
   for (let i = 0; i < daysInMonth; i++) {
@@ -108,14 +107,14 @@ const SpravtoAnalytics: NextPage<{}> = () => {
         spravatoTrackingArray[i].dateAdministered
           .toDate()
           .toDateString()
-          .split(' ')[3]
+          .split(' ')[3],
       )
     ) {
       yearsTotal.push(
         spravatoTrackingArray[i].dateAdministered
           .toDate()
           .toDateString()
-          .split(' ')[3]
+          .split(' ')[3],
       )
     }
   }
@@ -227,7 +226,6 @@ const SpravtoAnalytics: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="flex flex-col">
         <div className="flex h-[80vh] flex-col">
           <div className="flex flex-row p-10 ">

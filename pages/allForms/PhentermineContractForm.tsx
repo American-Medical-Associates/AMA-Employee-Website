@@ -4,7 +4,7 @@ import DateInput from '../../components/userInput/DateInput'
 import MainButton from '../../components/Buttons/MainButton'
 import Signature from '../../components/formComponents/Signature'
 import CustomCheckBox from '../../components/formComponents/CustomCheckBox'
-import Header from '../../components/navigation/Header'
+
 import Head from 'next/head'
 import CustomCheckBoxField from '../../components/formComponents/CustomCheckBoxField'
 import { savePatentForms } from '../../firebase/firebase'
@@ -21,7 +21,7 @@ const PhentermineContract = () => {
   const [dob, setDob] = useState('')
 
   const [checkBoxesToAgreeTo, setCheckBoxesToAgreeTo] = useState<Array<string>>(
-    []
+    [],
   )
   const [patientSignature, setPatientSignature] = useState('')
   const [patientSignatureDate, setPatientSignatureDate] = useState('')
@@ -77,8 +77,6 @@ const PhentermineContract = () => {
 
   return (
     <div>
-      {/* <Header routePatientsHome={false} selectCompany={'AMA'} /> */}
-
       <main className="m-5">
         <CircularButton
           icon={

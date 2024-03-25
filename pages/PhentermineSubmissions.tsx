@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth, db } from '../firebase/firebase'
 import router from 'next/router'
-import Header from '../components/navigation/Header'
 
 // Define the structure of a submission
 interface Submission {
@@ -106,7 +105,6 @@ function PhentermineSubmissions() {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="container mx-auto p-4">
         {/* Search input */}
         <div className="mb-4">

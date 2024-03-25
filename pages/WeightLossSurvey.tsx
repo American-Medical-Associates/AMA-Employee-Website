@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/navigation/Header'
+
 import DateInput from '../components/userInput/DateInput'
 import TextInput from '../components/userInput/TextInput'
 import { NextPage } from 'next'
@@ -42,7 +42,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
     Array<string>
   >([])
   const [weightGainedInPast, setWeightGainedInPast] = useState<Array<string>>(
-    []
+    [],
   )
   const [challengesOfWeightManagement, setChallengesOfWeightManagement] =
     useState('')
@@ -420,10 +420,10 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setWeightChangeDuringLife(weightLossSelector.weightChangeDuringLife)
       setWeightGainedInPast(weightLossSelector.weightGainedInPast)
       setChallengesOfWeightManagement(
-        weightLossSelector.challengesOfWeightManagement
+        weightLossSelector.challengesOfWeightManagement,
       )
       setHopesForWeightLossManagement(
-        weightLossSelector.hopesForWeightLossManagement
+        weightLossSelector.hopesForWeightLossManagement,
       )
       setCommitmentsToWeightLoss(weightLossSelector.commitmentsToWeightLoss)
       setCurrentDietAids(weightLossSelector.currentDietAids)
@@ -434,31 +434,31 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setOnYourOwnEndDate(weightLossSelector.onYourOwnEndDate)
       setOnYourOwnWeightLoss(weightLossSelector.onYourOwnWeightLoss)
       setOnYourOwnReasonForStopping(
-        weightLossSelector.onYourOwnReasonForStopping
+        weightLossSelector.onYourOwnReasonForStopping,
       )
       setOnYourOwnReasonForRegain(weightLossSelector.onYourOwnReasonForRegain)
       setAtkinsOrLowCarbohydrate(weightLossSelector.atkinsOrLowCarbohydrate)
       setAtkinsOrLowCarbohydrateStartDate(
-        weightLossSelector.atkinsOrLowCarbohydrateStartDate
+        weightLossSelector.atkinsOrLowCarbohydrateStartDate,
       )
       setAtkinsOrLowCarbohydrateEndDate(
-        weightLossSelector.atkinsOrLowCarbohydrateEndDate
+        weightLossSelector.atkinsOrLowCarbohydrateEndDate,
       )
       setAtkinsOrLowCarbohydrateWeightLoss(
-        weightLossSelector.atkinsOrLowCarbohydrateWeightLoss
+        weightLossSelector.atkinsOrLowCarbohydrateWeightLoss,
       )
       setAtkinsOrLowCarbohydrateReasonForStopping(
-        weightLossSelector.atkinsOrLowCarbohydrateReasonForStopping
+        weightLossSelector.atkinsOrLowCarbohydrateReasonForStopping,
       )
       setAtkinsOrLowCarbohydrateReasonForRegain(
-        weightLossSelector.atkinsOrLowCarbohydrateReasonForRegain
+        weightLossSelector.atkinsOrLowCarbohydrateReasonForRegain,
       )
       setJennyCraig(weightLossSelector.jennyCraig)
       setJennyCraigStartDate(weightLossSelector.jennyCraigStartDate)
       setJennyCraigEndDate(weightLossSelector.jennyCraigEndDate)
       setJennyCraigWeightLoss(weightLossSelector.jennyCraigWeightLoss)
       setJennyCraigReasonForStopping(
-        weightLossSelector.jennyCraigReasonForStopping
+        weightLossSelector.jennyCraigReasonForStopping,
       )
       setJennyCraigReasonForRegain(weightLossSelector.jennyCraigReasonForRegain)
       setNutrisystem(weightLossSelector.nutrisystem)
@@ -466,20 +466,20 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setNutrisystemEndDate(weightLossSelector.nutrisystemEndDate)
       setNutrisystemWeightLoss(weightLossSelector.nutrisystemWeightLoss)
       setNutrisystemReasonForStopping(
-        weightLossSelector.nutrisystemReasonForStopping
+        weightLossSelector.nutrisystemReasonForStopping,
       )
       setNutrisystemReasonForRegain(
-        weightLossSelector.nutrisystemReasonForRegain
+        weightLossSelector.nutrisystemReasonForRegain,
       )
       setWeightWatchers(weightLossSelector.weightWatchers)
       setWeightWatchersStartDate(weightLossSelector.weightWatchersStartDate)
       setWeightWatchersEndDate(weightLossSelector.weightWatchersEndDate)
       setWeightWatchersWeightLoss(weightLossSelector.weightWatchersWeightLoss)
       setWeightWatchersReasonForStopping(
-        weightLossSelector.weightWatchersReasonForStopping
+        weightLossSelector.weightWatchersReasonForStopping,
       )
       setWeightWatchersReasonForRegain(
-        weightLossSelector.weightWatchersReasonForRegain
+        weightLossSelector.weightWatchersReasonForRegain,
       )
       setSlimfast(weightLossSelector.slimfast)
       setSlimfastStartDate(weightLossSelector.slimfastStartDate)
@@ -498,10 +498,10 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setOtherLiquidDietEndDate(weightLossSelector.otherLiquidDietEndDate)
       setOtherLiquidDietWeightLoss(weightLossSelector.otherLiquidDietWeightLoss)
       setOtherLiquidDietReasonForStopping(
-        weightLossSelector.otherLiquidDietReasonForStopping
+        weightLossSelector.otherLiquidDietReasonForStopping,
       )
       setOtherLiquidDietReasonForRegain(
-        weightLossSelector.otherLiquidDietReasonForRegain
+        weightLossSelector.otherLiquidDietReasonForRegain,
       )
       setOther(weightLossSelector.other)
       setOtherName(weightLossSelector.otherName)
@@ -556,13 +556,13 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setHerbalWeightLossStartDate(weightLossSelector.herbalWeightLossStartDate)
       setHerbalWeightLossEndDate(weightLossSelector.herbalWeightLossEndDate)
       setHerbalWeightLossWeightLoss(
-        weightLossSelector.herbalWeightLossWeightLoss
+        weightLossSelector.herbalWeightLossWeightLoss,
       )
       setHerbalWeightLossReasonForStopping(
-        weightLossSelector.herbalWeightLossReasonForStopping
+        weightLossSelector.herbalWeightLossReasonForStopping,
       )
       setHerbalWeightLossReasonForRegain(
-        weightLossSelector.herbalWeightLossReasonForRegain
+        weightLossSelector.herbalWeightLossReasonForRegain,
       )
       setMeridia(weightLossSelector.meridia)
       setMeridiaStartDate(weightLossSelector.meridiaStartDate)
@@ -593,17 +593,17 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setOtherSupplementsStartDate(weightLossSelector.otherSupplementsStartDate)
       setOtherSupplementsEndDate(weightLossSelector.otherSupplementsEndDate)
       setOtherSupplementsWeightLoss(
-        weightLossSelector.otherSupplementsWeightLoss
+        weightLossSelector.otherSupplementsWeightLoss,
       )
       setOtherSupplementsReasonForStopping(
-        weightLossSelector.otherSupplementsReasonForStopping
+        weightLossSelector.otherSupplementsReasonForStopping,
       )
       setOtherSupplementsReasonForRegain(
-        weightLossSelector.otherSupplementsReasonForRegain
+        weightLossSelector.otherSupplementsReasonForRegain,
       )
       setChildrenUnderEighteen(weightLossSelector.childrenUnderEighteen)
       setChildrenUnderEighteenCheckBox(
-        weightLossSelector.childrenUnderEighteenCheckBox
+        weightLossSelector.childrenUnderEighteenCheckBox,
       )
       setFamilyMemebersObese(weightLossSelector.familyMemebersObese)
       setSupport(weightLossSelector.support)
@@ -644,7 +644,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setExerciseWeekly(weightLossSelector.exerciseWeekly)
       setDescribeExercise(weightLossSelector.describeExercise)
       setDifficultyGettingUpFromFloor(
-        weightLossSelector.difficultyGettingUpFromFloor
+        weightLossSelector.difficultyGettingUpFromFloor,
       )
       setTypeOfExercise(weightLossSelector.typeOfExercise)
       setExercisePreference(weightLossSelector.exercisePreference)
@@ -680,7 +680,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setSodaCalories(weightLossSelector.sodaCalories)
       setCandyOrSweetsTypeOfFood(weightLossSelector.candyOrSweetsTypeOfFood)
       setCandyOrSweetsProteinOrCarbs(
-        weightLossSelector.candyOrSweetsProteinOrCarbs
+        weightLossSelector.candyOrSweetsProteinOrCarbs,
       )
       setCandyOrSweetsCalories(weightLossSelector.candyOrSweetsCalories)
       setOtherTypeOfFood(weightLossSelector.otherTypeOfFood)
@@ -699,17 +699,17 @@ const WeightLossSurvey: NextPage<{}> = () => {
       setSnackingExperience(weightLossSelector.snackingExperience)
       setSnackingDetails(weightLossSelector.snackingDetails)
       setEatingMiddleOfNightExperience(
-        weightLossSelector.eatingMiddleOfNightExperience
+        weightLossSelector.eatingMiddleOfNightExperience,
       )
       setEatingMiddleOfNightDetails(
-        weightLossSelector.eatingMiddleOfNightDetails
+        weightLossSelector.eatingMiddleOfNightDetails,
       )
       setSkippingMealsExperience(weightLossSelector.skippingMealsExperience)
       setSkippingMealsDetails(weightLossSelector.skippingMealsDetails)
       setEatingOutExperience(weightLossSelector.eatingOutExperience)
       setEatingOutDetails(weightLossSelector.eatingOutDetails)
       setEatingInFrontOfTVExperience(
-        weightLossSelector.eatingInFrontOfTVExperience
+        weightLossSelector.eatingInFrontOfTVExperience,
       )
       setEatingInFrontOfTVDetails(weightLossSelector.eatingInFrontOfTVDetails)
       setEatingAtDeskExperience(weightLossSelector.eatingAtDeskExperience)
@@ -747,7 +747,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
             if (medicationsTakenList.includes(medication) == false) {
               medicationsTakenList.push(medication)
             }
-          }
+          },
         )
       }
     }
@@ -760,7 +760,6 @@ const WeightLossSurvey: NextPage<{}> = () => {
   }, [])
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="align-center m-5 flex justify-center">
         <TextInput
           id="patientsName"
@@ -1351,7 +1350,7 @@ const WeightLossSurvey: NextPage<{}> = () => {
                   widthPercentage="w-2/3"
                   onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
                     setAtkinsOrLowCarbohydrateReasonForStopping(
-                      text.target.value
+                      text.target.value,
                     )
                   }}
                   value={atkinsOrLowCarbohydrateReasonForStopping}
@@ -1892,7 +1891,9 @@ const WeightLossSurvey: NextPage<{}> = () => {
           value={alliReasonForRegain}
         />
       </div>
-      <p className="mt-10 text-center text-xl font-bold">Belviq® (Locaserin)</p>
+      <p className="mt-10 text-center text-xl font-bold">
+        Belviq® (Locaserin)
+      </p>
       <div className="align-center flex justify-center">
         <CustomYesOrNo
           id="belviq"

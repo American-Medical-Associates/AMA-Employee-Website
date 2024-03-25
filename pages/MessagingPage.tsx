@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../components/navigation/Header'
+
 import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import { NextPage } from 'next'
@@ -53,9 +53,7 @@ const MessagingPage: NextPage<{}> = () => {
   })
   return (
     <div>
-      <div>
-        <Header selectCompany={'AMA'} routePatientsHome={false} />
-      </div>
+      <div></div>
       <main className=" flex w-full grid-cols-2">
         {/* <div className=" h-[87vh] w-[25%] flex-col ">{listOfChannels}</div> */}
         <div className=" flex w-[75%] grid-rows-2 flex-col">

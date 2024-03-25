@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../components/navigation/Header'
+
 import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import {
@@ -21,7 +21,6 @@ const Resources: NextPage<{}> = () => {
 
   return (
     <div className="flex flex-col bg-gray-100 items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="mt-5 flex h-full w-full flex-col">
         {/* Internal Medicine Row */}
         <h2 className="text-center text-2xl">Internal Medicine</h2>

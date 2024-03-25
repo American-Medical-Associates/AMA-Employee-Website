@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useMemo } from 'react'
 import { useEffect } from 'react'
 import { useRef } from 'react'
-import Header from '../components/navigation/Header'
+
 import { jsPDF } from 'jspdf'
 import { Worker } from '@react-pdf-viewer/core'
 // Import the main component
@@ -369,7 +369,6 @@ const PdfSignatures = () => {
 
   return (
     <div className="flex  w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" item center relative my-20 flex w-full flex-row justify-center">
         {addSignature && (
           <div className=" absolute top-[5%] z-20 flex w-[60%]  grid-cols-2 items-start justify-center rounded-3xl bg-[#d1d0d0f8]">
@@ -587,8 +586,8 @@ const PdfSignatures = () => {
                       //remove page from required pages
                       setRequiredPages(
                         requiredPages.filter(
-                          (page) => page !== selectedPageNumber
-                        )
+                          (page) => page !== selectedPageNumber,
+                        ),
                       )
                     }}
                     onDoubleClick={() => {
@@ -639,7 +638,7 @@ const PdfSignatures = () => {
                   onDragStart={() => {
                     setIsTyped(true)
                     setSvgUrl(
-                      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:15px">${typedText}</div></foreignObject></svg>`
+                      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><foreignObject width="100%" height="100%"><div xmlns="http://www.w3.org/1999/xhtml" style="font-size:15px">${typedText}</div></foreignObject></svg>`,
                     )
                   }}
                   className="m-2"

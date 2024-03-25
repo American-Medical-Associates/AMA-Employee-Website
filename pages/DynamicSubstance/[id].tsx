@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { auth, db } from '../../firebase/firebase' // Adjust the import as necessary
 import { doc, getDoc } from 'firebase/firestore'
-import Header from '../../components/navigation/Header'
+
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
@@ -129,7 +129,6 @@ function SubstanceContractDetails() {
   // Render the submission details
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div
         id="export"
         ref={printRef}

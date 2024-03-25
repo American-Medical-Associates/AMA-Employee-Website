@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import Header from '../components/navigation/Header'
+
 import Head from 'next/head'
 import {
   getResumes,
@@ -216,7 +216,7 @@ const SubmitedResumes: React.FC<{}> = () => {
       return (
         <div
           className={classnames(
-            `h-[80vh] w-full ${overflow}  rounded-[20px] bg-[#ebebebc6] p-[40px] text-center shadow-xl`
+            `h-[80vh] w-full ${overflow}  rounded-[20px] bg-[#ebebebc6] p-[40px] text-center shadow-xl`,
           )}
         >
           <div className=" flex flex-col items-center  justify-center">
@@ -1007,7 +1007,6 @@ const SubmitedResumes: React.FC<{}> = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <main className=" flex grid-cols-2 justify-center overflow-y-clip">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">

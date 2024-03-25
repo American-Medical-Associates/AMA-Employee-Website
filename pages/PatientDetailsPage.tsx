@@ -5,8 +5,11 @@ import {
   selectPatientDetails,
 } from '../redux/slices/companySlice'
 import CustomCheckBox from '../components/formComponents/CustomCheckBox'
-import Header from '../components/navigation/Header'
-import { UpdatePatientInfoWeightLoss, getPatientForms } from '../firebase/firebase'
+
+import {
+  UpdatePatientInfoWeightLoss,
+  getPatientForms,
+} from '../firebase/firebase'
 import MainButton from '../components/Buttons/MainButton'
 import WeightLossPacketFullSubmission from '../components/formComponents/WeightLossFullPacketSubmission'
 import { MenuItem } from '../components/navigation/MenuItem'
@@ -32,10 +35,10 @@ export default function PatientDetailsPage() {
   const [weightLossProgram, setWeightLossProgram] = useState(false)
   const [weightLossPacket, setWeightLossPacket] = useState([] as any)
   const [controlledSubstanceForm, setControlledSubstanceForm] = useState(
-    [] as any
+    [] as any,
   )
   const [phentermineContractForm, setPhentermineContractForm] = useState(
-    [] as any
+    [] as any,
   )
 
   const company = useSelector(selectCompany)
@@ -63,7 +66,6 @@ export default function PatientDetailsPage() {
 
   return (
     <div>
-      <Header selectCompany={company} routePatientsHome={true} />
       <main className="  my-[10px] flex flex-col items-center justify-center">
         {/* differnt files for patient, docs, contracts etc */}
         <div className=" z-50 flex h-[100px] w-full flex-row items-center justify-center overflow-x-auto px-10 ">
@@ -166,8 +168,8 @@ export default function PatientDetailsPage() {
                       selectControlledSubstance
                         ? router.push('/allForms/ControlledSubstanceContract')
                         : selectPhentermineContract
-                        ? router.push('/allForms/PhentermineContractForm')
-                        : null
+                          ? router.push('/allForms/PhentermineContractForm')
+                          : null
                     }
                   }}
                 />

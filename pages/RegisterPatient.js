@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../components/navigation/Header'
+
 import TextInput from '../components/userInput/TextInput'
 import MainButton from '../components/Buttons/MainButton'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
@@ -20,7 +20,7 @@ const RegisterPatient = () => {
     createUserWithEmailAndPassword(
       auth,
       registerEmail.toLowerCase().trim(),
-      registerPassword.toLowerCase().trim()
+      registerPassword.toLowerCase().trim(),
     )
       .then(async (userCredential) => {
         const user = userCredential.user.uid
@@ -34,7 +34,7 @@ const RegisterPatient = () => {
               isPatient: true,
               timestamp: serverTimestamp(),
             },
-            { merge: true }
+            { merge: true },
           )
         } catch (error) {
           alert(error)
@@ -50,7 +50,6 @@ const RegisterPatient = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[85%] rounded-[30px] shadow-2xl md:w-[50%]">
         <h1 className="m-2 text-center text-4xl font-bold text-[#377adf] opacity-100">
           Register Patient
@@ -108,7 +107,7 @@ const RegisterPatient = () => {
                 setRequiredRegisterPassword(true)
               } else if (registerPassword !== password) {
                 alert(
-                  'Passwords do not match. make sure there is no space before or after the password.'
+                  'Passwords do not match. make sure there is no space before or after the password.',
                 )
               } else {
                 register()

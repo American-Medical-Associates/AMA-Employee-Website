@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import TextInput from '../components/userInput/TextInput'
 import MainButton from '../components/Buttons/MainButton'
 import { useRouter } from 'next/router'
@@ -29,7 +29,6 @@ const PatientLogin: NextPage<{}> = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[85%] rounded-[30px] shadow-2xl md:w-[50%]">
         <div className="  item-center flex justify-end p-3">
           <p
@@ -58,7 +57,7 @@ const PatientLogin: NextPage<{}> = () => {
           id="password"
           placeHolder="Password"
           widthPercentage="w-3/4"
-          type='password'
+          type="password"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(text.target.value)
           }}

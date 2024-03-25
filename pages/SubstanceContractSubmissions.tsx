@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth, db } from '../firebase/firebase'
 import router from 'next/router'
-import Header from '../components/navigation/Header'
 
 // Define the structure of a submission
 interface Submission {
@@ -29,16 +28,18 @@ function SubstanceContractSubmissions() {
 
   // Function to format date strings
   const formatDate = (dateStr: string | number | Date) => {
-    const dateObj = new Date(dateStr);
-    const utcDate = new Date(dateObj.getTime() + dateObj.getTimezoneOffset() * 60000);
-  
+    const dateObj = new Date(dateStr)
+    const utcDate = new Date(
+      dateObj.getTime() + dateObj.getTimezoneOffset() * 60000,
+    )
+
     const formattedDate =
       String(utcDate.getMonth() + 1).padStart(2, '0') +
       '-' +
       String(utcDate.getDate()).padStart(2, '0') +
       '-' +
-      utcDate.getFullYear();
-    return formattedDate;
+      utcDate.getFullYear()
+    return formattedDate
   }
 
   // Fetch submissions from the database
@@ -104,7 +105,6 @@ function SubstanceContractSubmissions() {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="container mx-auto p-4">
         {/* Search input */}
         <div className="mb-4">

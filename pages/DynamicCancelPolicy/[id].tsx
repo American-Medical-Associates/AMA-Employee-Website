@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { auth, db } from '../../firebase/firebase' // Adjust the import as necessary
 import { doc, getDoc } from 'firebase/firestore'
-import Header from '../../components/navigation/Header'
+
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
@@ -32,13 +32,7 @@ function CancellationPolicyDetails() {
     const fetchSubmission = async () => {
       if (router.isReady) {
         const id = router.query.id as string
-        const docRef = doc(
-          db,
-          'companys',
-          'AMA',
-          'Cancellation Policy',
-          id,
-        )
+        const docRef = doc(db, 'companys', 'AMA', 'Cancellation Policy', id)
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
@@ -106,7 +100,6 @@ function CancellationPolicyDetails() {
   // Render the submission details
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div
         id="export"
         ref={printRef}
@@ -115,10 +108,36 @@ function CancellationPolicyDetails() {
         <h2 className="text-xl font-bold text-gray-800 mb-6">
           Cancellation Policy Submission Details
         </h2>
-        <p className='mb-5'>Each time a patient misses an appointment without providing proper notice, another patient is prevented from receiving care. You <strong>MUST</strong> give our office 24 hour notice prior to your scheduled appointment. Calling the day of your scheduled appointment will result in a "No Show" fee.</p>
-        <p className='mb-5'>Mulitple No Shows in any 12-month period may result in termination of services with the provider. No Show fees will be billed to the patient. This fee is not covered by any insurance plan and will be your responsibility. Cancellation/No Show fees will have to be paid in order to continue services with Christina. If an appointment is made any fees incurred must be paid prior to the visit.</p>
-        <p className="text-center mb-5"><strong><i>$100 - Charge for missed appointments or appointments cancelled with less than 24-hour notice.</i></strong></p>
-        <p className='mb-5'><strong>By signing below, I acknowledge that I have read and understand the cancellation policy of American Medical Associates and agree to the policy set forth.</strong></p>
+        <p className="mb-5">
+          Each time a patient misses an appointment without providing proper
+          notice, another patient is prevented from receiving care. You{' '}
+          <strong>MUST</strong> give our office 24 hour notice prior to your
+          scheduled appointment. Calling the day of your scheduled appointment
+          will result in a "No Show" fee.
+        </p>
+        <p className="mb-5">
+          Mulitple No Shows in any 12-month period may result in termination of
+          services with the provider. No Show fees will be billed to the
+          patient. This fee is not covered by any insurance plan and will be
+          your responsibility. Cancellation/No Show fees will have to be paid in
+          order to continue services with Christina. If an appointment is made
+          any fees incurred must be paid prior to the visit.
+        </p>
+        <p className="text-center mb-5">
+          <strong>
+            <i>
+              $100 - Charge for missed appointments or appointments cancelled
+              with less than 24-hour notice.
+            </i>
+          </strong>
+        </p>
+        <p className="mb-5">
+          <strong>
+            By signing below, I acknowledge that I have read and understand the
+            cancellation policy of American Medical Associates and agree to the
+            policy set forth.
+          </strong>
+        </p>
         <div className="space-y-4">
           {/* Displaying submission details */}
           <p>
@@ -129,9 +148,9 @@ function CancellationPolicyDetails() {
             <span className="font-bold">Date:</span> {submission.date}
           </p>
           <p>
-              <span className="font-bold">Patient Signature:</span>{' '}
-              {submission.signature}
-            </p>
+            <span className="font-bold">Patient Signature:</span>{' '}
+            {submission.signature}
+          </p>
           <p>
             <span className="font-bold">Date of Birth:</span>{' '}
             {submission.dateOfBirth}

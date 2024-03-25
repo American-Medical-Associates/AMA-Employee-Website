@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import Head from 'next/head'
 import LineDivider from '../components/formComponents/lineDiveider'
 import SearchComponent from '../components/userInput/searchComponent'
-import { AddNPToArchive, GetNewPatientPacketSubmissions } from '../firebase/firebase'
+import {
+  AddNPToArchive,
+  GetNewPatientPacketSubmissions,
+} from '../firebase/firebase'
 import { useSelector } from 'react-redux'
 import { selectCompany } from '../redux/slices/companySlice'
 import { jsPDF } from 'jspdf'
@@ -42,7 +45,7 @@ const FormSubmissions: NextPage<{}> = () => {
   const [showArchived, setShowArchived] = useState(false)
   const addPatientToEclinicalPuppeteer = httpsCallable(
     functions,
-    'addPatientToEclinicalPuppeteer'
+    'addPatientToEclinicalPuppeteer',
   )
   //search form submissions
   useEffect(() => {
@@ -50,7 +53,7 @@ const FormSubmissions: NextPage<{}> = () => {
       //remove all spaces in the searchFormAnswers
       const searchFormAnswersWithoutSpaces = searchFormAnswers.replace(
         /\s/g,
-        ''
+        '',
       )
 
       Object.keys(selectedPacket).map((item: any) => {
@@ -93,10 +96,10 @@ const FormSubmissions: NextPage<{}> = () => {
     } else {
       submissions.map((submission: any) => {
         const firstName: string = JSON.stringify(
-          submission.firstName.toLowerCase()
+          submission.firstName.toLowerCase(),
         ) as string
         const lastName: string = JSON.stringify(
-          submission.lastName.toLowerCase()
+          submission.lastName.toLowerCase(),
         ) as string
         if (
           firstName.includes(SearchInputForNewPatientPacket.toLowerCase()) ||
@@ -188,7 +191,7 @@ const FormSubmissions: NextPage<{}> = () => {
                           return (
                             <div>
                               {Object.keys(
-                                searchFormAnswersResults[item][item2][item3]
+                                searchFormAnswersResults[item][item2][item3],
                               ).map((item4: any, index: number) => {
                                 return (
                                   <div className="  flex flex-col items-center justify-center">
@@ -205,7 +208,7 @@ const FormSubmissions: NextPage<{}> = () => {
                             </div>
                           )
                         }
-                      }
+                      },
                     )}
                   </div>
                 )
@@ -274,7 +277,7 @@ const FormSubmissions: NextPage<{}> = () => {
           </p>
         </div>
       )
-    }
+    },
   )
   const packets = Object.keys(selectedPacket).map((item: any) => {
     //make the first letter of the key uppercase
@@ -319,7 +322,7 @@ const FormSubmissions: NextPage<{}> = () => {
                         return (
                           <div>
                             {Object.keys(
-                              selectedPacket[item][item2][item3]
+                              selectedPacket[item][item2][item3],
                             ).map((item4: any, index: number) => {
                               return (
                                 <div className="  flex flex-col items-center justify-center">
@@ -336,7 +339,7 @@ const FormSubmissions: NextPage<{}> = () => {
                           </div>
                         )
                       }
-                    }
+                    },
                   )}
                 </div>
               )
@@ -447,7 +450,7 @@ const FormSubmissions: NextPage<{}> = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
+
       <main className=" my-5 flex grid-cols-2 justify-center ">
         <div className=" flex h-[90vh] w-[25%] flex-col overflow-y-auto">
           <div className=" flex flex-col items-center justify-center">

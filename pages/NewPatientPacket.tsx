@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import FullPersonalInfo from '../components/formComponents/FullPersonalInfo'
-import Header from '../components/navigation/Header'
+
 import SocialInput from '../components/userInput/SocialInput'
 import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import SexCheckBox from '../components/formComponents/SexCheckBox'
@@ -269,7 +269,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
   const [familyMedicalBleedingDisorders, setFamilyMedicalBleedingDisorders] =
     useState<Array<string>>([])
   const [familyMedicalCancer, setFamilyMedicalCancer] = useState<Array<string>>(
-    []
+    [],
   )
   const [familyMedicalDiabetes, setFamilyMedicalDiabetes] = useState<
     Array<string>
@@ -288,7 +288,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
     Array<string>
   >([])
   const [familyMedicalStroke, setFamilyMedicalStroke] = useState<Array<string>>(
-    []
+    [],
   )
   const [familyMedicalTuberculosis, setFamilyMedicalTuberculosis] = useState<
     Array<string>
@@ -603,10 +603,10 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setEthnicity(newPatientPackSelector.Ethnicity)
       setNameOfEmergency(newPatientPackSelector.nameOfEmergencyContact)
       setEmergencyContactRelationShip(
-        newPatientPackSelector.EmergencyContactRelationShip
+        newPatientPackSelector.EmergencyContactRelationShip,
       )
       setEmergencyContactPhoneNumber(
-        newPatientPackSelector.EmergencyContactPhoneNumber
+        newPatientPackSelector.EmergencyContactPhoneNumber,
       )
       setHowDidTheyHearAboutUs(newPatientPackSelector.HowDidTheyHearAboutUs)
       setHowDoTheyWishToPay(newPatientPackSelector.howDoTheyWishToPay)
@@ -623,34 +623,34 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setSecondaryInsuranceGroup(newPatientPackSelector.secondaryInsuranceGroup)
       setSecondaryInsurancePhone(newPatientPackSelector.secondaryInsurancePhone)
       setSecondarySubscribersName(
-        newPatientPackSelector.secondarySubscribersName
+        newPatientPackSelector.secondarySubscribersName,
       )
       if (newPatientPackSelector.secondarySubscribersDOB !== undefined) {
         setSecondarySubscribersDOB(
-          newPatientPackSelector.secondarySubscribersDOB
+          newPatientPackSelector.secondarySubscribersDOB,
         )
       }
 
       setRetailPharmacyName(newPatientPackSelector.retailPharmacyName)
       setRetailPharmacyCrossStreet1(
-        newPatientPackSelector.retailPharmacyCrossStreet1
+        newPatientPackSelector.retailPharmacyCrossStreet1,
       )
       setRetailPharmacyCrossStreet2(
-        newPatientPackSelector.retailPharmacyCrossStreet2
+        newPatientPackSelector.retailPharmacyCrossStreet2,
       )
       setRetailPharmacyPhoneNumber(
-        newPatientPackSelector.retailPharmacyPhoneNumber
+        newPatientPackSelector.retailPharmacyPhoneNumber,
       )
       setRetailPharmacyFaxNumber(newPatientPackSelector.retailPharmacyFaxNumber)
       setMailOrderPharmacyName(newPatientPackSelector.mailOrderPharmacyName)
       setMailOrderPharmacyPhoneNumber(
-        newPatientPackSelector.mailOrderPharmacyPhoneNumber
+        newPatientPackSelector.mailOrderPharmacyPhoneNumber,
       )
       setMailOrderPharmacyAddress1(
-        newPatientPackSelector.mailOrderPharmacyAddress1
+        newPatientPackSelector.mailOrderPharmacyAddress1,
       )
       setMailOrderPharmacyAddress2(
-        newPatientPackSelector.mailOrderPharmacyAddress2
+        newPatientPackSelector.mailOrderPharmacyAddress2,
       )
       setMailOrderPharmacyCity(newPatientPackSelector.mailOrderPharmacyCity)
       setMailOrderPharmacyState(newPatientPackSelector.mailOrderPharmacyState)
@@ -660,7 +660,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setAreYouAllergicToIodine(newPatientPackSelector.areYouAllergicToIodine)
       if (newPatientPackSelector.doYouHaveAnyDrugAllergies !== undefined) {
         setDoYouHaveAnyDrugAllergies(
-          newPatientPackSelector.doYouHaveAnyDrugAllergies
+          newPatientPackSelector.doYouHaveAnyDrugAllergies,
         )
       }
       if (
@@ -673,7 +673,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setWasPapNormalOrAbnormal(newPatientPackSelector.wasPapNormalOrAbnormal)
       setDateOfLastMammogram(newPatientPackSelector.dateOfLastMammogram)
       setWasMammogramNormalOrAbnormal(
-        newPatientPackSelector.wasMammogramNormalOrAbnormal
+        newPatientPackSelector.wasMammogramNormalOrAbnormal,
       )
       setDateOfLastPSA(newPatientPackSelector.dateOfLastPSA)
       setWasPSANormalOrAbnormal(newPatientPackSelector.wasPSANormalOrAbnormal)
@@ -681,7 +681,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness !== undefined
       ) {
         setDoYouHaveAHistoryOfAnyMajorIllness(
-          newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness
+          newPatientPackSelector.doYouHaveAHistoryOfAnyMajorIllness,
         )
       }
       if (
@@ -696,7 +696,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       }
       if (newPatientPackSelector.doYouHaveAHistoryOfSurgeries !== undefined) {
         setDoYouHaveAHistoryOfSurgeries(
-          newPatientPackSelector.doYouHaveAHistoryOfSurgeries
+          newPatientPackSelector.doYouHaveAHistoryOfSurgeries,
         )
       }
       if (
@@ -708,12 +708,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             //if the object is not already in the array, add it
             if (
               allMajorSurgeriesAndHospitalizations.filter(
-                (obj: any) => obj.twoItems.input == item.twoItems.input
+                (obj: any) => obj.twoItems.input == item.twoItems.input,
               ).length == 0
             ) {
               allMajorSurgeriesAndHospitalizations.push(item)
             }
-          }
+          },
         )
       }
       if (newPatientPackSelector.boneDensityScreening) {
@@ -721,25 +721,25 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       }
       if (newPatientPackSelector.BoneDensityScreeningDate) {
         setBoneDensityScreeningDate(
-          newPatientPackSelector.BoneDensityScreeningDate
+          newPatientPackSelector.BoneDensityScreeningDate,
         )
       }
       setWasBoneDensityScreeningNormalOrAbnormal(
-        newPatientPackSelector.wasBoneDensityScreeningNormalOrAbnormal
+        newPatientPackSelector.wasBoneDensityScreeningNormalOrAbnormal,
       )
       if (newPatientPackSelector.colonoscopyScreening) {
         setColonoscopyScreening(newPatientPackSelector.colonoscopyScreening)
       }
       setDateOfLastColonoscopyScreening(
-        newPatientPackSelector.dateOfLastColonoscopyScreening
+        newPatientPackSelector.dateOfLastColonoscopyScreening,
       )
       setWasColonoscopyScreeningNormalOrAbnormal(
-        newPatientPackSelector.wasColonoscopyScreeningNormalOrAbnormal
+        newPatientPackSelector.wasColonoscopyScreeningNormalOrAbnormal,
       )
 
       if (newPatientPackSelector.allMedicalHistoryOfDisease) {
         setAllMedicalHistoryOfDisease(
-          newPatientPackSelector.allMedicalHistoryOfDisease
+          newPatientPackSelector.allMedicalHistoryOfDisease,
         )
       } else {
         setAllMedicalHistoryOfDisease([])
@@ -756,7 +756,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setHaveTheyEverSmoked(newPatientPackSelector.haveTheyEverSmoked)
       setHowManyPacksPerDay(newPatientPackSelector.howManyPacksPerDay)
       setAnyOtherTobaccoOrEcigarettes(
-        newPatientPackSelector.anyOtherTobaccoOrEcigarettes
+        newPatientPackSelector.anyOtherTobaccoOrEcigarettes,
       )
       setDescribeOtherTobaccoUse(newPatientPackSelector.describeOtherTobaccoUse)
       setDoYouDrinkCoffee(newPatientPackSelector.doYouDrinkCoffee)
@@ -764,55 +764,55 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       setDoYouDrinkAlcohol(newPatientPackSelector.doYouDrinkAlcohol)
       setHowManyDrinksPerWeek(newPatientPackSelector.howManyDrinksPerWeek)
       setDoYoCurrentlyUseRecreationalDrugs(
-        newPatientPackSelector.doYoCurrentlyUseRecreationalDrugs
+        newPatientPackSelector.doYoCurrentlyUseRecreationalDrugs,
       )
       setDescribeRecreationalDrugUse(
-        newPatientPackSelector.describeRecreationalDrugUse
+        newPatientPackSelector.describeRecreationalDrugUse,
       )
       setDoYouUseIllegaLStreetDrugs(
-        newPatientPackSelector.doYouUseIllegaLStreetDrugs
+        newPatientPackSelector.doYouUseIllegaLStreetDrugs,
       )
       if (newPatientPackSelector.describeIllegalStreetDrugUse) {
         setDescribeIllegalStreetDrugUse(
-          newPatientPackSelector.describeIllegalStreetDrugUse
+          newPatientPackSelector.describeIllegalStreetDrugUse,
         )
       }
       setDoYouFeelDepressed(newPatientPackSelector.doYouFeelDepressed)
       setDoYouCryFrequently(newPatientPackSelector.doYouCryFrequently)
       setDoYouHaveLittleInterestInDoingThings(
-        newPatientPackSelector.doYouHaveLittleInterestInDoingThings
+        newPatientPackSelector.doYouHaveLittleInterestInDoingThings,
       )
       setDoYouFeelHopelessDownOrDepressed(
-        newPatientPackSelector.doYouFeelHopelessDownOrDepressed
+        newPatientPackSelector.doYouFeelHopelessDownOrDepressed,
       )
       setDoYouHaveTroubleFallingAsleepOrSleepingTooMuch(
-        newPatientPackSelector.doYouHaveTroubleFallingAsleepOrSleepingTooMuch
+        newPatientPackSelector.doYouHaveTroubleFallingAsleepOrSleepingTooMuch,
       )
       setDoYouFeelTiredOrHaveLittleEnergy(
-        newPatientPackSelector.doYouFeelTiredOrHaveLittleEnergy
+        newPatientPackSelector.doYouFeelTiredOrHaveLittleEnergy,
       )
       setDoYouHavAPoorAppetiteOrOverEating(
-        newPatientPackSelector.doYouHavAPoorAppetiteOrOverEating
+        newPatientPackSelector.doYouHavAPoorAppetiteOrOverEating,
       )
       setDoYouFeelBadAboutYourself(
-        newPatientPackSelector.doYouFeelBadAboutYourself
+        newPatientPackSelector.doYouFeelBadAboutYourself,
       )
       setTroubleConcentrating(newPatientPackSelector.troubleConcentrating)
       setDoYouMoveOrSpeakSlowly(newPatientPackSelector.doYouMoveOrSpeakSlowly)
       setThoughtsYouWouldBeBetterOffDead(
-        newPatientPackSelector.thoughtsYouWouldBeBetterOffDead
+        newPatientPackSelector.thoughtsYouWouldBeBetterOffDead,
       )
       setIsStressAMajorProblem(newPatientPackSelector.isStressAMajorProblem)
       setDoYouPanicWhenStressed(newPatientPackSelector.doYouPanicWhenStressed)
       setHaveYouEverAttemptedSuicide(
-        newPatientPackSelector.haveYouEverAttemptedSuicide
+        newPatientPackSelector.haveYouEverAttemptedSuicide,
       )
       if (
         newPatientPackSelector.familyMedicalAlcoholismAddiction &&
         newPatientPackSelector.familyMedicalAlcoholismAddiction.length > 0
       ) {
         setFamilyMedicalAlcoholismAddiction(
-          newPatientPackSelector.familyMedicalAlcoholismAddiction
+          newPatientPackSelector.familyMedicalAlcoholismAddiction,
         )
       }
       if (
@@ -820,7 +820,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalBleedingDisorders.length > 0
       ) {
         setFamilyMedicalBleedingDisorders(
-          newPatientPackSelector.familyMedicalBleedingDisorders
+          newPatientPackSelector.familyMedicalBleedingDisorders,
         )
       }
       if (
@@ -840,7 +840,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalHeartAttack.length > 0
       ) {
         setFamilyMedicalHeartAttack(
-          newPatientPackSelector.familyMedicalHeartAttack
+          newPatientPackSelector.familyMedicalHeartAttack,
         )
       }
       if (
@@ -848,7 +848,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalHighBloodPressure.length > 0
       ) {
         setFamilyMedicalHighBloodPressure(
-          newPatientPackSelector.familyMedicalHighBloodPressure
+          newPatientPackSelector.familyMedicalHighBloodPressure,
         )
       }
       if (
@@ -856,7 +856,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalHighCholesterol.length > 0
       ) {
         setFamilyMedicalHighCholesterol(
-          newPatientPackSelector.familyMedicalHighCholesterol
+          newPatientPackSelector.familyMedicalHighCholesterol,
         )
       }
       if (
@@ -864,7 +864,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalKidneyDisease.length > 0
       ) {
         setFamilyMedicalKidneyDisease(
-          newPatientPackSelector.familyMedicalKidneyDisease
+          newPatientPackSelector.familyMedicalKidneyDisease,
         )
       }
       if (
@@ -872,7 +872,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalMentalIllness.length > 0
       ) {
         setFamilyMedicalMentalIllness(
-          newPatientPackSelector.familyMedicalMentalIllness
+          newPatientPackSelector.familyMedicalMentalIllness,
         )
       }
       if (
@@ -886,14 +886,14 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         newPatientPackSelector.familyMedicalTuberculosis.length > 0
       ) {
         setFamilyMedicalTuberculosis(
-          newPatientPackSelector.familyMedicalTuberculosis
+          newPatientPackSelector.familyMedicalTuberculosis,
         )
       }
       setIsYourMotherStillLiving(newPatientPackSelector.isYourMotherStillLiving)
       setIsYourFatherStillLiving(newPatientPackSelector.isYourFatherStillLiving)
       if (newPatientPackSelector.areYouCurrentlyTakingAnyMedications) {
         setAreYouCurrentlyTakingAnyMedications(
-          newPatientPackSelector.areYouCurrentlyTakingAnyMedications
+          newPatientPackSelector.areYouCurrentlyTakingAnyMedications,
         )
       }
       if (
@@ -905,12 +905,12 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
           (item: any) => {
             if (
               listOfAllCurrentMedications.filter(
-                (obj: any) => obj.drug.DrugName === item.drug.DrugName
+                (obj: any) => obj.drug.DrugName === item.drug.DrugName,
               ).length === 0
             ) {
               listOfAllCurrentMedications.push(item)
             }
-          }
+          },
         )
       }
     }
@@ -933,7 +933,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
       ([entry]) => {
         setIsVisibleAutoSaveMentalHealth(entry.isIntersecting)
       },
-      { threshold: 0.5 } // Trigger when 50% of component is visible
+      { threshold: 0.5 }, // Trigger when 50% of component is visible
     )
 
     if (autoSaveDivRef.current) {
@@ -1112,7 +1112,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
+
       <div className="flex w-full flex-col items-center justify-end">
         <div className="flex w-full items-center justify-end">
           <div className=" m-10 ">
@@ -4002,7 +4002,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 //alert('Please select if you are taking any medications')
                 router
                   .push(
-                    '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
+                    '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications',
                   )
                   .then(() => {
                     setTimeout(() => {
@@ -4018,7 +4018,7 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
                 //alert('Please enter a list of all current medications')
                 router
                   .push(
-                    '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications'
+                    '/NewPatientPacket/#areYouCurrentlyTakingAnyMedications',
                   )
                   .then(() => {
                     setTimeout(() => {

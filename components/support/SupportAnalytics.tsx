@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { auth, GetSpravatoTracking, GetSupportTickets } from '../../firebase/firebase'
+import {
+  auth,
+  GetSpravatoTracking,
+  GetSupportTickets,
+} from '../../firebase/firebase'
 import { useRouter } from 'next/router'
-import Header from '../navigation/Header'
 import { MenuItem } from '../navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
 import Datepicker from '../userInput/Datepicker'
@@ -74,7 +77,7 @@ const SupportAnalytics: React.FC<{
   const daysInMonth = new Date(
     new Date().getFullYear(),
     selectedDate.getMonth() + 1,
-    0
+    0,
   ).getDate()
 
   const daysInMonthArray = []
@@ -89,11 +92,17 @@ const SupportAnalytics: React.FC<{
   for (let i = 0; i < supportAnalyticsArray.length; i++) {
     if (
       !yearsTotal.includes(
-        supportAnalyticsArray[i].timestamp.toDate().toDateString().split(' ')[3]
+        supportAnalyticsArray[i].timestamp
+          .toDate()
+          .toDateString()
+          .split(' ')[3],
       )
     ) {
       yearsTotal.push(
-        supportAnalyticsArray[i].timestamp.toDate().toDateString().split(' ')[3]
+        supportAnalyticsArray[i].timestamp
+          .toDate()
+          .toDateString()
+          .split(' ')[3],
       )
     }
   }

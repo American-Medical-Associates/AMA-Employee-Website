@@ -93,7 +93,7 @@ const ControlledSubstanceContract = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      {/* <Header selectCompany={'AMA'} routePatientsHome={false} /> */}
+      {/*  */}
       <main className="m-5">
         <CircularButton
           icon={

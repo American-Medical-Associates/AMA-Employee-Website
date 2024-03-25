@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Header from '../components/navigation/Header'
 import { auth, submitAims } from '../firebase/firebase'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -154,7 +153,6 @@ function Aims() {
   return (
     <div>
       <ToastContainer />
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -184,7 +182,7 @@ function Aims() {
           >
             Date of Birth
           </label>
-          
+
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="dateOfBirth"
@@ -218,19 +216,20 @@ function Aims() {
             Date: {todayDate}
           </label>
         </div>
-        <div className='text-center mb-8'>
-          <p className='text-md font-bold'>
+        <div className="text-center mb-8">
+          <p className="text-md font-bold">
             Code: 0 = None, 1 = Minimal, 2 = Mild, 3 = Moderate, 4 = Severe
           </p>
-          <h2 className='mt-3 font-bold'>Movement Ratings:</h2>
-          <p className='font-semibold'>
+          <h2 className="mt-3 font-bold">Movement Ratings:</h2>
+          <p className="font-semibold">
             - Rate highest severity observed in category I, II, III.
           </p>
-          <p className='font-semibold'>
-          - Rate movements that occur upon activation one point less than those observed spontaneously.
+          <p className="font-semibold">
+            - Rate movements that occur upon activation one point less than
+            those observed spontaneously.
           </p>
-          <p className='font-semibold'>
-          - Select movements as well as code number that applies.
+          <p className="font-semibold">
+            - Select movements as well as code number that applies.
           </p>
         </div>
         <div className="mb-4">

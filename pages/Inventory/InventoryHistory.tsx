@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/navigation/Header'
+
 import { MenuItem } from '../../components/navigation/MenuItem'
 import { useRouter } from 'next/router'
 import {
@@ -106,7 +106,7 @@ const InventoryHistory: NextPage<{}> = () => {
   const daysInMonth = new Date(
     new Date().getFullYear(),
     selectedDate.getMonth() + 1,
-    0
+    0,
   ).getDate()
   const daysInMonthArray = []
   for (let i = 0; i < daysInMonth; i++) {
@@ -121,11 +121,17 @@ const InventoryHistory: NextPage<{}> = () => {
   for (let i = 0; i < InventoryArray.length; i++) {
     if (
       !yearsTotal.includes(
-        InventoryArray[i].dateAdministered.toDate().toDateString().split(' ')[3]
+        InventoryArray[i].dateAdministered
+          .toDate()
+          .toDateString()
+          .split(' ')[3],
       )
     ) {
       yearsTotal.push(
-        InventoryArray[i].dateAdministered.toDate().toDateString().split(' ')[3]
+        InventoryArray[i].dateAdministered
+          .toDate()
+          .toDateString()
+          .split(' ')[3],
       )
     }
   }
@@ -237,7 +243,6 @@ const InventoryHistory: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="flex flex-col">
         <div className="flex h-[80vh] flex-col">
           <div className="flex flex-row p-10 ">

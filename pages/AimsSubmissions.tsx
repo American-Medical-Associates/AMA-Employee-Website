@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth, db } from '../firebase/firebase'
 import router from 'next/router'
-import Header from '../components/navigation/Header'
-
 interface Submission {
   id: string
   patientName: string
@@ -81,7 +79,6 @@ function AimsSubmissions() {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="container mx-auto p-4">
         <div className="mb-4">
           <input

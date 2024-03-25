@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import Head from 'next/head'
-import Header from '../../components/navigation/Header'
+
 import TextInput from '../../components/userInput/TextInput'
 import PhoneNumberInput from '../../components/userInput/PhoneNumberInput'
 import Datepicker from '../../components/userInput/Datepicker'
@@ -38,7 +38,6 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
 
   return (
     <div className=" mb-10">
-      <Header selectCompany={'Vitalize'} routePatientsHome={false} />
       <main className=" flex flex-col items-center  justify-center p-5 ">
         <form>
           <h1 className=" text-xl">Book an Appointment</h1>
@@ -171,7 +170,7 @@ const vitalizeBookAnAppointment: NextPage<{}> = () => {
                 (time > '14:30' && date.getDay() === 6)
               ) {
                 alert(
-                  'Please select a time between 10am and 2:30pm on saturdays'
+                  'Please select a time between 10am and 2:30pm on saturdays',
                 )
               } else if (time < '09:00' || time > '16:30') {
                 alert('Please select a time between 9am and 4:30pm')

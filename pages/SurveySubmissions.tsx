@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import { GetSurveys } from '../firebase/firebase'
 import { Timestamp } from 'firebase/firestore'
 import MainButton from '../components/Buttons/MainButton'
@@ -18,7 +18,7 @@ const SurveySubmissions: NextPage<{}> = () => {
 
   const router = useRouter()
   const [mentalHealthSurvey, setMentalHealthSurvey] = useState<Array<Survey>>(
-    []
+    [],
   )
   const [collapsed, setCollapsed] = useState(true)
   const [collapsedArray, setCollapsedArray] = useState<Array<Survey>>([])
@@ -88,8 +88,6 @@ const SurveySubmissions: NextPage<{}> = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
-
       <MainButton
         buttonText={'Survey Graph'}
         onClick={() => {

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { auth, db } from '../firebase/firebase'
 import router from 'next/router'
-import Header from '../components/navigation/Header'
 
 // Define the structure of a submission
 interface Submission {
@@ -30,21 +29,22 @@ function CancelPolicySubmissions() {
 
   // Function to format date strings
   const formatDate = (dateStr: string | number | Date) => {
-    if (!dateStr) return 'Invalid Date'; // Return a placeholder or handle as needed
-  
-    const dateObj = new Date(dateStr);
-    if (isNaN(dateObj.getTime())) return 'Invalid Date'; // Check for invalid date
-  
-    const utcDate = new Date(dateObj.getTime() + dateObj.getTimezoneOffset() * 60000);
-    const formattedDate = 
+    if (!dateStr) return 'Invalid Date' // Return a placeholder or handle as needed
+
+    const dateObj = new Date(dateStr)
+    if (isNaN(dateObj.getTime())) return 'Invalid Date' // Check for invalid date
+
+    const utcDate = new Date(
+      dateObj.getTime() + dateObj.getTimezoneOffset() * 60000,
+    )
+    const formattedDate =
       String(utcDate.getMonth() + 1).padStart(2, '0') +
       '-' +
       String(utcDate.getDate()).padStart(2, '0') +
       '-' +
-      utcDate.getFullYear();
-    return formattedDate;
+      utcDate.getFullYear()
+    return formattedDate
   }
-  
 
   // Fetch submissions from the database
   useEffect(() => {
@@ -109,7 +109,6 @@ function CancelPolicySubmissions() {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="container mx-auto p-4">
         {/* Search input */}
         <div className="mb-4">
