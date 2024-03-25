@@ -69,7 +69,7 @@ const CustomCheckBoxField: React.FC<{
   useEffect(() => {
     // Check the checkboxes that have values in checkBoxValues
     arrayofStates = checkBoxTitles.map((title) =>
-      checkBoxValues.includes(title)
+      checkBoxValues.includes(title),
     )
 
     //check the boxes that have values in checkBoxValues
@@ -101,7 +101,7 @@ const CustomCheckBoxField: React.FC<{
           if (checkBoxValues.includes(checkBoxTitles[index])) {
             // checkBoxValues.push(checkBoxTitles[index])
             setCheckBoxValues((prev: any) =>
-              prev.filter((item: any) => item !== checkBoxTitles[index])
+              prev.filter((item: any) => item !== checkBoxTitles[index]),
             )
           }
         }

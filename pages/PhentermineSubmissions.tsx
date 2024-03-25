@@ -9,11 +9,10 @@ interface Submission {
   patientName: string
   dateOfBirth: string
   date: string
-  signature: string
   // Other relevant fields from your form
 }
 
-function CancelPolicySubmissions() {
+function PhentermineSubmissions() {
   // State declarations
   const [submissions, setSubmissions] = useState<Submission[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -29,14 +28,11 @@ function CancelPolicySubmissions() {
 
   // Function to format date strings
   const formatDate = (dateStr: string | number | Date) => {
-    if (!dateStr) return 'Invalid Date' // Return a placeholder or handle as needed
-
     const dateObj = new Date(dateStr)
-    if (isNaN(dateObj.getTime())) return 'Invalid Date' // Check for invalid date
-
     const utcDate = new Date(
       dateObj.getTime() + dateObj.getTimezoneOffset() * 60000,
     )
+
     const formattedDate =
       String(utcDate.getMonth() + 1).padStart(2, '0') +
       '-' +
@@ -51,7 +47,7 @@ function CancelPolicySubmissions() {
     const fetchSubmissions = async () => {
       try {
         const querySnapshot = await getDocs(
-          collection(db, 'companys', 'AMA', 'Cancellation Policy'),
+          collection(db, 'companys', 'AMA', 'Phentermine Contracts'),
         )
         const submissionsData = querySnapshot.docs.map((doc) => {
           const data = doc.data() as Submission
@@ -104,7 +100,7 @@ function CancelPolicySubmissions() {
 
   // Handle row click to navigate to a specific submission detail
   const handleRowClick = (submissionId: string) => {
-    router.push(`/DynamicCancelPolicy/${submissionId}`)
+    router.push(`/DynamicPhentermine/${submissionId}`)
   }
 
   return (
@@ -174,4 +170,4 @@ function CancelPolicySubmissions() {
   )
 }
 
-export default CancelPolicySubmissions
+export default PhentermineSubmissions

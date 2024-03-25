@@ -15,7 +15,9 @@ const APPLICANTCERTIFICATION: React.FC<{ setScrollState: any }> = ({
   return (
     <div className=" flex flex-col items-center justify-center text-center">
       <h3 className=" my-4 text-center text-2xl">APPLICANT CERTIFICATION </h3>
-      <p className="mt-0 mb-5 font-bold text-red-600">Scroll to the bottom of the box in order to activate checkbox.</p>
+      <p className="mt-0 mb-5 font-bold text-red-600">
+        Scroll to the bottom of the box in order to activate checkbox.
+      </p>
       <fieldset>
         <div
           onScroll={onScroll}

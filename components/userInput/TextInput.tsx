@@ -43,7 +43,7 @@ export default function TextInput({
         className={classnames(
           `${widthPercentage} cursor-pointer  rounded-[30px] border-2 ${
             missing ? 'bg-[#ff1818]' : 'bg-[#cacaca71]'
-          }   p-4 text-lg outline-none`
+          }   p-4 text-lg outline-none`,
         )}
         onChange={onChange}
         // value={value}

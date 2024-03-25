@@ -14,7 +14,7 @@ const SearchComponent: React.FC<{
         type={'search'}
         placeholder={placeHolder}
         className={classnames(
-          `${widthPercentage} cursor-pointer  rounded-[30px] border-2  bg-[#cacaca71] p-2 text-lg outline-none`
+          `${widthPercentage} cursor-pointer  rounded-[30px] border-2  bg-[#cacaca71] p-2 text-lg outline-none`,
         )}
         onChange={onChange}
         // value={value}

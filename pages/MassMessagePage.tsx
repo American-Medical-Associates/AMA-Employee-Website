@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import TextInput from '../components/userInput/TextInput'
 import * as XLSX from 'xlsx'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import { async } from '@firebase/util'
 import MainButton from '../components/Buttons/MainButton'
 import { auth, functions } from '../firebase/firebase'
@@ -134,7 +134,7 @@ const MassMessagePage: NextPage<{}> = () => {
             setRefresh(!refresh)
           }}
           className={classnames(
-            `m-5 flex w-[60%] cursor-pointer flex-row items-center justify-center rounded-[30px] bg-[#0008ff] p-4 px-5 text-center shadow-xl duration-500 hover:scale-[110%]`
+            `m-5 flex w-[60%] cursor-pointer flex-row items-center justify-center rounded-[30px] bg-[#0008ff] p-4 px-5 text-center shadow-xl duration-500 hover:scale-[110%]`,
           )}
         >
           <h1 className=" text-lg text-[#ffffff]">{item[1]}</h1>
@@ -154,7 +154,7 @@ const MassMessagePage: NextPage<{}> = () => {
             setRefresh(!refresh)
           }}
           className={classnames(
-            `m-5 flex w-[60%] cursor-pointer flex-row items-center justify-center rounded-[30px] bg-[#ebebebc6] p-4 px-5 text-center shadow-xl duration-500 hover:scale-[110%]`
+            `m-5 flex w-[60%] cursor-pointer flex-row items-center justify-center rounded-[30px] bg-[#ebebebc6] p-4 px-5 text-center shadow-xl duration-500 hover:scale-[110%]`,
           )}
         >
           <h1 className=" text-lg text-[#707070]">{item[1]}</h1>
@@ -249,27 +249,24 @@ const MassMessagePage: NextPage<{}> = () => {
     sendMessageFunction({
       message: `${patients.length} texts were sent to patients on ${currentDate}`,
       phone: '+16024482542',
-    })
-      .then(() => {
-        listOfMessageSent.push(
-          `${patients.length} patients were sent messages on ${currentDate}`
-        )
+    }).then(() => {
+      listOfMessageSent.push(
+        `${patients.length} patients were sent messages on ${currentDate}`,
+      )
 
-        setLoading(false)
-        setShowCheckMark(true)
-        setRefresh(!refresh)
-      })
-      // .then(() => {
-      //   sendMessageFunction({
-      //     message: `${patients.length} texts were sent to patients on ${currentDate}`,
-      //     phone: '+16233133383',
-      //   })
-      // })
+      setLoading(false)
+      setShowCheckMark(true)
+      setRefresh(!refresh)
+    })
+    // .then(() => {
+    //   sendMessageFunction({
+    //     message: `${patients.length} texts were sent to patients on ${currentDate}`,
+    //     phone: '+16233133383',
+    //   })
+    // })
   }
   return (
     <div className=" flex h-full w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
-
       <main
         className=" flex  h-full w-full flex-col items-center p-10
       "

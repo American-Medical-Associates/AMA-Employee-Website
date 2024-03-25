@@ -34,7 +34,11 @@
     "pages/PdfSignatures.js",
     "components/pdfCompnents/PdfDocument.js",
     "components/pdfCompnents/SignatureField.js",
-    "pages/RegisterPatient.js"
-, "pages/CodeDocumentation.js", "pages/CodeDocumentation.js", "pages/CodeDocumentation.js", "components/CodeDocumentation/ComponentDoc.js"  ],
+    "pages/RegisterPatient.js",
+    "pages/CodeDocumentation.js",
+    "pages/CodeDocumentation.js",
+    "pages/CodeDocumentation.js",
+    "components/CodeDocumentation/ComponentDoc.js"
+  ],
   "exclude": ["node_modules"]
 }

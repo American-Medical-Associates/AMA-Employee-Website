@@ -8,7 +8,7 @@ import LineDivider from '../components/formComponents/lineDiveider'
 import RadioButton from '../components/userInput/RadioButton'
 import CheckBox from '../components/userInput/CheckBox'
 import EmployeeOpportunitiesDisclosure from '../components/JobApplication/EmployeeOpportunitiesDisclosure'
-import Header from '../components/navigation/Header'
+
 import AddressInput from '../components/userInput/AddressInput'
 import EducationBox from '../components/JobApplication/EducationBox'
 import WorkHistory from '../components/JobApplication/WorkHistory'
@@ -353,7 +353,7 @@ const JobApplicationPage: NextPage<{}> = () => {
               message: ` Hello ${firstName}, Thank you for applying to American Medical Associates for the position of ${positionApplyingfor}. We will reach out as soon as possible!`,
               phone: `+1${phoneNumber}`,
             })
-            // @ts-ignore
+              // @ts-ignore
               .then((result) => {
                 console.log(result)
               })
@@ -505,7 +505,6 @@ const JobApplicationPage: NextPage<{}> = () => {
 
   return (
     <div className=" flex  w-full flex-1 flex-col">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" flex w-full flex-col text-center ">
         <h1 className=" mt-8 text-4xl text-[#4e4e4e]">
           APPLICATION OF EMPLOYMENT

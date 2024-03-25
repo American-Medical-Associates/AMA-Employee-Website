@@ -1,7 +1,12 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import Header from '../components/navigation/Header'
-import { addComponentDoc, auth, getComponentDoc, yo } from '../firebase/firebase'
+
+import {
+  addComponentDoc,
+  auth,
+  getComponentDoc,
+  yo,
+} from '../firebase/firebase'
 import Router, { useRouter } from 'next/router'
 import router from 'next/router'
 import { ComponentDoc } from '../components/CodeDocumentation/ComponentDoc'
@@ -72,7 +77,7 @@ const CodeDocumentation: NextPage = () => {
           componentDoc.location.toLowerCase().includes(searchTextLower),
         'Tags Only': () =>
           componentDoc.tags.some((tag: any) =>
-            tag.toLowerCase().includes(searchTextLower)
+            tag.toLowerCase().includes(searchTextLower),
           ),
       }
 
@@ -109,7 +114,6 @@ const CodeDocumentation: NextPage = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <h1 className="m-[20px] text-center text-5xl text-[#377adf]">
         Code Documentation
       </h1>

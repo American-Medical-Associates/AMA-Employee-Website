@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { auth, getSpecificAims } from '../../firebase/firebase'
-import Header from '../../components/navigation/Header'
+
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
@@ -92,7 +92,6 @@ function AimsDetails() {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div id="export" className="container mx-auto p-4">
         <div className="bg-white shadow-md rounded-lg p-6" ref={printRef}>
           <h1 className="text-2xl font-semibold mb-4">Submission Details</h1>

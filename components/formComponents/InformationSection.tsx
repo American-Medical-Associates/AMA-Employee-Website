@@ -48,7 +48,7 @@ export const InformationSection: React.FC<{
                       </div>
                     )
                   }
-                }
+                },
               )
               return (
                 <div key={index} className="flex flex-col">
@@ -65,7 +65,7 @@ export const InformationSection: React.FC<{
                 )
               }
             }
-          }
+          },
         )
 
         return (
@@ -88,7 +88,7 @@ export const InformationSection: React.FC<{
         if (match) {
           // const intlCode = match[1] ? '+1 ' : ''
           const formattedDate = [match[2], '/', match[3], '/', match[4]].join(
-            ''
+            '',
           )
 
           return (

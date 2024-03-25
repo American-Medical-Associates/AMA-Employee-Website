@@ -12,33 +12,29 @@ interface SubmissionData {
   patientName: string
   dateOfBirth: string // Assuming this is a formatted string like "MM-DD-YYYY"
   date: string // Submission date
-  receivedSubstances: string[]
-  pharmacy: string
-  crossStreets: string
-  phoneNumber: string
   patientSignature: string
   witnessSignature: string
-  amaEmployeeInitials: string
   initials: string[] // Array of strings for initials
 }
 
 // Define agreement statements to be displayed
 const agreementStatements = [
-  'I have received, read, signed and understand the content in the informed consent for Controlled Substance use, including the risks, benefits and side effects of controlled substance and I will also retain a copy of this policy.',
-  'I acknowledge that I will be receiving the following Controlled Substance(s):',
-  'I agree to fill my prescriptions at only 1 pharmacy and will immediately advise AMA of any changes:',
-  'I agree to be seen at only American Medical Associates for refills and follow-up on the controlled meds mentioned above.',
-  'I understand that the ultimate goal of my treatment is to taper and/or discontinue the medication. Long term use of controlled substancees is controversial.',
-  'I agree to obtain my prescription for controlled substances exclusivly through American Medical Associates. Receiving/accepting prescriptions from controlled substances other than AMA may result in discharge from practice and is considred a direct violation of this policy. Should I go to the emergency room or another provider, I will notify AMA immediately of any controlled substances perscribed to me.',
-  "I agree to take my medications exatly at the dose and frequency prescribed. I will NOT increase or change the dose and frequency without my AMA Provider's direction.",
-  'I understand that lost or stolen medications WILL NOT be replaced and that it is my responsibility to have possession and control of my medications at all times. I will not share, sell, or otherwise permit others to have access to my medications.',
-  'I agree to meet with my Provider monthly and on a schedule as he or she determines to be appropriate for my needs/conditions. If my provider agrees, I may call for a refill no sooner than 72 hours before I am out of medication. Refills are approved/denied daily after 4pm. I may not call more than once a day for my refills. I understand that in most instances I must be seen to get refills.',
-  'I agree to random urine drug screens at my Providers discretion. The presence of absence of any controlled substances not listed on this contract, or a concentration of medical inconsistent with the prescribed dosage may result in discharge from the practice.',
-  'I understand that controlled substances will be filled only during an office visit or during regular office hours. I will not call after hours or weekends for refills as they will not be approved.',
-  'Failure to comply with any of the above may be considered direct violation of AMA policy and may be discharged from the practice. Should this occur, it is my responsibilty to acquire a new Primary Care Provider.',
+  'I agreed to a 1-week follow-up appointment in the office for a blood pressure check and evaluation followed by monthly appointments for re-eval and script.',
+  'I agree to full disclosure of all my daily medications & medical history that may pertain to Phentermine use.',
+  'I do NOT have Hypertension, Heart Disease, Atherosclerosis, Valvular Heart Disease, Glaucoma, Seizures, Anxiety Disorder or Overactive Thyroid.',
+  'I do NOT have a history of alcohol, drug or substance dependence or abuse.',
+  'I am NOT pregnant or breast feeding.',
+  'I understand Phentermine is intended for short-term use only (1-3 months or as determined between my health care provider and myself.)',
+  'I understand Phentermine may be associated with physical and psychological dependence.',
+  'I will NOT take any other diet medication (over the counter or prescribed) while on Phentermine.',
+  'I agree to return to the office for evaluation of any side effects or problems associated with Phentermine use.',
+  'I will not drive or operate machinery till I know how Phentermine will affect me.',
+  'I understand that lost/stolen prescriptions will not be refilled early, nor will Phentermine be prior authorized if not covered by my insurance plan.',
+  'I will not stop Phentermine suddenly without talking to my health care provider.',
+  'I have received and reviewed PHENTERMINE FACTS sheet.',
 ]
 
-function SubstanceContractDetails() {
+function PhentermineContractDetails() {
   const router = useRouter()
   const [submission, setSubmission] = useState<SubmissionData | null>(null)
   const printRef = useRef<HTMLDivElement>(null)
@@ -55,13 +51,7 @@ function SubstanceContractDetails() {
     const fetchSubmission = async () => {
       if (router.isReady) {
         const id = router.query.id as string
-        const docRef = doc(
-          db,
-          'companys',
-          'AMA',
-          'ControlledSubstanceContracts',
-          id,
-        )
+        const docRef = doc(db, 'companys', 'AMA', 'Phentermine Contracts', id)
         const docSnap = await getDoc(docRef)
 
         if (docSnap.exists()) {
@@ -135,7 +125,7 @@ function SubstanceContractDetails() {
         className="container mx-auto p-8 bg-white shadow-lg rounded-lg"
       >
         <h2 className="text-2xl font-bold text-gray-800 mb-6">
-          Submission Details
+          Phentermine Submission Details
         </h2>
         <div className="space-y-4">
           {/* Displaying submission details */}
@@ -150,32 +140,16 @@ function SubstanceContractDetails() {
             <span className="font-bold">Date of Birth:</span>{' '}
             {submission.dateOfBirth}
           </p>
-          <p>
-            <span className="font-bold">Received Substances:</span>{' '}
-            {submission.receivedSubstances.join(', ')}
-          </p>
-          <p>
-            <span className="font-bold">Pharmacy:</span> {submission.pharmacy}
-          </p>
-          <p>
-            <span className="font-bold">Cross Streets:</span>{' '}
-            {submission.crossStreets}
-          </p>
-          <p>
-            <span className="font-bold">Phone Number:</span>{' '}
-            {submission.phoneNumber}
-          </p>
           {/* Render initials with corresponding agreement statements */}
           <div className="mt-6">
             <h3 className="font-bold text-lg mb-2">Initials:</h3>
-            {submission.initials.map((initial, index) => (
-              <p key={index} className="text-gray-700">
+            {agreementStatements.map((statement, index) => (
+              <p key={index} className="text-gray-700 mt-3">
                 <span className="font-semibold">
-                  {index + 1}. {agreementStatements[index]}
+                  {index + 1}. {statement}
                 </span>
-                -{' '}
-                <span className="font-medium bg-blue-100 text-blue-800 py-1 px-2 rounded-lg">
-                  Initials: {initial}
+                <span className="font-bold text-blue-400 py-1 px-2 rounded-lg">
+                  Initials: {submission.initials[index]}
                 </span>
               </p>
             ))}
@@ -189,10 +163,6 @@ function SubstanceContractDetails() {
             <p>
               <span className="font-bold">Witness Signature:</span>{' '}
               {submission.witnessSignature}
-            </p>
-            <p>
-              <span className="font-bold">AMA Employee Initials:</span>{' '}
-              {submission.amaEmployeeInitials}
             </p>
           </div>
         </div>
@@ -210,4 +180,4 @@ function SubstanceContractDetails() {
   )
 }
 
-export default SubstanceContractDetails
+export default PhentermineContractDetails

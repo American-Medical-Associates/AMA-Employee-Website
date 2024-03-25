@@ -4,9 +4,9 @@ import { MenuItem } from './MenuItem'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 
 const DropDownMenu: React.FC<{
-  item: Array<any>;
-  setOpenMenu: any;
-  openMenu: any;
+  item: Array<any>
+  setOpenMenu: any
+  openMenu: any
 }> = ({ item, setOpenMenu, openMenu }) => {
   return (
     <div>
@@ -23,5 +23,3 @@ const DropDownMenu: React.FC<{
   )
 }
 export default DropDownMenu
-
-

@@ -4,7 +4,7 @@ import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import Header from '../components/navigation/Header'
+
 import MainButton from '../components/Buttons/MainButton'
 import TensorFlowBert from '../components/machineLearning/TensorFlowBert'
 import { auth, functions, getAllUserInfo } from '../firebase/firebase'
@@ -44,7 +44,6 @@ const Home: NextPage = () => {
         <title>AMA</title>
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1>{auth.currentUser?.email}</h1>

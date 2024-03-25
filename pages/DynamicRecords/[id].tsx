@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { auth, db } from '../../firebase/firebase' // Adjust the import as necessary
 import { doc, getDoc } from 'firebase/firestore'
-import Header from '../../components/navigation/Header'
+
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
@@ -104,30 +104,31 @@ function RecordsRequestDetails() {
   // Render the submission details
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div
-    id="export"
-    ref={printRef}
-    className="container mx-auto p-8 bg-white shadow-lg rounded-lg"
-  >
-    <div className="flex items-center mb-6">
-      <img
-        src="/American Medical Associates.png"
-        alt="AMA Logo"
-        className="w-24 mr-4" // Adjust width as needed
-      />
-      <div className="flex-grow">
-        <h1 className="text-3xl font-bold mb-2">American Medical Associates</h1>
-        <h6>Primary Care / Internal Medicine Multi-Specialty Group</h6>
-      </div>
-    </div>
+        id="export"
+        ref={printRef}
+        className="container mx-auto p-8 bg-white shadow-lg rounded-lg"
+      >
+        <div className="flex items-center mb-6">
+          <img
+            src="/American Medical Associates.png"
+            alt="AMA Logo"
+            className="w-24 mr-4" // Adjust width as needed
+          />
+          <div className="flex-grow">
+            <h1 className="text-3xl font-bold mb-2">
+              American Medical Associates
+            </h1>
+            <h6>Primary Care / Internal Medicine Multi-Specialty Group</h6>
+          </div>
+        </div>
 
-    <h2 className="text-3xl font-bold text-gray-800 mb-6">
-      Hospital Records Request
-    </h2>
-    <h3 className="text-2xl font-semibold text-gray-800 mb-6">
-      Submission Details
-    </h3>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">
+          Hospital Records Request
+        </h2>
+        <h3 className="text-2xl font-semibold text-gray-800 mb-6">
+          Submission Details
+        </h3>
         <div className="space-y-4">
           {/* Displaying submission details */}
           <p>

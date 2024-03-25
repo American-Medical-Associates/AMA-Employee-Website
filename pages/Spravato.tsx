@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
-import Header from '../components/navigation/Header'
+
 import { MenuItem } from '../components/navigation/MenuItem'
 import { useRouter } from 'next/router'
 import {
@@ -8,7 +8,11 @@ import {
   PencilIcon,
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
-import { auth, editSpravatoTracking, GetSpravatoTracking } from '../firebase/firebase'
+import {
+  auth,
+  editSpravatoTracking,
+  GetSpravatoTracking,
+} from '../firebase/firebase'
 import TextInput from '../components/userInput/TextInput'
 import Datepicker from '../components/userInput/Datepicker'
 import { addSpravatoTracking } from '../firebase/firebase'
@@ -92,44 +96,46 @@ const Spravato: NextPage<{}> = () => {
   //   'numberOfDevices',
   // ]
   // @ts-ignore
-  function JSONToCSV(jsonData: Array<{[key: string]: any}>): string {
-    if (!jsonData.length) return '';
-  
-    // Remove Timestamp fields and get headers
-    jsonData = jsonData.map(item => {
-        for (let key in item) {
-            if (item[key] && item[key].seconds) {
-                delete item[key];  // Remove the timestamp
-            }
-        }
-        return item;
-    });
+  function JSONToCSV(jsonData: Array<{ [key: string]: any }>): string {
+    if (!jsonData.length) return ''
 
-    const headers: string[] = Object.keys(jsonData[0]);
-    let csv: string = headers.join(',') + '\n';
-  
-    // Loop through each data entry
-    jsonData.forEach(item => {
-      let row: string = headers.map(header => {
-        let value: string | number | boolean | undefined = item[header];
-  
-        // If value contains comma, new line or double-quote, 
-        // then wrap it with double quotes
-        if (typeof value === 'string' && /[",\n]/.test(value)) {
-          value = `"${value.replace(/"/g, '""')}"`;
+    // Remove Timestamp fields and get headers
+    jsonData = jsonData.map((item) => {
+      for (let key in item) {
+        if (item[key] && item[key].seconds) {
+          delete item[key] // Remove the timestamp
         }
-  
-        return value;
-      }).join(',');
-      csv += row + '\n';
-    });
-  
-    return csv;
-}
-  
-// const data = [spravtoTrackingArray];
-const csvData = JSONToCSV(spravtoTrackingArray);
-console.log(csvData);
+      }
+      return item
+    })
+
+    const headers: string[] = Object.keys(jsonData[0])
+    let csv: string = headers.join(',') + '\n'
+
+    // Loop through each data entry
+    jsonData.forEach((item) => {
+      let row: string = headers
+        .map((header) => {
+          let value: string | number | boolean | undefined = item[header]
+
+          // If value contains comma, new line or double-quote,
+          // then wrap it with double quotes
+          if (typeof value === 'string' && /[",\n]/.test(value)) {
+            value = `"${value.replace(/"/g, '""')}"`
+          }
+
+          return value
+        })
+        .join(',')
+      csv += row + '\n'
+    })
+
+    return csv
+  }
+
+  // const data = [spravtoTrackingArray];
+  const csvData = JSONToCSV(spravtoTrackingArray)
+  console.log(csvData)
   // Combine headers and rows to form CSV
   // @ts-ignore
   function downloadCSV(csvString, filename = 'output.csv') {
@@ -470,7 +476,6 @@ console.log(csvData);
   }
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className=" mt-8">
         <h1 className=" text-center text-4xl text-[#0008ff]">Spravato</h1>
 

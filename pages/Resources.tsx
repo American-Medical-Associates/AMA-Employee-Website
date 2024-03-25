@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Header from '../components/navigation/Header'
+
 import { MenuItem } from '../components/navigation/MenuItem'
 import router, { useRouter } from 'next/router'
 import {
@@ -21,7 +21,6 @@ const Resources: NextPage<{}> = () => {
 
   return (
     <div className="flex flex-col bg-gray-100 items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <div className="mt-5 flex h-full w-full flex-col">
         {/* Internal Medicine Row */}
         <h2 className="text-center text-2xl">Internal Medicine</h2>
@@ -73,6 +72,24 @@ const Resources: NextPage<{}> = () => {
               text="Weight Loss Survey"
               onClick={() => {
                 router.push('/WeightLossSurvey')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Phentermine Contract"
+              onClick={() => {
+                router.push('/PhentermineForm')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Phentermine Submissions"
+              onClick={() => {
+                router.push('/PhentermineSubmissions')
               }}
             />
             {/* Add more buttons here if necessary */}
@@ -142,23 +159,23 @@ const Resources: NextPage<{}> = () => {
                 }}
               />
               <MenuItem
-              icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-              }
-              text="Cancellation Policy"
-              onClick={() => {
-                router.push('/CancelPolicy')
-              }}
-            />
-            <MenuItem
-              icon={
-                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-              }
-              text="Cancellation Policy Sub..."
-              onClick={() => {
-                router.push('/CancelPolicySubmissions')
-              }}
-            />
+                icon={
+                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Cancellation Policy"
+                onClick={() => {
+                  router.push('/CancelPolicy')
+                }}
+              />
+              <MenuItem
+                icon={
+                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                }
+                text="Cancellation Policy Sub..."
+                onClick={() => {
+                  router.push('/CancelPolicySubmissions')
+                }}
+              />
             </div>
           </div>
           {/* Add more rows of buttons here if necessary */}
@@ -170,23 +187,23 @@ const Resources: NextPage<{}> = () => {
           <div className="flex justify-center items-center">
             {/* Misc Buttons */}
             <MenuItem
-                icon={
-                  <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-                }
-                text="Controlled Substance Contract"
-                onClick={() => {
-                  router.push('/SubstanceContract')
-                }}
-              />
-              <MenuItem
-                icon={
-                  <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
-                }
-                text="Controlled Substance Submissions"
-                onClick={() => {
-                  router.push('/SubstanceContractSubmissions')
-                }}
-              />
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Controlled Substance Contract"
+              onClick={() => {
+                router.push('/SubstanceContract')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Controlled Substance Submissions"
+              onClick={() => {
+                router.push('/SubstanceContractSubmissions')
+              }}
+            />
             <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
@@ -207,8 +224,8 @@ const Resources: NextPage<{}> = () => {
             />
             {/* Add more buttons here if necessary */}
           </div>
-          <div className="flex justify-center items-center">            
-              <MenuItem
+          <div className="flex justify-center items-center">
+            <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }

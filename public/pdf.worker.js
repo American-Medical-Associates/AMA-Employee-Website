@@ -96,7 +96,7 @@
               testMessageProcessed = true
               handler.send(
                 'test',
-                data instanceof Uint8Array && data[0] === 255
+                data instanceof Uint8Array && data[0] === 255,
               )
             })
             handler.on('configure', function wphConfigure(data) {
@@ -119,7 +119,7 @@
             if (apiVersion !== workerVersion) {
               throw new Error(
                 `The API version "${apiVersion}" does not match ` +
-                  `the Worker version "${workerVersion}".`
+                  `the Worker version "${workerVersion}".`,
               )
             }
 
@@ -133,7 +133,7 @@
               throw new Error(
                 'The `Array.prototype` contains unexpected enumerable properties: ' +
                   enumerableProperties.join(', ') +
-                  '; thus breaking e.g. `for...in` iteration of `Array`s.'
+                  '; thus breaking e.g. `for...in` iteration of `Array`s.',
               )
             }
 
@@ -141,7 +141,7 @@
               throw new Error(
                 'The browser/environment lacks native support for critical ' +
                   'functionality used by the PDF.js library (e.g. `ReadableStream`); ' +
-                  'please use a `legacy`-build instead.'
+                  'please use a `legacy`-build instead.',
               )
             }
 
@@ -151,7 +151,7 @@
             let handler = new _message_handler.MessageHandler(
               workerHandlerName,
               docId,
-              port
+              port,
             )
 
             function ensureNotTerminated() {
@@ -218,7 +218,7 @@
                     handler,
                     evaluatorOptions,
                     enableXfa,
-                    docBaseUrl
+                    docBaseUrl,
                   )
                   pdfManagerCapability.resolve(newPdfManager)
                 } catch (ex) {
@@ -259,7 +259,7 @@
                     },
                     evaluatorOptions,
                     enableXfa,
-                    docBaseUrl
+                    docBaseUrl,
                   )
 
                   for (let i = 0; i < cachedChunks.length; i++) {
@@ -281,7 +281,7 @@
 
                 if (source.length && pdfFile.length !== source.length) {
                   ;(0, _util.warn)(
-                    'reported HTTP length is different from actual'
+                    'reported HTTP length is different from actual',
                   )
                 }
 
@@ -293,7 +293,7 @@
                     handler,
                     evaluatorOptions,
                     enableXfa,
-                    docBaseUrl
+                    docBaseUrl,
                   )
                   pdfManagerCapability.resolve(newPdfManager)
                 } catch (ex) {
@@ -365,7 +365,7 @@
 
                 if (ex instanceof _util.PasswordException) {
                   const task = new WorkerTask(
-                    `PasswordException: response ${ex.code}`
+                    `PasswordException: response ${ex.code}`,
                   )
                   startWorkerTask(task)
                   handler
@@ -389,7 +389,7 @@
                 } else {
                   handler.send(
                     'DocException',
-                    new _util.UnknownErrorException(ex.message, ex.toString())
+                    new _util.UnknownErrorException(ex.message, ex.toString()),
                   )
                 }
               }
@@ -427,7 +427,7 @@
                 .then(function (newPdfManager) {
                   if (terminated) {
                     newPdfManager.terminate(
-                      new _util.AbortException('Worker was terminated.')
+                      new _util.AbortException('Worker was terminated.'),
                     )
                     throw new Error('Worker was terminated')
                   }
@@ -468,7 +468,7 @@
               'GetDestinations',
               function wphSetupGetDestinations(data) {
                 return pdfManager.ensureCatalog('destinations')
-              }
+              },
             )
             handler.on('GetDestination', function wphSetupGetDestination(data) {
               return pdfManager.ensureCatalog('getDestination', [data.id])
@@ -498,7 +498,7 @@
               'GetDocJSActions',
               function wphSetupGetDocJSActions(data) {
                 return pdfManager.ensureCatalog('jsActions')
-              }
+              },
             )
             handler.on('GetPageJSActions', function ({ pageIndex }) {
               return pdfManager.getPage(pageIndex).then(function (page) {
@@ -567,7 +567,7 @@
                           .finally(function () {
                             finishWorkerTask(task)
                           })
-                      })
+                      }),
                     )
                   }
                 }
@@ -668,7 +668,7 @@
                     xfaData,
                   })
                 })
-              }
+              },
             )
             handler.on(
               'GetOperatorList',
@@ -676,7 +676,7 @@
                 const pageIndex = data.pageIndex
                 pdfManager.getPage(pageIndex).then(function (page) {
                   const task = new WorkerTask(
-                    `GetOperatorList: page ${pageIndex}`
+                    `GetOperatorList: page ${pageIndex}`,
                   )
                   startWorkerTask(task)
                   const start =
@@ -699,7 +699,7 @@
                             `page=${pageIndex + 1} - getOperatorList: time=` +
                               `${Date.now() - start}ms, len=${
                                 operatorListInfo.length
-                              }`
+                              }`,
                           )
                         }
 
@@ -717,10 +717,10 @@
                             _util.UNSUPPORTED_FEATURES.errorOperatorList,
                         })
                         sink.error(reason)
-                      }
+                      },
                     )
                 })
-              }
+              },
             )
             handler.on('GetTextContent', function wphExtractText(data, sink) {
               const pageIndex = data.pageIndex
@@ -745,7 +745,7 @@
                       if (start) {
                         ;(0, _util.info)(
                           `page=${pageIndex + 1} - getTextContent: time=` +
-                            `${Date.now() - start}ms`
+                            `${Date.now() - start}ms`,
                         )
                       }
 
@@ -759,7 +759,7 @@
                       }
 
                       sink.error(reason)
-                    }
+                    },
                   )
               })
             })
@@ -780,7 +780,7 @@
 
               if (pdfManager) {
                 pdfManager.terminate(
-                  new _util.AbortException('Worker was terminated.')
+                  new _util.AbortException('Worker was terminated.'),
                 )
                 const cleanupPromise = pdfManager.cleanup()
                 waitOn.push(cleanupPromise)
@@ -814,7 +814,7 @@
             const handler = new _message_handler.MessageHandler(
               'worker',
               'main',
-              port
+              port,
             )
             WorkerMessageHandler.setup(handler, port)
             handler.send('ready', null)
@@ -1464,7 +1464,7 @@
             bytes !== null &&
               typeof bytes === 'object' &&
               bytes.length !== undefined,
-            'Invalid argument for bytesToString'
+            'Invalid argument for bytesToString',
           )
           const length = bytes.length
           const MAX_ARGUMENT_COUNT = 8192
@@ -1503,7 +1503,7 @@
 
           assert(
             arr.byteLength !== undefined,
-            'arrayByteLength - invalid argument.'
+            'arrayByteLength - invalid argument.',
           )
           return arr.byteLength
         }
@@ -1548,7 +1548,7 @@
             (value >> 24) & 0xff,
             (value >> 16) & 0xff,
             (value >> 8) & 0xff,
-            value & 0xff
+            value & 0xff,
           )
         }
 
@@ -1596,7 +1596,7 @@
         }
         exports.IsEvalSupportedCached = IsEvalSupportedCached
         const hexNumbers = [...Array(256).keys()].map((n) =>
-          n.toString(16).padStart(2, '0')
+          n.toString(16).padStart(2, '0'),
         )
 
         class Util {
@@ -1698,10 +1698,10 @@
             }
 
             const orderedX = [rect1[0], rect1[2], rect2[0], rect2[2]].sort(
-              compare
+              compare,
             )
             const orderedY = [rect1[1], rect1[3], rect2[1], rect2[3]].sort(
-              compare
+              compare,
             )
             const result = []
             rect1 = Util.normalizeRect(rect1)
@@ -1835,16 +1835,16 @@
             for (let i = 2; i < length; i += 2) {
               strBuf.push(
                 String.fromCharCode(
-                  (str.charCodeAt(i) << 8) | str.charCodeAt(i + 1)
-                )
+                  (str.charCodeAt(i) << 8) | str.charCodeAt(i + 1),
+                ),
               )
             }
           } else if (str[0] === '\xFF' && str[1] === '\xFE') {
             for (let i = 2; i < length; i += 2) {
               strBuf.push(
                 String.fromCharCode(
-                  (str.charCodeAt(i + 1) << 8) | str.charCodeAt(i)
-                )
+                  (str.charCodeAt(i + 1) << 8) | str.charCodeAt(i),
+                ),
               )
             }
           } else {
@@ -1880,7 +1880,7 @@
             const char = str.charCodeAt(i)
             buf.push(
               String.fromCharCode((char >> 8) & 0xff),
-              String.fromCharCode(char & 0xff)
+              String.fromCharCode(char & 0xff),
             )
           }
 
@@ -1964,7 +1964,7 @@
         function createObjectURL(
           data,
           contentType = '',
-          forceDataSchema = false
+          forceDataSchema = false,
         ) {
           if (
             URL.createObjectURL &&
@@ -1974,7 +1974,7 @@
             return URL.createObjectURL(
               new Blob([data], {
                 type: contentType,
-              })
+              }),
             )
           }
 
@@ -2002,7 +2002,7 @@
       /***/ (
         __unused_webpack_module,
         __unused_webpack_exports,
-        __w_pdfjs_require__
+        __w_pdfjs_require__,
       ) => {
         var _is_node = __w_pdfjs_require__(4)
 
@@ -2220,7 +2220,7 @@
 
             emptyDict.set = (key, value) => {
               ;(0, _util.unreachable)(
-                'Should not call `set` on the empty dictionary.'
+                'Should not call `set` on the empty dictionary.',
               )
             }
 
@@ -2620,13 +2620,13 @@
 
           requestLoadedStream() {
             ;(0, _util.unreachable)(
-              'Abstract method `requestLoadedStream` called'
+              'Abstract method `requestLoadedStream` called',
             )
           }
 
           sendProgressiveData(chunk) {
             ;(0, _util.unreachable)(
-              'Abstract method `sendProgressiveData` called'
+              'Abstract method `sendProgressiveData` called',
             )
           }
 
@@ -2647,7 +2647,7 @@
             msgHandler,
             evaluatorOptions,
             enableXfa,
-            docBaseUrl
+            docBaseUrl,
           ) {
             super()
             this._docId = docId
@@ -2693,7 +2693,7 @@
             args,
             evaluatorOptions,
             enableXfa,
-            docBaseUrl
+            docBaseUrl,
           ) {
             super()
             this._docId = docId
@@ -2709,11 +2709,11 @@
                 length: args.length,
                 disableAutoFetch: args.disableAutoFetch,
                 rangeChunkSize: args.rangeChunkSize,
-              }
+              },
             )
             this.pdfDocument = new _document.PDFDocument(
               this,
-              this.streamManager.getStream()
+              this.streamManager.getStream(),
             )
           }
 
@@ -2884,7 +2884,7 @@
 
             const endChunk = Math.min(
               Math.floor((end - 1) / this.chunkSize) + 1,
-              this.numChunks
+              this.numChunks,
             )
 
             for (let chunk = beginChunk; chunk < endChunk; ++chunk) {
@@ -3014,7 +3014,7 @@
                 },
 
                 configurable: true,
-              }
+              },
             )
             const subStream = new ChunkedStreamSubstream()
             subStream.pos = subStream.start = start
@@ -3150,7 +3150,7 @@
                 const begin = groupedChunk.beginChunk * this.chunkSize
                 const end = Math.min(
                   groupedChunk.endChunk * this.chunkSize,
-                  this.length
+                  this.length,
                 )
                 this.sendRequest(begin, end).catch(capability.reject)
               }
@@ -3572,7 +3572,7 @@
         function toRomanNumerals(number, lowerCase = false) {
           ;(0, _util.assert)(
             Number.isInteger(number) && number > 0,
-            'The number should be a positive integer.'
+            'The number should be a positive integer.',
           )
           const romanBuf = []
           let pos
@@ -3861,14 +3861,14 @@
           if (/^".*"$/.test(fontFamily)) {
             if (/[^\\]"/.test(fontFamily.slice(1, fontFamily.length - 1))) {
               ;(0, _util.warn)(
-                `XFA - FontFamily contains some unescaped ": ${fontFamily}.`
+                `XFA - FontFamily contains some unescaped ": ${fontFamily}.`,
               )
               return false
             }
           } else if (/^'.*'$/.test(fontFamily)) {
             if (/[^\\]'/.test(fontFamily.slice(1, fontFamily.length - 1))) {
               ;(0, _util.warn)(
-                `XFA - FontFamily contains some unescaped ': ${fontFamily}.`
+                `XFA - FontFamily contains some unescaped ': ${fontFamily}.`,
               )
               return false
             }
@@ -3876,7 +3876,7 @@
             for (const ident of fontFamily.split(/[ \t]+/)) {
               if (/^(\d|(-(\d|-)))/.test(ident) || !/^[\w-\\]+$/.test(ident)) {
                 ;(0, _util.warn)(
-                  `XFA - FontFamily contains some invalid <custom-ident>: ${fontFamily}.`
+                  `XFA - FontFamily contains some invalid <custom-ident>: ${fontFamily}.`,
                 )
                 return false
               }
@@ -3905,7 +3905,7 @@
             '^\\s*(' +
               URL_OPEN_METHODS.join('|').split('.').join('\\.') +
               ')\\((?:\'|")([^\'"]*)(?:\'|")(?:,\\s*(\\w+)\\)|\\))',
-            'i'
+            'i',
           )
           const jsUrl = regex.exec(str)
 
@@ -4151,7 +4151,7 @@
               this,
               'resources',
               this._getInheritableProperty('Resources') ||
-                _primitives.Dict.empty
+                _primitives.Dict.empty,
             )
           }
 
@@ -4177,7 +4177,7 @@
             return (0, _util.shadow)(
               this,
               'mediaBox',
-              this._getBoundingBox('MediaBox') || LETTER_SIZE_MEDIABOX
+              this._getBoundingBox('MediaBox') || LETTER_SIZE_MEDIABOX,
             )
           }
 
@@ -4185,7 +4185,7 @@
             return (0, _util.shadow)(
               this,
               'cropBox',
-              this._getBoundingBox('CropBox') || this.mediaBox
+              this._getBoundingBox('CropBox') || this.mediaBox,
             )
           }
 
@@ -4241,7 +4241,7 @@
                 featureId: _util.UNSUPPORTED_FEATURES.errorContentSubStream,
               })
               ;(0, _util.warn)(
-                `getContentStream - ignoring sub-stream (${objId}): "${reason}".`
+                `getContentStream - ignoring sub-stream (${objId}): "${reason}".`,
               )
               return
             }
@@ -4258,7 +4258,7 @@
               if (Array.isArray(content)) {
                 return new _decode_stream.StreamsSequenceStream(
                   content,
-                  this._onSubStreamError.bind(this, handler)
+                  this._onSubStreamError.bind(this, handler),
                 )
               }
 
@@ -4274,7 +4274,7 @@
                 ? {
                     bbox: this.xfaFactory.getBoundingBox(this.pageIndex),
                   }
-                : null
+                : null,
             )
           }
 
@@ -4302,10 +4302,12 @@
                   annotation
                     .save(partialEvaluator, task, annotationStorage)
                     .catch(function (reason) {
-                      ;(0,
-                      _util.warn)('save - ignoring annotation data during ' + `"${task.name}" task: "${reason}".`)
+                      ;(0, _util.warn)(
+                        'save - ignoring annotation data during ' +
+                          `"${task.name}" task: "${reason}".`,
+                      )
                       return null
-                    })
+                    }),
                 )
               }
 
@@ -4322,7 +4324,7 @@
               const objectLoader = new _object_loader.ObjectLoader(
                 this.resources,
                 keys,
-                this.xref
+                this.xref,
               )
               return objectLoader.load()
             })
@@ -4366,7 +4368,7 @@
               handler.send('StartRenderPage', {
                 transparency: partialEvaluator.hasBlendModes(
                   this.resources,
-                  this.nonBlendModesSet
+                  this.nonBlendModesSet,
                 ),
                 pageIndex: this.pageIndex,
                 cacheKey,
@@ -4418,13 +4420,15 @@
                           task,
                           intent,
                           renderForms,
-                          annotationStorage
+                          annotationStorage,
                         )
                         .catch(function (reason) {
-                          ;(0,
-                          _util.warn)('getOperatorList - ignoring annotation data during ' + `"${task.name}" task: "${reason}".`)
+                          ;(0, _util.warn)(
+                            'getOperatorList - ignoring annotation data during ' +
+                              `"${task.name}" task: "${reason}".`,
+                          )
                           return null
-                        })
+                        }),
                     )
                   }
                 }
@@ -4442,7 +4446,7 @@
                     length: pageOpList.totalLength,
                   }
                 })
-              }
+              },
             )
           }
 
@@ -4490,9 +4494,8 @@
           }
 
           async getStructTree() {
-            const structTreeRoot = await this.pdfManager.ensureCatalog(
-              'structTreeRoot'
-            )
+            const structTreeRoot =
+              await this.pdfManager.ensureCatalog('structTreeRoot')
 
             if (!structTreeRoot) {
               return null
@@ -4501,7 +4504,7 @@
             const structTree = await this.pdfManager.ensure(
               this,
               '_parseStructTree',
-              [structTreeRoot]
+              [structTreeRoot],
             )
             return structTree.serializable
           }
@@ -4509,7 +4512,7 @@
           _parseStructTree(structTreeRoot) {
             const tree = new _struct_tree.StructTreePage(
               structTreeRoot,
-              this.pageDict
+              this.pageDict,
             )
             tree.parse()
             return tree
@@ -4547,7 +4550,7 @@
             return (0, _util.shadow)(
               this,
               'annotations',
-              Array.isArray(annots) ? annots : []
+              Array.isArray(annots) ? annots : [],
             )
           }
 
@@ -4564,24 +4567,24 @@
                       annotationRef,
                       this.pdfManager,
                       this._localIdFactory,
-                      false
+                      false,
                     ).catch(function (reason) {
                       ;(0, _util.warn)(`_parsedAnnotations: "${reason}".`)
                       return null
-                    })
+                    }),
                   )
                 }
 
-                return Promise.all(annotationPromises).then(function (
-                  annotations
-                ) {
-                  return annotations.filter((annotation) => !!annotation)
-                })
+                return Promise.all(annotationPromises).then(
+                  function (annotations) {
+                    return annotations.filter((annotation) => !!annotation)
+                  },
+                )
               })
             return (0, _util.shadow)(
               this,
               '_parsedAnnotations',
-              parsedAnnotations
+              parsedAnnotations,
             )
           }
 
@@ -4589,7 +4592,7 @@
             const actions = (0, _core_utils.collectActions)(
               this.xref,
               this.pageDict,
-              _util.PageActionEventType
+              _util.PageActionEventType,
             )
             return (0, _util.shadow)(this, 'jsActions', actions)
           }
@@ -4679,7 +4682,7 @@
 
             if (stream.length <= 0) {
               throw new _util.InvalidPDFException(
-                'The PDF file is empty, i.e. its size is zero bytes.'
+                'The PDF file is empty, i.e. its size is zero bytes.',
               )
             }
 
@@ -4706,7 +4709,7 @@
 
               static getPageObjId() {
                 ;(0, _util.unreachable)(
-                  'Abstract method `getPageObjId` called.'
+                  'Abstract method `getPageObjId` called.',
                 )
               }
             }
@@ -4853,20 +4856,20 @@
               if (field.has('Kids')) {
                 if (++recursionDepth > RECURSION_LIMIT) {
                   ;(0, _util.warn)(
-                    '_hasOnlyDocumentSignatures: maximum recursion depth reached'
+                    '_hasOnlyDocumentSignatures: maximum recursion depth reached',
                   )
                   return false
                 }
 
                 return this._hasOnlyDocumentSignatures(
                   field.get('Kids'),
-                  recursionDepth
+                  recursionDepth,
                 )
               }
 
               const isSignature = (0, _primitives.isName)(
                 field.get('FT'),
-                'Sig'
+                'Sig',
               )
               const rectangle = field.get('Rect')
               const isInvisible =
@@ -4898,7 +4901,7 @@
             if ((0, _primitives.isStream)(xfa) && !xfa.isEmpty) {
               try {
                 entries['xdp:xdp'] = (0, _util.stringToUTF8String)(
-                  xfa.getString()
+                  xfa.getString(),
                 )
                 return entries
               } catch (_) {
@@ -4958,7 +4961,7 @@
             return (0, _util.shadow)(
               this,
               'xfaFactory',
-              data ? new _factory.XFAFactory(data) : null
+              data ? new _factory.XFAFactory(data) : null,
             )
           }
 
@@ -4971,9 +4974,8 @@
           }
 
           async loadXfaImages() {
-            const xfaImagesDict = await this.pdfManager.ensureCatalog(
-              'xfaImages'
-            )
+            const xfaImagesDict =
+              await this.pdfManager.ensureCatalog('xfaImages')
 
             if (!xfaImagesDict) {
               return
@@ -4983,7 +4985,7 @@
             const objectLoader = new _object_loader.ObjectLoader(
               xfaImagesDict,
               keys,
-              this.xref
+              this.xref,
             )
             await objectLoader.load()
             const xfaImages = new Map()
@@ -5017,7 +5019,7 @@
             const objectLoader = new _object_loader.ObjectLoader(
               resources,
               ['Font'],
-              this.xref
+              this.xref,
             )
             await objectLoader.load()
             const fontRes = resources.get('Font')
@@ -5028,7 +5030,7 @@
 
             const options = Object.assign(
               Object.create(null),
-              this.pdfManager.evaluatorOptions
+              this.pdfManager.evaluatorOptions,
             )
             options.useSystemFonts = false
             const partialEvaluator = new _evaluator.PartialEvaluator({
@@ -5093,12 +5095,12 @@
                     task,
                     initialState,
                     null,
-                    cssFontInfo
+                    cssFontInfo,
                   )
                   .catch(function (reason) {
                     ;(0, _util.warn)(`loadXfaFonts: "${reason}".`)
                     return null
-                  })
+                  }),
               )
             }
 
@@ -5167,12 +5169,12 @@
                         fontFamily: missing,
                         fontWeight: fontInfo.fontWeight,
                         italicAngle: fontInfo.italicAngle,
-                      }
+                      },
                     )
                     .catch(function (reason) {
                       ;(0, _util.warn)(`loadXfaFonts: "${reason}".`)
                       return null
-                    })
+                    }),
                 )
               }
             }
@@ -5271,7 +5273,7 @@
               }
 
               ;(0, _util.info)(
-                'The document information dictionary is invalid.'
+                'The document information dictionary is invalid.',
               )
             }
 
@@ -5301,7 +5303,7 @@
                     customValue = value
                   } else {
                     ;(0, _util.info)(
-                      `Unsupported value in document info for (custom) "${key}".`
+                      `Unsupported value in document info for (custom) "${key}".`,
                     )
                     continue
                   }
@@ -5351,7 +5353,7 @@
               hashOriginal = (0, _crypto.calculateMD5)(
                 this.stream.getByteRange(0, FINGERPRINT_FIRST_BYTES),
                 0,
-                FINGERPRINT_FIRST_BYTES
+                FINGERPRINT_FIRST_BYTES,
               )
             }
 
@@ -5383,7 +5385,7 @@
               }
 
               throw new _util.FormatError(
-                "The Linearization dictionary doesn't point to a valid Page dictionary."
+                "The Linearization dictionary doesn't point to a valid Page dictionary.",
               )
             } catch (reason) {
               ;(0, _util.info)(reason)
@@ -5488,7 +5490,7 @@
               }
 
               ;(0, _util.warn)(
-                `checkLastPage - invalid /Pages tree /Count: ${numPages}.`
+                `checkLastPage - invalid /Pages tree /Count: ${numPages}.`,
               )
               let pagesTree
 
@@ -5529,7 +5531,7 @@
                       globalImageCache: catalog.globalImageCache,
                       nonBlendModesSet: catalog.nonBlendModesSet,
                       xfaFactory: null,
-                    })
+                    }),
                   )
                 }
 
@@ -5573,13 +5575,13 @@
                 fieldRef,
                 this.pdfManager,
                 this._localIdFactory,
-                true
+                true,
               )
                 .then((annotation) => annotation && annotation.getFieldObject())
                 .catch(function (reason) {
                   ;(0, _util.warn)(`_collectFieldObjects: "${reason}".`)
                   return null
-                })
+                }),
             )
 
             if (field.has('Kids')) {
@@ -5596,7 +5598,7 @@
               return (0, _util.shadow)(
                 this,
                 'fieldObjects',
-                Promise.resolve(null)
+                Promise.resolve(null),
               )
             }
 
@@ -5617,14 +5619,14 @@
                   if (fields.length > 0) {
                     allFields[name] = fields
                   }
-                })
+                }),
               )
             }
 
             return (0, _util.shadow)(
               this,
               'fieldObjects',
-              Promise.all(allPromises).then(() => allFields)
+              Promise.all(allPromises).then(() => allFields),
             )
           }
 
@@ -5645,7 +5647,7 @@
 
             if (fieldObjects) {
               return Object.values(fieldObjects).some((fieldObject) =>
-                fieldObject.some((object) => object.actions !== null)
+                fieldObject.some((object) => object.actions !== null),
               )
             }
 
@@ -5708,154 +5710,160 @@
 
         var _fonts_utils = __w_pdfjs_require__(18)
 
-        const getXFAFontMap = (0, _core_utils.getLookupTableFactory)(function (
-          t
-        ) {
-          t['MyriadPro-Regular'] = t['PdfJS-Fallback-Regular'] = {
-            name: 'LiberationSans-Regular',
-            factors: _myriadpro_factors.MyriadProRegularFactors,
-            baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
-            baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
-            metrics: _myriadpro_factors.MyriadProRegularMetrics,
-          }
-          t['MyriadPro-Bold'] = t['PdfJS-Fallback-Bold'] = {
-            name: 'LiberationSans-Bold',
-            factors: _myriadpro_factors.MyriadProBoldFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
-            metrics: _myriadpro_factors.MyriadProBoldMetrics,
-          }
-          t['MyriadPro-It'] =
-            t['MyriadPro-Italic'] =
-            t['PdfJS-Fallback-Italic'] =
-              {
-                name: 'LiberationSans-Italic',
-                factors: _myriadpro_factors.MyriadProItalicFactors,
-                baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
-                baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
-                metrics: _myriadpro_factors.MyriadProItalicMetrics,
-              }
-          t['MyriadPro-BoldIt'] =
-            t['MyriadPro-BoldItalic'] =
-            t['PdfJS-Fallback-BoldItalic'] =
-              {
-                name: 'LiberationSans-BoldItalic',
-                factors: _myriadpro_factors.MyriadProBoldItalicFactors,
-                baseWidths:
-                  _liberationsans_widths.LiberationSansBoldItalicWidths,
-                baseMapping:
-                  _liberationsans_widths.LiberationSansBoldItalicMapping,
-                metrics: _myriadpro_factors.MyriadProBoldItalicMetrics,
-              }
-          t.ArialMT =
-            t.Arial =
-            t['Arial-Regular'] =
-              {
-                name: 'LiberationSans-Regular',
-                baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
-                baseMapping:
-                  _liberationsans_widths.LiberationSansRegularMapping,
-              }
-          t['Arial-BoldMT'] = t['Arial-Bold'] = {
-            name: 'LiberationSans-Bold',
-            baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
-          }
-          t['Arial-ItalicMT'] = t['Arial-Italic'] = {
-            name: 'LiberationSans-Italic',
-            baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
-          }
-          t['Arial-BoldItalicMT'] = t['Arial-BoldItalic'] = {
-            name: 'LiberationSans-BoldItalic',
-            baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldItalicMapping,
-          }
-          t['Calibri-Regular'] = {
-            name: 'LiberationSans-Regular',
-            factors: _calibri_factors.CalibriRegularFactors,
-            baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
-            baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
-            metrics: _calibri_factors.CalibriRegularMetrics,
-          }
-          t['Calibri-Bold'] = {
-            name: 'LiberationSans-Bold',
-            factors: _calibri_factors.CalibriBoldFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
-            metrics: _calibri_factors.CalibriBoldMetrics,
-          }
-          t['Calibri-Italic'] = {
-            name: 'LiberationSans-Italic',
-            factors: _calibri_factors.CalibriItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
-            metrics: _calibri_factors.CalibriItalicMetrics,
-          }
-          t['Calibri-BoldItalic'] = {
-            name: 'LiberationSans-BoldItalic',
-            factors: _calibri_factors.CalibriBoldItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldItalicMapping,
-            metrics: _calibri_factors.CalibriBoldItalicMetrics,
-          }
-          t['Segoeui-Regular'] = {
-            name: 'LiberationSans-Regular',
-            factors: _segoeui_factors.SegoeuiRegularFactors,
-            baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
-            baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
-            metrics: _segoeui_factors.SegoeuiRegularMetrics,
-          }
-          t['Segoeui-Bold'] = {
-            name: 'LiberationSans-Bold',
-            factors: _segoeui_factors.SegoeuiBoldFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
-            metrics: _segoeui_factors.SegoeuiBoldMetrics,
-          }
-          t['Segoeui-Italic'] = {
-            name: 'LiberationSans-Italic',
-            factors: _segoeui_factors.SegoeuiItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
-            metrics: _segoeui_factors.SegoeuiItalicMetrics,
-          }
-          t['Segoeui-BoldItalic'] = {
-            name: 'LiberationSans-BoldItalic',
-            factors: _segoeui_factors.SegoeuiBoldItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldItalicMapping,
-            metrics: _segoeui_factors.SegoeuiBoldItalicMetrics,
-          }
-          t['Helvetica-Regular'] = t.Helvetica = {
-            name: 'LiberationSans-Regular',
-            factors: _helvetica_factors.HelveticaRegularFactors,
-            baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
-            baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
-            metrics: _helvetica_factors.HelveticaRegularMetrics,
-          }
-          t['Helvetica-Bold'] = {
-            name: 'LiberationSans-Bold',
-            factors: _helvetica_factors.HelveticaBoldFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
-            metrics: _helvetica_factors.HelveticaBoldMetrics,
-          }
-          t['Helvetica-Italic'] = {
-            name: 'LiberationSans-Italic',
-            factors: _helvetica_factors.HelveticaItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
-            metrics: _helvetica_factors.HelveticaItalicMetrics,
-          }
-          t['Helvetica-BoldItalic'] = {
-            name: 'LiberationSans-BoldItalic',
-            factors: _helvetica_factors.HelveticaBoldItalicFactors,
-            baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
-            baseMapping: _liberationsans_widths.LiberationSansBoldItalicMapping,
-            metrics: _helvetica_factors.HelveticaBoldItalicMetrics,
-          }
-        })
+        const getXFAFontMap = (0, _core_utils.getLookupTableFactory)(
+          function (t) {
+            t['MyriadPro-Regular'] = t['PdfJS-Fallback-Regular'] = {
+              name: 'LiberationSans-Regular',
+              factors: _myriadpro_factors.MyriadProRegularFactors,
+              baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
+              baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
+              metrics: _myriadpro_factors.MyriadProRegularMetrics,
+            }
+            t['MyriadPro-Bold'] = t['PdfJS-Fallback-Bold'] = {
+              name: 'LiberationSans-Bold',
+              factors: _myriadpro_factors.MyriadProBoldFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
+              baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
+              metrics: _myriadpro_factors.MyriadProBoldMetrics,
+            }
+            t['MyriadPro-It'] =
+              t['MyriadPro-Italic'] =
+              t['PdfJS-Fallback-Italic'] =
+                {
+                  name: 'LiberationSans-Italic',
+                  factors: _myriadpro_factors.MyriadProItalicFactors,
+                  baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
+                  baseMapping:
+                    _liberationsans_widths.LiberationSansItalicMapping,
+                  metrics: _myriadpro_factors.MyriadProItalicMetrics,
+                }
+            t['MyriadPro-BoldIt'] =
+              t['MyriadPro-BoldItalic'] =
+              t['PdfJS-Fallback-BoldItalic'] =
+                {
+                  name: 'LiberationSans-BoldItalic',
+                  factors: _myriadpro_factors.MyriadProBoldItalicFactors,
+                  baseWidths:
+                    _liberationsans_widths.LiberationSansBoldItalicWidths,
+                  baseMapping:
+                    _liberationsans_widths.LiberationSansBoldItalicMapping,
+                  metrics: _myriadpro_factors.MyriadProBoldItalicMetrics,
+                }
+            t.ArialMT =
+              t.Arial =
+              t['Arial-Regular'] =
+                {
+                  name: 'LiberationSans-Regular',
+                  baseWidths:
+                    _liberationsans_widths.LiberationSansRegularWidths,
+                  baseMapping:
+                    _liberationsans_widths.LiberationSansRegularMapping,
+                }
+            t['Arial-BoldMT'] = t['Arial-Bold'] = {
+              name: 'LiberationSans-Bold',
+              baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
+              baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
+            }
+            t['Arial-ItalicMT'] = t['Arial-Italic'] = {
+              name: 'LiberationSans-Italic',
+              baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
+              baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
+            }
+            t['Arial-BoldItalicMT'] = t['Arial-BoldItalic'] = {
+              name: 'LiberationSans-BoldItalic',
+              baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
+              baseMapping:
+                _liberationsans_widths.LiberationSansBoldItalicMapping,
+            }
+            t['Calibri-Regular'] = {
+              name: 'LiberationSans-Regular',
+              factors: _calibri_factors.CalibriRegularFactors,
+              baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
+              baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
+              metrics: _calibri_factors.CalibriRegularMetrics,
+            }
+            t['Calibri-Bold'] = {
+              name: 'LiberationSans-Bold',
+              factors: _calibri_factors.CalibriBoldFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
+              baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
+              metrics: _calibri_factors.CalibriBoldMetrics,
+            }
+            t['Calibri-Italic'] = {
+              name: 'LiberationSans-Italic',
+              factors: _calibri_factors.CalibriItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
+              baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
+              metrics: _calibri_factors.CalibriItalicMetrics,
+            }
+            t['Calibri-BoldItalic'] = {
+              name: 'LiberationSans-BoldItalic',
+              factors: _calibri_factors.CalibriBoldItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
+              baseMapping:
+                _liberationsans_widths.LiberationSansBoldItalicMapping,
+              metrics: _calibri_factors.CalibriBoldItalicMetrics,
+            }
+            t['Segoeui-Regular'] = {
+              name: 'LiberationSans-Regular',
+              factors: _segoeui_factors.SegoeuiRegularFactors,
+              baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
+              baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
+              metrics: _segoeui_factors.SegoeuiRegularMetrics,
+            }
+            t['Segoeui-Bold'] = {
+              name: 'LiberationSans-Bold',
+              factors: _segoeui_factors.SegoeuiBoldFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
+              baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
+              metrics: _segoeui_factors.SegoeuiBoldMetrics,
+            }
+            t['Segoeui-Italic'] = {
+              name: 'LiberationSans-Italic',
+              factors: _segoeui_factors.SegoeuiItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
+              baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
+              metrics: _segoeui_factors.SegoeuiItalicMetrics,
+            }
+            t['Segoeui-BoldItalic'] = {
+              name: 'LiberationSans-BoldItalic',
+              factors: _segoeui_factors.SegoeuiBoldItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
+              baseMapping:
+                _liberationsans_widths.LiberationSansBoldItalicMapping,
+              metrics: _segoeui_factors.SegoeuiBoldItalicMetrics,
+            }
+            t['Helvetica-Regular'] = t.Helvetica = {
+              name: 'LiberationSans-Regular',
+              factors: _helvetica_factors.HelveticaRegularFactors,
+              baseWidths: _liberationsans_widths.LiberationSansRegularWidths,
+              baseMapping: _liberationsans_widths.LiberationSansRegularMapping,
+              metrics: _helvetica_factors.HelveticaRegularMetrics,
+            }
+            t['Helvetica-Bold'] = {
+              name: 'LiberationSans-Bold',
+              factors: _helvetica_factors.HelveticaBoldFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldWidths,
+              baseMapping: _liberationsans_widths.LiberationSansBoldMapping,
+              metrics: _helvetica_factors.HelveticaBoldMetrics,
+            }
+            t['Helvetica-Italic'] = {
+              name: 'LiberationSans-Italic',
+              factors: _helvetica_factors.HelveticaItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansItalicWidths,
+              baseMapping: _liberationsans_widths.LiberationSansItalicMapping,
+              metrics: _helvetica_factors.HelveticaItalicMetrics,
+            }
+            t['Helvetica-BoldItalic'] = {
+              name: 'LiberationSans-BoldItalic',
+              factors: _helvetica_factors.HelveticaBoldItalicFactors,
+              baseWidths: _liberationsans_widths.LiberationSansBoldItalicWidths,
+              baseMapping:
+                _liberationsans_widths.LiberationSansBoldItalicMapping,
+              metrics: _helvetica_factors.HelveticaBoldItalicMetrics,
+            }
+          },
+        )
 
         function getXfaFontName(name) {
           const fontName = (0, _fonts_utils.normalizeFontName)(name)
@@ -5915,7 +5923,7 @@
           dict.set('FirstChar', widths[0])
           dict.set(
             'LastChar',
-            widths[widths.length - 2] + widths[widths.length - 1].length - 1
+            widths[widths.length - 2] + widths[widths.length - 1].length - 1,
           )
           const descriptor = new _primitives.Dict(null)
           dict.set('FontDescriptor', descriptor)
@@ -8105,7 +8113,7 @@
 
           const unicode = (0, _unicode.getUnicodeForGlyph)(
             name,
-            glyphsUnicodeMap
+            glyphsUnicodeMap,
           )
 
           if (unicode !== -1) {
@@ -8117,7 +8125,7 @@
           }
 
           ;(0, _util.info)(
-            'Unable to recover a standard glyph name for: ' + name
+            'Unable to recover a standard glyph name for: ' + name,
           )
           return name
         }
@@ -8125,7 +8133,7 @@
         function type1FontGlyphMapping(
           properties,
           builtInEncoding,
-          glyphNames
+          glyphNames,
         ) {
           const charCodeToGlyphId = Object.create(null)
           let glyphId, charCode, baseEncoding
@@ -8145,7 +8153,7 @@
             }
           } else if (properties.baseEncodingName) {
             baseEncoding = (0, _encodings.getEncoding)(
-              properties.baseEncodingName
+              properties.baseEncodingName,
             )
 
             for (charCode = 0; charCode < baseEncoding.length; charCode++) {
@@ -8190,7 +8198,7 @@
 
                 const standardGlyphName = recoverGlyphName(
                   glyphName,
-                  glyphsUnicodeMap
+                  glyphsUnicodeMap,
                 )
 
                 if (standardGlyphName !== glyphName) {
@@ -10075,7 +10083,7 @@
       /***/ (
         __unused_webpack_module,
         __webpack_exports__,
-        __w_pdfjs_require__
+        __w_pdfjs_require__,
       ) => {
         __w_pdfjs_require__.r(__webpack_exports__)
         /* harmony export */ __w_pdfjs_require__.d(__webpack_exports__, {
@@ -18737,7 +18745,7 @@
               'vextendsingle',
               0x2223,
             ]
-          }
+          },
         )
         const getDingbatsGlyphsUnicode = (0,
         _core_utils_js__WEBPACK_IMPORTED_MODULE_0__.getArrayLookupTableFactory)(
@@ -19150,7 +19158,7 @@
               '.notdef',
               0x0000,
             ]
-          }
+          },
         )
 
         /***/
@@ -19159,7 +19167,7 @@
       /***/ (
         __unused_webpack_module,
         __webpack_exports__,
-        __w_pdfjs_require__
+        __w_pdfjs_require__,
       ) => {
         __w_pdfjs_require__.r(__webpack_exports__)
         /* harmony export */ __w_pdfjs_require__.d(__webpack_exports__, {
@@ -19204,7 +19212,7 @@
             t[63734] = 0x239e
             t[63735] = 0x239f
             t[63736] = 0x23a0
-          }
+          },
         )
         function mapSpecialUnicodeValues(code) {
           if (code >= 0xfff0 && code <= 0xffff) {
@@ -22516,7 +22524,7 @@
               '\uFEFC',
               '\u0644\u0627',
             ]
-          }
+          },
         )
         function reverseIfRtl(chars) {
           const charsLength = chars.length
@@ -22584,7 +22592,7 @@
                 acroForm,
                 collectFields,
                 pageIndex,
-              ])
+              ]),
             )
           }
 
@@ -22595,7 +22603,7 @@
             idFactory,
             acroForm,
             collectFields,
-            pageIndex = -1
+            pageIndex = -1,
           ) {
             const dict = xref.fetchIfRef(ref)
 
@@ -22655,7 +22663,7 @@
 
                 ;(0, _util.warn)(
                   `Unimplemented widget field type "${fieldType}", ` +
-                    'falling back to base field type.'
+                    'falling back to base field type.',
                 )
                 return new WidgetAnnotation(parameters)
 
@@ -22708,12 +22716,12 @@
                 if (!collectFields) {
                   if (!subtype) {
                     ;(0, _util.warn)(
-                      'Annotation is missing the required /Subtype.'
+                      'Annotation is missing the required /Subtype.',
                     )
                   } else {
                     ;(0, _util.warn)(
                       `Unimplemented annotation type "${subtype}", ` +
-                        'falling back to base annotation.'
+                        'falling back to base annotation.',
                     )
                   }
                 }
@@ -22765,7 +22773,7 @@
                 color,
                 0,
                 rgbColor,
-                0
+                0,
               )
 
               return rgbColor
@@ -22775,7 +22783,7 @@
                 color,
                 0,
                 rgbColor,
-                0
+                0,
               )
 
               return rgbColor
@@ -22785,7 +22793,7 @@
                 color,
                 0,
                 rgbColor,
-                0
+                0,
               )
 
               return rgbColor
@@ -22846,7 +22854,7 @@
                 Number.MIN_VALUE,
                 Number.MAX_VALUE,
                 Number.MIN_VALUE,
-              ]
+              ],
             )
             return [
               {
@@ -22942,7 +22950,7 @@
               this.data.actions = (0, _core_utils.collectActions)(
                 params.xref,
                 dict,
-                _util.AnnotationActionEventType
+                _util.AnnotationActionEventType,
               )
               this.data.fieldName = this._constructFieldName(dict)
               this.data.pageIndex = params.pageIndex
@@ -23145,7 +23153,7 @@
               const objectLoader = new _object_loader.ObjectLoader(
                 resources,
                 keys,
-                resources.xref
+                resources.xref,
               )
               return objectLoader.load().then(function () {
                 return resources
@@ -23158,7 +23166,7 @@
             task,
             intent,
             renderForms,
-            annotationStorage
+            annotationStorage,
           ) {
             const data = this.data
             let appearance = this.appearance
@@ -23184,7 +23192,7 @@
                 'XObject',
                 'Font',
               ],
-              appearance
+              appearance,
             )
             const bbox = appearanceDict.getArray('BBox') || [0, 0, 1, 1]
             const matrix = appearanceDict.getArray('Matrix') || [
@@ -23246,7 +23254,7 @@
           _constructFieldName(dict) {
             if (!dict.has('T') && !dict.has('Parent')) {
               ;(0, _util.warn)(
-                'Unknown field name, falling back to empty field name.'
+                'Unknown field name, falling back to empty field name.',
               )
               return ''
             }
@@ -23284,7 +23292,7 @@
 
               if (loopDict.has('T')) {
                 fieldName.unshift(
-                  (0, _util.stringToPDFString)(loopDict.get('T'))
+                  (0, _util.stringToPDFString)(loopDict.get('T')),
                 )
               }
             }
@@ -23321,7 +23329,7 @@
                   (width > maxWidth || width > maxHeight)
                 ) {
                   ;(0, _util.warn)(
-                    `AnnotationBorderStyle.setWidth - ignoring width: ${width}`
+                    `AnnotationBorderStyle.setWidth - ignoring width: ${width}`,
                   )
                   width = 1
                 }
@@ -23465,7 +23473,7 @@
 
             if (dict.has('RC')) {
               this.data.richText = _factory.XFAFactory.getRichTextAsHtml(
-                dict.get('RC')
+                dict.get('RC'),
               )
             }
           }
@@ -23498,7 +23506,7 @@
 
             if (strokeColor) {
               buffer.push(
-                `${strokeColor[0]} ${strokeColor[1]} ${strokeColor[2]} RG`
+                `${strokeColor[0]} ${strokeColor[1]} ${strokeColor[2]} RG`,
               )
             }
 
@@ -23594,7 +23602,7 @@
               data.actions = (0, _core_utils.collectActions)(
                 params.xref,
                 dict,
-                _util.AnnotationActionEventType
+                _util.AnnotationActionEventType,
               )
             }
 
@@ -23616,7 +23624,7 @@
             }
 
             data.alternativeText = (0, _util.stringToPDFString)(
-              dict.get('TU') || ''
+              dict.get('TU') || '',
             )
             const defaultAppearance =
               (0, _core_utils.getInheritableProperty)({
@@ -23666,11 +23674,11 @@
             }
 
             data.readOnly = this.hasFieldFlag(
-              _util.AnnotationFieldFlag.READONLY
+              _util.AnnotationFieldFlag.READONLY,
             )
             data.hidden = this._hasFlag(
               data.annotationFlags,
-              _util.AnnotationFlag.HIDDEN
+              _util.AnnotationFlag.HIDDEN,
             )
           }
 
@@ -23697,7 +23705,7 @@
             task,
             intent,
             renderForms,
-            annotationStorage
+            annotationStorage,
           ) {
             if (renderForms && !(this instanceof SignatureWidgetAnnotation)) {
               return Promise.resolve(new _operator_list.OperatorList())
@@ -23709,7 +23717,7 @@
                 task,
                 intent,
                 renderForms,
-                annotationStorage
+                annotationStorage,
               )
             }
 
@@ -23721,7 +23729,7 @@
                     task,
                     intent,
                     renderForms,
-                    annotationStorage
+                    annotationStorage,
                   )
                 }
 
@@ -23741,7 +23749,7 @@
                 const transform = getTransformMatrix(
                   this.data.rect,
                   bbox,
-                  matrix
+                  matrix,
                 )
                 operatorList.addOp(_util.OPS.beginAnnotation, [
                   this.data.id,
@@ -23761,7 +23769,7 @@
                     operatorList.addOp(_util.OPS.endAnnotation, [])
                     return operatorList
                   })
-              }
+              },
             )
           }
 
@@ -23780,7 +23788,7 @@
             let appearance = await this._getAppearance(
               evaluator,
               task,
-              annotationStorage
+              annotationStorage,
             )
 
             if (appearance === null) {
@@ -23814,11 +23822,11 @@
             if (encrypt) {
               originalTransform = encrypt.createCipherTransform(
                 this.ref.num,
-                this.ref.gen
+                this.ref.gen,
               )
               newTransform = encrypt.createCipherTransform(
                 newRef.num,
-                newRef.gen
+                newRef.gen,
               )
               appearance = newTransform.encryptString(appearance)
             }
@@ -23827,7 +23835,7 @@
               'V',
               (0, _util.isAscii)(value)
                 ? value
-                : (0, _util.stringToUTF16BEString)(value)
+                : (0, _util.stringToUTF16BEString)(value),
             )
             dict.set('AP', AP)
             dict.set('M', `D:${(0, _util.getModificationDate)()}`)
@@ -23858,7 +23866,7 @@
 
           async _getAppearance(evaluator, task, annotationStorage) {
             const isPassword = this.hasFieldFlag(
-              _util.AnnotationFieldFlag.PASSWORD
+              _util.AnnotationFieldFlag.PASSWORD,
             )
 
             if (!annotationStorage || isPassword) {
@@ -23892,13 +23900,13 @@
             if (!this._defaultAppearance) {
               this.data.defaultAppearanceData = (0,
               _default_appearance.parseDefaultAppearance)(
-                (this._defaultAppearance = '/Helvetica 0 Tf 0 g')
+                (this._defaultAppearance = '/Helvetica 0 Tf 0 g'),
               )
             }
 
             const [defaultAppearance, fontSize] = this._computeFontSize(
               totalHeight,
-              lineCount
+              lineCount,
             )
 
             const font = await this._getFontData(evaluator, task)
@@ -23921,7 +23929,7 @@
                 totalHeight,
                 alignment,
                 hPadding,
-                vPadding
+                vPadding,
               )
             }
 
@@ -23934,7 +23942,7 @@
                 encodedString,
                 totalWidth,
                 hPadding,
-                vPadding
+                vPadding,
               )
             }
 
@@ -23943,7 +23951,7 @@
                 '/Tx BMC q BT ' +
                 defaultAppearance +
                 ` 1 0 0 1 ${hPadding} ${vPadding} Tm (${(0, _util.escapeString)(
-                  encodedString
+                  encodedString,
                 )}) Tj` +
                 ' ET Q EMC'
               )
@@ -23956,7 +23964,7 @@
               totalWidth,
               alignment,
               hPadding,
-              vPadding
+              vPadding,
             )
 
             return (
@@ -23984,7 +23992,7 @@
               operatorList,
               task,
               initialState,
-              null
+              null,
             )
             return initialState.font
           }
@@ -24027,7 +24035,7 @@
             totalWidth,
             alignment,
             hPadding,
-            vPadding
+            vPadding,
           ) {
             const glyphs = font.charsToGlyphs(text)
             const scale = fontSize / 1000
@@ -24050,7 +24058,7 @@
             shift = shift.toFixed(2)
             vPadding = vPadding.toFixed(2)
             return `${shift} ${vPadding} Td (${(0, _util.escapeString)(
-              text
+              text,
             )}) Tj`
           }
 
@@ -24140,7 +24148,7 @@
 
             this.data.maxLen = maximumLength
             this.data.multiLine = this.hasFieldFlag(
-              _util.AnnotationFieldFlag.MULTILINE
+              _util.AnnotationFieldFlag.MULTILINE,
             )
             this.data.comb =
               this.hasFieldFlag(_util.AnnotationFieldFlag.COMB) &&
@@ -24156,7 +24164,7 @@
             text,
             width,
             hPadding,
-            vPadding
+            vPadding,
           ) {
             const combWidth = (width / this.data.maxLen).toFixed(2)
             const buf = []
@@ -24164,7 +24172,7 @@
 
             for (const [start, end] of positions) {
               buf.push(
-                `(${(0, _util.escapeString)(text.substring(start, end))}) Tj`
+                `(${(0, _util.escapeString)(text.substring(start, end))}) Tj`,
               )
             }
 
@@ -24186,7 +24194,7 @@
             height,
             alignment,
             hPadding,
-            vPadding
+            vPadding,
           ) {
             const lines = text.split(/\r\n|\r|\n/)
             const buf = []
@@ -24205,8 +24213,8 @@
                     width,
                     alignment,
                     padding,
-                    -fontSize
-                  )
+                    -fontSize,
+                  ),
                 )
               }
             }
@@ -24259,7 +24267,7 @@
                 if (currentWidth + glyphWidth > width) {
                   if (lastSpacePosInStringStart !== -1) {
                     chunks.push(
-                      line.substring(startChunk, lastSpacePosInStringEnd)
+                      line.substring(startChunk, lastSpacePosInStringEnd),
                     )
                     startChunk = lastSpacePosInStringEnd
                     i = lastSpacePos + 1
@@ -24317,7 +24325,7 @@
               this.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) &&
               !this.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON)
             this.data.pushButton = this.hasFieldFlag(
-              _util.AnnotationFieldFlag.PUSHBUTTON
+              _util.AnnotationFieldFlag.PUSHBUTTON,
             )
             this.data.isTooltipOnly = false
 
@@ -24331,7 +24339,7 @@
               this._processPushButton(params)
             } else {
               ;(0, _util.warn)(
-                'Invalid field flags for button widget annotation'
+                'Invalid field flags for button widget annotation',
               )
             }
           }
@@ -24341,7 +24349,7 @@
             task,
             intent,
             renderForms,
-            annotationStorage
+            annotationStorage,
           ) {
             if (this.data.pushButton) {
               return super.getOperatorList(
@@ -24349,7 +24357,7 @@
                 task,
                 intent,
                 false,
-                annotationStorage
+                annotationStorage,
               )
             }
 
@@ -24367,7 +24375,7 @@
                   task,
                   intent,
                   renderForms,
-                  annotationStorage
+                  annotationStorage,
                 )
               }
 
@@ -24390,7 +24398,7 @@
                 task,
                 intent,
                 renderForms,
-                annotationStorage
+                annotationStorage,
               )
               this.appearance = savedAppearance
               return operatorList
@@ -24441,7 +24449,7 @@
             }
 
             const name = _primitives.Name.get(
-              value ? this.data.exportValue : 'Off'
+              value ? this.data.exportValue : 'Off',
             )
 
             dict.set('V', name)
@@ -24453,7 +24461,7 @@
             if (encrypt) {
               originalTransform = encrypt.createCipherTransform(
                 this.ref.num,
-                this.ref.gen
+                this.ref.gen,
               )
             }
 
@@ -24499,7 +24507,7 @@
             }
 
             const name = _primitives.Name.get(
-              value ? this.data.buttonValue : 'Off'
+              value ? this.data.buttonValue : 'Off',
             )
 
             let parentBuffer = null
@@ -24513,7 +24521,7 @@
                 if (encrypt) {
                   parentTransform = encrypt.createCipherTransform(
                     this.parent.num,
-                    this.parent.gen
+                    this.parent.gen,
                   )
                 }
 
@@ -24533,7 +24541,7 @@
             if (encrypt) {
               originalTransform = encrypt.createCipherTransform(
                 this.ref.num,
-                this.ref.gen
+                this.ref.gen,
               )
             }
 
@@ -24581,7 +24589,7 @@
               char = '\x6C'
             } else {
               ;(0, _util.unreachable)(
-                `_getDefaultCheckedAppearance - unsupported type: ${type}`
+                `_getDefaultCheckedAppearance - unsupported type: ${type}`,
               )
             }
 
@@ -24726,7 +24734,7 @@
               !this.data.alternativeText
             ) {
               ;(0, _util.warn)(
-                'Push buttons without action dictionaries are not supported'
+                'Push buttons without action dictionaries are not supported',
               )
               return
             }
@@ -24797,10 +24805,10 @@
                 const isOptionArray = Array.isArray(option)
                 this.data.options[i] = {
                   exportValue: this._decodeFormValue(
-                    isOptionArray ? xref.fetchIfRef(option[0]) : option
+                    isOptionArray ? xref.fetchIfRef(option[0]) : option,
                   ),
                   displayValue: this._decodeFormValue(
-                    isOptionArray ? xref.fetchIfRef(option[1]) : option
+                    isOptionArray ? xref.fetchIfRef(option[1]) : option,
                   ),
                 }
               }
@@ -24814,7 +24822,7 @@
 
             this.data.combo = this.hasFieldFlag(_util.AnnotationFieldFlag.COMBO)
             this.data.multiSelect = this.hasFieldFlag(
-              _util.AnnotationFieldFlag.MULTISELECT
+              _util.AnnotationFieldFlag.MULTISELECT,
             )
             this._hasText = true
           }
@@ -24910,7 +24918,7 @@
 
             if (!parentItem) {
               ;(0, _util.warn)(
-                'Popup annotation has a missing or invalid parent annotation.'
+                'Popup annotation has a missing or invalid parent annotation.',
               )
               return
             }
@@ -24966,7 +24974,7 @@
 
             if (parentItem.has('RC')) {
               this.data.richText = _factory.XFAFactory.getRichTextAsHtml(
-                parentItem.get('RC')
+                parentItem.get('RC'),
               )
             }
           }
@@ -25027,7 +25035,7 @@
                   buffer.push(
                     `${lineCoordinates[0]} ${lineCoordinates[1]} m`,
                     `${lineCoordinates[2]} ${lineCoordinates[3]} l`,
-                    'S'
+                    'S',
                   )
                   return [
                     points[0].x - borderWidth,
@@ -25155,7 +25163,7 @@
                     `${x0} ${yMid + yOffset} ${
                       xMid - xOffset
                     } ${y1} ${xMid} ${y1} c`,
-                    'h'
+                    'h',
                   )
 
                   if (fillColor) {
@@ -25219,7 +25227,9 @@
 
                   for (let i = 0, ii = vertices.length; i < ii; i++) {
                     buffer.push(
-                      `${vertices[i].x} ${vertices[i].y} ${i === 0 ? 'm' : 'l'}`
+                      `${vertices[i].x} ${vertices[i].y} ${
+                        i === 0 ? 'm' : 'l'
+                      }`,
                     )
                   }
 
@@ -25300,7 +25310,9 @@
                   for (const inkList of this.data.inkLists) {
                     for (let i = 0, ii = inkList.length; i < ii; i++) {
                       buffer.push(
-                        `${inkList[i].x} ${inkList[i].y} ${i === 0 ? 'm' : 'l'}`
+                        `${inkList[i].x} ${inkList[i].y} ${
+                          i === 0 ? 'm' : 'l'
+                        }`,
                       )
                     }
 
@@ -25320,7 +25332,7 @@
             this.data.annotationType = _util.AnnotationType.HIGHLIGHT
             const quadPoints = (this.data.quadPoints = getQuadPoints(
               parameters.dict,
-              null
+              null,
             ))
 
             if (quadPoints) {
@@ -25333,7 +25345,7 @@
               ) {
                 if (this.appearance) {
                   ;(0, _util.warn)(
-                    'HighlightAnnotation - ignoring built-in appearance stream.'
+                    'HighlightAnnotation - ignoring built-in appearance stream.',
                   )
                 }
 
@@ -25353,7 +25365,7 @@
                       `${points[1].x} ${points[1].y} l`,
                       `${points[3].x} ${points[3].y} l`,
                       `${points[2].x} ${points[2].y} l`,
-                      'f'
+                      'f',
                     )
                     return [points[0].x, points[1].x, points[3].y, points[1].y]
                   },
@@ -25371,7 +25383,7 @@
             this.data.annotationType = _util.AnnotationType.UNDERLINE
             const quadPoints = (this.data.quadPoints = getQuadPoints(
               parameters.dict,
-              null
+              null,
             ))
 
             if (quadPoints) {
@@ -25390,7 +25402,7 @@
                     buffer.push(
                       `${points[2].x} ${points[2].y} m`,
                       `${points[3].x} ${points[3].y} l`,
-                      'S'
+                      'S',
                     )
                     return [points[0].x, points[1].x, points[3].y, points[1].y]
                   },
@@ -25408,7 +25420,7 @@
             this.data.annotationType = _util.AnnotationType.SQUIGGLY
             const quadPoints = (this.data.quadPoints = getQuadPoints(
               parameters.dict,
-              null
+              null,
             ))
 
             if (quadPoints) {
@@ -25454,7 +25466,7 @@
             this.data.annotationType = _util.AnnotationType.STRIKEOUT
             const quadPoints = (this.data.quadPoints = getQuadPoints(
               parameters.dict,
-              null
+              null,
             ))
 
             if (quadPoints) {
@@ -25475,7 +25487,7 @@
                         `${(points[0].y + points[2].y) / 2} m`,
                       `${(points[1].x + points[3].x) / 2} ` +
                         `${(points[1].y + points[3].y) / 2} l`,
-                      'S'
+                      'S',
                     )
                     return [points[0].x, points[1].x, points[3].y, points[1].y]
                   },
@@ -25499,7 +25511,7 @@
             super(parameters)
             const file = new _file_spec.FileSpec(
               parameters.dict.get('FS'),
-              parameters.xref
+              parameters.xref,
             )
             this.data.annotationType = _util.AnnotationType.FILEATTACHMENT
             this.data.file = file.serializable
@@ -25577,7 +25589,7 @@
                       args,
                       0,
                       result.fontColor,
-                      0
+                      0,
                     )
 
                     break
@@ -25587,7 +25599,7 @@
                       args,
                       0,
                       result.fontColor,
-                      0
+                      0,
                     )
 
                     break
@@ -25597,7 +25609,7 @@
                       args,
                       0,
                       result.fontColor,
-                      0
+                      0,
                     )
 
                     break
@@ -25605,7 +25617,7 @@
               }
             } catch (reason) {
               ;(0, _util.warn)(
-                `parseDefaultAppearance - ignoring errors: "${reason}".`
+                `parseDefaultAppearance - ignoring errors: "${reason}".`,
               )
             }
 
@@ -25630,7 +25642,7 @@
           }
 
           return `/${(0, _core_utils.escapePDFName)(
-            fontName
+            fontName,
           )} ${fontSize} Tf ${colorCmd}`
         }
 
@@ -25702,7 +25714,7 @@
 
           getOutputLength(inputLength, alpha01) {
             ;(0, _util.unreachable)(
-              'Should not call ColorSpace.getOutputLength'
+              'Should not call ColorSpace.getOutputLength',
             )
           }
 
@@ -25723,7 +25735,7 @@
             actualHeight,
             bpc,
             comps,
-            alpha01
+            alpha01,
           ) {
             const count = originalWidth * originalHeight
             let rgbBuf = null
@@ -25756,7 +25768,7 @@
                 colorMap,
                 0,
                 bpc,
-                0
+                0,
               )
 
               if (!needsResizing) {
@@ -25789,7 +25801,7 @@
                   dest,
                   0,
                   bpc,
-                  alpha01
+                  alpha01,
                 )
               } else {
                 rgbBuf = new Uint8ClampedArray(count * 3)
@@ -25806,7 +25818,7 @@
                   originalHeight,
                   width,
                   height,
-                  alpha01
+                  alpha01,
                 )
               } else {
                 let destPos = 0,
@@ -25830,17 +25842,17 @@
             cacheKey,
             xref,
             localColorSpaceCache,
-            parsedColorSpace
+            parsedColorSpace,
           ) {
             if (!localColorSpaceCache) {
               throw new Error(
-                'ColorSpace._cache - expected "localColorSpaceCache" argument.'
+                'ColorSpace._cache - expected "localColorSpaceCache" argument.',
               )
             }
 
             if (!parsedColorSpace) {
               throw new Error(
-                'ColorSpace._cache - expected "parsedColorSpace" argument.'
+                'ColorSpace._cache - expected "parsedColorSpace" argument.',
               )
             }
 
@@ -25863,7 +25875,7 @@
           static getCached(cacheKey, xref, localColorSpaceCache) {
             if (!localColorSpaceCache) {
               throw new Error(
-                'ColorSpace.getCached - expected "localColorSpaceCache" argument.'
+                'ColorSpace.getCached - expected "localColorSpaceCache" argument.',
               )
             }
 
@@ -25885,7 +25897,7 @@
 
             if (cacheKey instanceof _primitives.Name) {
               const localColorSpace = localColorSpaceCache.getByName(
-                cacheKey.name
+                cacheKey.name,
               )
 
               if (localColorSpace) {
@@ -25907,7 +25919,7 @@
               cs,
               xref,
               resources,
-              pdfFunctionFactory
+              pdfFunctionFactory,
             )
 
             this._cache(cs, xref, localColorSpaceCache, parsedColorSpace)
@@ -25925,7 +25937,7 @@
             const cachedColorSpace = this.getCached(
               cs,
               xref,
-              localColorSpaceCache
+              localColorSpaceCache,
             )
 
             if (cachedColorSpace) {
@@ -25936,7 +25948,7 @@
               cs,
               xref,
               resources,
-              pdfFunctionFactory
+              pdfFunctionFactory,
             )
 
             this._cache(cs, xref, localColorSpaceCache, parsedColorSpace)
@@ -25977,7 +25989,7 @@
                             resourcesCS,
                             xref,
                             resources,
-                            pdfFunctionFactory
+                            pdfFunctionFactory,
                           )
                         }
 
@@ -25988,7 +26000,7 @@
                   }
 
                   throw new _util.FormatError(
-                    `Unrecognized ColorSpace: ${cs.name}`
+                    `Unrecognized ColorSpace: ${cs.name}`,
                   )
               }
             }
@@ -26036,7 +26048,7 @@
                       alt,
                       xref,
                       resources,
-                      pdfFunctionFactory
+                      pdfFunctionFactory,
                     )
 
                     if (altCS.numComps === numComps) {
@@ -26044,7 +26056,7 @@
                     }
 
                     ;(0, _util.warn)(
-                      'ICCBased color space: Ignoring incorrect /Alternate entry.'
+                      'ICCBased color space: Ignoring incorrect /Alternate entry.',
                     )
                   }
 
@@ -26066,7 +26078,7 @@
                       baseCS,
                       xref,
                       resources,
-                      pdfFunctionFactory
+                      pdfFunctionFactory,
                     )
                   }
 
@@ -26078,7 +26090,7 @@
                     cs[1],
                     xref,
                     resources,
-                    pdfFunctionFactory
+                    pdfFunctionFactory,
                   )
                   const hiVal = xref.fetchIfRef(cs[2]) + 1
                   const lookup = xref.fetchIfRef(cs[3])
@@ -26092,7 +26104,7 @@
                     cs[2],
                     xref,
                     resources,
-                    pdfFunctionFactory
+                    pdfFunctionFactory,
                   )
                   const tintFn = pdfFunctionFactory.create(cs[3])
                   return new AlternateCS(numComps, baseCS, tintFn)
@@ -26106,7 +26118,7 @@
 
                 default:
                   throw new _util.FormatError(
-                    `Unimplemented ColorSpace object: ${mode}`
+                    `Unimplemented ColorSpace object: ${mode}`,
                   )
               }
             }
@@ -26208,7 +26220,7 @@
           getOutputLength(inputLength, alpha01) {
             return this.base.getOutputLength(
               (inputLength * this.base.numComps) / this.numComps,
-              alpha01
+              alpha01,
             )
           }
         }
@@ -26241,7 +26253,7 @@
               }
             } else {
               throw new _util.FormatError(
-                `IndexedCS - unrecognized lookup table: ${lookup}`
+                `IndexedCS - unrecognized lookup table: ${lookup}`,
               )
             }
           }
@@ -26256,7 +26268,7 @@
               dest,
               destOffset,
               8,
-              0
+              0,
             )
           }
 
@@ -26275,7 +26287,7 @@
                 dest,
                 destOffset,
                 8,
-                alpha01
+                alpha01,
               )
               destOffset += outputDelta
             }
@@ -26284,7 +26296,7 @@
           getOutputLength(inputLength, alpha01) {
             return this.base.getOutputLength(
               inputLength * this.base.numComps,
-              alpha01
+              alpha01,
             )
           }
 
@@ -26351,7 +26363,7 @@
             if (bits === 8 && alpha01 === 0) {
               dest.set(
                 src.subarray(srcOffset, srcOffset + count * 3),
-                destOffset
+                destOffset,
               )
               return
             }
@@ -26455,7 +26467,7 @@
               dest,
               destOffset,
               bits,
-              alpha01
+              alpha01,
             ) {
               const scale = 1 / ((1 << bits) - 1)
 
@@ -26491,7 +26503,7 @@
 
               if (!whitePoint) {
                 throw new _util.FormatError(
-                  'WhitePoint missing - required for color space CalGray'
+                  'WhitePoint missing - required for color space CalGray',
                 )
               }
 
@@ -26508,13 +26520,13 @@
               if (this.XW < 0 || this.ZW < 0 || this.YW !== 1) {
                 throw new _util.FormatError(
                   `Invalid WhitePoint components for ${this.name}` +
-                    ', no fallback available'
+                    ', no fallback available',
                 )
               }
 
               if (this.XB < 0 || this.YB < 0 || this.ZB < 0) {
                 ;(0, _util.info)(
-                  `Invalid BlackPoint for ${this.name}, falling back to default.`
+                  `Invalid BlackPoint for ${this.name}, falling back to default.`,
                 )
                 this.XB = this.YB = this.ZB = 0
               }
@@ -26522,14 +26534,14 @@
               if (this.XB !== 0 || this.YB !== 0 || this.ZB !== 0) {
                 ;(0, _util.warn)(
                   `${this.name}, BlackPoint: XB: ${this.XB}, YB: ${this.YB}, ` +
-                    `ZB: ${this.ZB}, only default values are supported.`
+                    `ZB: ${this.ZB}, only default values are supported.`,
                 )
               }
 
               if (this.G < 1) {
                 ;(0, _util.info)(
                   `Invalid Gamma: ${this.G} for ${this.name}, ` +
-                    'falling back to default.'
+                    'falling back to default.',
                 )
                 this.G = 1
               }
@@ -26546,7 +26558,7 @@
               dest,
               destOffset,
               bits,
-              alpha01
+              alpha01,
             ) {
               const scale = 1 / ((1 << bits) - 1)
 
@@ -26719,7 +26731,7 @@
 
               if (!whitePoint) {
                 throw new _util.FormatError(
-                  'WhitePoint missing - required for color space CalRGB'
+                  'WhitePoint missing - required for color space CalRGB',
                 )
               }
 
@@ -26750,14 +26762,14 @@
               if (XW < 0 || ZW < 0 || YW !== 1) {
                 throw new _util.FormatError(
                   `Invalid WhitePoint components for ${this.name}` +
-                    ', no fallback available'
+                    ', no fallback available',
                 )
               }
 
               if (XB < 0 || YB < 0 || ZB < 0) {
                 ;(0, _util.info)(
                   `Invalid BlackPoint for ${this.name} [${XB}, ${YB}, ${ZB}], ` +
-                    'falling back to default.'
+                    'falling back to default.',
                 )
                 this.blackPoint = new Float32Array(3)
               }
@@ -26765,7 +26777,7 @@
               if (this.GR < 0 || this.GG < 0 || this.GB < 0) {
                 ;(0, _util.info)(
                   `Invalid Gamma [${this.GR}, ${this.GG}, ${this.GB}] for ` +
-                    `${this.name}, falling back to default.`
+                    `${this.name}, falling back to default.`,
                 )
                 this.GR = this.GG = this.GB = 1
               }
@@ -26782,7 +26794,7 @@
               dest,
               destOffset,
               bits,
-              alpha01
+              alpha01,
             ) {
               const scale = 1 / ((1 << bits) - 1)
 
@@ -26870,7 +26882,7 @@
 
               if (!whitePoint) {
                 throw new _util.FormatError(
-                  'WhitePoint missing - required for color space Lab'
+                  'WhitePoint missing - required for color space Lab',
                 )
               }
 
@@ -26889,7 +26901,7 @@
 
               if (this.XW < 0 || this.ZW < 0 || this.YW !== 1) {
                 throw new _util.FormatError(
-                  'Invalid WhitePoint components, no fallback available'
+                  'Invalid WhitePoint components, no fallback available',
                 )
               }
 
@@ -26918,7 +26930,7 @@
               dest,
               destOffset,
               bits,
-              alpha01
+              alpha01,
             ) {
               const maxVal = (1 << bits) - 1
 
@@ -27163,7 +27175,7 @@
             return (0, _util.shadow)(
               this,
               '_pdfFunctionFactory',
-              pdfFunctionFactory
+              pdfFunctionFactory,
             )
           }
 
@@ -27172,7 +27184,7 @@
             newEvaluator.options = Object.assign(
               Object.create(null),
               this.options,
-              newOptions
+              newOptions,
             )
             return newEvaluator
           }
@@ -27211,7 +27223,7 @@
                     } catch (ex) {
                       processed.put(graphicState)
                       ;(0, _util.info)(
-                        `hasBlendModes - ignoring ExtGState: "${ex}".`
+                        `hasBlendModes - ignoring ExtGState: "${ex}".`,
                       )
                       continue
                     }
@@ -27265,7 +27277,7 @@
                   } catch (ex) {
                     processed.put(xObject)
                     ;(0, _util.info)(
-                      `hasBlendModes - ignoring XObject: "${ex}".`
+                      `hasBlendModes - ignoring XObject: "${ex}".`,
                     )
                     continue
                   }
@@ -27318,7 +27330,7 @@
 
               if (!response.ok) {
                 throw new Error(
-                  `fetchBuiltInCMap: failed to fetch file "${url}" with "${response.statusText}".`
+                  `fetchBuiltInCMap: failed to fetch file "${url}" with "${response.statusText}".`,
                 )
               }
 
@@ -27365,7 +27377,7 @@
 
               if (!response.ok) {
                 ;(0, _util.warn)(
-                  `fetchStandardFontData: failed to fetch file "${url}" with "${response.statusText}".`
+                  `fetchStandardFontData: failed to fetch file "${url}" with "${response.statusText}".`,
                 )
               } else {
                 data = await response.arrayBuffer()
@@ -27376,11 +27388,11 @@
                   'FetchStandardFontData',
                   {
                     filename,
-                  }
+                  },
                 )
               } catch (e) {
                 ;(0, _util.warn)(
-                  `fetchStandardFontData: failed to fetch file "${filename}" with "${e}".`
+                  `fetchStandardFontData: failed to fetch file "${filename}" with "${e}".`,
                 )
               }
             }
@@ -27400,7 +27412,7 @@
             operatorList,
             task,
             initialState,
-            localColorSpaceCache
+            localColorSpaceCache,
           ) {
             const dict = xobj.dict
             const matrix = dict.getArray('Matrix')
@@ -27417,7 +27429,7 @@
             if (dict.has('OC')) {
               optionalContent = await this.parseMarkedContentProps(
                 dict.get('OC'),
-                resources
+                resources,
               )
             }
 
@@ -27451,7 +27463,7 @@
                   const cachedColorSpace = _colorspace.ColorSpace.getCached(
                     cs,
                     this.xref,
-                    localColorSpaceCache
+                    localColorSpaceCache,
                   )
 
                   if (cachedColorSpace) {
@@ -27502,14 +27514,14 @@
               return this.handler.send(
                 'commonobj',
                 [objId, 'Image', imgData],
-                transfers
+                transfers,
               )
             }
 
             return this.handler.send(
               'obj',
               [objId, this.pageIndex, 'Image', imgData],
-              transfers
+              transfers,
             )
           }
 
@@ -27536,7 +27548,7 @@
 
             if (maxImageSize !== -1 && w * h > maxImageSize) {
               ;(0, _util.warn)(
-                'Image exceeded maximum allowed size and was removed.'
+                'Image exceeded maximum allowed size and was removed.',
               )
               return
             }
@@ -27546,7 +27558,7 @@
             if (dict.has('OC')) {
               optionalContent = await this.parseMarkedContentProps(
                 dict.get('OC'),
-                resources
+                resources,
               )
             }
 
@@ -27628,7 +27640,7 @@
             } else if (imageRef) {
               cacheGlobally = this.globalImageCache.shouldCache(
                 imageRef,
-                this.pageIndex
+                this.pageIndex,
               )
 
               if (cacheGlobally) {
@@ -27653,7 +27665,7 @@
                 if (cacheKey && imageRef && cacheGlobally) {
                   this.globalImageCache.addByteSize(
                     imageRef,
-                    imgData.data.length
+                    imgData.data.length,
                   )
                 }
 
@@ -27661,7 +27673,7 @@
               })
               .catch((reason) => {
                 ;(0, _util.warn)(
-                  `Unable to decode image "${objId}": "${reason}".`
+                  `Unable to decode image "${objId}": "${reason}".`,
                 )
                 return this._sendImgData(objId, null, cacheGlobally)
               })
@@ -27677,7 +27689,7 @@
               if (imageRef) {
                 ;(0, _util.assert)(
                   !isInline,
-                  'Cannot cache an inline image globally.'
+                  'Cannot cache an inline image globally.',
                 )
                 this.globalImageCache.addPageIndex(imageRef, this.pageIndex)
 
@@ -27703,7 +27715,7 @@
             operatorList,
             task,
             stateManager,
-            localColorSpaceCache
+            localColorSpaceCache,
           ) {
             const smaskContent = smask.get('G')
             const smaskOptions = {
@@ -27734,7 +27746,7 @@
               operatorList,
               task,
               stateManager.state.clone(),
-              localColorSpaceCache
+              localColorSpaceCache,
             )
           }
 
@@ -27798,7 +27810,7 @@
             patternDict,
             operatorList,
             task,
-            localTilingPatternCache
+            localTilingPatternCache,
           ) {
             const tilingOpList = new _operator_list.OperatorList()
 
@@ -27818,7 +27830,7 @@
                 const tilingPatternIR = (0, _pattern.getTilingPatternIR)(
                   operatorListIR,
                   patternDict,
-                  color
+                  color,
                 )
                 operatorList.addDependencies(tilingOpList.dependencies)
                 operatorList.addOp(fn, tilingPatternIR)
@@ -27840,7 +27852,7 @@
                     featureId: _util.UNSUPPORTED_FEATURES.errorTilingPattern,
                   })
                   ;(0, _util.warn)(
-                    `handleTilingType - ignoring pattern: "${reason}".`
+                    `handleTilingType - ignoring pattern: "${reason}".`,
                   )
                   return
                 }
@@ -27857,7 +27869,7 @@
             task,
             state,
             fallbackFontDict = null,
-            cssFontInfo = null
+            cssFontInfo = null,
           ) {
             const fontName =
               fontArgs && fontArgs[0] instanceof _primitives.Name
@@ -27868,7 +27880,7 @@
               fontRef,
               resources,
               fallbackFontDict,
-              cssFontInfo
+              cssFontInfo,
             )
               .then((translated) => {
                 if (!translated.font.isType3Font) {
@@ -27888,7 +27900,7 @@
                     return new TranslatedFont({
                       loadedName: 'g_font_error',
                       font: new _fonts.ErrorFont(
-                        `Type3 font load error: ${reason}`
+                        `Type3 font load error: ${reason}`,
                       ),
                       dict: translated.font,
                       evaluatorOptions: this.options,
@@ -27922,7 +27934,7 @@
                   font,
                   glyphs,
                   this.handler,
-                  this.options
+                  this.options,
                 )
               }
             }
@@ -27936,7 +27948,7 @@
             }
 
             const reason = new _util.FormatError(
-              'Missing setFont (Tf) operator before text rendering operator.'
+              'Missing setFont (Tf) operator before text rendering operator.',
             )
 
             if (this.options.ignoreErrors) {
@@ -27995,7 +28007,7 @@
                       value[0],
                       operatorList,
                       task,
-                      stateManager.state
+                      stateManager.state,
                     ).then(function (loadedName) {
                       operatorList.addDependency(loadedName)
                       gStateObj.push([key, [loadedName, value[1]]])
@@ -28022,7 +28034,7 @@
                         operatorList,
                         task,
                         stateManager,
-                        localColorSpaceCache
+                        localColorSpaceCache,
                       )
                     })
                     gStateObj.push([key, true])
@@ -28075,13 +28087,13 @@
             font,
             resources,
             fallbackFontDict = null,
-            cssFontInfo = null
+            cssFontInfo = null,
           ) {
             const errorFont = async () => {
               return new TranslatedFont({
                 loadedName: 'g_font_error',
                 font: new _fonts.ErrorFont(
-                  `Font "${fontName}" is not available.`
+                  `Font "${fontName}" is not available.`,
                 ),
                 dict: font,
                 evaluatorOptions: this.options,
@@ -28094,7 +28106,7 @@
             if (font) {
               if (!(0, _primitives.isRef)(font)) {
                 throw new _util.FormatError(
-                  'The "font" object should be a reference.'
+                  'The "font" object should be a reference.',
                 )
               }
 
@@ -28121,7 +28133,7 @@
                 featureId: _util.UNSUPPORTED_FEATURES.errorFontMissing,
               })
               ;(0, _util.warn)(
-                `${partialMsg} -- attempting to fallback to a default font.`
+                `${partialMsg} -- attempting to fallback to a default font.`,
               )
 
               if (fallbackFontDict) {
@@ -28153,7 +28165,7 @@
               preEvaluatedFont.cssFontInfo = cssFontInfo
             } catch (reason) {
               ;(0, _util.warn)(
-                `loadFont - preEvaluateFont failed: "${reason}".`
+                `loadFont - preEvaluateFont failed: "${reason}".`,
               )
               return errorFont()
             }
@@ -28210,7 +28222,7 @@
 
             ;(0, _util.assert)(
               fontID && fontID.startsWith('f'),
-              'The "fontID" must be (correctly) defined.'
+              'The "fontID" must be (correctly) defined.',
             )
             font.loadedName = `${this.idFactory.getDocId()}_${fontID}`
             this.translateFont(preEvaluatedFont)
@@ -28225,7 +28237,7 @@
                     font: translatedFont,
                     dict: font,
                     evaluatorOptions: this.options,
-                  })
+                  }),
                 )
               })
               .catch((reason) => {
@@ -28233,7 +28245,7 @@
                   featureId: _util.UNSUPPORTED_FEATURES.errorFontTranslate,
                 })
                 ;(0, _util.warn)(
-                  `loadFont - translateFont failed: "${reason}".`
+                  `loadFont - translateFont failed: "${reason}".`,
                 )
 
                 try {
@@ -28241,7 +28253,7 @@
                   const subtype = fontFile3 && fontFile3.get('Subtype')
                   const fontType = (0, _fonts_utils.getFontType)(
                     preEvaluatedFont.type,
-                    subtype && subtype.name
+                    subtype && subtype.name,
                   )
 
                   if (fontType !== undefined) {
@@ -28253,11 +28265,11 @@
                   new TranslatedFont({
                     loadedName: font.loadedName,
                     font: new _fonts.ErrorFont(
-                      reason instanceof Error ? reason.message : reason
+                      reason instanceof Error ? reason.message : reason,
                     ),
                     dict: font,
                     evaluatorOptions: this.options,
-                  })
+                  }),
                 )
               })
             return fontCapability.promise
@@ -28276,7 +28288,7 @@
             ) {
               if (parsingText) {
                 ;(0, _util.warn)(
-                  `Encountered path operator "${fn}" inside of a text object.`
+                  `Encountered path operator "${fn}" inside of a text object.`,
                 )
                 operatorList.addOp(_util.OPS.save, null)
               }
@@ -28310,7 +28322,7 @@
                   featureId: _util.UNSUPPORTED_FEATURES.errorColorSpace,
                 })
                 ;(0, _util.warn)(
-                  `parseColorSpace - ignoring ColorSpace: "${reason}".`
+                  `parseColorSpace - ignoring ColorSpace: "${reason}".`,
                 )
                 return null
               }
@@ -28334,7 +28346,7 @@
                 resources,
                 this.handler,
                 this._pdfFunctionFactory,
-                localColorSpaceCache
+                localColorSpaceCache,
               )
 
               const patternIR = shadingFill.getIR()
@@ -28361,7 +28373,7 @@
             task,
             localColorSpaceCache,
             localTilingPatternCache,
-            localShadingPatternCache
+            localShadingPatternCache,
           ) {
             const patternName = args.pop()
 
@@ -28377,7 +28389,7 @@
                   const tilingPatternIR = (0, _pattern.getTilingPatternIR)(
                     localTilingPattern.operatorListIR,
                     localTilingPattern.dict,
-                    color
+                    color,
                   )
                   operatorList.addOp(fn, tilingPatternIR)
                   return undefined
@@ -28402,7 +28414,7 @@
                     dict,
                     operatorList,
                     task,
-                    localTilingPatternCache
+                    localTilingPatternCache,
                   )
                 } else if (typeNum === PatternType.SHADING) {
                   const shading = dict.get('Shading')
@@ -28449,7 +28461,7 @@
 
               default:
                 ;(0, _util.warn)(
-                  `Invalid operator ${operator.name} in visibility expression`
+                  `Invalid operator ${operator.name} in visibility expression`,
                 )
                 return
             }
@@ -28465,7 +28477,7 @@
                 this._parseVisibilityExpression(
                   object,
                   nestingCounter,
-                  nestedResult
+                  nestedResult,
                 )
               } else if ((0, _primitives.isRef)(raw)) {
                 currentResult.push(raw.toString())
@@ -28483,7 +28495,7 @@
               optionalContent = contentProperties
             } else {
               throw new _util.FormatError(
-                'Optional content properties malformed.'
+                'Optional content properties malformed.',
               )
             }
 
@@ -28558,7 +28570,7 @@
 
             if (!operatorList) {
               throw new Error(
-                'getOperatorList: missing "operatorList" parameter'
+                'getOperatorList: missing "operatorList" parameter',
               )
             }
 
@@ -28580,7 +28592,7 @@
             const preprocessor = new EvaluatorPreprocessor(
               stream,
               xref,
-              stateManager
+              stateManager,
             )
             const timeSlotManager = new TimeSlotManager()
 
@@ -28635,7 +28647,7 @@
                       new Promise(function (resolveXObject, rejectXObject) {
                         if (!isValidName) {
                           throw new _util.FormatError(
-                            'XObject must be referred to by name.'
+                            'XObject must be referred to by name.',
                           )
                         }
 
@@ -28652,7 +28664,7 @@
 
                           const globalImage = self.globalImageCache.getData(
                             xobj,
-                            self.pageIndex
+                            self.pageIndex,
                           )
 
                           if (globalImage) {
@@ -28667,7 +28679,7 @@
 
                         if (!(0, _primitives.isStream)(xobj)) {
                           throw new _util.FormatError(
-                            'XObject should be a stream'
+                            'XObject should be a stream',
                           )
                         }
 
@@ -28675,7 +28687,7 @@
 
                         if (!(0, _primitives.isName)(type)) {
                           throw new _util.FormatError(
-                            'XObject should have a Name subtype'
+                            'XObject should have a Name subtype',
                           )
                         }
 
@@ -28689,7 +28701,7 @@
                               operatorList,
                               task,
                               stateManager.state.clone(),
-                              localColorSpaceCache
+                              localColorSpaceCache,
                             )
                             .then(function () {
                               stateManager.restore()
@@ -28712,7 +28724,7 @@
                           ;(0, _util.info)('Ignored XObject subtype PS')
                         } else {
                           throw new _util.FormatError(
-                            `Unhandled XObject subtype ${type.name}`
+                            `Unhandled XObject subtype ${type.name}`,
                           )
                         }
 
@@ -28727,13 +28739,13 @@
                             featureId: _util.UNSUPPORTED_FEATURES.errorXObject,
                           })
                           ;(0, _util.warn)(
-                            `getOperatorList - ignoring XObject: "${reason}".`
+                            `getOperatorList - ignoring XObject: "${reason}".`,
                           )
                           return
                         }
 
                         throw reason
-                      })
+                      }),
                     )
                     return
 
@@ -28748,7 +28760,7 @@
                           operatorList,
                           task,
                           stateManager.state,
-                          fallbackFontDict
+                          fallbackFontDict,
                         )
                         .then(function (loadedName) {
                           operatorList.addDependency(loadedName)
@@ -28756,7 +28768,7 @@
                             loadedName,
                             fontSize,
                           ])
-                        })
+                        }),
                     )
                     return
 
@@ -28790,7 +28802,7 @@
                         cacheKey,
                         localImageCache,
                         localColorSpaceCache,
-                      })
+                      }),
                     )
                     return
 
@@ -28820,7 +28832,7 @@
                       if ((0, _util.isString)(arrItem)) {
                         Array.prototype.push.apply(
                           combinedGlyphs,
-                          self.handleText(arrItem, state)
+                          self.handleText(arrItem, state),
                         )
                       } else if ((0, _util.isNum)(arrItem)) {
                         combinedGlyphs.push(arrItem)
@@ -28863,7 +28875,7 @@
                     const cachedColorSpace = _colorspace.ColorSpace.getCached(
                       args[0],
                       xref,
-                      localColorSpaceCache
+                      localColorSpaceCache,
                     )
 
                     if (cachedColorSpace) {
@@ -28882,7 +28894,7 @@
                           if (colorSpace) {
                             stateManager.state.fillColorSpace = colorSpace
                           }
-                        })
+                        }),
                     )
                     return
                   }
@@ -28891,7 +28903,7 @@
                     const cachedColorSpace = _colorspace.ColorSpace.getCached(
                       args[0],
                       xref,
-                      localColorSpaceCache
+                      localColorSpaceCache,
                     )
 
                     if (cachedColorSpace) {
@@ -28910,7 +28922,7 @@
                           if (colorSpace) {
                             stateManager.state.strokeColorSpace = colorSpace
                           }
-                        })
+                        }),
                     )
                     return
                   }
@@ -28932,7 +28944,7 @@
                       _colorspace.ColorSpace.singletons.gray
                     args = _colorspace.ColorSpace.singletons.gray.getRgb(
                       args,
-                      0
+                      0,
                     )
                     fn = _util.OPS.setFillRGBColor
                     break
@@ -28942,7 +28954,7 @@
                       _colorspace.ColorSpace.singletons.gray
                     args = _colorspace.ColorSpace.singletons.gray.getRgb(
                       args,
-                      0
+                      0,
                     )
                     fn = _util.OPS.setStrokeRGBColor
                     break
@@ -28952,7 +28964,7 @@
                       _colorspace.ColorSpace.singletons.cmyk
                     args = _colorspace.ColorSpace.singletons.cmyk.getRgb(
                       args,
-                      0
+                      0,
                     )
                     fn = _util.OPS.setFillRGBColor
                     break
@@ -28962,7 +28974,7 @@
                       _colorspace.ColorSpace.singletons.cmyk
                     args = _colorspace.ColorSpace.singletons.cmyk.getRgb(
                       args,
-                      0
+                      0,
                     )
                     fn = _util.OPS.setStrokeRGBColor
                     break
@@ -28994,8 +29006,8 @@
                           task,
                           localColorSpaceCache,
                           localTilingPatternCache,
-                          localShadingPatternCache
-                        )
+                          localShadingPatternCache,
+                        ),
                       )
                       return
                     }
@@ -29019,8 +29031,8 @@
                           task,
                           localColorSpaceCache,
                           localTilingPatternCache,
-                          localShadingPatternCache
-                        )
+                          localShadingPatternCache,
+                        ),
                       )
                       return
                     }
@@ -29075,7 +29087,7 @@
                       new Promise(function (resolveGState, rejectGState) {
                         if (!isValidName) {
                           throw new _util.FormatError(
-                            'GState must be referred to by name.'
+                            'GState must be referred to by name.',
                           )
                         }
 
@@ -29083,7 +29095,7 @@
 
                         if (!(extGState instanceof _primitives.Dict)) {
                           throw new _util.FormatError(
-                            'ExtGState should be a dictionary.'
+                            'ExtGState should be a dictionary.',
                           )
                         }
 
@@ -29091,7 +29103,7 @@
 
                         if (!(gState instanceof _primitives.Dict)) {
                           throw new _util.FormatError(
-                            'GState should be a dictionary.'
+                            'GState should be a dictionary.',
                           )
                         }
 
@@ -29118,13 +29130,13 @@
                               _util.UNSUPPORTED_FEATURES.errorExtGState,
                           })
                           ;(0, _util.warn)(
-                            `getOperatorList - ignoring ExtGState: "${reason}".`
+                            `getOperatorList - ignoring ExtGState: "${reason}".`,
                           )
                           return
                         }
 
                         throw reason
-                      })
+                      }),
                     )
                     return
 
@@ -29147,7 +29159,7 @@
                   case _util.OPS.beginMarkedContentProps:
                     if (!(0, _primitives.isName)(args[0])) {
                       ;(0, _util.warn)(
-                        `Expected name for beginMarkedContentProps arg0=${args[0]}`
+                        `Expected name for beginMarkedContentProps arg0=${args[0]}`,
                       )
                       continue
                     }
@@ -29159,7 +29171,7 @@
                           .then((data) => {
                             operatorList.addOp(
                               _util.OPS.beginMarkedContentProps,
-                              ['OC', data]
+                              ['OC', data],
                             )
                           })
                           .catch((reason) => {
@@ -29173,13 +29185,13 @@
                                   _util.UNSUPPORTED_FEATURES.errorMarkedContent,
                               })
                               ;(0, _util.warn)(
-                                `getOperatorList - ignoring beginMarkedContentProps: "${reason}".`
+                                `getOperatorList - ignoring beginMarkedContentProps: "${reason}".`,
                               )
                               return
                             }
 
                             throw reason
-                          })
+                          }),
                       )
                       return
                     }
@@ -29204,7 +29216,7 @@
 
                       if (i < ii) {
                         ;(0, _util.warn)(
-                          'getOperatorList - ignoring operator: ' + fn
+                          'getOperatorList - ignoring operator: ' + fn,
                         )
                         continue
                       }
@@ -29232,7 +29244,7 @@
                 })
                 ;(0, _util.warn)(
                   `getOperatorList - ignoring errors during "${task.name}" ` +
-                    `task: "${reason}".`
+                    `task: "${reason}".`,
                 )
                 closePendingRestoreOPS()
                 return
@@ -29293,7 +29305,7 @@
             const preprocessor = new EvaluatorPreprocessor(
               stream,
               xref,
-              stateManager
+              stateManager,
             )
             let textState
 
@@ -29313,7 +29325,7 @@
                 (textState.fontSize <= 1 || font.isCharBBox) &&
                 !(0, _util.isArrayEqual)(
                   textState.fontMatrix,
-                  _util.FONT_IDENTITY_MATRIX
+                  _util.FONT_IDENTITY_MATRIX,
                 )
               ) {
                 const glyphHeight = font.bbox[3] - font.bbox[1]
@@ -29325,7 +29337,7 @@
 
               return _util.Util.transform(
                 textState.ctm,
-                _util.Util.transform(textState.textMatrix, tsm)
+                _util.Util.transform(textState.textMatrix, tsm),
               )
             }
 
@@ -29359,7 +29371,7 @@
               } else {
                 textContentItem.width = textContentItem.totalWidth = Math.hypot(
                   trm[0],
-                  trm[1]
+                  trm[1],
                 )
                 textContentItem.height = textContentItem.totalHeight = 0
                 textContentItem.vertical = true
@@ -29367,7 +29379,7 @@
 
               const scaleLineX = Math.hypot(
                 textState.textLineMatrix[0],
-                textState.textLineMatrix[1]
+                textState.textLineMatrix[1],
               )
               const scaleCtmX = Math.hypot(textState.ctm[0], textState.ctm[1])
               textContentItem.textAdvanceScale = scaleCtmX * scaleLineX
@@ -29391,7 +29403,7 @@
 
               const scaleLineX = Math.hypot(
                 textState.textLineMatrix[0],
-                textState.textLineMatrix[1]
+                textState.textLineMatrix[1],
               )
               const scaleCtmX = Math.hypot(textState.ctm[0], textState.ctm[1])
               const scaleFactor = scaleCtmX * scaleLineX
@@ -29619,7 +29631,7 @@
                   if (!font.vertical) {
                     textState.translateTextMatrix(
                       charSpacing * textState.textHScale,
-                      0
+                      0,
                     )
                   } else {
                     textState.translateTextMatrix(0, -charSpacing)
@@ -29657,7 +29669,7 @@
                     charSpacing += scaledDim + textState.wordSpacing
                     textState.translateTextMatrix(
                       charSpacing * textState.textHScale,
-                      0
+                      0,
                     )
                   } else {
                     charSpacing += -scaledDim + textState.wordSpacing
@@ -29696,7 +29708,7 @@
                   if (!font.vertical) {
                     textState.translateTextMatrix(
                       charSpacing * textState.textHScale,
-                      0
+                      0,
                     )
                   } else {
                     textState.translateTextMatrix(0, -charSpacing)
@@ -29873,7 +29885,7 @@
                       args[2],
                       args[3],
                       args[4],
-                      args[5]
+                      args[5],
                     )
                     textState.setTextLineMatrix(
                       args[0],
@@ -29881,7 +29893,7 @@
                       args[2],
                       args[3],
                       args[4],
-                      args[5]
+                      args[5],
                     )
                     updateAdvanceScale()
                     break
@@ -30001,7 +30013,7 @@
                       new Promise(function (resolveXObject, rejectXObject) {
                         if (!isValidName) {
                           throw new _util.FormatError(
-                            'XObject must be referred to by name.'
+                            'XObject must be referred to by name.',
                           )
                         }
 
@@ -30015,7 +30027,7 @@
 
                           const globalImage = self.globalImageCache.getData(
                             xobj,
-                            self.pageIndex
+                            self.pageIndex,
                           )
 
                           if (globalImage) {
@@ -30028,7 +30040,7 @@
 
                         if (!(0, _primitives.isStream)(xobj)) {
                           throw new _util.FormatError(
-                            'XObject should be a stream'
+                            'XObject should be a stream',
                           )
                         }
 
@@ -30036,7 +30048,7 @@
 
                         if (!(0, _primitives.isName)(type)) {
                           throw new _util.FormatError(
-                            'XObject should have a Name subtype'
+                            'XObject should have a Name subtype',
                           )
                         }
 
@@ -30097,13 +30109,13 @@
 
                         if (self.options.ignoreErrors) {
                           ;(0, _util.warn)(
-                            `getTextContent - ignoring XObject: "${reason}".`
+                            `getTextContent - ignoring XObject: "${reason}".`,
                           )
                           return
                         }
 
                         throw reason
-                      })
+                      }),
                     )
                     return
 
@@ -30119,7 +30131,7 @@
                       new Promise(function (resolveGState, rejectGState) {
                         if (!isValidName) {
                           throw new _util.FormatError(
-                            'GState must be referred to by name.'
+                            'GState must be referred to by name.',
                           )
                         }
 
@@ -30127,7 +30139,7 @@
 
                         if (!(extGState instanceof _primitives.Dict)) {
                           throw new _util.FormatError(
-                            'ExtGState should be a dictionary.'
+                            'ExtGState should be a dictionary.',
                           )
                         }
 
@@ -30135,7 +30147,7 @@
 
                         if (!(gState instanceof _primitives.Dict)) {
                           throw new _util.FormatError(
-                            'GState should be a dictionary.'
+                            'GState should be a dictionary.',
                           )
                         }
 
@@ -30152,7 +30164,7 @@
                         textState.fontSize = gStateFont[1]
                         handleSetFont(null, gStateFont[0]).then(
                           resolveGState,
-                          rejectGState
+                          rejectGState,
                         )
                       }).catch(function (reason) {
                         if (reason instanceof _util.AbortException) {
@@ -30161,13 +30173,13 @@
 
                         if (self.options.ignoreErrors) {
                           ;(0, _util.warn)(
-                            `getTextContent - ignoring ExtGState: "${reason}".`
+                            `getTextContent - ignoring ExtGState: "${reason}".`,
                           )
                           return
                         }
 
                         throw reason
-                      })
+                      }),
                     )
                     return
 
@@ -30238,7 +30250,7 @@
               if (this.options.ignoreErrors) {
                 ;(0, _util.warn)(
                   `getTextContent - ignoring errors during "${task.name}" ` +
-                    `task: "${reason}".`
+                    `task: "${reason}".`,
                 )
                 flushTextContentItem()
                 enqueueChunk()
@@ -30255,7 +30267,7 @@
             const toUnicodePromise = this.readToUnicode(
               properties.toUnicode ||
                 dict.get('ToUnicode') ||
-                baseDict.get('ToUnicode')
+                baseDict.get('ToUnicode'),
             )
 
             if (properties.composite) {
@@ -30264,10 +30276,10 @@
               if ((0, _primitives.isDict)(cidSystemInfo)) {
                 properties.cidSystemInfo = {
                   registry: (0, _util.stringToPDFString)(
-                    cidSystemInfo.get('Registry')
+                    cidSystemInfo.get('Registry'),
                   ),
                   ordering: (0, _util.stringToPDFString)(
-                    cidSystemInfo.get('Ordering')
+                    cidSystemInfo.get('Ordering'),
                   ),
                   supplement: cidSystemInfo.get('Supplement'),
                 }
@@ -30306,7 +30318,7 @@
                       differences[index++] = data.name
                     } else {
                       throw new _util.FormatError(
-                        `Invalid entry in 'Differences' array: ${data}`
+                        `Invalid entry in 'Differences' array: ${data}`,
                       )
                     }
                   }
@@ -30328,7 +30340,7 @@
 
             if (baseEncodingName) {
               properties.defaultEncoding = (0, _encodings.getEncoding)(
-                baseEncodingName
+                baseEncodingName,
               )
             } else {
               const isSymbolicFont = !!(
@@ -30374,7 +30386,7 @@
                 if (cidToGidBytes) {
                   properties.cidToGidMap = this.readCidToGidMap(
                     cidToGidBytes,
-                    builtToUnicode
+                    builtToUnicode,
                   )
                 }
 
@@ -30449,7 +30461,7 @@
                   default:
                     const unicode = (0, _unicode.getUnicodeForGlyph)(
                       glyphName,
-                      glyphsUnicodeMap
+                      glyphsUnicodeMap,
                     )
 
                     if (unicode !== -1) {
@@ -30460,12 +30472,12 @@
                 if (code > 0 && code <= 0x10ffff && Number.isInteger(code)) {
                   if (baseEncodingName && code === +charcode) {
                     const baseEncoding = (0, _encodings.getEncoding)(
-                      baseEncodingName
+                      baseEncodingName,
                     )
 
                     if (baseEncoding && (glyphName = baseEncoding[charcode])) {
                       toUnicode[charcode] = String.fromCharCode(
-                        glyphsUnicodeMap[glyphName]
+                        glyphsUnicodeMap[glyphName],
                       )
                       continue
                     }
@@ -30478,7 +30490,7 @@
               }
 
               toUnicode[charcode] = String.fromCharCode(
-                glyphsUnicodeMap[glyphName]
+                glyphsUnicodeMap[glyphName],
               )
             }
 
@@ -30500,7 +30512,7 @@
 
             if (!properties.composite) {
               return new _to_unicode_map.ToUnicodeMap(
-                this._simpleFontToUnicode(properties)
+                this._simpleFontToUnicode(properties),
               )
             }
 
@@ -30517,7 +30529,7 @@
               const { registry, ordering } = properties.cidSystemInfo
 
               const ucs2CMapName = _primitives.Name.get(
-                `${registry}-${ordering}-UCS2`
+                `${registry}-${ordering}-UCS2`,
               )
 
               const ucs2CMap = await _cmap.CMapFactory.create({
@@ -30535,7 +30547,7 @@
 
                 if (ucs2) {
                   toUnicode[charcode] = String.fromCharCode(
-                    (ucs2.charCodeAt(0) << 8) + ucs2.charCodeAt(1)
+                    (ucs2.charCodeAt(0) << 8) + ucs2.charCodeAt(1),
                   )
                 }
               })
@@ -30544,7 +30556,7 @@
 
             return new _to_unicode_map.IdentityToUnicodeMap(
               properties.firstChar,
-              properties.lastChar
+              properties.lastChar,
             )
           }
 
@@ -30614,13 +30626,13 @@
                       featureId: _util.UNSUPPORTED_FEATURES.errorFontToUnicode,
                     })
                     ;(0, _util.warn)(
-                      `readToUnicode - ignoring ToUnicode data: "${reason}".`
+                      `readToUnicode - ignoring ToUnicode data: "${reason}".`,
                     )
                     return null
                   }
 
                   throw reason
-                }
+                },
               )
             }
 
@@ -30726,7 +30738,7 @@
                   const metrics = this.getBaseFontMetrics(baseFontName.name)
                   glyphsWidths = this.buildCharCodeToWidth(
                     metrics.widths,
-                    properties
+                    properties,
                   )
                   defaultWidth = metrics.defaultWidth
                 }
@@ -30846,7 +30858,7 @@
 
               if (!df) {
                 throw new _util.FormatError(
-                  'Descendant fonts are not specified'
+                  'Descendant fonts are not specified',
                 )
               }
 
@@ -30854,7 +30866,7 @@
 
               if (!(dict instanceof _primitives.Dict)) {
                 throw new _util.FormatError(
-                  'Descendant font is not a dictionary.'
+                  'Descendant font is not a dictionary.',
                 )
               }
 
@@ -30917,7 +30929,7 @@
                   : new Uint8Array(
                       stream.bytes.buffer,
                       stream.start,
-                      stream.end - stream.start
+                      stream.end - stream.start,
                     )
                 hash.update(uint8array)
               } else if ((0, _primitives.isName)(toUnicode)) {
@@ -31019,7 +31031,7 @@
                 descriptor.set('FontName', _primitives.Name.get(type))
                 descriptor.set(
                   'FontBBox',
-                  dict.getArray('FontBBox') || [0, 0, 0, 0]
+                  dict.getArray('FontBBox') || [0, 0, 0, 0],
                 )
               } else {
                 let baseFontName = dict.get('BaseFont')
@@ -31080,12 +31092,12 @@
                     } else {
                       newProperties.widths = this.buildCharCodeToWidth(
                         metrics.widths,
-                        newProperties
+                        newProperties,
                       )
                     }
 
                     return new _fonts.Font(baseFontName, file, newProperties)
-                  }
+                  },
                 )
               }
             }
@@ -31108,7 +31120,7 @@
               if (fontNameStr !== baseFontStr) {
                 ;(0, _util.info)(
                   `The FontDescriptor's FontName is "${fontNameStr}" but ` +
-                    `should be the same as the Font's BaseFont "${baseFontStr}".`
+                    `should be the same as the Font's BaseFont "${baseFontStr}".`,
                 )
 
                 if (
@@ -31137,7 +31149,7 @@
               }
 
               ;(0, _util.warn)(
-                `translateFont - fetching "${fontName.name}" font file: "${ex}".`
+                `translateFont - fetching "${fontName.name}" font file: "${ex}".`,
               )
               fontFile = new _stream.NullStream()
             }
@@ -31160,7 +31172,7 @@
               }
             } else if (cssFontInfo) {
               const standardFontName = (0, _xfa_fonts.getXfaFontName)(
-                fontName.name
+                fontName.name,
               )
 
               if (standardFontName) {
@@ -31168,7 +31180,7 @@
                 cssFontInfo.metrics = standardFontName.metrics || null
                 glyphScaleFactors = standardFontName.factors || null
                 fontFile = await this.fetchStandardFontData(
-                  standardFontName.name
+                  standardFontName.name,
                 )
                 isInternalFont = !!fontFile
                 baseDict = dict = (0, _xfa_fonts.getXfaFontDict)(fontName.name)
@@ -31176,7 +31188,7 @@
               }
             } else if (!isType3Font) {
               const standardFontName = (0, _standard_fonts.getStandardFontName)(
-                fontName.name
+                fontName.name,
               )
 
               if (standardFontName) {
@@ -31237,7 +31249,7 @@
               (newProperties) => {
                 this.extractWidths(dict, descriptor, newProperties)
                 return new _fonts.Font(fontName.name, fontFile, newProperties)
-              }
+              },
             )
           }
 
@@ -31261,7 +31273,7 @@
                     featureId: _util.UNSUPPORTED_FEATURES.errorFontBuildPath,
                   })
                   ;(0, _util.warn)(
-                    `buildFontPaths - ignoring ${glyphName} glyph: "${reason}".`
+                    `buildFontPaths - ignoring ${glyphName} glyph: "${reason}".`,
                   )
                   return
                 }
@@ -31327,7 +31339,7 @@
               this.font,
               this.font.glyphCacheValues,
               handler,
-              this._evaluatorOptions
+              this._evaluatorOptions,
             )
           }
 
@@ -31380,8 +31392,9 @@
                     }
                   })
                   .catch(function (reason) {
-                    ;(0,
-                    _util.warn)(`Type3 font resource "${key}" is not available.`)
+                    ;(0, _util.warn)(
+                      `Type3 font resource "${key}" is not available.`,
+                    )
                     const dummyOperatorList = new _operator_list.OperatorList()
                     charProcOperatorList[key] = dummyOperatorList.getIR()
                   })
@@ -31406,7 +31419,7 @@
               }
 
               const charBBox = _util.Util.normalizeRect(
-                operatorList.argsArray[0].slice(2)
+                operatorList.argsArray[0].slice(2),
               )
 
               this._bbox[0] = Math.min(this._bbox[0], charBBox[0])
@@ -31574,385 +31587,385 @@
 
         class EvaluatorPreprocessor {
           static get opMap() {
-            const getOPMap = (0, _core_utils.getLookupTableFactory)(function (
-              t
-            ) {
-              t.w = {
-                id: _util.OPS.setLineWidth,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.J = {
-                id: _util.OPS.setLineCap,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.j = {
-                id: _util.OPS.setLineJoin,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.M = {
-                id: _util.OPS.setMiterLimit,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.d = {
-                id: _util.OPS.setDash,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.ri = {
-                id: _util.OPS.setRenderingIntent,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.i = {
-                id: _util.OPS.setFlatness,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.gs = {
-                id: _util.OPS.setGState,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.q = {
-                id: _util.OPS.save,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.Q = {
-                id: _util.OPS.restore,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.cm = {
-                id: _util.OPS.transform,
-                numArgs: 6,
-                variableArgs: false,
-              }
-              t.m = {
-                id: _util.OPS.moveTo,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.l = {
-                id: _util.OPS.lineTo,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.c = {
-                id: _util.OPS.curveTo,
-                numArgs: 6,
-                variableArgs: false,
-              }
-              t.v = {
-                id: _util.OPS.curveTo2,
-                numArgs: 4,
-                variableArgs: false,
-              }
-              t.y = {
-                id: _util.OPS.curveTo3,
-                numArgs: 4,
-                variableArgs: false,
-              }
-              t.h = {
-                id: _util.OPS.closePath,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.re = {
-                id: _util.OPS.rectangle,
-                numArgs: 4,
-                variableArgs: false,
-              }
-              t.S = {
-                id: _util.OPS.stroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.s = {
-                id: _util.OPS.closeStroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.f = {
-                id: _util.OPS.fill,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.F = {
-                id: _util.OPS.fill,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t['f*'] = {
-                id: _util.OPS.eoFill,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.B = {
-                id: _util.OPS.fillStroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t['B*'] = {
-                id: _util.OPS.eoFillStroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.b = {
-                id: _util.OPS.closeFillStroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t['b*'] = {
-                id: _util.OPS.closeEOFillStroke,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.n = {
-                id: _util.OPS.endPath,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.W = {
-                id: _util.OPS.clip,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t['W*'] = {
-                id: _util.OPS.eoClip,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.BT = {
-                id: _util.OPS.beginText,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.ET = {
-                id: _util.OPS.endText,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.Tc = {
-                id: _util.OPS.setCharSpacing,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Tw = {
-                id: _util.OPS.setWordSpacing,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Tz = {
-                id: _util.OPS.setHScale,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.TL = {
-                id: _util.OPS.setLeading,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Tf = {
-                id: _util.OPS.setFont,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.Tr = {
-                id: _util.OPS.setTextRenderingMode,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Ts = {
-                id: _util.OPS.setTextRise,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Td = {
-                id: _util.OPS.moveText,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.TD = {
-                id: _util.OPS.setLeadingMoveText,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.Tm = {
-                id: _util.OPS.setTextMatrix,
-                numArgs: 6,
-                variableArgs: false,
-              }
-              t['T*'] = {
-                id: _util.OPS.nextLine,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.Tj = {
-                id: _util.OPS.showText,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.TJ = {
-                id: _util.OPS.showSpacedText,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t["'"] = {
-                id: _util.OPS.nextLineShowText,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t['"'] = {
-                id: _util.OPS.nextLineSetSpacingShowText,
-                numArgs: 3,
-                variableArgs: false,
-              }
-              t.d0 = {
-                id: _util.OPS.setCharWidth,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.d1 = {
-                id: _util.OPS.setCharWidthAndBounds,
-                numArgs: 6,
-                variableArgs: false,
-              }
-              t.CS = {
-                id: _util.OPS.setStrokeColorSpace,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.cs = {
-                id: _util.OPS.setFillColorSpace,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.SC = {
-                id: _util.OPS.setStrokeColor,
-                numArgs: 4,
-                variableArgs: true,
-              }
-              t.SCN = {
-                id: _util.OPS.setStrokeColorN,
-                numArgs: 33,
-                variableArgs: true,
-              }
-              t.sc = {
-                id: _util.OPS.setFillColor,
-                numArgs: 4,
-                variableArgs: true,
-              }
-              t.scn = {
-                id: _util.OPS.setFillColorN,
-                numArgs: 33,
-                variableArgs: true,
-              }
-              t.G = {
-                id: _util.OPS.setStrokeGray,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.g = {
-                id: _util.OPS.setFillGray,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.RG = {
-                id: _util.OPS.setStrokeRGBColor,
-                numArgs: 3,
-                variableArgs: false,
-              }
-              t.rg = {
-                id: _util.OPS.setFillRGBColor,
-                numArgs: 3,
-                variableArgs: false,
-              }
-              t.K = {
-                id: _util.OPS.setStrokeCMYKColor,
-                numArgs: 4,
-                variableArgs: false,
-              }
-              t.k = {
-                id: _util.OPS.setFillCMYKColor,
-                numArgs: 4,
-                variableArgs: false,
-              }
-              t.sh = {
-                id: _util.OPS.shadingFill,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.BI = {
-                id: _util.OPS.beginInlineImage,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.ID = {
-                id: _util.OPS.beginImageData,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.EI = {
-                id: _util.OPS.endInlineImage,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.Do = {
-                id: _util.OPS.paintXObject,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.MP = {
-                id: _util.OPS.markPoint,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.DP = {
-                id: _util.OPS.markPointProps,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.BMC = {
-                id: _util.OPS.beginMarkedContent,
-                numArgs: 1,
-                variableArgs: false,
-              }
-              t.BDC = {
-                id: _util.OPS.beginMarkedContentProps,
-                numArgs: 2,
-                variableArgs: false,
-              }
-              t.EMC = {
-                id: _util.OPS.endMarkedContent,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.BX = {
-                id: _util.OPS.beginCompat,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.EX = {
-                id: _util.OPS.endCompat,
-                numArgs: 0,
-                variableArgs: false,
-              }
-              t.BM = null
-              t.BD = null
-              t.true = null
-              t.fa = null
-              t.fal = null
-              t.fals = null
-              t.false = null
-              t.nu = null
-              t.nul = null
-              t.null = null
-            })
+            const getOPMap = (0, _core_utils.getLookupTableFactory)(
+              function (t) {
+                t.w = {
+                  id: _util.OPS.setLineWidth,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.J = {
+                  id: _util.OPS.setLineCap,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.j = {
+                  id: _util.OPS.setLineJoin,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.M = {
+                  id: _util.OPS.setMiterLimit,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.d = {
+                  id: _util.OPS.setDash,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.ri = {
+                  id: _util.OPS.setRenderingIntent,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.i = {
+                  id: _util.OPS.setFlatness,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.gs = {
+                  id: _util.OPS.setGState,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.q = {
+                  id: _util.OPS.save,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.Q = {
+                  id: _util.OPS.restore,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.cm = {
+                  id: _util.OPS.transform,
+                  numArgs: 6,
+                  variableArgs: false,
+                }
+                t.m = {
+                  id: _util.OPS.moveTo,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.l = {
+                  id: _util.OPS.lineTo,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.c = {
+                  id: _util.OPS.curveTo,
+                  numArgs: 6,
+                  variableArgs: false,
+                }
+                t.v = {
+                  id: _util.OPS.curveTo2,
+                  numArgs: 4,
+                  variableArgs: false,
+                }
+                t.y = {
+                  id: _util.OPS.curveTo3,
+                  numArgs: 4,
+                  variableArgs: false,
+                }
+                t.h = {
+                  id: _util.OPS.closePath,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.re = {
+                  id: _util.OPS.rectangle,
+                  numArgs: 4,
+                  variableArgs: false,
+                }
+                t.S = {
+                  id: _util.OPS.stroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.s = {
+                  id: _util.OPS.closeStroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.f = {
+                  id: _util.OPS.fill,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.F = {
+                  id: _util.OPS.fill,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t['f*'] = {
+                  id: _util.OPS.eoFill,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.B = {
+                  id: _util.OPS.fillStroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t['B*'] = {
+                  id: _util.OPS.eoFillStroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.b = {
+                  id: _util.OPS.closeFillStroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t['b*'] = {
+                  id: _util.OPS.closeEOFillStroke,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.n = {
+                  id: _util.OPS.endPath,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.W = {
+                  id: _util.OPS.clip,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t['W*'] = {
+                  id: _util.OPS.eoClip,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.BT = {
+                  id: _util.OPS.beginText,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.ET = {
+                  id: _util.OPS.endText,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.Tc = {
+                  id: _util.OPS.setCharSpacing,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Tw = {
+                  id: _util.OPS.setWordSpacing,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Tz = {
+                  id: _util.OPS.setHScale,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.TL = {
+                  id: _util.OPS.setLeading,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Tf = {
+                  id: _util.OPS.setFont,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.Tr = {
+                  id: _util.OPS.setTextRenderingMode,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Ts = {
+                  id: _util.OPS.setTextRise,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Td = {
+                  id: _util.OPS.moveText,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.TD = {
+                  id: _util.OPS.setLeadingMoveText,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.Tm = {
+                  id: _util.OPS.setTextMatrix,
+                  numArgs: 6,
+                  variableArgs: false,
+                }
+                t['T*'] = {
+                  id: _util.OPS.nextLine,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.Tj = {
+                  id: _util.OPS.showText,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.TJ = {
+                  id: _util.OPS.showSpacedText,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t["'"] = {
+                  id: _util.OPS.nextLineShowText,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t['"'] = {
+                  id: _util.OPS.nextLineSetSpacingShowText,
+                  numArgs: 3,
+                  variableArgs: false,
+                }
+                t.d0 = {
+                  id: _util.OPS.setCharWidth,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.d1 = {
+                  id: _util.OPS.setCharWidthAndBounds,
+                  numArgs: 6,
+                  variableArgs: false,
+                }
+                t.CS = {
+                  id: _util.OPS.setStrokeColorSpace,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.cs = {
+                  id: _util.OPS.setFillColorSpace,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.SC = {
+                  id: _util.OPS.setStrokeColor,
+                  numArgs: 4,
+                  variableArgs: true,
+                }
+                t.SCN = {
+                  id: _util.OPS.setStrokeColorN,
+                  numArgs: 33,
+                  variableArgs: true,
+                }
+                t.sc = {
+                  id: _util.OPS.setFillColor,
+                  numArgs: 4,
+                  variableArgs: true,
+                }
+                t.scn = {
+                  id: _util.OPS.setFillColorN,
+                  numArgs: 33,
+                  variableArgs: true,
+                }
+                t.G = {
+                  id: _util.OPS.setStrokeGray,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.g = {
+                  id: _util.OPS.setFillGray,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.RG = {
+                  id: _util.OPS.setStrokeRGBColor,
+                  numArgs: 3,
+                  variableArgs: false,
+                }
+                t.rg = {
+                  id: _util.OPS.setFillRGBColor,
+                  numArgs: 3,
+                  variableArgs: false,
+                }
+                t.K = {
+                  id: _util.OPS.setStrokeCMYKColor,
+                  numArgs: 4,
+                  variableArgs: false,
+                }
+                t.k = {
+                  id: _util.OPS.setFillCMYKColor,
+                  numArgs: 4,
+                  variableArgs: false,
+                }
+                t.sh = {
+                  id: _util.OPS.shadingFill,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.BI = {
+                  id: _util.OPS.beginInlineImage,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.ID = {
+                  id: _util.OPS.beginImageData,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.EI = {
+                  id: _util.OPS.endInlineImage,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.Do = {
+                  id: _util.OPS.paintXObject,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.MP = {
+                  id: _util.OPS.markPoint,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.DP = {
+                  id: _util.OPS.markPointProps,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.BMC = {
+                  id: _util.OPS.beginMarkedContent,
+                  numArgs: 1,
+                  variableArgs: false,
+                }
+                t.BDC = {
+                  id: _util.OPS.beginMarkedContentProps,
+                  numArgs: 2,
+                  variableArgs: false,
+                }
+                t.EMC = {
+                  id: _util.OPS.endMarkedContent,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.BX = {
+                  id: _util.OPS.beginCompat,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.EX = {
+                  id: _util.OPS.endCompat,
+                  numArgs: 0,
+                  variableArgs: false,
+                }
+                t.BM = null
+                t.BD = null
+                t.true = null
+                t.fa = null
+                t.fal = null
+                t.fals = null
+                t.false = null
+                t.nu = null
+                t.nul = null
+                t.null = null
+              },
+            )
             return (0, _util.shadow)(this, 'opMap', getOPMap())
           }
 
@@ -32040,7 +32053,7 @@
                 } else if (argsLength > numArgs) {
                   ;(0, _util.info)(
                     `Command ${cmd}: expected [0, ${numArgs}] args, ` +
-                      `but received ${argsLength} args.`
+                      `but received ${argsLength} args.`,
                   )
                 }
 
@@ -32297,7 +32310,7 @@
           mapCidRange(low, high, dstLow) {
             if (high - low > MAX_MAP_RANGE) {
               throw new Error(
-                'mapCidRange - ignoring data above MAX_MAP_RANGE.'
+                'mapCidRange - ignoring data above MAX_MAP_RANGE.',
               )
             }
 
@@ -32334,7 +32347,7 @@
           mapBfRangeToArray(low, high, array) {
             if (high - low > MAX_MAP_RANGE) {
               throw new Error(
-                'mapBfRangeToArray - ignoring data above MAX_MAP_RANGE.'
+                'mapBfRangeToArray - ignoring data above MAX_MAP_RANGE.',
               )
             }
 
@@ -32721,7 +32734,7 @@
                     cMap.addCodespaceRange(
                       dataSize + 1,
                       hexToInt(start, dataSize),
-                      hexToInt(end, dataSize)
+                      hexToInt(end, dataSize),
                     )
 
                     for (let i = 1; i < subitemsCount; i++) {
@@ -32733,7 +32746,7 @@
                       cMap.addCodespaceRange(
                         dataSize + 1,
                         hexToInt(start, dataSize),
-                        hexToInt(end, dataSize)
+                        hexToInt(end, dataSize),
                       )
                     }
 
@@ -32783,7 +32796,7 @@
                     cMap.mapCidRange(
                       hexToInt(start, dataSize),
                       hexToInt(end, dataSize),
-                      code
+                      code,
                     )
 
                     for (let i = 1; i < subitemsCount; i++) {
@@ -32802,7 +32815,7 @@
                       cMap.mapCidRange(
                         hexToInt(start, dataSize),
                         hexToInt(end, dataSize),
-                        code
+                        code,
                       )
                     }
 
@@ -32813,7 +32826,7 @@
                     stream.readHex(charCode, dataSize)
                     cMap.mapOne(
                       hexToInt(char, ucs2DataSize),
-                      hexToStr(charCode, dataSize)
+                      hexToStr(charCode, dataSize),
                     )
 
                     for (let i = 1; i < subitemsCount; i++) {
@@ -32829,7 +32842,7 @@
                       addHex(charCode, tmp, dataSize)
                       cMap.mapOne(
                         hexToInt(char, ucs2DataSize),
-                        hexToStr(charCode, dataSize)
+                        hexToStr(charCode, dataSize),
                       )
                     }
 
@@ -32843,7 +32856,7 @@
                     cMap.mapBfRange(
                       hexToInt(start, ucs2DataSize),
                       hexToInt(end, ucs2DataSize),
-                      hexToStr(charCode, dataSize)
+                      hexToStr(charCode, dataSize),
                     )
 
                     for (let i = 1; i < subitemsCount; i++) {
@@ -32862,7 +32875,7 @@
                       cMap.mapBfRange(
                         hexToInt(start, ucs2DataSize),
                         hexToInt(end, ucs2DataSize),
-                        hexToStr(charCode, dataSize)
+                        hexToStr(charCode, dataSize),
                       )
                     }
 
@@ -32870,7 +32883,7 @@
 
                   default:
                     throw new Error(
-                      `BinaryCMapReader.process - unknown type: ${type}`
+                      `BinaryCMapReader.process - unknown type: ${type}`,
                     )
                 }
               }
@@ -33182,7 +33195,7 @@
                 cMap,
                 (useCMap) => {
                   return extendCMap(cMap, fetchBuiltInCMap, useCMap)
-                }
+                },
               )
             }
 
@@ -33192,7 +33205,7 @@
             }
 
             throw new Error(
-              'TODO: Only BINARY/NONE CMap compression is currently supported.'
+              'TODO: Only BINARY/NONE CMap compression is currently supported.',
             )
           }
 
@@ -33209,7 +33222,7 @@
                   new CMap(),
                   new _parser.Lexer(encoding),
                   fetchBuiltInCMap,
-                  useCMap
+                  useCMap,
                 )
 
                 if (parsedCMap.isIdentityCMap) {
@@ -33350,7 +33363,7 @@
                     }
 
                     throw new _core_utils.ParserEOFException(
-                      'End of file inside array.'
+                      'End of file inside array.',
                     )
                   }
 
@@ -33366,7 +33379,7 @@
                   ) {
                     if (!(0, _primitives.isName)(this.buf1)) {
                       ;(0, _util.info)(
-                        'Malformed dictionary: key must be a name object'
+                        'Malformed dictionary: key must be a name object',
                       )
                       this.shift()
                       continue
@@ -33388,7 +33401,7 @@
                     }
 
                     throw new _core_utils.ParserEOFException(
-                      'End of file inside dictionary.'
+                      'End of file inside dictionary.',
                     )
                   }
 
@@ -33454,7 +33467,7 @@
               } else {
                 ;(0, _util.assert)(
                   state === 2,
-                  'findDefaultInlineStreamEnd - invalid state.'
+                  'findDefaultInlineStreamEnd - invalid state.',
                 )
 
                 if (ch === SPACE || ch === LF || ch === CR) {
@@ -33489,7 +33502,7 @@
                     }
                   } else {
                     ;(0, _util.warn)(
-                      'findDefaultInlineStreamEnd - `lexer.knownCommands` is undefined.'
+                      'findDefaultInlineStreamEnd - `lexer.knownCommands` is undefined.',
                     )
                   }
 
@@ -33505,12 +33518,12 @@
             if (ch === -1) {
               ;(0, _util.warn)(
                 'findDefaultInlineStreamEnd: ' +
-                  'Reached the end of the stream without finding a valid EI marker'
+                  'Reached the end of the stream without finding a valid EI marker',
               )
 
               if (maybeEIPos) {
                 ;(0, _util.warn)(
-                  '... trying to recover by using the last "EI" occurrence.'
+                  '... trying to recover by using the last "EI" occurrence.',
                 )
                 stream.skip(-(stream.pos - maybeEIPos))
               }
@@ -33610,7 +33623,7 @@
             if (b === -1) {
               ;(0, _util.warn)(
                 'Inline DCTDecode image stream: ' +
-                  'EOI marker not found, searching for /EI/ instead.'
+                  'EOI marker not found, searching for /EI/ instead.',
               )
               stream.skip(-length)
               return this.findDefaultInlineStreamEnd(stream)
@@ -33656,7 +33669,7 @@
             if (ch === -1) {
               ;(0, _util.warn)(
                 'Inline ASCII85Decode image stream: ' +
-                  'EOD marker not found, searching for /EI/ instead.'
+                  'EOD marker not found, searching for /EI/ instead.',
               )
               stream.skip(-length)
               return this.findDefaultInlineStreamEnd(stream)
@@ -33682,7 +33695,7 @@
             if (ch === -1) {
               ;(0, _util.warn)(
                 'Inline ASCIIHexDecode image stream: ' +
-                  'EOD marker not found, searching for /EI/ instead.'
+                  'EOD marker not found, searching for /EI/ instead.',
               )
               stream.skip(-length)
               return this.findDefaultInlineStreamEnd(stream)
@@ -33721,7 +33734,7 @@
             ) {
               if (!(0, _primitives.isName)(this.buf1)) {
                 throw new _util.FormatError(
-                  'Dictionary key must be a name object'
+                  'Dictionary key must be a name object',
                 )
               }
 
@@ -33866,7 +33879,7 @@
 
             if (!Number.isInteger(length)) {
               ;(0, _util.info)(
-                `Bad length "${length && length.toString()}" in stream.`
+                `Bad length "${length && length.toString()}" in stream.`,
               )
               length = 0
             }
@@ -33886,7 +33899,7 @@
 
               let actualLength = this._findStreamLength(
                 startPos,
-                ENDSTREAM_SIGNATURE
+                ENDSTREAM_SIGNATURE,
               )
 
               if (actualLength < 0) {
@@ -33898,7 +33911,7 @@
 
                   const maybeLength = this._findStreamLength(
                     startPos,
-                    TRUNCATED_SIGNATURE
+                    TRUNCATED_SIGNATURE,
                   )
 
                   if (maybeLength >= 0) {
@@ -33910,8 +33923,8 @@
 
                     ;(0, _util.info)(
                       `Found "${(0, _util.bytesToString)(
-                        TRUNCATED_SIGNATURE
-                      )}" when ` + 'searching for endstream command.'
+                        TRUNCATED_SIGNATURE,
+                      )}" when ` + 'searching for endstream command.',
                     )
                     actualLength = maybeLength
                     break
@@ -33948,7 +33961,7 @@
             if ((0, _primitives.isName)(filter)) {
               if (Array.isArray(params)) {
                 ;(0, _util.warn)(
-                  '/DecodeParms should not be an Array, when /Filter is a Name.'
+                  '/DecodeParms should not be an Array, when /Filter is a Name.',
                 )
               }
 
@@ -33978,7 +33991,7 @@
                   stream,
                   filter.name,
                   maybeLength,
-                  params
+                  params,
                 )
                 maybeLength = null
               }
@@ -34005,7 +34018,7 @@
                     return new _predictor_stream.PredictorStream(
                       new _flate_stream.FlateStream(stream, maybeLength),
                       maybeLength,
-                      params
+                      params,
                     )
                   }
 
@@ -34025,17 +34038,17 @@
                       new _lzw_stream.LZWStream(
                         stream,
                         maybeLength,
-                        earlyChange
+                        earlyChange,
                       ),
                       maybeLength,
-                      params
+                      params,
                     )
                   }
 
                   return new _lzw_stream.LZWStream(
                     stream,
                     maybeLength,
-                    earlyChange
+                    earlyChange,
                   )
 
                 case 'DCT':
@@ -34044,7 +34057,7 @@
                   return new _jpeg_stream.JpegStream(
                     stream,
                     maybeLength,
-                    params
+                    params,
                   )
 
                 case 'JPX':
@@ -34062,7 +34075,7 @@
                   xrefStats.addStreamType(_util.StreamType.AHX)
                   return new _ascii_hex_stream.AsciiHexStream(
                     stream,
-                    maybeLength
+                    maybeLength,
                   )
 
                 case 'CCF':
@@ -34071,7 +34084,7 @@
                   return new _ccitt_stream.CCITTFaxStream(
                     stream,
                     maybeLength,
-                    params
+                    params,
                   )
 
                 case 'RL':
@@ -34079,7 +34092,7 @@
                   xrefStats.addStreamType(_util.StreamType.RLX)
                   return new _run_length_stream.RunLengthStream(
                     stream,
-                    maybeLength
+                    maybeLength,
                   )
 
                 case 'JBIG2Decode':
@@ -34087,7 +34100,7 @@
                   return new _jbig2_stream.Jbig2Stream(
                     stream,
                     maybeLength,
-                    params
+                    params,
                   )
               }
 
@@ -34186,13 +34199,13 @@
                 ((0, _core_utils.isWhiteSpace)(ch) || ch === -1)
               ) {
                 ;(0, _util.warn)(
-                  'Lexer.getNumber - treating a single decimal point as zero.'
+                  'Lexer.getNumber - treating a single decimal point as zero.',
                 )
                 return 0
               }
 
               throw new _util.FormatError(
-                `Invalid number: ${String.fromCharCode(ch)} (charCode ${ch})`
+                `Invalid number: ${String.fromCharCode(ch)} (charCode ${ch})`,
               )
             }
 
@@ -34222,7 +34235,7 @@
                 }
               } else if (ch === 0x2d) {
                 ;(0, _util.warn)(
-                  'Badly formatted number: minus sign in the middle'
+                  'Badly formatted number: minus sign in the middle',
                 )
               } else if (ch === 0x45 || ch === 0x65) {
                 ch = this.peekChar()
@@ -34388,7 +34401,7 @@
                 if (specialChars[ch]) {
                   ;(0, _util.warn)(
                     'Lexer_getName: ' +
-                      'NUMBER SIGN (#) should be followed by a hexadecimal number.'
+                      'NUMBER SIGN (#) should be followed by a hexadecimal number.',
                   )
                   strBuf.push('#')
                   break
@@ -34404,8 +34417,8 @@
                   if (x2 === -1) {
                     ;(0, _util.warn)(
                       `Lexer_getName: Illegal digit (${String.fromCharCode(
-                        ch
-                      )}) ` + 'in hexadecimal number.'
+                        ch,
+                      )}) ` + 'in hexadecimal number.',
                     )
                     strBuf.push('#', String.fromCharCode(previousCh))
 
@@ -34428,7 +34441,7 @@
 
             if (strBuf.length > 127) {
               ;(0, _util.warn)(
-                `Name token is longer than allowed by the spec: ${strBuf.length}`
+                `Name token is longer than allowed by the spec: ${strBuf.length}`,
               )
             }
 
@@ -34440,7 +34453,7 @@
 
             if (this._hexStringNumWarn++ === MAX_HEX_STRING_NUM_WARN) {
               ;(0, _util.warn)(
-                'getHexString - ignoring additional invalid characters.'
+                'getHexString - ignoring additional invalid characters.',
               )
               return
             }
@@ -34491,7 +34504,7 @@
                   }
 
                   strBuf.push(
-                    String.fromCharCode((firstDigit << 4) | secondDigit)
+                    String.fromCharCode((firstDigit << 4) | secondDigit),
                   )
                 }
 
@@ -34615,7 +34628,7 @@
 
               if (str.length === 128) {
                 throw new _util.FormatError(
-                  `Command token too long: ${str.length}`
+                  `Command token too long: ${str.length}`,
                 )
               }
 
@@ -34703,7 +34716,7 @@
 
               throw new Error(
                 `The "${name}" parameter in the linearization ` +
-                  'dictionary is invalid.'
+                  'dictionary is invalid.',
               )
             }
 
@@ -34720,7 +34733,7 @@
 
                   if (!(Number.isInteger(hint) && hint > 0)) {
                     throw new Error(
-                      `Hint (${index}) in the linearization dictionary is invalid.`
+                      `Hint (${index}) in the linearization dictionary is invalid.`,
                     )
                   }
                 }
@@ -34729,7 +34742,7 @@
               }
 
               throw new Error(
-                'Hint array in the linearization dictionary is invalid.'
+                'Hint array in the linearization dictionary is invalid.',
               )
             }
 
@@ -34757,7 +34770,7 @@
             } else if ((length = getInt(linDict, 'L')) !== stream.length) {
               throw new Error(
                 'The "L" parameter in the linearization dictionary ' +
-                  'does not equal the stream length.'
+                  'does not equal the stream length.',
               )
             }
 
@@ -35100,7 +35113,7 @@
 
             const maxDecodeLength = (bytes.length + 1) >> 1
             const buffer = this.ensureBuffer(
-              this.bufferLength + maxDecodeLength
+              this.bufferLength + maxDecodeLength,
             )
             let bufferLength = this.bufferLength
             let firstDigit = this.firstDigit
@@ -36409,13 +36422,13 @@
 
                       this._addPixels(
                         codingLine[this.codingPos] + code1,
-                        blackPixels
+                        blackPixels,
                       )
 
                       if (codingLine[this.codingPos] < columns) {
                         this._addPixels(
                           codingLine[this.codingPos] + code2,
-                          blackPixels ^ 1
+                          blackPixels ^ 1,
                         )
                       }
 
@@ -36600,7 +36613,7 @@
 
                   this._addPixels(
                     codingLine[this.codingPos] + code1,
-                    blackPixels
+                    blackPixels,
                   )
 
                   blackPixels ^= 1
@@ -36734,7 +36747,7 @@
               do {
                 if (typeof this.outputBits !== 'number') {
                   throw new _util.FormatError(
-                    'Invalid /CCITTFaxDecode data, "outputBits" must be a number.'
+                    'Invalid /CCITTFaxDecode data, "outputBits" must be a number.',
                   )
                 }
 
@@ -37139,25 +37152,25 @@
 
             if (cmf === -1 || flg === -1) {
               throw new _util.FormatError(
-                `Invalid header in flate stream: ${cmf}, ${flg}`
+                `Invalid header in flate stream: ${cmf}, ${flg}`,
               )
             }
 
             if ((cmf & 0x0f) !== 0x08) {
               throw new _util.FormatError(
-                `Unknown compression method in flate stream: ${cmf}, ${flg}`
+                `Unknown compression method in flate stream: ${cmf}, ${flg}`,
               )
             }
 
             if (((cmf << 8) + flg) % 31 !== 0) {
               throw new _util.FormatError(
-                `Bad FCHECK in flate stream: ${cmf}, ${flg}`
+                `Bad FCHECK in flate stream: ${cmf}, ${flg}`,
               )
             }
 
             if (flg & 0x20) {
               throw new _util.FormatError(
-                `FDICT bit set in flate stream: ${cmf}, ${flg}`
+                `FDICT bit set in flate stream: ${cmf}, ${flg}`,
               )
             }
 
@@ -37300,7 +37313,7 @@
                 (blockLen !== 0 || check !== 0)
               ) {
                 throw new _util.FormatError(
-                  'Bad uncompressed block length in flate stream'
+                  'Bad uncompressed block length in flate stream',
                 )
               }
 
@@ -37380,10 +37393,10 @@
               }
 
               litCodeTable = this.generateHuffmanTable(
-                codeLengths.subarray(0, numLitCodes)
+                codeLengths.subarray(0, numLitCodes),
               )
               distCodeTable = this.generateHuffmanTable(
-                codeLengths.subarray(numLitCodes, codes)
+                codeLengths.subarray(numLitCodes, codes),
               )
             } else {
               throw new _util.FormatError('Unknown block type in flate stream')
@@ -37474,7 +37487,7 @@
             return (0, _util.shadow)(
               this,
               'bytes',
-              this.stream.getBytes(this.maybeLength)
+              this.stream.getBytes(this.maybeLength),
             )
           }
 
@@ -37565,7 +37578,7 @@
             const decoder = new _arithmetic_decoder.ArithmeticDecoder(
               this.data,
               this.start,
-              this.end
+              this.end,
             )
             return (0, _util.shadow)(this, 'decoder', decoder)
           }
@@ -38018,13 +38031,13 @@
           prediction,
           skip,
           at,
-          decodingContext
+          decodingContext,
         ) {
           if (mmr) {
             const input = new Reader(
               decodingContext.data,
               decodingContext.start,
-              decodingContext.end
+              decodingContext.end,
             )
             return decodeMMRBitmap(input, width, height, false)
           }
@@ -38178,7 +38191,7 @@
           offsetY,
           prediction,
           at,
-          decodingContext
+          decodingContext,
         ) {
           let codingTemplate = RefinementTemplates[templateIndex].coding
 
@@ -38283,18 +38296,18 @@
           refinementTemplateIndex,
           refinementAt,
           decodingContext,
-          huffmanInput
+          huffmanInput,
         ) {
           if (huffman && refinement) {
             throw new Jbig2Error(
-              'symbol refinement with Huffman is not supported'
+              'symbol refinement with Huffman is not supported',
             )
           }
 
           const newSymbols = []
           let currentHeight = 0
           let symbolCodeLength = (0, _core_utils.log2)(
-            symbols.length + numberOfNewSymbols
+            symbols.length + numberOfNewSymbols,
           )
           const decoder = decodingContext.decoder
           const contextCache = decodingContext.contextCache
@@ -38332,7 +38345,7 @@
                 const numberOfInstances = decodeInteger(
                   contextCache,
                   'IAAI',
-                  decoder
+                  decoder,
                 )
 
                 if (numberOfInstances > 1) {
@@ -38355,13 +38368,13 @@
                     refinementAt,
                     decodingContext,
                     0,
-                    huffmanInput
+                    huffmanInput,
                   )
                 } else {
                   const symbolId = decodeIAID(
                     contextCache,
                     decoder,
-                    symbolCodeLength
+                    symbolCodeLength,
                   )
                   const rdx = decodeInteger(contextCache, 'IARDX', decoder)
                   const rdy = decodeInteger(contextCache, 'IARDY', decoder)
@@ -38378,7 +38391,7 @@
                     rdy,
                     false,
                     refinementAt,
-                    decodingContext
+                    decodingContext,
                   )
                 }
 
@@ -38394,7 +38407,7 @@
                   false,
                   null,
                   at,
-                  decodingContext
+                  decodingContext,
                 )
                 newSymbols.push(bitmap)
               }
@@ -38410,7 +38423,7 @@
                 collectiveBitmap = readUncompressedBitmap(
                   huffmanInput,
                   totalWidth,
-                  currentHeight
+                  currentHeight,
                 )
               } else {
                 const originalEnd = huffmanInput.end
@@ -38420,7 +38433,7 @@
                   huffmanInput,
                   totalWidth,
                   currentHeight,
-                  false
+                  false,
                 )
                 huffmanInput.end = originalEnd
                 huffmanInput.position = bitmapEnd
@@ -38507,7 +38520,7 @@
           refinementAt,
           decodingContext,
           logStripSize,
-          huffmanInput
+          huffmanInput,
         ) {
           if (huffman && refinement) {
             throw new Jbig2Error('refinement with Huffman is not supported')
@@ -38585,7 +38598,7 @@
                   (rdh >> 1) + rdy,
                   false,
                   refinementAt,
-                  decodingContext
+                  decodingContext,
                 )
               }
 
@@ -38622,7 +38635,7 @@
 
                     default:
                       throw new Jbig2Error(
-                        `operator ${combinationOperator} is not supported`
+                        `operator ${combinationOperator} is not supported`,
                       )
                   }
                 }
@@ -38655,7 +38668,7 @@
 
                     default:
                       throw new Jbig2Error(
-                        `operator ${combinationOperator} is not supported`
+                        `operator ${combinationOperator} is not supported`,
                       )
                   }
                 }
@@ -38685,7 +38698,7 @@
           patternHeight,
           maxPatternIndex,
           template,
-          decodingContext
+          decodingContext,
         ) {
           const at = []
 
@@ -38708,7 +38721,7 @@
                 {
                   x: -2,
                   y: -2,
-                }
+                },
               )
             }
           }
@@ -38722,7 +38735,7 @@
             false,
             null,
             at,
-            decodingContext
+            decodingContext,
           )
           const patterns = []
 
@@ -38756,7 +38769,7 @@
           gridOffsetY,
           gridVectorX,
           gridVectorY,
-          decodingContext
+          decodingContext,
         ) {
           const skip = null
 
@@ -38766,7 +38779,7 @@
 
           if (combinationOperator !== 0) {
             throw new Jbig2Error(
-              `operator "${combinationOperator}" is not supported in halftone region`
+              `operator "${combinationOperator}" is not supported in halftone region`,
             )
           }
 
@@ -38811,7 +38824,7 @@
                 {
                   x: -2,
                   y: -2,
-                }
+                },
               )
             }
           }
@@ -38823,7 +38836,7 @@
             mmrInput = new Reader(
               decodingContext.data,
               decodingContext.start,
-              decodingContext.end
+              decodingContext.end,
             )
           }
 
@@ -38839,7 +38852,7 @@
                 false,
                 skip,
                 at,
-                decodingContext
+                decodingContext,
               )
             }
 
@@ -38979,7 +38992,7 @@
           } else {
             segmentHeader.pageAssociation = (0, _core_utils.readUint32)(
               data,
-              position
+              position,
             )
             position += 4
           }
@@ -38991,7 +39004,7 @@
             if (segmentType === 38) {
               const genericRegionInfo = readRegionSegmentInformation(
                 data,
-                position
+                position,
               )
               const genericRegionSegmentFlags =
                 data[position + RegionSegmentInformationFieldLength]
@@ -39097,7 +39110,7 @@
               const dictionary = {}
               const dictionaryFlags = (0, _core_utils.readUint16)(
                 data,
-                position
+                position,
               )
               dictionary.huffman = !!(dictionaryFlags & 1)
               dictionary.refinement = !!(dictionaryFlags & 2)
@@ -39143,12 +39156,12 @@
 
               dictionary.numberOfExportedSymbols = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               dictionary.numberOfNewSymbols = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               args = [
@@ -39168,7 +39181,7 @@
               position += RegionSegmentInformationFieldLength
               const textRegionSegmentFlags = (0, _core_utils.readUint16)(
                 data,
-                position
+                position,
               )
               position += 2
               textRegion.huffman = !!(textRegionSegmentFlags & 1)
@@ -39185,7 +39198,7 @@
               if (textRegion.huffman) {
                 const textRegionHuffmanFlags = (0, _core_utils.readUint16)(
                   data,
-                  position
+                  position,
                 )
                 position += 2
                 textRegion.huffmanFS = textRegionHuffmanFlags & 3
@@ -39220,7 +39233,7 @@
 
               textRegion.numberOfSymbolInstances = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               args = [textRegion, header.referredTo, data, position, end]
@@ -39235,7 +39248,7 @@
               patternDictionary.patternHeight = data[position++]
               patternDictionary.maxPatternIndex = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               args = [patternDictionary, header.number, data, position, end]
@@ -39255,12 +39268,12 @@
               halftoneRegion.defaultPixelValue = (halftoneRegionFlags >> 7) & 1
               halftoneRegion.gridWidth = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               halftoneRegion.gridHeight = (0, _core_utils.readUint32)(
                 data,
-                position
+                position,
               )
               position += 4
               halftoneRegion.gridOffsetX =
@@ -39271,12 +39284,12 @@
               position += 4
               halftoneRegion.gridVectorX = (0, _core_utils.readUint16)(
                 data,
-                position
+                position,
               )
               position += 2
               halftoneRegion.gridVectorY = (0, _core_utils.readUint16)(
                 data,
-                position
+                position,
               )
               position += 2
               args = [halftoneRegion, header.referredTo, data, position, end]
@@ -39352,7 +39365,7 @@
             default:
               throw new Jbig2Error(
                 `segment type ${header.typeName}(${header.type})` +
-                  ' is not implemented'
+                  ' is not implemented',
               )
           }
 
@@ -39378,7 +39391,7 @@
               {},
               chunk.data,
               chunk.start,
-              chunk.end
+              chunk.end,
             )
             processSegments(segments, visitor)
           }
@@ -39521,7 +39534,7 @@
 
               default:
                 throw new Jbig2Error(
-                  `operator ${combinationOperator} is not supported`
+                  `operator ${combinationOperator} is not supported`,
                 )
             }
           }
@@ -39537,7 +39550,7 @@
               region.prediction,
               null,
               region.at,
-              decodingContext
+              decodingContext,
             )
             this.drawBitmap(regionInfo, bitmap)
           }
@@ -39552,7 +39565,7 @@
             referredSegments,
             data,
             start,
-            end
+            end,
           ) {
             let huffmanTables, huffmanInput
 
@@ -39560,7 +39573,7 @@
               huffmanTables = getSymbolDictionaryHuffmanTables(
                 dictionary,
                 referredSegments,
-                this.customTables
+                this.customTables,
               )
               huffmanInput = new Reader(data, start, end)
             }
@@ -39594,7 +39607,7 @@
               dictionary.refinementTemplate,
               dictionary.refinementAt,
               decodingContext,
-              huffmanInput
+              huffmanInput,
             )
           }
 
@@ -39621,7 +39634,7 @@
                 referredSegments,
                 this.customTables,
                 inputSymbols.length,
-                huffmanInput
+                huffmanInput,
               )
             }
 
@@ -39645,7 +39658,7 @@
               region.refinementAt,
               decodingContext,
               region.logStripSize,
-              huffmanInput
+              huffmanInput,
             )
             this.drawBitmap(regionInfo, bitmap)
           }
@@ -39668,7 +39681,7 @@
               dictionary.patternHeight,
               dictionary.maxPatternIndex,
               dictionary.template,
-              decodingContext
+              decodingContext,
             )
           }
 
@@ -39677,7 +39690,7 @@
             referredSegments,
             data,
             start,
-            end
+            end,
           ) {
             const patterns = this.patterns[referredSegments[0]]
             const regionInfo = region.info
@@ -39697,7 +39710,7 @@
               region.gridOffsetY,
               region.gridVectorX,
               region.gridVectorY,
-              decodingContext
+              decodingContext,
             )
             this.drawBitmap(regionInfo, bitmap)
           }
@@ -39869,14 +39882,14 @@
             prefixLength = reader.readBits(prefixSizeBits)
             rangeLength = reader.readBits(rangeSizeBits)
             lines.push(
-              new HuffmanLine([currentRangeLow, prefixLength, rangeLength, 0])
+              new HuffmanLine([currentRangeLow, prefixLength, rangeLength, 0]),
             )
             currentRangeLow += 1 << rangeLength
           } while (currentRangeLow < highestValue)
 
           prefixLength = reader.readBits(prefixSizeBits)
           lines.push(
-            new HuffmanLine([lowestValue - 1, prefixLength, 32, 0, 'lower'])
+            new HuffmanLine([lowestValue - 1, prefixLength, 32, 0, 'lower']),
           )
           prefixLength = reader.readBits(prefixSizeBits)
           lines.push(new HuffmanLine([highestValue, prefixLength, 32, 0]))
@@ -40245,7 +40258,7 @@
           referredTo,
           customTables,
           numberOfSymbols,
-          reader
+          reader,
         ) {
           const codes = []
 
@@ -40314,7 +40327,7 @@
               tableFirstS = getCustomHuffmanTable(
                 customIndex,
                 referredTo,
-                customTables
+                customTables,
               )
               customIndex++
               break
@@ -40334,7 +40347,7 @@
               tableDeltaS = getCustomHuffmanTable(
                 customIndex,
                 referredTo,
-                customTables
+                customTables,
               )
               customIndex++
               break
@@ -40354,7 +40367,7 @@
               tableDeltaT = getCustomHuffmanTable(
                 customIndex,
                 referredTo,
-                customTables
+                customTables,
               )
               customIndex++
               break
@@ -40378,7 +40391,7 @@
         function getSymbolDictionaryHuffmanTables(
           dictionary,
           referredTo,
-          customTables
+          customTables,
         ) {
           let customIndex = 0,
             tableDeltaHeight,
@@ -40388,7 +40401,7 @@
             case 0:
             case 1:
               tableDeltaHeight = getStandardTable(
-                dictionary.huffmanDHSelector + 4
+                dictionary.huffmanDHSelector + 4,
               )
               break
 
@@ -40396,7 +40409,7 @@
               tableDeltaHeight = getCustomHuffmanTable(
                 customIndex,
                 referredTo,
-                customTables
+                customTables,
               )
               customIndex++
               break
@@ -40409,7 +40422,7 @@
             case 0:
             case 1:
               tableDeltaWidth = getStandardTable(
-                dictionary.huffmanDWSelector + 2
+                dictionary.huffmanDWSelector + 2,
               )
               break
 
@@ -40417,7 +40430,7 @@
               tableDeltaWidth = getCustomHuffmanTable(
                 customIndex,
                 referredTo,
-                customTables
+                customTables,
               )
               customIndex++
               break
@@ -40432,7 +40445,7 @@
             tableBitmapSize = getCustomHuffmanTable(
               customIndex,
               referredTo,
-              customTables
+              customTables,
             )
             customIndex++
           } else {
@@ -40443,7 +40456,7 @@
             tableAggregateInstances = getCustomHuffmanTable(
               customIndex,
               referredTo,
-              customTables
+              customTables,
             )
           } else {
             tableAggregateInstances = getStandardTable(1)
@@ -40976,7 +40989,7 @@
             return (0, _util.shadow)(
               this,
               'bytes',
-              this.stream.getBytes(this.maybeLength)
+              this.stream.getBytes(this.maybeLength),
             )
           }
 
@@ -41122,7 +41135,7 @@
                   (q = {
                     children: [],
                     index: 0,
-                  })
+                  }),
                 )
                 p.children[p.index] = q.children
                 p = q
@@ -41136,7 +41149,7 @@
                 (q = {
                   children: [],
                   index: 0,
-                })
+                }),
               )
               p.children[p.index] = q.children
               p = q
@@ -41160,7 +41173,7 @@
           spectralEnd,
           successivePrev,
           successive,
-          parseDNLMarker = false
+          parseDNLMarker = false,
         ) {
           const mcusPerLine = frame.mcusPerLine
           const progressive = frame.progressive
@@ -41188,7 +41201,7 @@
                   if (scanLines > 0 && scanLines !== frame.scanLines) {
                     throw new DNLMarkerError(
                       'Found DNL marker (0xFFDC) while parsing scan data',
-                      scanLines
+                      scanLines,
                     )
                   }
                 } else if (nextByte === 0xd9) {
@@ -41203,20 +41216,20 @@
                       throw new DNLMarkerError(
                         'Found EOI marker (0xFFD9) while parsing scan data, ' +
                           'possibly caused by incorrect `scanLines` parameter',
-                        maybeScanLines
+                        maybeScanLines,
                       )
                     }
                   }
 
                   throw new EOIMarkerError(
-                    'Found EOI marker (0xFFD9) while parsing scan data'
+                    'Found EOI marker (0xFFD9) while parsing scan data',
                   )
                 }
 
                 throw new JpegError(
                   `unexpected marker ${((bitsData << 8) | nextByte).toString(
-                    16
-                  )}`
+                    16,
+                  )}`,
                 )
               }
             }
@@ -41436,7 +41449,7 @@
             const blockOffset = getBlockBufferOffset(
               component,
               blockRow,
-              blockCol
+              blockCol,
             )
             decode(component, blockOffset)
           }
@@ -41447,7 +41460,7 @@
             const blockOffset = getBlockBufferOffset(
               component,
               blockRow,
-              blockCol
+              blockCol,
             )
             decode(component, blockOffset)
           }
@@ -41529,7 +41542,7 @@
             if (fileMarker.invalid) {
               const partialMsg = mcuToRead > 0 ? 'unexpected' : 'excessive'
               ;(0, _util.warn)(
-                `decodeScan - ${partialMsg} MCU data, current marker is: ${fileMarker.invalid}`
+                `decodeScan - ${partialMsg} MCU data, current marker is: ${fileMarker.invalid}`,
               )
               offset = fileMarker.offset
             }
@@ -41832,7 +41845,7 @@
               if (fileMarker && fileMarker.invalid) {
                 ;(0, _util.warn)(
                   'readDataBlock - incorrect length, current marker is: ' +
-                    fileMarker.invalid
+                    fileMarker.invalid,
                 )
                 endOffset = fileMarker.offset
               }
@@ -41844,7 +41857,7 @@
 
             function prepareComponents(frame) {
               const mcusPerLine = Math.ceil(
-                frame.samplesPerLine / 8 / frame.maxH
+                frame.samplesPerLine / 8 / frame.maxH,
               )
               const mcusPerColumn = Math.ceil(frame.scanLines / 8 / frame.maxV)
 
@@ -41852,10 +41865,10 @@
                 const component = frame.components[i]
                 const blocksPerLine = Math.ceil(
                   (Math.ceil(frame.samplesPerLine / 8) * component.h) /
-                    frame.maxH
+                    frame.maxH,
                 )
                 const blocksPerColumn = Math.ceil(
-                  (Math.ceil(frame.scanLines / 8) * component.v) / frame.maxV
+                  (Math.ceil(frame.scanLines / 8) * component.v) / frame.maxV,
                 )
                 const blocksPerLineForMcu = mcusPerLine * component.h
                 const blocksPerColumnForMcu = mcusPerColumn * component.v
@@ -41931,7 +41944,7 @@
                         thumbHeight: appData[13],
                         thumbData: appData.subarray(
                           14,
-                          14 + 3 * appData[12] * appData[13]
+                          14 + 3 * appData[12] * appData[13],
                         ),
                       }
                     }
@@ -41959,7 +41972,7 @@
                 case 0xffdb:
                   const quantizationTablesLength = (0, _core_utils.readUint16)(
                     data,
-                    offset
+                    offset,
                   )
                   offset += 2
                   const quantizationTablesEnd =
@@ -42007,7 +42020,7 @@
                   frame.scanLines = dnlScanLines || sofScanLines
                   frame.samplesPerLine = (0, _core_utils.readUint16)(
                     data,
-                    offset
+                    offset,
                   )
                   offset += 2
                   frame.components = []
@@ -42048,7 +42061,7 @@
                 case 0xffc4:
                   const huffmanLength = (0, _core_utils.readUint16)(
                     data,
-                    offset
+                    offset,
                   )
                   offset += 2
 
@@ -42114,20 +42127,20 @@
                       spectralEnd,
                       successiveApproximation >> 4,
                       successiveApproximation & 15,
-                      parseDNLMarker
+                      parseDNLMarker,
                     )
                     offset += processed
                   } catch (ex) {
                     if (ex instanceof DNLMarkerError) {
                       ;(0, _util.warn)(
-                        `${ex.message} -- attempting to re-parse the JPEG image.`
+                        `${ex.message} -- attempting to re-parse the JPEG image.`,
                       )
                       return this.parse(data, {
                         dnlScanLines: ex.scanLines,
                       })
                     } else if (ex instanceof EOIMarkerError) {
                       ;(0, _util.warn)(
-                        `${ex.message} -- ignoring the rest of the image data.`
+                        `${ex.message} -- ignoring the rest of the image data.`,
                       )
                       break markerLoop
                     }
@@ -42152,13 +42165,13 @@
                   const nextFileMarker = findNextFileMarker(
                     data,
                     offset - 2,
-                    offset - 3
+                    offset - 3,
                   )
 
                   if (nextFileMarker && nextFileMarker.invalid) {
                     ;(0, _util.warn)(
                       'JpegImage.parse - unexpected data, current marker is: ' +
-                        nextFileMarker.invalid
+                        nextFileMarker.invalid,
                     )
                     offset = nextFileMarker.offset
                     break
@@ -42167,14 +42180,14 @@
                   if (!nextFileMarker || offset >= data.length - 1) {
                     ;(0, _util.warn)(
                       'JpegImage.parse - reached the end of the image data ' +
-                        'without finding an EOI marker (0xFFD9).'
+                        'without finding an EOI marker (0xFFD9).',
                     )
                     break markerLoop
                   }
 
                   throw new JpegError(
                     'JpegImage.parse - unknown marker: ' +
-                      fileMarker.toString(16)
+                      fileMarker.toString(16),
                   )
               }
 
@@ -42473,7 +42486,7 @@
             const data = this._getLinearizedBlockData(
               width,
               height,
-              isSourcePDF
+              isSourcePDF,
             )
 
             if (this.numComponents === 1 && forceRGB) {
@@ -42540,7 +42553,7 @@
             return (0, _util.shadow)(
               this,
               'bytes',
-              this.stream.getBytes(this.maybeLength)
+              this.stream.getBytes(this.maybeLength),
             )
           }
 
@@ -42562,7 +42575,7 @@
               this.buffer = jpxImage.tiles[0].items
             } else {
               const data = new Uint8ClampedArray(
-                width * height * componentsCount
+                width * height * componentsCount,
               )
 
               for (let k = 0; k < tileCount; k++) {
@@ -42581,7 +42594,7 @@
                 for (let j = 0; j < tileHeight; j++) {
                   const rowBytes = src.subarray(
                     srcPosition,
-                    srcPosition + tileRowSize
+                    srcPosition + tileRowSize,
                   )
                   data.set(rowBytes, dataPosition)
                   srcPosition += tileRowSize
@@ -42679,7 +42692,7 @@
                   if (method === 1) {
                     const colorspace = (0, _core_utils.readUint32)(
                       data,
-                      position + 3
+                      position + 3,
                     )
 
                     switch (colorspace) {
@@ -42723,10 +42736,10 @@
                     (tbox >> 24) & 0xff,
                     (tbox >> 16) & 0xff,
                     (tbox >> 8) & 0xff,
-                    tbox & 0xff
+                    tbox & 0xff,
                   )
                   ;(0, _util.warn)(
-                    `Unsupported header type ${tbox} (${headerType}).`
+                    `Unsupported header type ${tbox} (${headerType}).`,
                   )
                   break
               }
@@ -42801,15 +42814,15 @@
                     siz.YTsiz = (0, _core_utils.readUint32)(data, position + 24)
                     siz.XTOsiz = (0, _core_utils.readUint32)(
                       data,
-                      position + 28
+                      position + 28,
                     )
                     siz.YTOsiz = (0, _core_utils.readUint32)(
                       data,
-                      position + 32
+                      position + 32,
                     )
                     const componentsCount = (0, _core_utils.readUint16)(
                       data,
-                      position + 36
+                      position + 36,
                     )
                     siz.Csiz = componentsCount
                     const components = []
@@ -43020,8 +43033,8 @@
                       doNotRecover = true
                       ;(0, _util.warn)(
                         `JPX: Unsupported COD options (${unsupported.join(
-                          ', '
-                        )}).`
+                          ', ',
+                        )}).`,
                       )
                     }
 
@@ -43040,7 +43053,7 @@
                     tile.index = (0, _core_utils.readUint16)(data, position + 2)
                     tile.length = (0, _core_utils.readUint32)(
                       data,
-                      position + 4
+                      position + 4,
                     )
                     tile.dataEnd = tile.length + position - 2
                     tile.partIndex = data[position + 8]
@@ -43071,7 +43084,7 @@
 
                   case 0xff53:
                     ;(0, _util.warn)(
-                      'JPX: Codestream code 0xFF53 (COC) is not implemented.'
+                      'JPX: Codestream code 0xFF53 (COC) is not implemented.',
                     )
 
                   case 0xff55:
@@ -43083,7 +43096,7 @@
 
                   default:
                     throw new Error(
-                      'Unknown codestream code: ' + code.toString(16)
+                      'Unknown codestream code: ' + code.toString(16),
                     )
                 }
 
@@ -43239,11 +43252,11 @@
               codeblock.tby1_ = Math.min(subband.tby1, codeblock.tby1)
               const pi = Math.floor(
                 (codeblock.tbx0_ - subband.tbx0) /
-                  precinctParameters.precinctWidthInSubband
+                  precinctParameters.precinctWidthInSubband,
               )
               const pj = Math.floor(
                 (codeblock.tby0_ - subband.tby0) /
-                  precinctParameters.precinctHeightInSubband
+                  precinctParameters.precinctHeightInSubband,
               )
               precinctNumber = pi + pj * precinctParameters.numprecinctswide
               codeblock.precinctNumber = precinctNumber
@@ -43331,7 +43344,7 @@
           for (let q = 0; q < componentsCount; q++) {
             maxDecompositionLevelsCount = Math.max(
               maxDecompositionLevelsCount,
-              tile.components[q].codingStyleParameters.decompositionLevelsCount
+              tile.components[q].codingStyleParameters.decompositionLevelsCount,
             )
           }
 
@@ -43386,7 +43399,7 @@
           for (let q = 0; q < componentsCount; q++) {
             maxDecompositionLevelsCount = Math.max(
               maxDecompositionLevelsCount,
-              tile.components[q].codingStyleParameters.decompositionLevelsCount
+              tile.components[q].codingStyleParameters.decompositionLevelsCount,
             )
           }
 
@@ -43443,12 +43456,12 @@
             const component = tile.components[c]
             maxDecompositionLevelsCount = Math.max(
               maxDecompositionLevelsCount,
-              component.codingStyleParameters.decompositionLevelsCount
+              component.codingStyleParameters.decompositionLevelsCount,
             )
           }
 
           const maxNumPrecinctsInLevel = new Int32Array(
-            maxDecompositionLevelsCount + 1
+            maxDecompositionLevelsCount + 1,
           )
 
           for (r = 0; r <= maxDecompositionLevelsCount; ++r) {
@@ -43460,7 +43473,7 @@
               if (r < resolutions.length) {
                 maxNumPrecincts = Math.max(
                   maxNumPrecincts,
-                  resolutions[r].precinctParameters.numprecincts
+                  resolutions[r].precinctParameters.numprecincts,
                 )
               }
             }
@@ -43543,7 +43556,7 @@
                       py,
                       sizeInImageScale,
                       precinctsIterationSizes,
-                      resolution
+                      resolution,
                     )
 
                     if (k === null) {
@@ -43603,7 +43616,7 @@
                       py,
                       sizeInImageScale,
                       precinctsIterationSizes,
-                      resolution
+                      resolution,
                     )
 
                     if (k === null) {
@@ -43637,7 +43650,7 @@
           pyIndex,
           sizeInImageScale,
           precinctIterationSizes,
-          resolution
+          resolution,
         ) {
           const posX = pxIndex * precinctIterationSizes.minWidth
           const posY = pyIndex * precinctIterationSizes.minHeight
@@ -43682,19 +43695,19 @@
                 scale * resolution.precinctParameters.precinctHeight
               minWidthCurrentComponent = Math.min(
                 minWidthCurrentComponent,
-                widthCurrentResolution
+                widthCurrentResolution,
               )
               minHeightCurrentComponent = Math.min(
                 minHeightCurrentComponent,
-                heightCurrentResolution
+                heightCurrentResolution,
               )
               maxNumWideCurrentComponent = Math.max(
                 maxNumWideCurrentComponent,
-                resolution.precinctParameters.numprecinctswide
+                resolution.precinctParameters.numprecinctswide,
               )
               maxNumHighCurrentComponent = Math.max(
                 maxNumHighCurrentComponent,
-                resolution.precinctParameters.numprecinctshigh
+                resolution.precinctParameters.numprecinctshigh,
               )
               sizePerResolution[r] = {
                 width: widthCurrentResolution,
@@ -43742,7 +43755,7 @@
               const blocksDimensions = getBlocksDimensions(
                 context,
                 component,
-                r
+                r,
               )
               const resolution = {}
               const scale = 1 << (decompositionLevelsCount - r)
@@ -43838,7 +43851,7 @@
 
             default:
               throw new JpxError(
-                `Unsupported progression order ${progressionOrder}`
+                `Unsupported progression order ${progressionOrder}`,
               )
           }
         }
@@ -43987,7 +44000,7 @@
                   inclusionTree.reset(
                     codeblockColumn,
                     codeblockRow,
-                    layerNumber
+                    layerNumber,
                   )
                 ) {
                   while (true) {
@@ -44084,7 +44097,7 @@
           delta,
           mb,
           reversible,
-          segmentationSymbolUsed
+          segmentationSymbolUsed,
         ) {
           const x0 = subband.tbx0
           const y0 = subband.tby0
@@ -44111,7 +44124,7 @@
               blockHeight,
               codeblock.subbandType,
               codeblock.zeroBitPlanes,
-              mb
+              mb,
             )
             let currentCodingpassType = 2
             const data = codeblock.data
@@ -44138,7 +44151,7 @@
             const decoder = new _arithmetic_decoder.ArithmeticDecoder(
               encodedData,
               0,
-              totalLength
+              totalLength,
             )
             bitModel.setDecoder(decoder)
 
@@ -44259,7 +44272,7 @@
                 delta,
                 mb,
                 reversible,
-                segmentationSymbolUsed
+                segmentationSymbolUsed,
               )
             }
 
@@ -44273,7 +44286,7 @@
           const result = transform.calculate(
             subbandCoefficients,
             component.tcx0,
-            component.tcy0
+            component.tcy0,
           )
           return {
             left: component.tcx0,
@@ -44300,7 +44313,7 @@
 
             const tile0 = transformedTiles[0]
             const out = new Uint8ClampedArray(
-              tile0.items.length * componentsCount
+              tile0.items.length * componentsCount,
             )
             const result = {
               left: tile0.left,
@@ -44884,7 +44897,7 @@
                   if (allEmpty) {
                     const hasSignificantCoefficent = decoder.readBit(
                       contexts,
-                      RUNLENGTH_CONTEXT
+                      RUNLENGTH_CONTEXT,
                     )
 
                     if (!hasSignificantCoefficent) {
@@ -45031,7 +45044,7 @@
                 this.filter(rowBuffer, bufferPadding, width)
                 items.set(
                   rowBuffer.subarray(bufferPadding, bufferPadding + width),
-                  k
+                  k,
                 )
               }
             }
@@ -45276,7 +45289,7 @@
             let decodedLength = 0
             let currentBufferLength = this.bufferLength
             let buffer = this.ensureBuffer(
-              this.bufferLength + estimatedDecodedSize
+              this.bufferLength + estimatedDecodedSize,
             )
 
             for (i = 0; i < blockSize; i++) {
@@ -45319,7 +45332,7 @@
                     : Math.min(
                         Math.log(nextCode + earlyChange) / 0.6931471805599453 +
                           1,
-                        12
+                        12,
                       ) | 0
               }
 
@@ -45332,7 +45345,7 @@
                 } while (estimatedDecodedSize < decodedLength)
 
                 buffer = this.ensureBuffer(
-                  this.bufferLength + estimatedDecodedSize
+                  this.bufferLength + estimatedDecodedSize,
                 )
               }
 
@@ -45602,7 +45615,7 @@
 
               default:
                 throw new _util.FormatError(
-                  `Unsupported predictor: ${predictor}`
+                  `Unsupported predictor: ${predictor}`,
                 )
             }
 
@@ -45811,7 +45824,7 @@
             const glyphName = builtInEncoding[charCode]
             const unicode = (0, _unicode.getUnicodeForGlyph)(
               glyphName,
-              glyphsUnicodeMap
+              glyphsUnicodeMap,
             )
 
             if (unicode !== -1) {
@@ -45860,7 +45873,7 @@
             vmetric,
             operatorListId,
             isSpace,
-            isInFont
+            isInFont,
           ) {
             this.originalCharCode = originalCharCode
             this.fontChar = fontChar
@@ -45882,7 +45895,7 @@
             vmetric,
             operatorListId,
             isSpace,
-            isInFont
+            isInFont,
           ) {
             return (
               this.originalCharCode === originalCharCode &&
@@ -46003,7 +46016,7 @@
             }
           } else {
             ;(0, _util.warn)(
-              'getFontFileType: Unable to detect correct font file Type/Subtype.'
+              'getFontFileType: Unable to detect correct font file Type/Subtype.',
             )
             fileType = type
             fileSubtype = subtype
@@ -46025,7 +46038,7 @@
           for (let i = 0, ii = encoding.length; i < ii; i++) {
             unicode = (0, _unicode.getUnicodeForGlyph)(
               encoding[i],
-              glyphsUnicodeMap
+              glyphsUnicodeMap,
             )
 
             if (unicode !== -1) {
@@ -46036,7 +46049,7 @@
           for (const charCode in differences) {
             unicode = (0, _unicode.getUnicodeForGlyph)(
               differences[charCode],
-              glyphsUnicodeMap
+              glyphsUnicodeMap,
             )
 
             if (unicode !== -1) {
@@ -46190,7 +46203,7 @@
           const searchParams =
             _opentype_file_builder.OpenTypeFileBuilder.getSearchParams(
               segCount,
-              2
+              2,
             )
 
           let startCount = ''
@@ -46371,7 +46384,7 @@
                 ulUnicodeRange4 |= 1 << (position - 96)
               } else {
                 throw new _util.FormatError(
-                  'Unicode ranges Bits > 123 are reserved for internal usage'
+                  'Unicode ranges Bits > 123 are reserved for internal usage',
                 )
               }
             }
@@ -46618,7 +46631,7 @@
                     name +
                     '" (' +
                     this.loadedName +
-                    ')'
+                    ')',
                 )
               }
 
@@ -46631,7 +46644,7 @@
             if (type !== this.type || subtype !== this.subtype) {
               ;(0, _util.info)(
                 'Inconsistent font file Type/SubType, expected: ' +
-                  `${this.type}/${this.subtype} but found: ${type}/${subtype}.`
+                  `${this.type}/${this.subtype} but found: ${type}/${subtype}.`,
               )
             }
 
@@ -46641,7 +46654,7 @@
               switch (type) {
                 case 'MMType1':
                   ;(0, _util.info)(
-                    'MMType1 font (' + name + '), falling back to Type1.'
+                    'MMType1 font (' + name + '), falling back to Type1.',
                   )
 
                 case 'Type1':
@@ -46682,7 +46695,7 @@
             this.fontType = (0, _fonts_utils.getFontType)(
               type,
               subtype,
-              properties.isStandardFont
+              properties.isStandardFont,
             )
             this.fontMatrix = properties.fontMatrix
             this.widths = properties.widths
@@ -46694,7 +46707,7 @@
           get renderer() {
             const renderer = _font_renderer.FontRendererFactory.create(
               this,
-              _fonts_utils.SEAC_ANALYSIS_ENABLED
+              _fonts_utils.SEAC_ANALYSIS_ENABLED,
             )
 
             return (0, _util.shadow)(this, 'renderer', renderer)
@@ -46751,18 +46764,18 @@
               const map = []
               applyStandardFontGlyphMap(
                 map,
-                (0, _standard_fonts.getGlyphMapForStandardFonts)()
+                (0, _standard_fonts.getGlyphMapForStandardFonts)(),
               )
 
               if (/Arial-?Black/i.test(name)) {
                 applyStandardFontGlyphMap(
                   map,
-                  (0, _standard_fonts.getSupplementalGlyphMapForArialBlack)()
+                  (0, _standard_fonts.getSupplementalGlyphMapForArialBlack)(),
                 )
               } else if (/Calibri/i.test(name)) {
                 applyStandardFontGlyphMap(
                   map,
-                  (0, _standard_fonts.getSupplementalGlyphMapForCalibri)()
+                  (0, _standard_fonts.getSupplementalGlyphMapForCalibri)(),
                 )
               }
 
@@ -46806,25 +46819,25 @@
               this.toFontChar = buildToFontChar(
                 _encodings.SymbolSetEncoding,
                 (0, _glyphlist.getGlyphsUnicode)(),
-                this.differences
+                this.differences,
               )
             } else if (/Dingbats/i.test(fontName)) {
               if (/Wingdings/i.test(name)) {
                 ;(0, _util.warn)(
-                  'Non-embedded Wingdings font, falling back to ZapfDingbats.'
+                  'Non-embedded Wingdings font, falling back to ZapfDingbats.',
                 )
               }
 
               this.toFontChar = buildToFontChar(
                 _encodings.ZapfDingbatsEncoding,
                 (0, _glyphlist.getDingbatsGlyphsUnicode)(),
-                this.differences
+                this.differences,
               )
             } else if (isStandardFont) {
               const map = buildToFontChar(
                 this.defaultEncoding,
                 (0, _glyphlist.getGlyphsUnicode)(),
-                this.differences
+                this.differences,
               )
 
               if (
@@ -46849,7 +46862,7 @@
                     this.differences[charCode] || this.defaultEncoding[charCode]
                   const unicode = (0, _unicode.getUnicodeForGlyph)(
                     glyphName,
-                    glyphsUnicodeMap
+                    glyphsUnicodeMap,
                   )
 
                   if (unicode !== -1) {
@@ -46867,7 +46880,7 @@
                 if (/Verdana/i.test(name)) {
                   applyStandardFontGlyphMap(
                     map,
-                    (0, _standard_fonts.getGlyphMapForStandardFonts)()
+                    (0, _standard_fonts.getGlyphMapForStandardFonts)(),
                   )
                 }
               }
@@ -46880,7 +46893,7 @@
             this.fontType = (0, _fonts_utils.getFontType)(
               type,
               subtype,
-              properties.isStandardFont
+              properties.isStandardFont,
             )
           }
 
@@ -46969,7 +46982,7 @@
               const ttcTag = ttc.getString(4)
               ;(0, _util.assert)(
                 ttcTag === 'ttcf',
-                'Must be a TrueType Collection font.'
+                'Must be a TrueType Collection font.',
               )
               const majorVersion = ttc.getUint16()
               const minorVersion = ttc.getUint16()
@@ -47000,7 +47013,7 @@
               }
 
               throw new _util.FormatError(
-                `Invalid TrueType Collection majorVersion: ${majorVersion}.`
+                `Invalid TrueType Collection majorVersion: ${majorVersion}.`,
               )
             }
 
@@ -47015,12 +47028,12 @@
                 const potentialHeader = readOpenTypeHeader(ttc)
                 const potentialTables = readTables(
                   ttc,
-                  potentialHeader.numTables
+                  potentialHeader.numTables,
                 )
 
                 if (!potentialTables.name) {
                   throw new _util.FormatError(
-                    'TrueType Collection font must contain a "name" table.'
+                    'TrueType Collection font must contain a "name" table.',
                   )
                 }
 
@@ -47062,7 +47075,7 @@
               if (fallbackData) {
                 ;(0, _util.warn)(
                   `TrueType Collection does not contain "${fontName}" font, ` +
-                    `falling back to "${fallbackData.name}" font instead.`
+                    `falling back to "${fallbackData.name}" font instead.`,
                 )
                 return {
                   header: fallbackData.header,
@@ -47071,7 +47084,7 @@
               }
 
               throw new _util.FormatError(
-                `TrueType Collection does not contain "${fontName}" font.`
+                `TrueType Collection does not contain "${fontName}" font.`,
               )
             }
 
@@ -47281,7 +47294,7 @@
                   segment.offsetIndex = offsetIndex
                   offsetsCount = Math.max(
                     offsetsCount,
-                    offsetIndex + segment.end - segment.start + 1
+                    offsetIndex + segment.end - segment.start + 1,
                   )
                 }
 
@@ -47359,7 +47372,7 @@
               metrics,
               headTable,
               numGlyphs,
-              dupFirstEntry
+              dupFirstEntry,
             ) {
               if (!header) {
                 if (metrics) {
@@ -47397,7 +47410,7 @@
               if (numOfMetrics > numGlyphs) {
                 ;(0, _util.info)(
                   `The numOfMetrics (${numOfMetrics}) should not be ` +
-                    `greater than the numGlyphs (${numGlyphs}).`
+                    `greater than the numGlyphs (${numGlyphs}).`,
                 )
                 numOfMetrics = numGlyphs
                 header.data[34] = (numOfMetrics & 0xff00) >> 8
@@ -47427,7 +47440,7 @@
               sourceEnd,
               dest,
               destStart,
-              hintsValid
+              hintsValid,
             ) {
               const glyphProfile = {
                 length: 0,
@@ -47514,7 +47527,7 @@
                 dest.set([0, 0], destStart + instructionsStart)
                 dest.set(
                   glyf.subarray(instructionsEnd, glyphDataLength),
-                  destStart + instructionsStart + 2
+                  destStart + instructionsStart + 2,
                 )
                 glyphDataLength -= instructionsLength
 
@@ -47544,7 +47557,7 @@
 
               if (version >> 16 !== 1) {
                 ;(0, _util.info)(
-                  'Attempting to fix invalid version in head table: ' + version
+                  'Attempting to fix invalid version in head table: ' + version,
                 )
                 data[0] = 0
                 data[1] = 1
@@ -47557,7 +47570,7 @@
               if (indexToLocFormat < 0 || indexToLocFormat > 1) {
                 ;(0, _util.info)(
                   'Attempting to fix invalid indexToLocFormat in head table: ' +
-                    indexToLocFormat
+                    indexToLocFormat,
                 )
                 const numGlyphsPlusOne = numGlyphs + 1
 
@@ -47569,7 +47582,7 @@
                   data[51] = 1
                 } else {
                   throw new _util.FormatError(
-                    'Could not fix indexToLocFormat: ' + indexToLocFormat
+                    'Could not fix indexToLocFormat: ' + indexToLocFormat,
                   )
                 }
               }
@@ -47582,7 +47595,7 @@
               isGlyphLocationsLong,
               hintsValid,
               dupFirstEntry,
-              maxSizeOfInstructions
+              maxSizeOfInstructions,
             ) {
               let itemSize, itemDecode, itemEncode
 
@@ -47664,7 +47677,7 @@
                   locaEntries[i].endOffset,
                   newGlyfData,
                   writeOffset,
-                  hintsValid
+                  hintsValid,
                 )
                 const newLength = glyphProfile.length
 
@@ -47700,7 +47713,7 @@
                 if (newGlyfData.length > firstEntryLength + writeOffset) {
                   glyf.data = newGlyfData.subarray(
                     0,
-                    firstEntryLength + writeOffset
+                    firstEntryLength + writeOffset,
                   )
                 } else {
                   glyf.data = new Uint8Array(firstEntryLength + writeOffset)
@@ -47709,12 +47722,12 @@
 
                 glyf.data.set(
                   newGlyfData.subarray(0, firstEntryLength),
-                  writeOffset
+                  writeOffset,
                 )
                 itemEncode(
                   loca.data,
                   locaData.length - itemSize,
-                  writeOffset + firstEntryLength
+                  writeOffset + firstEntryLength,
                 )
               } else {
                 glyf.data = newGlyfData.subarray(0, writeOffset)
@@ -47801,7 +47814,7 @@
 
                 default:
                   ;(0, _util.warn)(
-                    'Unknown/unsupported post table version ' + version
+                    'Unknown/unsupported post table version ' + version,
                   )
                   valid = false
 
@@ -47971,7 +47984,7 @@
 
                     if (isNaN(funcId)) {
                       ;(0, _util.info)(
-                        'TT: CALL empty stack (or invalid entry).'
+                        'TT: CALL empty stack (or invalid entry).',
                       )
                     } else {
                       ttContext.functionsUsed[funcId] = true
@@ -47982,7 +47995,7 @@
 
                         if (newStackLength < 0) {
                           ;(0, _util.warn)(
-                            'TT: CALL invalid functions stack delta.'
+                            'TT: CALL invalid functions stack delta.',
                           )
                           ttContext.hintsValid = false
                           return
@@ -48248,13 +48261,13 @@
             } else {
               if (!tables.loca) {
                 throw new _util.FormatError(
-                  'Required "loca" table is not found'
+                  'Required "loca" table is not found',
                 )
               }
 
               if (!tables.glyf) {
                 ;(0, _util.warn)(
-                  'Required "glyf" table is not found -- trying to recover.'
+                  'Required "glyf" table is not found -- trying to recover.',
                 )
                 tables.glyf = {
                   tag: 'glyf',
@@ -48281,7 +48294,7 @@
               const { scaleFactors } = properties
               const isGlyphLocationsLong = int16(
                 tables.head.data[50],
-                tables.head.data[51]
+                tables.head.data[51],
               )
               const glyphs = new _glyf.GlyfTable({
                 glyfTable: tables.glyf.data,
@@ -48304,12 +48317,12 @@
               for (let i = 0; i < numGlyphs; i++) {
                 const j = 4 * i
                 const advanceWidth = Math.round(
-                  scaleFactors[i] * int16(metrics[j], metrics[j + 1])
+                  scaleFactors[i] * int16(metrics[j], metrics[j + 1]),
                 )
                 metrics[j] = (advanceWidth >> 8) & 0xff
                 metrics[j + 1] = advanceWidth & 0xff
                 const lsb = Math.round(
-                  scaleFactors[i] * signedInt16(metrics[j + 2], metrics[j + 3])
+                  scaleFactors[i] * signedInt16(metrics[j + 2], metrics[j + 3]),
                 )
                 writeSignedInt16(metrics, j + 2, lsb)
               }
@@ -48322,7 +48335,7 @@
               dupFirstEntry = false
               numGlyphsOut = numGlyphs
               ;(0, _util.warn)(
-                'Not enough space in glyfs to duplicate first glyph.'
+                'Not enough space in glyfs to duplicate first glyph.',
               )
             }
 
@@ -48350,7 +48363,7 @@
               tables.fpgm,
               tables.prep,
               tables['cvt '],
-              maxFunctionDefs
+              maxFunctionDefs,
             )
 
             if (!hintsValid) {
@@ -48365,7 +48378,7 @@
               tables.hmtx,
               tables.head,
               numGlyphsOut,
-              dupFirstEntry
+              dupFirstEntry,
             )
 
             if (!tables.head) {
@@ -48375,14 +48388,14 @@
             sanitizeHead(
               tables.head,
               numGlyphs,
-              isTrueType ? tables.loca.length : 0
+              isTrueType ? tables.loca.length : 0,
             )
             let missingGlyphs = Object.create(null)
 
             if (isTrueType) {
               const isGlyphLocationsLong = int16(
                 tables.head.data[50],
-                tables.head.data[51]
+                tables.head.data[51],
               )
               const glyphsInfo = sanitizeGlyphLocations(
                 tables.loca,
@@ -48391,7 +48404,7 @@
                 isGlyphLocationsLong,
                 hintsValid,
                 dupFirstEntry,
-                maxSizeOfInstructions
+                maxSizeOfInstructions,
               )
               missingGlyphs = glyphsInfo.missingGlyphs
 
@@ -48472,7 +48485,7 @@
                 tables.cmap,
                 font,
                 this.isSymbolicFont,
-                properties.hasEncoding
+                properties.hasEncoding,
               )
               const cmapPlatformId = cmapTable.platformId
               const cmapEncodingId = cmapTable.encodingId
@@ -48487,7 +48500,7 @@
                   properties.baseEncodingName === 'WinAnsiEncoding')
               ) {
                 baseEncoding = (0, _encodings.getEncoding)(
-                  properties.baseEncodingName
+                  properties.baseEncodingName,
                 )
               }
 
@@ -48519,7 +48532,7 @@
 
                   const standardGlyphName = (0, _fonts_utils.recoverGlyphName)(
                     glyphName,
-                    glyphsUnicodeMap
+                    glyphsUnicodeMap,
                   )
                   let unicodeOrCharCode
 
@@ -48621,14 +48634,14 @@
               const newMapping = adjustMapping(
                 charCodeToGlyphId,
                 hasGlyph,
-                glyphZeroId
+                glyphZeroId,
               )
               this.toFontChar = newMapping.toFontChar
               tables.cmap = {
                 tag: 'cmap',
                 data: createCmapTable(
                   newMapping.charCodeToGlyphId,
-                  numGlyphsOut
+                  numGlyphsOut,
                 ),
               }
 
@@ -48638,7 +48651,7 @@
                   data: createOS2Table(
                     properties,
                     newMapping.charCodeToGlyphId,
-                    metricsOverride
+                    metricsOverride,
                   ),
                 }
               }
@@ -48650,7 +48663,7 @@
                 const parser = new _cff_parser.CFFParser(
                   cffFile,
                   properties,
-                  _fonts_utils.SEAC_ANALYSIS_ENABLED
+                  _fonts_utils.SEAC_ANALYSIS_ENABLED,
                 )
                 cff = parser.parse()
                 cff.duplicateFirstGlyph()
@@ -48658,7 +48671,7 @@
                 tables['CFF '].data = compiler.compile()
               } catch (e) {
                 ;(0, _util.warn)(
-                  'Failed to compile font ' + properties.loadedName
+                  'Failed to compile font ' + properties.loadedName,
                 )
               }
             }
@@ -48675,7 +48688,7 @@
             }
 
             const builder = new _opentype_file_builder.OpenTypeFileBuilder(
-              header.version
+              header.version,
             )
 
             for (const tableTag in tables) {
@@ -48706,7 +48719,7 @@
               newMapping = adjustMapping(
                 mapping,
                 font.hasGlyphId.bind(font),
-                glyphZeroId
+                glyphZeroId,
               )
               this.toFontChar = newMapping.toFontChar
               newCharCodeToGlyphId = newMapping.charCodeToGlyphId
@@ -48782,11 +48795,11 @@
                   const charCodeToGlyphId = newMapping.charCodeToGlyphId
                   const baseFontCharCode = createCharCode(
                     charCodeToGlyphId,
-                    baseGlyphId
+                    baseGlyphId,
                   )
                   const accentFontCharCode = createCharCode(
                     charCodeToGlyphId,
-                    accentGlyphId
+                    accentGlyphId,
                   )
                   seacMap[charCode] = {
                     baseFontCharCode,
@@ -48802,16 +48815,16 @@
             const unitsPerEm =
               1 / (properties.fontMatrix || _util.FONT_IDENTITY_MATRIX)[0]
             const builder = new _opentype_file_builder.OpenTypeFileBuilder(
-              '\x4F\x54\x54\x4F'
+              '\x4F\x54\x54\x4F',
             )
             builder.addTable('CFF ', font.data)
             builder.addTable(
               'OS/2',
-              createOS2Table(properties, newCharCodeToGlyphId)
+              createOS2Table(properties, newCharCodeToGlyphId),
             )
             builder.addTable(
               'cmap',
-              createCmapTable(newCharCodeToGlyphId, numGlyphs)
+              createCmapTable(newCharCodeToGlyphId, numGlyphs),
             )
             builder.addTable(
               'head',
@@ -48831,7 +48844,7 @@
                 '\x00\x11' +
                 '\x00\x00' +
                 '\x00\x00' +
-                '\x00\x00'
+                '\x00\x00',
             )
             builder.addTable(
               'hhea',
@@ -48845,7 +48858,7 @@
                 '\x00\x00' +
                 safeString16(properties.capHeight) +
                 safeString16(
-                  Math.tan(properties.italicAngle) * properties.xHeight
+                  Math.tan(properties.italicAngle) * properties.xHeight,
                 ) +
                 '\x00\x00' +
                 '\x00\x00' +
@@ -48853,7 +48866,7 @@
                 '\x00\x00' +
                 '\x00\x00' +
                 '\x00\x00' +
-                string16(numGlyphs)
+                string16(numGlyphs),
             )
             builder.addTable(
               'hmtx',
@@ -48876,7 +48889,7 @@
                 }
 
                 return hmtx
-              })()
+              })(),
             )
             builder.addTable('maxp', '\x00\x00\x50\x00' + string16(numGlyphs))
             builder.addTable('name', createNameTable(fontName))
@@ -48998,7 +49011,7 @@
                 fontChar = String.fromCodePoint(fontCharCode)
               } else {
                 ;(0, _util.warn)(
-                  `charToGlyph - invalid fontCharCode: ${fontCharCode}`
+                  `charToGlyph - invalid fontCharCode: ${fontCharCode}`,
                 )
               }
             }
@@ -49016,7 +49029,7 @@
                 vmetric,
                 operatorListId,
                 isSpace,
-                isInFont
+                isInFont,
               )
             ) {
               glyph = new Glyph(
@@ -49028,7 +49041,7 @@
                 vmetric,
                 operatorListId,
                 isSpace,
-                isInFont
+                isInFont,
               )
               this._glyphCache[charcode] = glyph
             }
@@ -49057,7 +49070,7 @@
 
                 const glyph = this._charToGlyph(
                   charcode,
-                  length === 1 && chars.charCodeAt(i - 1) === 0x20
+                  length === 1 && chars.charCodeAt(i - 1) === 0x20,
                 )
 
                 glyphs.push(glyph)
@@ -49135,7 +49148,7 @@
 
                   for (let j = charCodeLength - 1; j >= 0; j--) {
                     currentBuf.push(
-                      String.fromCharCode((charCode >> (8 * j)) & 0xff)
+                      String.fromCharCode((charCode >> (8 * j)) & 0xff),
                     )
                   }
 
@@ -49908,7 +49921,7 @@
               const topDict = this.createDict(
                 CFFTopDict,
                 topDictParsed,
-                cff.strings
+                cff.strings,
               )
               cff.header = header.obj
               cff.names = this.parseNameIndex(nameIndex.obj)
@@ -49937,7 +49950,7 @@
 
               if (cff.isCIDFont) {
                 const fdArrayIndex = this.parseIndex(
-                  topDict.getByName('FDArray')
+                  topDict.getByName('FDArray'),
                 ).obj
 
                 for (let i = 0, ii = fdArrayIndex.count; i < ii; ++i) {
@@ -49945,7 +49958,7 @@
                   const fontDict = this.createDict(
                     CFFTopDict,
                     this.parseDict(dictRaw),
-                    cff.strings
+                    cff.strings,
                   )
                   this.parsePrivateDict(fontDict)
                   cff.fdArray.push(fontDict)
@@ -49956,24 +49969,24 @@
                   topDict.getByName('charset'),
                   charStringIndex.count,
                   cff.strings,
-                  true
+                  true,
                 )
                 cff.fdSelect = this.parseFDSelect(
                   topDict.getByName('FDSelect'),
-                  charStringIndex.count
+                  charStringIndex.count,
                 )
               } else {
                 charset = this.parseCharsets(
                   topDict.getByName('charset'),
                   charStringIndex.count,
                   cff.strings,
-                  false
+                  false,
                 )
                 encoding = this.parseEncoding(
                   topDict.getByName('Encoding'),
                   properties,
                   cff.strings,
-                  charset.charset
+                  charset.charset,
                 )
               }
 
@@ -50050,7 +50063,7 @@
                 }
 
                 ;(0, _util.warn)(
-                  'CFFParser_parseDict: "' + value + '" is a reserved command.'
+                  'CFFParser_parseDict: "' + value + '" is a reserved command.',
                 )
                 return NaN
               }
@@ -50270,7 +50283,7 @@
                   if (!subrsIndex) {
                     validationCommand = CharstringValidationData[value]
                     ;(0, _util.warn)(
-                      'Missing subrsIndex for ' + validationCommand.id
+                      'Missing subrsIndex for ' + validationCommand.id,
                     )
                     return false
                   }
@@ -50292,7 +50305,7 @@
                   ) {
                     validationCommand = CharstringValidationData[value]
                     ;(0, _util.warn)(
-                      'Out of bounds subrIndex for ' + validationCommand.id
+                      'Out of bounds subrIndex for ' + validationCommand.id,
                     )
                     return false
                   }
@@ -50303,7 +50316,7 @@
                     state,
                     subrsIndex.get(subrNumber),
                     localSubrIndex,
-                    globalSubrIndex
+                    globalSubrIndex,
                   )
 
                   if (!valid) {
@@ -50349,7 +50362,7 @@
                           '; actual: ' +
                           stackSize +
                           ', expected: ' +
-                          validationCommand.min
+                          validationCommand.min,
                       )
 
                       if (stackSize === 0) {
@@ -50372,7 +50385,7 @@
                       stackSize %= 2
                     } else if (stackSize > 1) {
                       ;(0, _util.warn)(
-                        'Found too many parameters for stack-clearing command'
+                        'Found too many parameters for stack-clearing command',
                       )
                     }
 
@@ -50459,7 +50472,7 @@
                     state,
                     charstring,
                     localSubrToUse,
-                    globalSubrIndex
+                    globalSubrIndex,
                   )
                 }
 
@@ -50493,7 +50506,7 @@
               const privateDict = this.createDict(
                 CFFPrivateDict,
                 [],
-                parentDict.strings
+                parentDict.strings,
               )
               parentDict.setByKey(18, [0, 0])
               parentDict.privateDict = privateDict
@@ -50526,7 +50539,7 @@
               const privateDict = this.createDict(
                 CFFPrivateDict,
                 dict,
-                parentDict.strings
+                parentDict.strings,
               )
               parentDict.privateDict = privateDict
 
@@ -50551,19 +50564,19 @@
                 return new CFFCharset(
                   true,
                   CFFCharsetPredefinedTypes.ISO_ADOBE,
-                  _charsets.ISOAdobeCharset
+                  _charsets.ISOAdobeCharset,
                 )
               } else if (pos === 1) {
                 return new CFFCharset(
                   true,
                   CFFCharsetPredefinedTypes.EXPERT,
-                  _charsets.ExpertCharset
+                  _charsets.ExpertCharset,
                 )
               } else if (pos === 2) {
                 return new CFFCharset(
                   true,
                   CFFCharsetPredefinedTypes.EXPERT_SUBSET,
-                  _charsets.ExpertSubsetCharset
+                  _charsets.ExpertSubsetCharset,
                 )
               }
 
@@ -50678,7 +50691,7 @@
 
                   default:
                     throw new _util.FormatError(
-                      `Unknown encoding format: ${format} in CFF`
+                      `Unknown encoding format: ${format} in CFF`,
                     )
                 }
 
@@ -50720,7 +50733,7 @@
                     if (i === 0 && first !== 0) {
                       ;(0, _util.warn)(
                         'parseFDSelect: The first range must have a first GID of 0' +
-                          ' -- trying to recover.'
+                          ' -- trying to recover.',
                       )
                       first = 0
                     }
@@ -50738,7 +50751,7 @@
 
                 default:
                   throw new _util.FormatError(
-                    `parseFDSelect: Unknown format "${format}".`
+                    `parseFDSelect: Unknown format "${format}".`,
                   )
               }
 
@@ -50773,7 +50786,7 @@
           duplicateFirstGlyph() {
             if (this.charStrings.count >= 65535) {
               ;(0, _util.warn)(
-                'Not enough space in charstrings to duplicate first glyph.'
+                'Not enough space in charstrings to duplicate first glyph.',
               )
               return
             }
@@ -50910,7 +50923,7 @@
                     value +
                     '" for key "' +
                     key +
-                    '".'
+                    '".',
                 )
                 return true
               }
@@ -51173,7 +51186,7 @@
                 data[offset4] !== 0
               ) {
                 throw new _util.FormatError(
-                  'writing to an offset that is not empty'
+                  'writing to an offset that is not empty',
                 )
               }
 
@@ -51219,7 +51232,7 @@
                   if (subDict.hasName('FontMatrix')) {
                     matrix = _util.Util.transform(
                       matrix,
-                      subDict.getByName('FontMatrix')
+                      subDict.getByName('FontMatrix'),
                     )
                   }
 
@@ -51238,7 +51251,7 @@
             let compiled = this.compileTopDicts(
               [cff.topDict],
               output.length,
-              cff.isCIDFont
+              cff.isCIDFont,
             )
             output.add(compiled.output)
             const topDictTracker = compiled.trackers[0]
@@ -51252,14 +51265,14 @@
                 topDictTracker.setEntryLocation(
                   'Encoding',
                   [cff.encoding.format],
-                  output
+                  output,
                 )
               } else {
                 const encoding = this.compileEncoding(cff.encoding)
                 topDictTracker.setEntryLocation(
                   'Encoding',
                   [output.length],
-                  output
+                  output,
                 )
                 output.add(encoding)
               }
@@ -51269,7 +51282,7 @@
               cff.charset,
               cff.charStrings.count,
               cff.strings,
-              cff.isCIDFont
+              cff.isCIDFont,
             )
             topDictTracker.setEntryLocation('charset', [output.length], output)
             output.add(charset)
@@ -51277,7 +51290,7 @@
             topDictTracker.setEntryLocation(
               'CharStrings',
               [output.length],
-              output
+              output,
             )
             output.add(charStrings)
 
@@ -51285,7 +51298,7 @@
               topDictTracker.setEntryLocation(
                 'FDSelect',
                 [output.length],
-                output
+                output,
               )
               const fdSelect = this.compileFDSelect(cff.fdSelect)
               output.add(fdSelect)
@@ -51293,7 +51306,7 @@
               topDictTracker.setEntryLocation(
                 'FDArray',
                 [output.length],
-                output
+                output,
               )
               output.add(compiled.output)
               const fontDictTrackers = compiled.trackers
@@ -51317,7 +51330,7 @@
             return (0, _util.shadow)(
               this,
               'EncodeFloatRegExp',
-              /\.(\d*?)(?:9{5,20}|0{5,20})\d{0,2}(?:e(.+)|$)/
+              /\.(\d*?)(?:9{5,20}|0{5,20})\d{0,2}(?:e(.+)|$)/,
             )
           }
 
@@ -51327,7 +51340,7 @@
 
             if (m) {
               const epsilon = parseFloat(
-                '1e' + ((m[2] ? +m[2] : 0) + m[1].length)
+                '1e' + ((m[2] ? +m[2] : 0) + m[1].length),
               )
               value = (Math.round(num * epsilon) / epsilon).toString()
             }
@@ -51468,14 +51481,14 @@
 
               if (!privateDict || !fontDict.hasName('Private')) {
                 throw new _util.FormatError(
-                  'There must be a private dictionary.'
+                  'There must be a private dictionary.',
                 )
               }
 
               const privateDictTracker = new CFFOffsetTracker()
               const privateDictData = this.compileDict(
                 privateDict,
-                privateDictTracker
+                privateDictTracker,
               )
               let outputLength = output.length
               privateDictTracker.offset(outputLength)
@@ -51487,7 +51500,7 @@
               trackers[i].setEntryLocation(
                 'Private',
                 [privateDictData.length, outputLength],
-                output
+                output,
               )
               output.add(privateDictData)
 
@@ -51496,7 +51509,7 @@
                 privateDictTracker.setEntryLocation(
                   'Subrs',
                   [privateDictData.length],
-                  output
+                  output,
                 )
                 output.add(subrs)
               }
@@ -51748,14 +51761,14 @@
                 data.push(
                   (relativeOffset >> 16) & 0xff,
                   (relativeOffset >> 8) & 0xff,
-                  relativeOffset & 0xff
+                  relativeOffset & 0xff,
                 )
               } else {
                 data.push(
                   (relativeOffset >>> 24) & 0xff,
                   (relativeOffset >> 16) & 0xff,
                   (relativeOffset >> 8) & 0xff,
-                  relativeOffset & 0xff
+                  relativeOffset & 0xff,
                 )
               }
 
@@ -52306,74 +52319,74 @@
 
         var _fonts_utils = __w_pdfjs_require__(18)
 
-        const getStdFontMap = (0, _core_utils.getLookupTableFactory)(function (
-          t
-        ) {
-          t['Times-Roman'] = 'Times-Roman'
-          t.Helvetica = 'Helvetica'
-          t.Courier = 'Courier'
-          t.Symbol = 'Symbol'
-          t['Times-Bold'] = 'Times-Bold'
-          t['Helvetica-Bold'] = 'Helvetica-Bold'
-          t['Courier-Bold'] = 'Courier-Bold'
-          t.ZapfDingbats = 'ZapfDingbats'
-          t['Times-Italic'] = 'Times-Italic'
-          t['Helvetica-Oblique'] = 'Helvetica-Oblique'
-          t['Courier-Oblique'] = 'Courier-Oblique'
-          t['Times-BoldItalic'] = 'Times-BoldItalic'
-          t['Helvetica-BoldOblique'] = 'Helvetica-BoldOblique'
-          t['Courier-BoldOblique'] = 'Courier-BoldOblique'
-          t.ArialNarrow = 'Helvetica'
-          t['ArialNarrow-Bold'] = 'Helvetica-Bold'
-          t['ArialNarrow-BoldItalic'] = 'Helvetica-BoldOblique'
-          t['ArialNarrow-Italic'] = 'Helvetica-Oblique'
-          t.ArialBlack = 'Helvetica'
-          t['ArialBlack-Bold'] = 'Helvetica-Bold'
-          t['ArialBlack-BoldItalic'] = 'Helvetica-BoldOblique'
-          t['ArialBlack-Italic'] = 'Helvetica-Oblique'
-          t['Arial-Black'] = 'Helvetica'
-          t['Arial-Black-Bold'] = 'Helvetica-Bold'
-          t['Arial-Black-BoldItalic'] = 'Helvetica-BoldOblique'
-          t['Arial-Black-Italic'] = 'Helvetica-Oblique'
-          t.Arial = 'Helvetica'
-          t['Arial-Bold'] = 'Helvetica-Bold'
-          t['Arial-BoldItalic'] = 'Helvetica-BoldOblique'
-          t['Arial-Italic'] = 'Helvetica-Oblique'
-          t['Arial-BoldItalicMT'] = 'Helvetica-BoldOblique'
-          t['Arial-BoldMT'] = 'Helvetica-Bold'
-          t['Arial-ItalicMT'] = 'Helvetica-Oblique'
-          t.ArialMT = 'Helvetica'
-          t['Courier-BoldItalic'] = 'Courier-BoldOblique'
-          t['Courier-Italic'] = 'Courier-Oblique'
-          t.CourierNew = 'Courier'
-          t['CourierNew-Bold'] = 'Courier-Bold'
-          t['CourierNew-BoldItalic'] = 'Courier-BoldOblique'
-          t['CourierNew-Italic'] = 'Courier-Oblique'
-          t['CourierNewPS-BoldItalicMT'] = 'Courier-BoldOblique'
-          t['CourierNewPS-BoldMT'] = 'Courier-Bold'
-          t['CourierNewPS-ItalicMT'] = 'Courier-Oblique'
-          t.CourierNewPSMT = 'Courier'
-          t['Helvetica-BoldItalic'] = 'Helvetica-BoldOblique'
-          t['Helvetica-Italic'] = 'Helvetica-Oblique'
-          t['Symbol-Bold'] = 'Symbol'
-          t['Symbol-BoldItalic'] = 'Symbol'
-          t['Symbol-Italic'] = 'Symbol'
-          t.TimesNewRoman = 'Times-Roman'
-          t['TimesNewRoman-Bold'] = 'Times-Bold'
-          t['TimesNewRoman-BoldItalic'] = 'Times-BoldItalic'
-          t['TimesNewRoman-Italic'] = 'Times-Italic'
-          t.TimesNewRomanPS = 'Times-Roman'
-          t['TimesNewRomanPS-Bold'] = 'Times-Bold'
-          t['TimesNewRomanPS-BoldItalic'] = 'Times-BoldItalic'
-          t['TimesNewRomanPS-BoldItalicMT'] = 'Times-BoldItalic'
-          t['TimesNewRomanPS-BoldMT'] = 'Times-Bold'
-          t['TimesNewRomanPS-Italic'] = 'Times-Italic'
-          t['TimesNewRomanPS-ItalicMT'] = 'Times-Italic'
-          t.TimesNewRomanPSMT = 'Times-Roman'
-          t['TimesNewRomanPSMT-Bold'] = 'Times-Bold'
-          t['TimesNewRomanPSMT-BoldItalic'] = 'Times-BoldItalic'
-          t['TimesNewRomanPSMT-Italic'] = 'Times-Italic'
-        })
+        const getStdFontMap = (0, _core_utils.getLookupTableFactory)(
+          function (t) {
+            t['Times-Roman'] = 'Times-Roman'
+            t.Helvetica = 'Helvetica'
+            t.Courier = 'Courier'
+            t.Symbol = 'Symbol'
+            t['Times-Bold'] = 'Times-Bold'
+            t['Helvetica-Bold'] = 'Helvetica-Bold'
+            t['Courier-Bold'] = 'Courier-Bold'
+            t.ZapfDingbats = 'ZapfDingbats'
+            t['Times-Italic'] = 'Times-Italic'
+            t['Helvetica-Oblique'] = 'Helvetica-Oblique'
+            t['Courier-Oblique'] = 'Courier-Oblique'
+            t['Times-BoldItalic'] = 'Times-BoldItalic'
+            t['Helvetica-BoldOblique'] = 'Helvetica-BoldOblique'
+            t['Courier-BoldOblique'] = 'Courier-BoldOblique'
+            t.ArialNarrow = 'Helvetica'
+            t['ArialNarrow-Bold'] = 'Helvetica-Bold'
+            t['ArialNarrow-BoldItalic'] = 'Helvetica-BoldOblique'
+            t['ArialNarrow-Italic'] = 'Helvetica-Oblique'
+            t.ArialBlack = 'Helvetica'
+            t['ArialBlack-Bold'] = 'Helvetica-Bold'
+            t['ArialBlack-BoldItalic'] = 'Helvetica-BoldOblique'
+            t['ArialBlack-Italic'] = 'Helvetica-Oblique'
+            t['Arial-Black'] = 'Helvetica'
+            t['Arial-Black-Bold'] = 'Helvetica-Bold'
+            t['Arial-Black-BoldItalic'] = 'Helvetica-BoldOblique'
+            t['Arial-Black-Italic'] = 'Helvetica-Oblique'
+            t.Arial = 'Helvetica'
+            t['Arial-Bold'] = 'Helvetica-Bold'
+            t['Arial-BoldItalic'] = 'Helvetica-BoldOblique'
+            t['Arial-Italic'] = 'Helvetica-Oblique'
+            t['Arial-BoldItalicMT'] = 'Helvetica-BoldOblique'
+            t['Arial-BoldMT'] = 'Helvetica-Bold'
+            t['Arial-ItalicMT'] = 'Helvetica-Oblique'
+            t.ArialMT = 'Helvetica'
+            t['Courier-BoldItalic'] = 'Courier-BoldOblique'
+            t['Courier-Italic'] = 'Courier-Oblique'
+            t.CourierNew = 'Courier'
+            t['CourierNew-Bold'] = 'Courier-Bold'
+            t['CourierNew-BoldItalic'] = 'Courier-BoldOblique'
+            t['CourierNew-Italic'] = 'Courier-Oblique'
+            t['CourierNewPS-BoldItalicMT'] = 'Courier-BoldOblique'
+            t['CourierNewPS-BoldMT'] = 'Courier-Bold'
+            t['CourierNewPS-ItalicMT'] = 'Courier-Oblique'
+            t.CourierNewPSMT = 'Courier'
+            t['Helvetica-BoldItalic'] = 'Helvetica-BoldOblique'
+            t['Helvetica-Italic'] = 'Helvetica-Oblique'
+            t['Symbol-Bold'] = 'Symbol'
+            t['Symbol-BoldItalic'] = 'Symbol'
+            t['Symbol-Italic'] = 'Symbol'
+            t.TimesNewRoman = 'Times-Roman'
+            t['TimesNewRoman-Bold'] = 'Times-Bold'
+            t['TimesNewRoman-BoldItalic'] = 'Times-BoldItalic'
+            t['TimesNewRoman-Italic'] = 'Times-Italic'
+            t.TimesNewRomanPS = 'Times-Roman'
+            t['TimesNewRomanPS-Bold'] = 'Times-Bold'
+            t['TimesNewRomanPS-BoldItalic'] = 'Times-BoldItalic'
+            t['TimesNewRomanPS-BoldItalicMT'] = 'Times-BoldItalic'
+            t['TimesNewRomanPS-BoldMT'] = 'Times-Bold'
+            t['TimesNewRomanPS-Italic'] = 'Times-Italic'
+            t['TimesNewRomanPS-ItalicMT'] = 'Times-Italic'
+            t.TimesNewRomanPSMT = 'Times-Roman'
+            t['TimesNewRomanPSMT-Bold'] = 'Times-Bold'
+            t['TimesNewRomanPSMT-BoldItalic'] = 'Times-BoldItalic'
+            t['TimesNewRomanPSMT-Italic'] = 'Times-Italic'
+          },
+        )
         exports.getStdFontMap = getStdFontMap
         const getFontNameToFileMap = (0, _core_utils.getLookupTableFactory)(
           function (t) {
@@ -52395,7 +52408,7 @@
             t['LiberationSans-Bold'] = 'LiberationSans-Bold.ttf'
             t['LiberationSans-Italic'] = 'LiberationSans-Italic.ttf'
             t['LiberationSans-BoldItalic'] = 'LiberationSans-BoldItalic.ttf'
-          }
+          },
         )
         exports.getFontNameToFileMap = getFontNameToFileMap
         const getNonStdFontMap = (0, _core_utils.getLookupTableFactory)(
@@ -52443,154 +52456,154 @@
             t.SegoeUISymbol = 'Helvetica'
             t.Wingdings = 'ZapfDingbats'
             t['Wingdings-Regular'] = 'ZapfDingbats'
-          }
+          },
         )
         exports.getNonStdFontMap = getNonStdFontMap
-        const getSerifFonts = (0, _core_utils.getLookupTableFactory)(function (
-          t
-        ) {
-          t['Adobe Jenson'] = true
-          t['Adobe Text'] = true
-          t.Albertus = true
-          t.Aldus = true
-          t.Alexandria = true
-          t.Algerian = true
-          t['American Typewriter'] = true
-          t.Antiqua = true
-          t.Apex = true
-          t.Arno = true
-          t.Aster = true
-          t.Aurora = true
-          t.Baskerville = true
-          t.Bell = true
-          t.Bembo = true
-          t['Bembo Schoolbook'] = true
-          t.Benguiat = true
-          t['Berkeley Old Style'] = true
-          t['Bernhard Modern'] = true
-          t['Berthold City'] = true
-          t.Bodoni = true
-          t['Bauer Bodoni'] = true
-          t['Book Antiqua'] = true
-          t.Bookman = true
-          t['Bordeaux Roman'] = true
-          t['Californian FB'] = true
-          t.Calisto = true
-          t.Calvert = true
-          t.Capitals = true
-          t.Cambria = true
-          t.Cartier = true
-          t.Caslon = true
-          t.Catull = true
-          t.Centaur = true
-          t['Century Old Style'] = true
-          t['Century Schoolbook'] = true
-          t.Chaparral = true
-          t['Charis SIL'] = true
-          t.Cheltenham = true
-          t['Cholla Slab'] = true
-          t.Clarendon = true
-          t.Clearface = true
-          t.Cochin = true
-          t.Colonna = true
-          t['Computer Modern'] = true
-          t['Concrete Roman'] = true
-          t.Constantia = true
-          t['Cooper Black'] = true
-          t.Corona = true
-          t.Ecotype = true
-          t.Egyptienne = true
-          t.Elephant = true
-          t.Excelsior = true
-          t.Fairfield = true
-          t['FF Scala'] = true
-          t.Folkard = true
-          t.Footlight = true
-          t.FreeSerif = true
-          t['Friz Quadrata'] = true
-          t.Garamond = true
-          t.Gentium = true
-          t.Georgia = true
-          t.Gloucester = true
-          t['Goudy Old Style'] = true
-          t['Goudy Schoolbook'] = true
-          t['Goudy Pro Font'] = true
-          t.Granjon = true
-          t['Guardian Egyptian'] = true
-          t.Heather = true
-          t.Hercules = true
-          t['High Tower Text'] = true
-          t.Hiroshige = true
-          t['Hoefler Text'] = true
-          t['Humana Serif'] = true
-          t.Imprint = true
-          t['Ionic No. 5'] = true
-          t.Janson = true
-          t.Joanna = true
-          t.Korinna = true
-          t.Lexicon = true
-          t.LiberationSerif = true
-          t['Liberation Serif'] = true
-          t['Linux Libertine'] = true
-          t.Literaturnaya = true
-          t.Lucida = true
-          t['Lucida Bright'] = true
-          t.Melior = true
-          t.Memphis = true
-          t.Miller = true
-          t.Minion = true
-          t.Modern = true
-          t['Mona Lisa'] = true
-          t['Mrs Eaves'] = true
-          t['MS Serif'] = true
-          t['Museo Slab'] = true
-          t['New York'] = true
-          t['Nimbus Roman'] = true
-          t['NPS Rawlinson Roadway'] = true
-          t.NuptialScript = true
-          t.Palatino = true
-          t.Perpetua = true
-          t.Plantin = true
-          t['Plantin Schoolbook'] = true
-          t.Playbill = true
-          t['Poor Richard'] = true
-          t['Rawlinson Roadway'] = true
-          t.Renault = true
-          t.Requiem = true
-          t.Rockwell = true
-          t.Roman = true
-          t['Rotis Serif'] = true
-          t.Sabon = true
-          t.Scala = true
-          t.Seagull = true
-          t.Sistina = true
-          t.Souvenir = true
-          t.STIX = true
-          t['Stone Informal'] = true
-          t['Stone Serif'] = true
-          t.Sylfaen = true
-          t.Times = true
-          t.Trajan = true
-          t['Trinité'] = true
-          t['Trump Mediaeval'] = true
-          t.Utopia = true
-          t['Vale Type'] = true
-          t['Bitstream Vera'] = true
-          t['Vera Serif'] = true
-          t.Versailles = true
-          t.Wanted = true
-          t.Weiss = true
-          t['Wide Latin'] = true
-          t.Windsor = true
-          t.XITS = true
-        })
+        const getSerifFonts = (0, _core_utils.getLookupTableFactory)(
+          function (t) {
+            t['Adobe Jenson'] = true
+            t['Adobe Text'] = true
+            t.Albertus = true
+            t.Aldus = true
+            t.Alexandria = true
+            t.Algerian = true
+            t['American Typewriter'] = true
+            t.Antiqua = true
+            t.Apex = true
+            t.Arno = true
+            t.Aster = true
+            t.Aurora = true
+            t.Baskerville = true
+            t.Bell = true
+            t.Bembo = true
+            t['Bembo Schoolbook'] = true
+            t.Benguiat = true
+            t['Berkeley Old Style'] = true
+            t['Bernhard Modern'] = true
+            t['Berthold City'] = true
+            t.Bodoni = true
+            t['Bauer Bodoni'] = true
+            t['Book Antiqua'] = true
+            t.Bookman = true
+            t['Bordeaux Roman'] = true
+            t['Californian FB'] = true
+            t.Calisto = true
+            t.Calvert = true
+            t.Capitals = true
+            t.Cambria = true
+            t.Cartier = true
+            t.Caslon = true
+            t.Catull = true
+            t.Centaur = true
+            t['Century Old Style'] = true
+            t['Century Schoolbook'] = true
+            t.Chaparral = true
+            t['Charis SIL'] = true
+            t.Cheltenham = true
+            t['Cholla Slab'] = true
+            t.Clarendon = true
+            t.Clearface = true
+            t.Cochin = true
+            t.Colonna = true
+            t['Computer Modern'] = true
+            t['Concrete Roman'] = true
+            t.Constantia = true
+            t['Cooper Black'] = true
+            t.Corona = true
+            t.Ecotype = true
+            t.Egyptienne = true
+            t.Elephant = true
+            t.Excelsior = true
+            t.Fairfield = true
+            t['FF Scala'] = true
+            t.Folkard = true
+            t.Footlight = true
+            t.FreeSerif = true
+            t['Friz Quadrata'] = true
+            t.Garamond = true
+            t.Gentium = true
+            t.Georgia = true
+            t.Gloucester = true
+            t['Goudy Old Style'] = true
+            t['Goudy Schoolbook'] = true
+            t['Goudy Pro Font'] = true
+            t.Granjon = true
+            t['Guardian Egyptian'] = true
+            t.Heather = true
+            t.Hercules = true
+            t['High Tower Text'] = true
+            t.Hiroshige = true
+            t['Hoefler Text'] = true
+            t['Humana Serif'] = true
+            t.Imprint = true
+            t['Ionic No. 5'] = true
+            t.Janson = true
+            t.Joanna = true
+            t.Korinna = true
+            t.Lexicon = true
+            t.LiberationSerif = true
+            t['Liberation Serif'] = true
+            t['Linux Libertine'] = true
+            t.Literaturnaya = true
+            t.Lucida = true
+            t['Lucida Bright'] = true
+            t.Melior = true
+            t.Memphis = true
+            t.Miller = true
+            t.Minion = true
+            t.Modern = true
+            t['Mona Lisa'] = true
+            t['Mrs Eaves'] = true
+            t['MS Serif'] = true
+            t['Museo Slab'] = true
+            t['New York'] = true
+            t['Nimbus Roman'] = true
+            t['NPS Rawlinson Roadway'] = true
+            t.NuptialScript = true
+            t.Palatino = true
+            t.Perpetua = true
+            t.Plantin = true
+            t['Plantin Schoolbook'] = true
+            t.Playbill = true
+            t['Poor Richard'] = true
+            t['Rawlinson Roadway'] = true
+            t.Renault = true
+            t.Requiem = true
+            t.Rockwell = true
+            t.Roman = true
+            t['Rotis Serif'] = true
+            t.Sabon = true
+            t.Scala = true
+            t.Seagull = true
+            t.Sistina = true
+            t.Souvenir = true
+            t.STIX = true
+            t['Stone Informal'] = true
+            t['Stone Serif'] = true
+            t.Sylfaen = true
+            t.Times = true
+            t.Trajan = true
+            t['Trinité'] = true
+            t['Trump Mediaeval'] = true
+            t.Utopia = true
+            t['Vale Type'] = true
+            t['Bitstream Vera'] = true
+            t['Vera Serif'] = true
+            t.Versailles = true
+            t.Wanted = true
+            t.Weiss = true
+            t['Wide Latin'] = true
+            t.Windsor = true
+            t.XITS = true
+          },
+        )
         exports.getSerifFonts = getSerifFonts
         const getSymbolsFonts = (0, _core_utils.getLookupTableFactory)(
           function (t) {
             t.Dingbats = true
             t.Symbol = true
             t.ZapfDingbats = true
-          }
+          },
         )
         exports.getSymbolsFonts = getSymbolsFonts
         const getGlyphMapForStandardFonts = (0,
@@ -53242,7 +53255,7 @@
             const parser = new _cff_parser.CFFParser(
               file,
               properties,
-              _fonts_utils.SEAC_ANALYSIS_ENABLED
+              _fonts_utils.SEAC_ANALYSIS_ENABLED,
             )
             this.cff = parser.parse()
             this.cff.duplicateFirstGlyph()
@@ -53253,7 +53266,7 @@
               this.data = compiler.compile()
             } catch (e) {
               ;(0, _util.warn)(
-                'Failed to compile font ' + properties.loadedName
+                'Failed to compile font ' + properties.loadedName,
               )
               this.data = file
             }
@@ -53305,7 +53318,7 @@
             charCodeToGlyphId = (0, _fonts_utils.type1FontGlyphMapping)(
               properties,
               encoding,
-              charsets
+              charsets,
             )
             return charCodeToGlyphId
           }
@@ -53466,7 +53479,7 @@
           const parser = new _cff_parser.CFFParser(
             new _stream.Stream(data, start, end - start),
             properties,
-            seacAnalysisEnabled
+            seacAnalysisEnabled,
           )
           const cff = parser.parse()
           return {
@@ -53635,7 +53648,7 @@
                   {
                     cmd: 'transform',
                     args: [scaleX, scale01, scale10, scaleY, x, y],
-                  }
+                  },
                 )
                 compileGlyf(subglyph, cmds, font)
                 cmds.push({
@@ -53741,7 +53754,7 @@
                     contour[j].x,
                     contour[j].y,
                     contour[j + 1].x,
-                    contour[j + 1].y
+                    contour[j + 1].y,
                   )
                   j++
                 } else {
@@ -53749,7 +53762,7 @@
                     contour[j].x,
                     contour[j].y,
                     (contour[j].x + contour[j + 1].x) / 2,
-                    (contour[j].y + contour[j + 1].y) / 2
+                    (contour[j].y + contour[j + 1].y) / 2,
                   )
                 }
               }
@@ -53994,19 +54007,19 @@
                       {
                         cmd: 'translate',
                         args: [x, y],
-                      }
+                      },
                     )
                     let cmap = lookupCmap(
                       font.cmap,
                       String.fromCharCode(
-                        font.glyphNameMap[_encodings.StandardEncoding[achar]]
-                      )
+                        font.glyphNameMap[_encodings.StandardEncoding[achar]],
+                      ),
                     )
                     compileCharString(
                       font.glyphs[cmap.glyphId],
                       cmds,
                       font,
-                      cmap.glyphId
+                      cmap.glyphId,
                     )
                     cmds.push({
                       cmd: 'restore',
@@ -54014,14 +54027,14 @@
                     cmap = lookupCmap(
                       font.cmap,
                       String.fromCharCode(
-                        font.glyphNameMap[_encodings.StandardEncoding[bchar]]
-                      )
+                        font.glyphNameMap[_encodings.StandardEncoding[bchar]],
+                      ),
                     )
                     compileCharString(
                       font.glyphs[cmap.glyphId],
                       cmds,
                       font,
-                      cmap.glyphId
+                      cmap.glyphId,
                     )
                   }
 
@@ -54210,7 +54223,7 @@
                         (code[i + 1] << 16) |
                         (code[i + 2] << 8) |
                         code[i + 3]) /
-                        65536
+                        65536,
                     )
                     i += 4
                   }
@@ -54385,7 +54398,7 @@
                     data,
                     offset,
                     offset + length,
-                    seacAnalysisEnabled
+                    seacAnalysisEnabled,
                   )
                   break
               }
@@ -54398,7 +54411,7 @@
               return new TrueTypeCompiled(
                 parseGlyfTable(glyf, loca, indexToLocFormat),
                 cmap,
-                fontMatrix
+                fontMatrix,
               )
             }
 
@@ -54406,7 +54419,7 @@
               cff,
               cmap,
               font.fontMatrix,
-              font.glyphNameMap
+              font.glyphNameMap,
             )
           }
         }
@@ -54447,12 +54460,12 @@
             const loca = new DataView(
               locaTable.buffer,
               locaTable.byteOffset,
-              locaTable.byteLength
+              locaTable.byteLength,
             )
             const glyf = new DataView(
               glyfTable.buffer,
               glyfTable.byteOffset,
-              glyfTable.byteLength
+              glyfTable.byteLength,
             )
             const offsetSize = isGlyphLocationsLong ? 4 : 2
             let prev = isGlyphLocationsLong
@@ -54490,7 +54503,7 @@
             const isLocationLong = totalSize > 0x1fffe
             const offsetSize = isLocationLong ? 4 : 2
             const locaTable = new DataView(
-              new ArrayBuffer((this.glyphs.length + 1) * offsetSize)
+              new ArrayBuffer((this.glyphs.length + 1) * offsetSize),
             )
 
             if (isLocationLong) {
@@ -54684,7 +54697,7 @@
             pos += 2
             const instructions = new Uint8Array(glyf).slice(
               pos,
-              pos + instructionLength
+              pos + instructionLength,
             )
             pos += instructionLength
             const flags = []
@@ -54765,7 +54778,7 @@
                     flags: pointFlags,
                     xCoordinates,
                     yCoordinates,
-                  })
+                  }),
                 )
                 yCoordinates = []
                 pointFlags = []
@@ -54879,7 +54892,7 @@
             if (this.instructions.length) {
               new Uint8Array(buf.buffer, 0, buf.buffer.byteLength).set(
                 this.instructions,
-                pos
+                pos,
               )
               pos += this.instructions.length
             }
@@ -54923,7 +54936,7 @@
 
               for (let i = 0, ii = contour.xCoordinates.length; i < ii; i++) {
                 contour.xCoordinates[i] = Math.round(
-                  x + (contour.xCoordinates[i] - x) * factor
+                  x + (contour.xCoordinates[i] - x) * factor,
                 )
               }
             }
@@ -54991,7 +55004,7 @@
                 glyf.getUint16(pos),
                 glyf.getUint16(pos + 2),
                 glyf.getUint16(pos + 4),
-                glyf.getUint16(pos + 6)
+                glyf.getUint16(pos + 6),
               )
               pos += 8
             }
@@ -55003,7 +55016,7 @@
               pos += 2
               instructions = new Uint8Array(glyf).slice(
                 pos,
-                pos + instructionLength
+                pos + instructionLength,
               )
               pos += instructionLength
             }
@@ -55111,7 +55124,7 @@
               if (this.instructions.length) {
                 new Uint8Array(buf.buffer, 0, buf.buffer.byteLength).set(
                   this.instructions,
-                  pos
+                  pos,
                 )
                 pos += this.instructions.length
               }
@@ -55223,7 +55236,7 @@
             writeInt16(file, 4, numTables)
             const searchParams = OpenTypeFileBuilder.getSearchParams(
               numTables,
-              16
+              16,
             )
             writeInt16(file, 6, searchParams.range)
             writeInt16(file, 8, searchParams.entry)
@@ -55339,7 +55352,7 @@
             block = findBlock(
               headerBytes,
               EEXEC_SIGNATURE,
-              suggestedLength - 2 * EEXEC_SIGNATURE.length
+              suggestedLength - 2 * EEXEC_SIGNATURE.length,
             )
 
             if (block.found && block.length === suggestedLength) {
@@ -55351,7 +55364,7 @@
           }
 
           ;(0, _util.warn)(
-            'Invalid "Length1" property in Type1 font -- trying to recover.'
+            'Invalid "Length1" property in Type1 font -- trying to recover.',
           )
           stream.pos = streamStartPos
           const SCAN_BLOCK_LENGTH = 2048
@@ -55383,7 +55396,7 @@
           }
 
           ;(0, _util.warn)(
-            'Unable to recover "Length1" property in Type1 font -- using as is.'
+            'Unable to recover "Length1" property in Type1 font -- using as is.',
           )
           return {
             stream: new _stream.Stream(stream.getBytes(suggestedLength)),
@@ -55421,7 +55434,7 @@
             const headerBlockParser = new _type1_parser.Type1Parser(
               headerBlock.stream,
               false,
-              _fonts_utils.SEAC_ANALYSIS_ENABLED
+              _fonts_utils.SEAC_ANALYSIS_ENABLED,
             )
             headerBlockParser.extractFontHeader(properties)
 
@@ -55438,7 +55451,7 @@
             const eexecBlockParser = new _type1_parser.Type1Parser(
               eexecBlock.stream,
               true,
-              _fonts_utils.SEAC_ANALYSIS_ENABLED
+              _fonts_utils.SEAC_ANALYSIS_ENABLED,
             )
             const data = eexecBlockParser.extractFontProgram(properties)
 
@@ -55455,7 +55468,7 @@
               type2Charstrings,
               this.charstrings,
               subrs,
-              properties
+              properties,
             )
             this.seacs = this.getSeacs(data.charstrings)
           }
@@ -55517,7 +55530,7 @@
             return (0, _fonts_utils.type1FontGlyphMapping)(
               properties,
               builtInEncoding,
-              glyphNames
+              glyphNames,
             )
           }
 
@@ -55816,7 +55829,7 @@
                       error = this.convert(
                         subrs[subrNumber],
                         subrs,
-                        seacAnalysisEnabled
+                        seacAnalysisEnabled,
                       )
                       break
 
@@ -55939,7 +55952,7 @@
                       if (subrNumber === 0 && numArgs === 3) {
                         const flexArgs = this.stack.splice(
                           this.stack.length - 17,
-                          17
+                          17,
                         )
                         this.stack.push(
                           flexArgs[2] + flexArgs[0],
@@ -55954,7 +55967,7 @@
                           flexArgs[11],
                           flexArgs[12],
                           flexArgs[13],
-                          flexArgs[14]
+                          flexArgs[14],
                         )
                         error = this.executeCommand(13, COMMAND_MAP.flex, true)
                         this.flexing = false
@@ -55974,7 +55987,7 @@
 
                     default:
                       ;(0, _util.warn)(
-                        'Unknown type 1 charstring command of "' + value + '"'
+                        'Unknown type 1 charstring command of "' + value + '"',
                       )
                       break
                   }
@@ -56025,7 +56038,7 @@
                     (value >> 24) & 0xff,
                     (value >> 16) & 0xff,
                     (value >> 8) & 0xff,
-                    value & 0xff
+                    value & 0xff,
                   )
                 }
               }
@@ -56147,7 +56160,7 @@
                 stream = new _stream.Stream(
                   isBinary
                     ? decrypt(data, EEXEC_ENCRYPT_KEY, 4)
-                    : decryptAscii(data, EEXEC_ENCRYPT_KEY, 4)
+                    : decryptAscii(data, EEXEC_ENCRYPT_KEY, 4),
                 )
               }
 
@@ -56377,7 +56390,7 @@
                 const error = charString.convert(
                   encoded,
                   subrs,
-                  this.seacAnalysisEnabled
+                  this.seacAnalysisEnabled,
                 )
                 let output = charString.output
 
@@ -56524,7 +56537,7 @@
             res,
             handler,
             pdfFunctionFactory,
-            localColorSpaceCache
+            localColorSpaceCache,
           ) {
             const dict = (0, _primitives.isStream)(shading)
               ? shading.dict
@@ -56540,7 +56553,7 @@
                     xref,
                     res,
                     pdfFunctionFactory,
-                    localColorSpaceCache
+                    localColorSpaceCache,
                   )
 
                 case ShadingType.FREE_FORM_MESH:
@@ -56552,12 +56565,12 @@
                     xref,
                     res,
                     pdfFunctionFactory,
-                    localColorSpaceCache
+                    localColorSpaceCache,
                   )
 
                 default:
                   throw new _util.FormatError(
-                    'Unsupported ShadingType: ' + type
+                    'Unsupported ShadingType: ' + type,
                   )
               }
             } catch (ex) {
@@ -56598,7 +56611,7 @@
             xref,
             resources,
             pdfFunctionFactory,
-            localColorSpaceCache
+            localColorSpaceCache,
           ) {
             super()
             this.coordsArr = dict.getArray('Coords')
@@ -56675,7 +56688,7 @@
               const cssColor = _util.Util.makeHexColor(
                 rgbColor[0],
                 rgbColor[1],
-                rgbColor[2]
+                rgbColor[2],
               )
 
               colorStops.push([i / NUMBER_OF_SAMPLES, cssColor])
@@ -56688,7 +56701,7 @@
               background = _util.Util.makeHexColor(
                 rgbColor[0],
                 rgbColor[1],
-                rgbColor[2]
+                rgbColor[2],
               )
             }
 
@@ -56880,7 +56893,7 @@
                   3 * t * t_ * t_,
                   3 * t * t * t_,
                   t * t * t,
-                ])
+                ]),
               )
             }
 
@@ -56915,7 +56928,7 @@
             xref,
             resources,
             pdfFunctionFactory,
-            localColorSpaceCache
+            localColorSpaceCache,
           ) {
             super()
 
@@ -57403,7 +57416,7 @@
             const figure = this.figures[index]
             ;(0, _util.assert)(
               figure.type === 'patch',
-              'Unexpected patch mesh figure'
+              'Unexpected patch mesh figure',
             )
             const coords = this.coords,
               colors = this.colors
@@ -57413,41 +57426,41 @@
               coords[pi[0]][0],
               coords[pi[3]][0],
               coords[pi[12]][0],
-              coords[pi[15]][0]
+              coords[pi[15]][0],
             )
             const figureMinY = Math.min(
               coords[pi[0]][1],
               coords[pi[3]][1],
               coords[pi[12]][1],
-              coords[pi[15]][1]
+              coords[pi[15]][1],
             )
             const figureMaxX = Math.max(
               coords[pi[0]][0],
               coords[pi[3]][0],
               coords[pi[12]][0],
-              coords[pi[15]][0]
+              coords[pi[15]][0],
             )
             const figureMaxY = Math.max(
               coords[pi[0]][1],
               coords[pi[3]][1],
               coords[pi[12]][1],
-              coords[pi[15]][1]
+              coords[pi[15]][1],
             )
             let splitXBy = Math.ceil(
               ((figureMaxX - figureMinX) * MeshShading.TRIANGLE_DENSITY) /
-                (this.bounds[2] - this.bounds[0])
+                (this.bounds[2] - this.bounds[0]),
             )
             splitXBy = Math.max(
               MeshShading.MIN_SPLIT_PATCH_CHUNKS_AMOUNT,
-              Math.min(MeshShading.MAX_SPLIT_PATCH_CHUNKS_AMOUNT, splitXBy)
+              Math.min(MeshShading.MAX_SPLIT_PATCH_CHUNKS_AMOUNT, splitXBy),
             )
             let splitYBy = Math.ceil(
               ((figureMaxY - figureMinY) * MeshShading.TRIANGLE_DENSITY) /
-                (this.bounds[3] - this.bounds[1])
+                (this.bounds[3] - this.bounds[1]),
             )
             splitYBy = Math.max(
               MeshShading.MIN_SPLIT_PATCH_CHUNKS_AMOUNT,
-              Math.min(MeshShading.MAX_SPLIT_PATCH_CHUNKS_AMOUNT, splitYBy)
+              Math.min(MeshShading.MAX_SPLIT_PATCH_CHUNKS_AMOUNT, splitYBy),
             )
             const verticesPerRow = splitXBy + 1
             const figureCoords = new Int32Array((splitYBy + 1) * verticesPerRow)
@@ -57607,7 +57620,7 @@
 
           if (bbox[2] - bbox[0] === 0 || bbox[3] - bbox[1] === 0) {
             throw new _util.FormatError(
-              `Invalid getTilingPatternIR /BBox array: [${bbox}].`
+              `Invalid getTilingPatternIR /BBox array: [${bbox}].`,
             )
           }
 
@@ -57715,7 +57728,7 @@
           _cache(cacheKey, parsedFunction) {
             if (!parsedFunction) {
               throw new Error(
-                'PDFFunctionFactory._cache - expected "parsedFunction" argument.'
+                'PDFFunctionFactory._cache - expected "parsedFunction" argument.',
               )
             }
 
@@ -57738,7 +57751,7 @@
             return (0, _util.shadow)(
               this,
               '_localFunctionCache',
-              new _image_utils.LocalFunctionCache()
+              new _image_utils.LocalFunctionCache(),
             )
           }
         }
@@ -57858,7 +57871,7 @@
                   xref,
                   isEvalSupported,
                   fn: xref.fetchIfRef(fnObj[j]),
-                })
+                }),
               )
             }
 
@@ -57903,7 +57916,7 @@
 
             if (order !== 1) {
               ;(0, _util.info)(
-                'No support for cubic spline interpolation: ' + order
+                'No support for cubic spline interpolation: ' + order,
               )
             }
 
@@ -57932,7 +57945,7 @@
               src,
               srcOffset,
               dest,
-              destOffset
+              destOffset,
             ) {
               const cubeVertices = 1 << inputSize
               const cubeN = new Float64Array(cubeVertices)
@@ -57951,14 +57964,14 @@
                 const domain_2i_1 = domain[i][1]
                 const xi = Math.min(
                   Math.max(src[srcOffset + i], domain_2i),
-                  domain_2i_1
+                  domain_2i_1,
                 )
                 let e = interpolate(
                   xi,
                   domain_2i,
                   domain_2i_1,
                   encode[i][0],
-                  encode[i][1]
+                  encode[i][1],
                 )
                 const size_i = size[i]
                 e = Math.min(Math.max(e, 0), size_i - 1)
@@ -57992,7 +58005,7 @@
                 rj = interpolate(rj, 0, 1, decode[j][0], decode[j][1])
                 dest[destOffset + j] = Math.min(
                   Math.max(rj, range[j][0]),
-                  range[j][1]
+                  range[j][1],
                 )
               }
             }
@@ -58013,7 +58026,7 @@
               src,
               srcOffset,
               dest,
-              destOffset
+              destOffset,
             ) {
               const x = n === 1 ? src[srcOffset] : src[srcOffset] ** n
 
@@ -58045,7 +58058,7 @@
                   xref,
                   isEvalSupported,
                   fn: xref.fetchIfRef(fnRefs[i]),
-                })
+                }),
               )
             }
 
@@ -58056,7 +58069,7 @@
               src,
               srcOffset,
               dest,
-              destOffset
+              destOffset,
             ) {
               const clip = function constructStichedFromIRClip(v, min, max) {
                 if (v > max) {
@@ -58120,7 +58133,7 @@
               const compiled = new PostScriptCompiler().compile(
                 code,
                 domain,
-                range
+                range,
               )
 
               if (compiled) {
@@ -58129,7 +58142,7 @@
                   'srcOffset',
                   'dest',
                   'destOffset',
-                  compiled
+                  compiled,
                 )
               }
             }
@@ -58146,7 +58159,7 @@
               src,
               srcOffset,
               dest,
-              destOffset
+              destOffset,
             ) {
               let i, value
               let key = ''
@@ -58673,7 +58686,7 @@
                 arg.max,
                 ', src[srcOffset + ',
                 arg.index,
-                ']))'
+                ']))',
               )
             }
 
@@ -58730,7 +58743,7 @@
               num1,
               num2,
               num1.min + num2.min,
-              num1.max + num2.max
+              num1.max + num2.max,
             )
           }
 
@@ -58757,13 +58770,13 @@
               num1.min * num2.min,
               num1.min * num2.max,
               num1.max * num2.min,
-              num1.max * num2.max
+              num1.max * num2.max,
             )
             const max = Math.max(
               num1.min * num2.min,
               num1.min * num2.max,
               num1.max * num2.min,
-              num1.max * num2.max
+              num1.max * num2.max,
             )
             return new AstBinaryOperation('*', num1, num2, min, max)
           }
@@ -58793,7 +58806,7 @@
               num1,
               num2,
               num1.min - num2.max,
-              num1.max - num2.min
+              num1.max - num2.min,
             )
           }
 
@@ -58979,7 +58992,7 @@
 
                     Array.prototype.push.apply(
                       stack,
-                      stack.splice(stack.length - n, n - j)
+                      stack.splice(stack.length - n, n - j),
                     )
                     break
 
@@ -59075,7 +59088,7 @@
             }
 
             throw new _util.FormatError(
-              `Unexpected symbol: found ${this.token.type} expected ${type}.`
+              `Unexpected symbol: found ${this.token.type} expected ${type}.`,
             )
           }
 
@@ -59123,7 +59136,7 @@
               this.operators[conditionLocation + 1] = 'jz'
             } else {
               throw new _util.FormatError(
-                'PS Function: error parsing conditional.'
+                'PS Function: error parsing conditional.',
               )
             }
           }
@@ -59158,7 +59171,7 @@
 
             return (PostScriptToken.opCache[op] = new PostScriptToken(
               PostScriptTokenTypes.OPERATOR,
-              op
+              op,
             ))
           }
 
@@ -59166,7 +59179,7 @@
             return (0, _util.shadow)(
               this,
               'LBRACE',
-              new PostScriptToken(PostScriptTokenTypes.LBRACE, '{')
+              new PostScriptToken(PostScriptTokenTypes.LBRACE, '{'),
             )
           }
 
@@ -59174,7 +59187,7 @@
             return (0, _util.shadow)(
               this,
               'RBRACE',
-              new PostScriptToken(PostScriptTokenTypes.RBRACE, '}')
+              new PostScriptToken(PostScriptTokenTypes.RBRACE, '}'),
             )
           }
 
@@ -59182,7 +59195,7 @@
             return (0, _util.shadow)(
               this,
               'IF',
-              new PostScriptToken(PostScriptTokenTypes.IF, 'IF')
+              new PostScriptToken(PostScriptTokenTypes.IF, 'IF'),
             )
           }
 
@@ -59190,7 +59203,7 @@
             return (0, _util.shadow)(
               this,
               'IFELSE',
-              new PostScriptToken(PostScriptTokenTypes.IFELSE, 'IFELSE')
+              new PostScriptToken(PostScriptTokenTypes.IFELSE, 'IFELSE'),
             )
           }
         }
@@ -59244,7 +59257,7 @@
               case 0x2e:
                 return new PostScriptToken(
                   PostScriptTokenTypes.NUMBER,
-                  this.getNumber()
+                  this.getNumber(),
                 )
 
               case 0x7b:
@@ -59299,7 +59312,7 @@
 
             if (isNaN(value)) {
               throw new _util.FormatError(
-                `Invalid floating point number: ${value}`
+                `Invalid floating point number: ${value}`,
               )
             }
 
@@ -59399,7 +59412,7 @@
           set(name = null, ref = null, data) {
             if (typeof name !== 'string' && !ref) {
               throw new Error(
-                'LocalColorSpaceCache.set - expected "name" and/or "ref" argument.'
+                'LocalColorSpaceCache.set - expected "name" and/or "ref" argument.',
               )
             }
 
@@ -59437,7 +59450,7 @@
           set(name = null, ref, data) {
             if (!ref) {
               throw new Error(
-                'LocalFunctionCache.set - expected "ref" argument.'
+                'LocalFunctionCache.set - expected "ref" argument.',
               )
             }
 
@@ -59455,7 +59468,7 @@
           set(name, ref = null, data) {
             if (typeof name !== 'string') {
               throw new Error(
-                'LocalGStateCache.set - expected "name" argument.'
+                'LocalGStateCache.set - expected "name" argument.',
               )
             }
 
@@ -59491,7 +59504,7 @@
           set(name = null, ref, data) {
             if (!ref) {
               throw new Error(
-                'LocalTilingPatternCache.set - expected "ref" argument.'
+                'LocalTilingPatternCache.set - expected "ref" argument.',
               )
             }
 
@@ -59613,7 +59626,7 @@
           setData(ref, data) {
             if (!this._refCache.has(ref)) {
               throw new Error(
-                'GlobalImageCache.setData - expected "addPageIndex" to have been called.'
+                'GlobalImageCache.setData - expected "addPageIndex" to have been called.',
               )
             }
 
@@ -59623,7 +59636,7 @@
 
             if (this._cacheLimitReached) {
               ;(0, _util.warn)(
-                'GlobalImageCache.setData - cache limit reached.'
+                'GlobalImageCache.setData - cache limit reached.',
               )
               return
             }
@@ -60249,7 +60262,7 @@
 
               if (!charType) {
                 ;(0, _util.warn)(
-                  'Bidi: invalid Unicode character ' + charCode.toString(16)
+                  'Bidi: invalid Unicode character ' + charCode.toString(16),
                 )
               }
             } else if (0x0700 <= charCode && charCode <= 0x08ac) {
@@ -61125,7 +61138,7 @@
               t.onesuperior = 333
               t.imacron = 278
               t.Euro = 556
-            }
+            },
           )
           t['Helvetica-BoldOblique'] = (0, _core_utils.getLookupTableFactory)(
             function (t) {
@@ -61444,7 +61457,7 @@
               t.onesuperior = 333
               t.imacron = 278
               t.Euro = 556
-            }
+            },
           )
           t['Helvetica-Oblique'] = (0, _core_utils.getLookupTableFactory)(
             function (t) {
@@ -61763,7 +61776,7 @@
               t.onesuperior = 333
               t.imacron = 278
               t.Euro = 556
-            }
+            },
           )
           t.Symbol = (0, _core_utils.getLookupTableFactory)(function (t) {
             t.space = 250
@@ -61957,644 +61970,644 @@
             t.bracerightbt = 494
             t.apple = 790
           })
-          t['Times-Roman'] = (0, _core_utils.getLookupTableFactory)(function (
-            t
-          ) {
-            t.space = 250
-            t.exclam = 333
-            t.quotedbl = 408
-            t.numbersign = 500
-            t.dollar = 500
-            t.percent = 833
-            t.ampersand = 778
-            t.quoteright = 333
-            t.parenleft = 333
-            t.parenright = 333
-            t.asterisk = 500
-            t.plus = 564
-            t.comma = 250
-            t.hyphen = 333
-            t.period = 250
-            t.slash = 278
-            t.zero = 500
-            t.one = 500
-            t.two = 500
-            t.three = 500
-            t.four = 500
-            t.five = 500
-            t.six = 500
-            t.seven = 500
-            t.eight = 500
-            t.nine = 500
-            t.colon = 278
-            t.semicolon = 278
-            t.less = 564
-            t.equal = 564
-            t.greater = 564
-            t.question = 444
-            t.at = 921
-            t.A = 722
-            t.B = 667
-            t.C = 667
-            t.D = 722
-            t.E = 611
-            t.F = 556
-            t.G = 722
-            t.H = 722
-            t.I = 333
-            t.J = 389
-            t.K = 722
-            t.L = 611
-            t.M = 889
-            t.N = 722
-            t.O = 722
-            t.P = 556
-            t.Q = 722
-            t.R = 667
-            t.S = 556
-            t.T = 611
-            t.U = 722
-            t.V = 722
-            t.W = 944
-            t.X = 722
-            t.Y = 722
-            t.Z = 611
-            t.bracketleft = 333
-            t.backslash = 278
-            t.bracketright = 333
-            t.asciicircum = 469
-            t.underscore = 500
-            t.quoteleft = 333
-            t.a = 444
-            t.b = 500
-            t.c = 444
-            t.d = 500
-            t.e = 444
-            t.f = 333
-            t.g = 500
-            t.h = 500
-            t.i = 278
-            t.j = 278
-            t.k = 500
-            t.l = 278
-            t.m = 778
-            t.n = 500
-            t.o = 500
-            t.p = 500
-            t.q = 500
-            t.r = 333
-            t.s = 389
-            t.t = 278
-            t.u = 500
-            t.v = 500
-            t.w = 722
-            t.x = 500
-            t.y = 500
-            t.z = 444
-            t.braceleft = 480
-            t.bar = 200
-            t.braceright = 480
-            t.asciitilde = 541
-            t.exclamdown = 333
-            t.cent = 500
-            t.sterling = 500
-            t.fraction = 167
-            t.yen = 500
-            t.florin = 500
-            t.section = 500
-            t.currency = 500
-            t.quotesingle = 180
-            t.quotedblleft = 444
-            t.guillemotleft = 500
-            t.guilsinglleft = 333
-            t.guilsinglright = 333
-            t.fi = 556
-            t.fl = 556
-            t.endash = 500
-            t.dagger = 500
-            t.daggerdbl = 500
-            t.periodcentered = 250
-            t.paragraph = 453
-            t.bullet = 350
-            t.quotesinglbase = 333
-            t.quotedblbase = 444
-            t.quotedblright = 444
-            t.guillemotright = 500
-            t.ellipsis = 1000
-            t.perthousand = 1000
-            t.questiondown = 444
-            t.grave = 333
-            t.acute = 333
-            t.circumflex = 333
-            t.tilde = 333
-            t.macron = 333
-            t.breve = 333
-            t.dotaccent = 333
-            t.dieresis = 333
-            t.ring = 333
-            t.cedilla = 333
-            t.hungarumlaut = 333
-            t.ogonek = 333
-            t.caron = 333
-            t.emdash = 1000
-            t.AE = 889
-            t.ordfeminine = 276
-            t.Lslash = 611
-            t.Oslash = 722
-            t.OE = 889
-            t.ordmasculine = 310
-            t.ae = 667
-            t.dotlessi = 278
-            t.lslash = 278
-            t.oslash = 500
-            t.oe = 722
-            t.germandbls = 500
-            t.Idieresis = 333
-            t.eacute = 444
-            t.abreve = 444
-            t.uhungarumlaut = 500
-            t.ecaron = 444
-            t.Ydieresis = 722
-            t.divide = 564
-            t.Yacute = 722
-            t.Acircumflex = 722
-            t.aacute = 444
-            t.Ucircumflex = 722
-            t.yacute = 500
-            t.scommaaccent = 389
-            t.ecircumflex = 444
-            t.Uring = 722
-            t.Udieresis = 722
-            t.aogonek = 444
-            t.Uacute = 722
-            t.uogonek = 500
-            t.Edieresis = 611
-            t.Dcroat = 722
-            t.commaaccent = 250
-            t.copyright = 760
-            t.Emacron = 611
-            t.ccaron = 444
-            t.aring = 444
-            t.Ncommaaccent = 722
-            t.lacute = 278
-            t.agrave = 444
-            t.Tcommaaccent = 611
-            t.Cacute = 667
-            t.atilde = 444
-            t.Edotaccent = 611
-            t.scaron = 389
-            t.scedilla = 389
-            t.iacute = 278
-            t.lozenge = 471
-            t.Rcaron = 667
-            t.Gcommaaccent = 722
-            t.ucircumflex = 500
-            t.acircumflex = 444
-            t.Amacron = 722
-            t.rcaron = 333
-            t.ccedilla = 444
-            t.Zdotaccent = 611
-            t.Thorn = 556
-            t.Omacron = 722
-            t.Racute = 667
-            t.Sacute = 556
-            t.dcaron = 588
-            t.Umacron = 722
-            t.uring = 500
-            t.threesuperior = 300
-            t.Ograve = 722
-            t.Agrave = 722
-            t.Abreve = 722
-            t.multiply = 564
-            t.uacute = 500
-            t.Tcaron = 611
-            t.partialdiff = 476
-            t.ydieresis = 500
-            t.Nacute = 722
-            t.icircumflex = 278
-            t.Ecircumflex = 611
-            t.adieresis = 444
-            t.edieresis = 444
-            t.cacute = 444
-            t.nacute = 500
-            t.umacron = 500
-            t.Ncaron = 722
-            t.Iacute = 333
-            t.plusminus = 564
-            t.brokenbar = 200
-            t.registered = 760
-            t.Gbreve = 722
-            t.Idotaccent = 333
-            t.summation = 600
-            t.Egrave = 611
-            t.racute = 333
-            t.omacron = 500
-            t.Zacute = 611
-            t.Zcaron = 611
-            t.greaterequal = 549
-            t.Eth = 722
-            t.Ccedilla = 667
-            t.lcommaaccent = 278
-            t.tcaron = 326
-            t.eogonek = 444
-            t.Uogonek = 722
-            t.Aacute = 722
-            t.Adieresis = 722
-            t.egrave = 444
-            t.zacute = 444
-            t.iogonek = 278
-            t.Oacute = 722
-            t.oacute = 500
-            t.amacron = 444
-            t.sacute = 389
-            t.idieresis = 278
-            t.Ocircumflex = 722
-            t.Ugrave = 722
-            t.Delta = 612
-            t.thorn = 500
-            t.twosuperior = 300
-            t.Odieresis = 722
-            t.mu = 500
-            t.igrave = 278
-            t.ohungarumlaut = 500
-            t.Eogonek = 611
-            t.dcroat = 500
-            t.threequarters = 750
-            t.Scedilla = 556
-            t.lcaron = 344
-            t.Kcommaaccent = 722
-            t.Lacute = 611
-            t.trademark = 980
-            t.edotaccent = 444
-            t.Igrave = 333
-            t.Imacron = 333
-            t.Lcaron = 611
-            t.onehalf = 750
-            t.lessequal = 549
-            t.ocircumflex = 500
-            t.ntilde = 500
-            t.Uhungarumlaut = 722
-            t.Eacute = 611
-            t.emacron = 444
-            t.gbreve = 500
-            t.onequarter = 750
-            t.Scaron = 556
-            t.Scommaaccent = 556
-            t.Ohungarumlaut = 722
-            t.degree = 400
-            t.ograve = 500
-            t.Ccaron = 667
-            t.ugrave = 500
-            t.radical = 453
-            t.Dcaron = 722
-            t.rcommaaccent = 333
-            t.Ntilde = 722
-            t.otilde = 500
-            t.Rcommaaccent = 667
-            t.Lcommaaccent = 611
-            t.Atilde = 722
-            t.Aogonek = 722
-            t.Aring = 722
-            t.Otilde = 722
-            t.zdotaccent = 444
-            t.Ecaron = 611
-            t.Iogonek = 333
-            t.kcommaaccent = 500
-            t.minus = 564
-            t.Icircumflex = 333
-            t.ncaron = 500
-            t.tcommaaccent = 278
-            t.logicalnot = 564
-            t.odieresis = 500
-            t.udieresis = 500
-            t.notequal = 549
-            t.gcommaaccent = 500
-            t.eth = 500
-            t.zcaron = 444
-            t.ncommaaccent = 500
-            t.onesuperior = 300
-            t.imacron = 278
-            t.Euro = 500
-          })
-          t['Times-Bold'] = (0, _core_utils.getLookupTableFactory)(function (
-            t
-          ) {
-            t.space = 250
-            t.exclam = 333
-            t.quotedbl = 555
-            t.numbersign = 500
-            t.dollar = 500
-            t.percent = 1000
-            t.ampersand = 833
-            t.quoteright = 333
-            t.parenleft = 333
-            t.parenright = 333
-            t.asterisk = 500
-            t.plus = 570
-            t.comma = 250
-            t.hyphen = 333
-            t.period = 250
-            t.slash = 278
-            t.zero = 500
-            t.one = 500
-            t.two = 500
-            t.three = 500
-            t.four = 500
-            t.five = 500
-            t.six = 500
-            t.seven = 500
-            t.eight = 500
-            t.nine = 500
-            t.colon = 333
-            t.semicolon = 333
-            t.less = 570
-            t.equal = 570
-            t.greater = 570
-            t.question = 500
-            t.at = 930
-            t.A = 722
-            t.B = 667
-            t.C = 722
-            t.D = 722
-            t.E = 667
-            t.F = 611
-            t.G = 778
-            t.H = 778
-            t.I = 389
-            t.J = 500
-            t.K = 778
-            t.L = 667
-            t.M = 944
-            t.N = 722
-            t.O = 778
-            t.P = 611
-            t.Q = 778
-            t.R = 722
-            t.S = 556
-            t.T = 667
-            t.U = 722
-            t.V = 722
-            t.W = 1000
-            t.X = 722
-            t.Y = 722
-            t.Z = 667
-            t.bracketleft = 333
-            t.backslash = 278
-            t.bracketright = 333
-            t.asciicircum = 581
-            t.underscore = 500
-            t.quoteleft = 333
-            t.a = 500
-            t.b = 556
-            t.c = 444
-            t.d = 556
-            t.e = 444
-            t.f = 333
-            t.g = 500
-            t.h = 556
-            t.i = 278
-            t.j = 333
-            t.k = 556
-            t.l = 278
-            t.m = 833
-            t.n = 556
-            t.o = 500
-            t.p = 556
-            t.q = 556
-            t.r = 444
-            t.s = 389
-            t.t = 333
-            t.u = 556
-            t.v = 500
-            t.w = 722
-            t.x = 500
-            t.y = 500
-            t.z = 444
-            t.braceleft = 394
-            t.bar = 220
-            t.braceright = 394
-            t.asciitilde = 520
-            t.exclamdown = 333
-            t.cent = 500
-            t.sterling = 500
-            t.fraction = 167
-            t.yen = 500
-            t.florin = 500
-            t.section = 500
-            t.currency = 500
-            t.quotesingle = 278
-            t.quotedblleft = 500
-            t.guillemotleft = 500
-            t.guilsinglleft = 333
-            t.guilsinglright = 333
-            t.fi = 556
-            t.fl = 556
-            t.endash = 500
-            t.dagger = 500
-            t.daggerdbl = 500
-            t.periodcentered = 250
-            t.paragraph = 540
-            t.bullet = 350
-            t.quotesinglbase = 333
-            t.quotedblbase = 500
-            t.quotedblright = 500
-            t.guillemotright = 500
-            t.ellipsis = 1000
-            t.perthousand = 1000
-            t.questiondown = 500
-            t.grave = 333
-            t.acute = 333
-            t.circumflex = 333
-            t.tilde = 333
-            t.macron = 333
-            t.breve = 333
-            t.dotaccent = 333
-            t.dieresis = 333
-            t.ring = 333
-            t.cedilla = 333
-            t.hungarumlaut = 333
-            t.ogonek = 333
-            t.caron = 333
-            t.emdash = 1000
-            t.AE = 1000
-            t.ordfeminine = 300
-            t.Lslash = 667
-            t.Oslash = 778
-            t.OE = 1000
-            t.ordmasculine = 330
-            t.ae = 722
-            t.dotlessi = 278
-            t.lslash = 278
-            t.oslash = 500
-            t.oe = 722
-            t.germandbls = 556
-            t.Idieresis = 389
-            t.eacute = 444
-            t.abreve = 500
-            t.uhungarumlaut = 556
-            t.ecaron = 444
-            t.Ydieresis = 722
-            t.divide = 570
-            t.Yacute = 722
-            t.Acircumflex = 722
-            t.aacute = 500
-            t.Ucircumflex = 722
-            t.yacute = 500
-            t.scommaaccent = 389
-            t.ecircumflex = 444
-            t.Uring = 722
-            t.Udieresis = 722
-            t.aogonek = 500
-            t.Uacute = 722
-            t.uogonek = 556
-            t.Edieresis = 667
-            t.Dcroat = 722
-            t.commaaccent = 250
-            t.copyright = 747
-            t.Emacron = 667
-            t.ccaron = 444
-            t.aring = 500
-            t.Ncommaaccent = 722
-            t.lacute = 278
-            t.agrave = 500
-            t.Tcommaaccent = 667
-            t.Cacute = 722
-            t.atilde = 500
-            t.Edotaccent = 667
-            t.scaron = 389
-            t.scedilla = 389
-            t.iacute = 278
-            t.lozenge = 494
-            t.Rcaron = 722
-            t.Gcommaaccent = 778
-            t.ucircumflex = 556
-            t.acircumflex = 500
-            t.Amacron = 722
-            t.rcaron = 444
-            t.ccedilla = 444
-            t.Zdotaccent = 667
-            t.Thorn = 611
-            t.Omacron = 778
-            t.Racute = 722
-            t.Sacute = 556
-            t.dcaron = 672
-            t.Umacron = 722
-            t.uring = 556
-            t.threesuperior = 300
-            t.Ograve = 778
-            t.Agrave = 722
-            t.Abreve = 722
-            t.multiply = 570
-            t.uacute = 556
-            t.Tcaron = 667
-            t.partialdiff = 494
-            t.ydieresis = 500
-            t.Nacute = 722
-            t.icircumflex = 278
-            t.Ecircumflex = 667
-            t.adieresis = 500
-            t.edieresis = 444
-            t.cacute = 444
-            t.nacute = 556
-            t.umacron = 556
-            t.Ncaron = 722
-            t.Iacute = 389
-            t.plusminus = 570
-            t.brokenbar = 220
-            t.registered = 747
-            t.Gbreve = 778
-            t.Idotaccent = 389
-            t.summation = 600
-            t.Egrave = 667
-            t.racute = 444
-            t.omacron = 500
-            t.Zacute = 667
-            t.Zcaron = 667
-            t.greaterequal = 549
-            t.Eth = 722
-            t.Ccedilla = 722
-            t.lcommaaccent = 278
-            t.tcaron = 416
-            t.eogonek = 444
-            t.Uogonek = 722
-            t.Aacute = 722
-            t.Adieresis = 722
-            t.egrave = 444
-            t.zacute = 444
-            t.iogonek = 278
-            t.Oacute = 778
-            t.oacute = 500
-            t.amacron = 500
-            t.sacute = 389
-            t.idieresis = 278
-            t.Ocircumflex = 778
-            t.Ugrave = 722
-            t.Delta = 612
-            t.thorn = 556
-            t.twosuperior = 300
-            t.Odieresis = 778
-            t.mu = 556
-            t.igrave = 278
-            t.ohungarumlaut = 500
-            t.Eogonek = 667
-            t.dcroat = 556
-            t.threequarters = 750
-            t.Scedilla = 556
-            t.lcaron = 394
-            t.Kcommaaccent = 778
-            t.Lacute = 667
-            t.trademark = 1000
-            t.edotaccent = 444
-            t.Igrave = 389
-            t.Imacron = 389
-            t.Lcaron = 667
-            t.onehalf = 750
-            t.lessequal = 549
-            t.ocircumflex = 500
-            t.ntilde = 556
-            t.Uhungarumlaut = 722
-            t.Eacute = 667
-            t.emacron = 444
-            t.gbreve = 500
-            t.onequarter = 750
-            t.Scaron = 556
-            t.Scommaaccent = 556
-            t.Ohungarumlaut = 778
-            t.degree = 400
-            t.ograve = 500
-            t.Ccaron = 722
-            t.ugrave = 556
-            t.radical = 549
-            t.Dcaron = 722
-            t.rcommaaccent = 444
-            t.Ntilde = 722
-            t.otilde = 500
-            t.Rcommaaccent = 722
-            t.Lcommaaccent = 667
-            t.Atilde = 722
-            t.Aogonek = 722
-            t.Aring = 722
-            t.Otilde = 778
-            t.zdotaccent = 444
-            t.Ecaron = 667
-            t.Iogonek = 389
-            t.kcommaaccent = 556
-            t.minus = 570
-            t.Icircumflex = 389
-            t.ncaron = 556
-            t.tcommaaccent = 333
-            t.logicalnot = 570
-            t.odieresis = 500
-            t.udieresis = 556
-            t.notequal = 549
-            t.gcommaaccent = 500
-            t.eth = 500
-            t.zcaron = 444
-            t.ncommaaccent = 556
-            t.onesuperior = 300
-            t.imacron = 278
-            t.Euro = 500
-          })
+          t['Times-Roman'] = (0, _core_utils.getLookupTableFactory)(
+            function (t) {
+              t.space = 250
+              t.exclam = 333
+              t.quotedbl = 408
+              t.numbersign = 500
+              t.dollar = 500
+              t.percent = 833
+              t.ampersand = 778
+              t.quoteright = 333
+              t.parenleft = 333
+              t.parenright = 333
+              t.asterisk = 500
+              t.plus = 564
+              t.comma = 250
+              t.hyphen = 333
+              t.period = 250
+              t.slash = 278
+              t.zero = 500
+              t.one = 500
+              t.two = 500
+              t.three = 500
+              t.four = 500
+              t.five = 500
+              t.six = 500
+              t.seven = 500
+              t.eight = 500
+              t.nine = 500
+              t.colon = 278
+              t.semicolon = 278
+              t.less = 564
+              t.equal = 564
+              t.greater = 564
+              t.question = 444
+              t.at = 921
+              t.A = 722
+              t.B = 667
+              t.C = 667
+              t.D = 722
+              t.E = 611
+              t.F = 556
+              t.G = 722
+              t.H = 722
+              t.I = 333
+              t.J = 389
+              t.K = 722
+              t.L = 611
+              t.M = 889
+              t.N = 722
+              t.O = 722
+              t.P = 556
+              t.Q = 722
+              t.R = 667
+              t.S = 556
+              t.T = 611
+              t.U = 722
+              t.V = 722
+              t.W = 944
+              t.X = 722
+              t.Y = 722
+              t.Z = 611
+              t.bracketleft = 333
+              t.backslash = 278
+              t.bracketright = 333
+              t.asciicircum = 469
+              t.underscore = 500
+              t.quoteleft = 333
+              t.a = 444
+              t.b = 500
+              t.c = 444
+              t.d = 500
+              t.e = 444
+              t.f = 333
+              t.g = 500
+              t.h = 500
+              t.i = 278
+              t.j = 278
+              t.k = 500
+              t.l = 278
+              t.m = 778
+              t.n = 500
+              t.o = 500
+              t.p = 500
+              t.q = 500
+              t.r = 333
+              t.s = 389
+              t.t = 278
+              t.u = 500
+              t.v = 500
+              t.w = 722
+              t.x = 500
+              t.y = 500
+              t.z = 444
+              t.braceleft = 480
+              t.bar = 200
+              t.braceright = 480
+              t.asciitilde = 541
+              t.exclamdown = 333
+              t.cent = 500
+              t.sterling = 500
+              t.fraction = 167
+              t.yen = 500
+              t.florin = 500
+              t.section = 500
+              t.currency = 500
+              t.quotesingle = 180
+              t.quotedblleft = 444
+              t.guillemotleft = 500
+              t.guilsinglleft = 333
+              t.guilsinglright = 333
+              t.fi = 556
+              t.fl = 556
+              t.endash = 500
+              t.dagger = 500
+              t.daggerdbl = 500
+              t.periodcentered = 250
+              t.paragraph = 453
+              t.bullet = 350
+              t.quotesinglbase = 333
+              t.quotedblbase = 444
+              t.quotedblright = 444
+              t.guillemotright = 500
+              t.ellipsis = 1000
+              t.perthousand = 1000
+              t.questiondown = 444
+              t.grave = 333
+              t.acute = 333
+              t.circumflex = 333
+              t.tilde = 333
+              t.macron = 333
+              t.breve = 333
+              t.dotaccent = 333
+              t.dieresis = 333
+              t.ring = 333
+              t.cedilla = 333
+              t.hungarumlaut = 333
+              t.ogonek = 333
+              t.caron = 333
+              t.emdash = 1000
+              t.AE = 889
+              t.ordfeminine = 276
+              t.Lslash = 611
+              t.Oslash = 722
+              t.OE = 889
+              t.ordmasculine = 310
+              t.ae = 667
+              t.dotlessi = 278
+              t.lslash = 278
+              t.oslash = 500
+              t.oe = 722
+              t.germandbls = 500
+              t.Idieresis = 333
+              t.eacute = 444
+              t.abreve = 444
+              t.uhungarumlaut = 500
+              t.ecaron = 444
+              t.Ydieresis = 722
+              t.divide = 564
+              t.Yacute = 722
+              t.Acircumflex = 722
+              t.aacute = 444
+              t.Ucircumflex = 722
+              t.yacute = 500
+              t.scommaaccent = 389
+              t.ecircumflex = 444
+              t.Uring = 722
+              t.Udieresis = 722
+              t.aogonek = 444
+              t.Uacute = 722
+              t.uogonek = 500
+              t.Edieresis = 611
+              t.Dcroat = 722
+              t.commaaccent = 250
+              t.copyright = 760
+              t.Emacron = 611
+              t.ccaron = 444
+              t.aring = 444
+              t.Ncommaaccent = 722
+              t.lacute = 278
+              t.agrave = 444
+              t.Tcommaaccent = 611
+              t.Cacute = 667
+              t.atilde = 444
+              t.Edotaccent = 611
+              t.scaron = 389
+              t.scedilla = 389
+              t.iacute = 278
+              t.lozenge = 471
+              t.Rcaron = 667
+              t.Gcommaaccent = 722
+              t.ucircumflex = 500
+              t.acircumflex = 444
+              t.Amacron = 722
+              t.rcaron = 333
+              t.ccedilla = 444
+              t.Zdotaccent = 611
+              t.Thorn = 556
+              t.Omacron = 722
+              t.Racute = 667
+              t.Sacute = 556
+              t.dcaron = 588
+              t.Umacron = 722
+              t.uring = 500
+              t.threesuperior = 300
+              t.Ograve = 722
+              t.Agrave = 722
+              t.Abreve = 722
+              t.multiply = 564
+              t.uacute = 500
+              t.Tcaron = 611
+              t.partialdiff = 476
+              t.ydieresis = 500
+              t.Nacute = 722
+              t.icircumflex = 278
+              t.Ecircumflex = 611
+              t.adieresis = 444
+              t.edieresis = 444
+              t.cacute = 444
+              t.nacute = 500
+              t.umacron = 500
+              t.Ncaron = 722
+              t.Iacute = 333
+              t.plusminus = 564
+              t.brokenbar = 200
+              t.registered = 760
+              t.Gbreve = 722
+              t.Idotaccent = 333
+              t.summation = 600
+              t.Egrave = 611
+              t.racute = 333
+              t.omacron = 500
+              t.Zacute = 611
+              t.Zcaron = 611
+              t.greaterequal = 549
+              t.Eth = 722
+              t.Ccedilla = 667
+              t.lcommaaccent = 278
+              t.tcaron = 326
+              t.eogonek = 444
+              t.Uogonek = 722
+              t.Aacute = 722
+              t.Adieresis = 722
+              t.egrave = 444
+              t.zacute = 444
+              t.iogonek = 278
+              t.Oacute = 722
+              t.oacute = 500
+              t.amacron = 444
+              t.sacute = 389
+              t.idieresis = 278
+              t.Ocircumflex = 722
+              t.Ugrave = 722
+              t.Delta = 612
+              t.thorn = 500
+              t.twosuperior = 300
+              t.Odieresis = 722
+              t.mu = 500
+              t.igrave = 278
+              t.ohungarumlaut = 500
+              t.Eogonek = 611
+              t.dcroat = 500
+              t.threequarters = 750
+              t.Scedilla = 556
+              t.lcaron = 344
+              t.Kcommaaccent = 722
+              t.Lacute = 611
+              t.trademark = 980
+              t.edotaccent = 444
+              t.Igrave = 333
+              t.Imacron = 333
+              t.Lcaron = 611
+              t.onehalf = 750
+              t.lessequal = 549
+              t.ocircumflex = 500
+              t.ntilde = 500
+              t.Uhungarumlaut = 722
+              t.Eacute = 611
+              t.emacron = 444
+              t.gbreve = 500
+              t.onequarter = 750
+              t.Scaron = 556
+              t.Scommaaccent = 556
+              t.Ohungarumlaut = 722
+              t.degree = 400
+              t.ograve = 500
+              t.Ccaron = 667
+              t.ugrave = 500
+              t.radical = 453
+              t.Dcaron = 722
+              t.rcommaaccent = 333
+              t.Ntilde = 722
+              t.otilde = 500
+              t.Rcommaaccent = 667
+              t.Lcommaaccent = 611
+              t.Atilde = 722
+              t.Aogonek = 722
+              t.Aring = 722
+              t.Otilde = 722
+              t.zdotaccent = 444
+              t.Ecaron = 611
+              t.Iogonek = 333
+              t.kcommaaccent = 500
+              t.minus = 564
+              t.Icircumflex = 333
+              t.ncaron = 500
+              t.tcommaaccent = 278
+              t.logicalnot = 564
+              t.odieresis = 500
+              t.udieresis = 500
+              t.notequal = 549
+              t.gcommaaccent = 500
+              t.eth = 500
+              t.zcaron = 444
+              t.ncommaaccent = 500
+              t.onesuperior = 300
+              t.imacron = 278
+              t.Euro = 500
+            },
+          )
+          t['Times-Bold'] = (0, _core_utils.getLookupTableFactory)(
+            function (t) {
+              t.space = 250
+              t.exclam = 333
+              t.quotedbl = 555
+              t.numbersign = 500
+              t.dollar = 500
+              t.percent = 1000
+              t.ampersand = 833
+              t.quoteright = 333
+              t.parenleft = 333
+              t.parenright = 333
+              t.asterisk = 500
+              t.plus = 570
+              t.comma = 250
+              t.hyphen = 333
+              t.period = 250
+              t.slash = 278
+              t.zero = 500
+              t.one = 500
+              t.two = 500
+              t.three = 500
+              t.four = 500
+              t.five = 500
+              t.six = 500
+              t.seven = 500
+              t.eight = 500
+              t.nine = 500
+              t.colon = 333
+              t.semicolon = 333
+              t.less = 570
+              t.equal = 570
+              t.greater = 570
+              t.question = 500
+              t.at = 930
+              t.A = 722
+              t.B = 667
+              t.C = 722
+              t.D = 722
+              t.E = 667
+              t.F = 611
+              t.G = 778
+              t.H = 778
+              t.I = 389
+              t.J = 500
+              t.K = 778
+              t.L = 667
+              t.M = 944
+              t.N = 722
+              t.O = 778
+              t.P = 611
+              t.Q = 778
+              t.R = 722
+              t.S = 556
+              t.T = 667
+              t.U = 722
+              t.V = 722
+              t.W = 1000
+              t.X = 722
+              t.Y = 722
+              t.Z = 667
+              t.bracketleft = 333
+              t.backslash = 278
+              t.bracketright = 333
+              t.asciicircum = 581
+              t.underscore = 500
+              t.quoteleft = 333
+              t.a = 500
+              t.b = 556
+              t.c = 444
+              t.d = 556
+              t.e = 444
+              t.f = 333
+              t.g = 500
+              t.h = 556
+              t.i = 278
+              t.j = 333
+              t.k = 556
+              t.l = 278
+              t.m = 833
+              t.n = 556
+              t.o = 500
+              t.p = 556
+              t.q = 556
+              t.r = 444
+              t.s = 389
+              t.t = 333
+              t.u = 556
+              t.v = 500
+              t.w = 722
+              t.x = 500
+              t.y = 500
+              t.z = 444
+              t.braceleft = 394
+              t.bar = 220
+              t.braceright = 394
+              t.asciitilde = 520
+              t.exclamdown = 333
+              t.cent = 500
+              t.sterling = 500
+              t.fraction = 167
+              t.yen = 500
+              t.florin = 500
+              t.section = 500
+              t.currency = 500
+              t.quotesingle = 278
+              t.quotedblleft = 500
+              t.guillemotleft = 500
+              t.guilsinglleft = 333
+              t.guilsinglright = 333
+              t.fi = 556
+              t.fl = 556
+              t.endash = 500
+              t.dagger = 500
+              t.daggerdbl = 500
+              t.periodcentered = 250
+              t.paragraph = 540
+              t.bullet = 350
+              t.quotesinglbase = 333
+              t.quotedblbase = 500
+              t.quotedblright = 500
+              t.guillemotright = 500
+              t.ellipsis = 1000
+              t.perthousand = 1000
+              t.questiondown = 500
+              t.grave = 333
+              t.acute = 333
+              t.circumflex = 333
+              t.tilde = 333
+              t.macron = 333
+              t.breve = 333
+              t.dotaccent = 333
+              t.dieresis = 333
+              t.ring = 333
+              t.cedilla = 333
+              t.hungarumlaut = 333
+              t.ogonek = 333
+              t.caron = 333
+              t.emdash = 1000
+              t.AE = 1000
+              t.ordfeminine = 300
+              t.Lslash = 667
+              t.Oslash = 778
+              t.OE = 1000
+              t.ordmasculine = 330
+              t.ae = 722
+              t.dotlessi = 278
+              t.lslash = 278
+              t.oslash = 500
+              t.oe = 722
+              t.germandbls = 556
+              t.Idieresis = 389
+              t.eacute = 444
+              t.abreve = 500
+              t.uhungarumlaut = 556
+              t.ecaron = 444
+              t.Ydieresis = 722
+              t.divide = 570
+              t.Yacute = 722
+              t.Acircumflex = 722
+              t.aacute = 500
+              t.Ucircumflex = 722
+              t.yacute = 500
+              t.scommaaccent = 389
+              t.ecircumflex = 444
+              t.Uring = 722
+              t.Udieresis = 722
+              t.aogonek = 500
+              t.Uacute = 722
+              t.uogonek = 556
+              t.Edieresis = 667
+              t.Dcroat = 722
+              t.commaaccent = 250
+              t.copyright = 747
+              t.Emacron = 667
+              t.ccaron = 444
+              t.aring = 500
+              t.Ncommaaccent = 722
+              t.lacute = 278
+              t.agrave = 500
+              t.Tcommaaccent = 667
+              t.Cacute = 722
+              t.atilde = 500
+              t.Edotaccent = 667
+              t.scaron = 389
+              t.scedilla = 389
+              t.iacute = 278
+              t.lozenge = 494
+              t.Rcaron = 722
+              t.Gcommaaccent = 778
+              t.ucircumflex = 556
+              t.acircumflex = 500
+              t.Amacron = 722
+              t.rcaron = 444
+              t.ccedilla = 444
+              t.Zdotaccent = 667
+              t.Thorn = 611
+              t.Omacron = 778
+              t.Racute = 722
+              t.Sacute = 556
+              t.dcaron = 672
+              t.Umacron = 722
+              t.uring = 556
+              t.threesuperior = 300
+              t.Ograve = 778
+              t.Agrave = 722
+              t.Abreve = 722
+              t.multiply = 570
+              t.uacute = 556
+              t.Tcaron = 667
+              t.partialdiff = 494
+              t.ydieresis = 500
+              t.Nacute = 722
+              t.icircumflex = 278
+              t.Ecircumflex = 667
+              t.adieresis = 500
+              t.edieresis = 444
+              t.cacute = 444
+              t.nacute = 556
+              t.umacron = 556
+              t.Ncaron = 722
+              t.Iacute = 389
+              t.plusminus = 570
+              t.brokenbar = 220
+              t.registered = 747
+              t.Gbreve = 778
+              t.Idotaccent = 389
+              t.summation = 600
+              t.Egrave = 667
+              t.racute = 444
+              t.omacron = 500
+              t.Zacute = 667
+              t.Zcaron = 667
+              t.greaterequal = 549
+              t.Eth = 722
+              t.Ccedilla = 722
+              t.lcommaaccent = 278
+              t.tcaron = 416
+              t.eogonek = 444
+              t.Uogonek = 722
+              t.Aacute = 722
+              t.Adieresis = 722
+              t.egrave = 444
+              t.zacute = 444
+              t.iogonek = 278
+              t.Oacute = 778
+              t.oacute = 500
+              t.amacron = 500
+              t.sacute = 389
+              t.idieresis = 278
+              t.Ocircumflex = 778
+              t.Ugrave = 722
+              t.Delta = 612
+              t.thorn = 556
+              t.twosuperior = 300
+              t.Odieresis = 778
+              t.mu = 556
+              t.igrave = 278
+              t.ohungarumlaut = 500
+              t.Eogonek = 667
+              t.dcroat = 556
+              t.threequarters = 750
+              t.Scedilla = 556
+              t.lcaron = 394
+              t.Kcommaaccent = 778
+              t.Lacute = 667
+              t.trademark = 1000
+              t.edotaccent = 444
+              t.Igrave = 389
+              t.Imacron = 389
+              t.Lcaron = 667
+              t.onehalf = 750
+              t.lessequal = 549
+              t.ocircumflex = 500
+              t.ntilde = 556
+              t.Uhungarumlaut = 722
+              t.Eacute = 667
+              t.emacron = 444
+              t.gbreve = 500
+              t.onequarter = 750
+              t.Scaron = 556
+              t.Scommaaccent = 556
+              t.Ohungarumlaut = 778
+              t.degree = 400
+              t.ograve = 500
+              t.Ccaron = 722
+              t.ugrave = 556
+              t.radical = 549
+              t.Dcaron = 722
+              t.rcommaaccent = 444
+              t.Ntilde = 722
+              t.otilde = 500
+              t.Rcommaaccent = 722
+              t.Lcommaaccent = 667
+              t.Atilde = 722
+              t.Aogonek = 722
+              t.Aring = 722
+              t.Otilde = 778
+              t.zdotaccent = 444
+              t.Ecaron = 667
+              t.Iogonek = 389
+              t.kcommaaccent = 556
+              t.minus = 570
+              t.Icircumflex = 389
+              t.ncaron = 556
+              t.tcommaaccent = 333
+              t.logicalnot = 570
+              t.odieresis = 500
+              t.udieresis = 556
+              t.notequal = 549
+              t.gcommaaccent = 500
+              t.eth = 500
+              t.zcaron = 444
+              t.ncommaaccent = 556
+              t.onesuperior = 300
+              t.imacron = 278
+              t.Euro = 500
+            },
+          )
           t['Times-BoldItalic'] = (0, _core_utils.getLookupTableFactory)(
             function (t) {
               t.space = 250
@@ -62912,327 +62925,327 @@
               t.onesuperior = 300
               t.imacron = 278
               t.Euro = 500
-            }
+            },
           )
-          t['Times-Italic'] = (0, _core_utils.getLookupTableFactory)(function (
-            t
-          ) {
-            t.space = 250
-            t.exclam = 333
-            t.quotedbl = 420
-            t.numbersign = 500
-            t.dollar = 500
-            t.percent = 833
-            t.ampersand = 778
-            t.quoteright = 333
-            t.parenleft = 333
-            t.parenright = 333
-            t.asterisk = 500
-            t.plus = 675
-            t.comma = 250
-            t.hyphen = 333
-            t.period = 250
-            t.slash = 278
-            t.zero = 500
-            t.one = 500
-            t.two = 500
-            t.three = 500
-            t.four = 500
-            t.five = 500
-            t.six = 500
-            t.seven = 500
-            t.eight = 500
-            t.nine = 500
-            t.colon = 333
-            t.semicolon = 333
-            t.less = 675
-            t.equal = 675
-            t.greater = 675
-            t.question = 500
-            t.at = 920
-            t.A = 611
-            t.B = 611
-            t.C = 667
-            t.D = 722
-            t.E = 611
-            t.F = 611
-            t.G = 722
-            t.H = 722
-            t.I = 333
-            t.J = 444
-            t.K = 667
-            t.L = 556
-            t.M = 833
-            t.N = 667
-            t.O = 722
-            t.P = 611
-            t.Q = 722
-            t.R = 611
-            t.S = 500
-            t.T = 556
-            t.U = 722
-            t.V = 611
-            t.W = 833
-            t.X = 611
-            t.Y = 556
-            t.Z = 556
-            t.bracketleft = 389
-            t.backslash = 278
-            t.bracketright = 389
-            t.asciicircum = 422
-            t.underscore = 500
-            t.quoteleft = 333
-            t.a = 500
-            t.b = 500
-            t.c = 444
-            t.d = 500
-            t.e = 444
-            t.f = 278
-            t.g = 500
-            t.h = 500
-            t.i = 278
-            t.j = 278
-            t.k = 444
-            t.l = 278
-            t.m = 722
-            t.n = 500
-            t.o = 500
-            t.p = 500
-            t.q = 500
-            t.r = 389
-            t.s = 389
-            t.t = 278
-            t.u = 500
-            t.v = 444
-            t.w = 667
-            t.x = 444
-            t.y = 444
-            t.z = 389
-            t.braceleft = 400
-            t.bar = 275
-            t.braceright = 400
-            t.asciitilde = 541
-            t.exclamdown = 389
-            t.cent = 500
-            t.sterling = 500
-            t.fraction = 167
-            t.yen = 500
-            t.florin = 500
-            t.section = 500
-            t.currency = 500
-            t.quotesingle = 214
-            t.quotedblleft = 556
-            t.guillemotleft = 500
-            t.guilsinglleft = 333
-            t.guilsinglright = 333
-            t.fi = 500
-            t.fl = 500
-            t.endash = 500
-            t.dagger = 500
-            t.daggerdbl = 500
-            t.periodcentered = 250
-            t.paragraph = 523
-            t.bullet = 350
-            t.quotesinglbase = 333
-            t.quotedblbase = 556
-            t.quotedblright = 556
-            t.guillemotright = 500
-            t.ellipsis = 889
-            t.perthousand = 1000
-            t.questiondown = 500
-            t.grave = 333
-            t.acute = 333
-            t.circumflex = 333
-            t.tilde = 333
-            t.macron = 333
-            t.breve = 333
-            t.dotaccent = 333
-            t.dieresis = 333
-            t.ring = 333
-            t.cedilla = 333
-            t.hungarumlaut = 333
-            t.ogonek = 333
-            t.caron = 333
-            t.emdash = 889
-            t.AE = 889
-            t.ordfeminine = 276
-            t.Lslash = 556
-            t.Oslash = 722
-            t.OE = 944
-            t.ordmasculine = 310
-            t.ae = 667
-            t.dotlessi = 278
-            t.lslash = 278
-            t.oslash = 500
-            t.oe = 667
-            t.germandbls = 500
-            t.Idieresis = 333
-            t.eacute = 444
-            t.abreve = 500
-            t.uhungarumlaut = 500
-            t.ecaron = 444
-            t.Ydieresis = 556
-            t.divide = 675
-            t.Yacute = 556
-            t.Acircumflex = 611
-            t.aacute = 500
-            t.Ucircumflex = 722
-            t.yacute = 444
-            t.scommaaccent = 389
-            t.ecircumflex = 444
-            t.Uring = 722
-            t.Udieresis = 722
-            t.aogonek = 500
-            t.Uacute = 722
-            t.uogonek = 500
-            t.Edieresis = 611
-            t.Dcroat = 722
-            t.commaaccent = 250
-            t.copyright = 760
-            t.Emacron = 611
-            t.ccaron = 444
-            t.aring = 500
-            t.Ncommaaccent = 667
-            t.lacute = 278
-            t.agrave = 500
-            t.Tcommaaccent = 556
-            t.Cacute = 667
-            t.atilde = 500
-            t.Edotaccent = 611
-            t.scaron = 389
-            t.scedilla = 389
-            t.iacute = 278
-            t.lozenge = 471
-            t.Rcaron = 611
-            t.Gcommaaccent = 722
-            t.ucircumflex = 500
-            t.acircumflex = 500
-            t.Amacron = 611
-            t.rcaron = 389
-            t.ccedilla = 444
-            t.Zdotaccent = 556
-            t.Thorn = 611
-            t.Omacron = 722
-            t.Racute = 611
-            t.Sacute = 500
-            t.dcaron = 544
-            t.Umacron = 722
-            t.uring = 500
-            t.threesuperior = 300
-            t.Ograve = 722
-            t.Agrave = 611
-            t.Abreve = 611
-            t.multiply = 675
-            t.uacute = 500
-            t.Tcaron = 556
-            t.partialdiff = 476
-            t.ydieresis = 444
-            t.Nacute = 667
-            t.icircumflex = 278
-            t.Ecircumflex = 611
-            t.adieresis = 500
-            t.edieresis = 444
-            t.cacute = 444
-            t.nacute = 500
-            t.umacron = 500
-            t.Ncaron = 667
-            t.Iacute = 333
-            t.plusminus = 675
-            t.brokenbar = 275
-            t.registered = 760
-            t.Gbreve = 722
-            t.Idotaccent = 333
-            t.summation = 600
-            t.Egrave = 611
-            t.racute = 389
-            t.omacron = 500
-            t.Zacute = 556
-            t.Zcaron = 556
-            t.greaterequal = 549
-            t.Eth = 722
-            t.Ccedilla = 667
-            t.lcommaaccent = 278
-            t.tcaron = 300
-            t.eogonek = 444
-            t.Uogonek = 722
-            t.Aacute = 611
-            t.Adieresis = 611
-            t.egrave = 444
-            t.zacute = 389
-            t.iogonek = 278
-            t.Oacute = 722
-            t.oacute = 500
-            t.amacron = 500
-            t.sacute = 389
-            t.idieresis = 278
-            t.Ocircumflex = 722
-            t.Ugrave = 722
-            t.Delta = 612
-            t.thorn = 500
-            t.twosuperior = 300
-            t.Odieresis = 722
-            t.mu = 500
-            t.igrave = 278
-            t.ohungarumlaut = 500
-            t.Eogonek = 611
-            t.dcroat = 500
-            t.threequarters = 750
-            t.Scedilla = 500
-            t.lcaron = 300
-            t.Kcommaaccent = 667
-            t.Lacute = 556
-            t.trademark = 980
-            t.edotaccent = 444
-            t.Igrave = 333
-            t.Imacron = 333
-            t.Lcaron = 611
-            t.onehalf = 750
-            t.lessequal = 549
-            t.ocircumflex = 500
-            t.ntilde = 500
-            t.Uhungarumlaut = 722
-            t.Eacute = 611
-            t.emacron = 444
-            t.gbreve = 500
-            t.onequarter = 750
-            t.Scaron = 500
-            t.Scommaaccent = 500
-            t.Ohungarumlaut = 722
-            t.degree = 400
-            t.ograve = 500
-            t.Ccaron = 667
-            t.ugrave = 500
-            t.radical = 453
-            t.Dcaron = 722
-            t.rcommaaccent = 389
-            t.Ntilde = 667
-            t.otilde = 500
-            t.Rcommaaccent = 611
-            t.Lcommaaccent = 556
-            t.Atilde = 611
-            t.Aogonek = 611
-            t.Aring = 611
-            t.Otilde = 722
-            t.zdotaccent = 389
-            t.Ecaron = 611
-            t.Iogonek = 333
-            t.kcommaaccent = 444
-            t.minus = 675
-            t.Icircumflex = 333
-            t.ncaron = 500
-            t.tcommaaccent = 278
-            t.logicalnot = 675
-            t.odieresis = 500
-            t.udieresis = 500
-            t.notequal = 549
-            t.gcommaaccent = 500
-            t.eth = 500
-            t.zcaron = 389
-            t.ncommaaccent = 500
-            t.onesuperior = 300
-            t.imacron = 278
-            t.Euro = 500
-          })
+          t['Times-Italic'] = (0, _core_utils.getLookupTableFactory)(
+            function (t) {
+              t.space = 250
+              t.exclam = 333
+              t.quotedbl = 420
+              t.numbersign = 500
+              t.dollar = 500
+              t.percent = 833
+              t.ampersand = 778
+              t.quoteright = 333
+              t.parenleft = 333
+              t.parenright = 333
+              t.asterisk = 500
+              t.plus = 675
+              t.comma = 250
+              t.hyphen = 333
+              t.period = 250
+              t.slash = 278
+              t.zero = 500
+              t.one = 500
+              t.two = 500
+              t.three = 500
+              t.four = 500
+              t.five = 500
+              t.six = 500
+              t.seven = 500
+              t.eight = 500
+              t.nine = 500
+              t.colon = 333
+              t.semicolon = 333
+              t.less = 675
+              t.equal = 675
+              t.greater = 675
+              t.question = 500
+              t.at = 920
+              t.A = 611
+              t.B = 611
+              t.C = 667
+              t.D = 722
+              t.E = 611
+              t.F = 611
+              t.G = 722
+              t.H = 722
+              t.I = 333
+              t.J = 444
+              t.K = 667
+              t.L = 556
+              t.M = 833
+              t.N = 667
+              t.O = 722
+              t.P = 611
+              t.Q = 722
+              t.R = 611
+              t.S = 500
+              t.T = 556
+              t.U = 722
+              t.V = 611
+              t.W = 833
+              t.X = 611
+              t.Y = 556
+              t.Z = 556
+              t.bracketleft = 389
+              t.backslash = 278
+              t.bracketright = 389
+              t.asciicircum = 422
+              t.underscore = 500
+              t.quoteleft = 333
+              t.a = 500
+              t.b = 500
+              t.c = 444
+              t.d = 500
+              t.e = 444
+              t.f = 278
+              t.g = 500
+              t.h = 500
+              t.i = 278
+              t.j = 278
+              t.k = 444
+              t.l = 278
+              t.m = 722
+              t.n = 500
+              t.o = 500
+              t.p = 500
+              t.q = 500
+              t.r = 389
+              t.s = 389
+              t.t = 278
+              t.u = 500
+              t.v = 444
+              t.w = 667
+              t.x = 444
+              t.y = 444
+              t.z = 389
+              t.braceleft = 400
+              t.bar = 275
+              t.braceright = 400
+              t.asciitilde = 541
+              t.exclamdown = 389
+              t.cent = 500
+              t.sterling = 500
+              t.fraction = 167
+              t.yen = 500
+              t.florin = 500
+              t.section = 500
+              t.currency = 500
+              t.quotesingle = 214
+              t.quotedblleft = 556
+              t.guillemotleft = 500
+              t.guilsinglleft = 333
+              t.guilsinglright = 333
+              t.fi = 500
+              t.fl = 500
+              t.endash = 500
+              t.dagger = 500
+              t.daggerdbl = 500
+              t.periodcentered = 250
+              t.paragraph = 523
+              t.bullet = 350
+              t.quotesinglbase = 333
+              t.quotedblbase = 556
+              t.quotedblright = 556
+              t.guillemotright = 500
+              t.ellipsis = 889
+              t.perthousand = 1000
+              t.questiondown = 500
+              t.grave = 333
+              t.acute = 333
+              t.circumflex = 333
+              t.tilde = 333
+              t.macron = 333
+              t.breve = 333
+              t.dotaccent = 333
+              t.dieresis = 333
+              t.ring = 333
+              t.cedilla = 333
+              t.hungarumlaut = 333
+              t.ogonek = 333
+              t.caron = 333
+              t.emdash = 889
+              t.AE = 889
+              t.ordfeminine = 276
+              t.Lslash = 556
+              t.Oslash = 722
+              t.OE = 944
+              t.ordmasculine = 310
+              t.ae = 667
+              t.dotlessi = 278
+              t.lslash = 278
+              t.oslash = 500
+              t.oe = 667
+              t.germandbls = 500
+              t.Idieresis = 333
+              t.eacute = 444
+              t.abreve = 500
+              t.uhungarumlaut = 500
+              t.ecaron = 444
+              t.Ydieresis = 556
+              t.divide = 675
+              t.Yacute = 556
+              t.Acircumflex = 611
+              t.aacute = 500
+              t.Ucircumflex = 722
+              t.yacute = 444
+              t.scommaaccent = 389
+              t.ecircumflex = 444
+              t.Uring = 722
+              t.Udieresis = 722
+              t.aogonek = 500
+              t.Uacute = 722
+              t.uogonek = 500
+              t.Edieresis = 611
+              t.Dcroat = 722
+              t.commaaccent = 250
+              t.copyright = 760
+              t.Emacron = 611
+              t.ccaron = 444
+              t.aring = 500
+              t.Ncommaaccent = 667
+              t.lacute = 278
+              t.agrave = 500
+              t.Tcommaaccent = 556
+              t.Cacute = 667
+              t.atilde = 500
+              t.Edotaccent = 611
+              t.scaron = 389
+              t.scedilla = 389
+              t.iacute = 278
+              t.lozenge = 471
+              t.Rcaron = 611
+              t.Gcommaaccent = 722
+              t.ucircumflex = 500
+              t.acircumflex = 500
+              t.Amacron = 611
+              t.rcaron = 389
+              t.ccedilla = 444
+              t.Zdotaccent = 556
+              t.Thorn = 611
+              t.Omacron = 722
+              t.Racute = 611
+              t.Sacute = 500
+              t.dcaron = 544
+              t.Umacron = 722
+              t.uring = 500
+              t.threesuperior = 300
+              t.Ograve = 722
+              t.Agrave = 611
+              t.Abreve = 611
+              t.multiply = 675
+              t.uacute = 500
+              t.Tcaron = 556
+              t.partialdiff = 476
+              t.ydieresis = 444
+              t.Nacute = 667
+              t.icircumflex = 278
+              t.Ecircumflex = 611
+              t.adieresis = 500
+              t.edieresis = 444
+              t.cacute = 444
+              t.nacute = 500
+              t.umacron = 500
+              t.Ncaron = 667
+              t.Iacute = 333
+              t.plusminus = 675
+              t.brokenbar = 275
+              t.registered = 760
+              t.Gbreve = 722
+              t.Idotaccent = 333
+              t.summation = 600
+              t.Egrave = 611
+              t.racute = 389
+              t.omacron = 500
+              t.Zacute = 556
+              t.Zcaron = 556
+              t.greaterequal = 549
+              t.Eth = 722
+              t.Ccedilla = 667
+              t.lcommaaccent = 278
+              t.tcaron = 300
+              t.eogonek = 444
+              t.Uogonek = 722
+              t.Aacute = 611
+              t.Adieresis = 611
+              t.egrave = 444
+              t.zacute = 389
+              t.iogonek = 278
+              t.Oacute = 722
+              t.oacute = 500
+              t.amacron = 500
+              t.sacute = 389
+              t.idieresis = 278
+              t.Ocircumflex = 722
+              t.Ugrave = 722
+              t.Delta = 612
+              t.thorn = 500
+              t.twosuperior = 300
+              t.Odieresis = 722
+              t.mu = 500
+              t.igrave = 278
+              t.ohungarumlaut = 500
+              t.Eogonek = 611
+              t.dcroat = 500
+              t.threequarters = 750
+              t.Scedilla = 500
+              t.lcaron = 300
+              t.Kcommaaccent = 667
+              t.Lacute = 556
+              t.trademark = 980
+              t.edotaccent = 444
+              t.Igrave = 333
+              t.Imacron = 333
+              t.Lcaron = 611
+              t.onehalf = 750
+              t.lessequal = 549
+              t.ocircumflex = 500
+              t.ntilde = 500
+              t.Uhungarumlaut = 722
+              t.Eacute = 611
+              t.emacron = 444
+              t.gbreve = 500
+              t.onequarter = 750
+              t.Scaron = 500
+              t.Scommaaccent = 500
+              t.Ohungarumlaut = 722
+              t.degree = 400
+              t.ograve = 500
+              t.Ccaron = 667
+              t.ugrave = 500
+              t.radical = 453
+              t.Dcaron = 722
+              t.rcommaaccent = 389
+              t.Ntilde = 667
+              t.otilde = 500
+              t.Rcommaaccent = 611
+              t.Lcommaaccent = 556
+              t.Atilde = 611
+              t.Aogonek = 611
+              t.Aring = 611
+              t.Otilde = 722
+              t.zdotaccent = 389
+              t.Ecaron = 611
+              t.Iogonek = 333
+              t.kcommaaccent = 444
+              t.minus = 675
+              t.Icircumflex = 333
+              t.ncaron = 500
+              t.tcommaaccent = 278
+              t.logicalnot = 675
+              t.odieresis = 500
+              t.udieresis = 500
+              t.notequal = 549
+              t.gcommaaccent = 500
+              t.eth = 500
+              t.zcaron = 389
+              t.ncommaaccent = 500
+              t.onesuperior = 300
+              t.imacron = 278
+              t.Euro = 500
+            },
+          )
           t.ZapfDingbats = (0, _core_utils.getLookupTableFactory)(function (t) {
             t.space = 278
             t.a1 = 974
@@ -63484,7 +63497,7 @@
             } else {
               throw new Error(
                 'Wrong data format in MurmurHash3_64_update. ' +
-                  'Input must be a string or array.'
+                  'Input must be a string or array.',
               )
             }
 
@@ -63598,7 +63611,7 @@
           iFirstSave,
           count,
           fnArray,
-          argsArray
+          argsArray,
         ) {
           const iFirstPIMXO = iFirstSave + 2
           let i
@@ -63668,7 +63681,7 @@
             const iFirstPIIXO = curr - 1
             const count = Math.min(
               Math.floor((i - iFirstSave) / 4),
-              MAX_IMAGES_IN_INLINE_IMAGES_BLOCK
+              MAX_IMAGES_IN_INLINE_IMAGES_BLOCK,
             )
 
             if (count < MIN_IMAGES_IN_INLINE_IMAGES_BLOCK) {
@@ -63718,7 +63731,7 @@
               for (let k = 0, kk = map[q].h; k < kk; k++) {
                 imgData.set(
                   data.subarray(dataOffset, dataOffset + rowSize),
-                  offset
+                  offset,
                 )
                 dataOffset += rowSize
                 offset += imgRowSize
@@ -63726,7 +63739,7 @@
 
               imgData.set(
                 data.subarray(dataOffset - rowSize, dataOffset),
-                offset
+                offset,
               )
 
               while (offset >= 0) {
@@ -63745,7 +63758,7 @@
             fnArray.splice(
               iFirstSave,
               count * 4,
-              _util.OPS.paintInlineImageXObjectGroup
+              _util.OPS.paintInlineImageXObjectGroup,
             )
             argsArray.splice(iFirstSave, count * 4, [
               {
@@ -63757,7 +63770,7 @@
               map,
             ])
             return iFirstSave + 1
-          }
+          },
         )
         addState(
           InitialState,
@@ -63804,7 +63817,7 @@
               iFirstSave,
               count,
               fnArray,
-              argsArray
+              argsArray,
             )
 
             if (count < MIN_IMAGES_IN_MASKS_BLOCK) {
@@ -63859,7 +63872,7 @@
               fnArray.splice(
                 iFirstSave,
                 count * 4,
-                _util.OPS.paintImageMaskXObjectRepeat
+                _util.OPS.paintImageMaskXObjectRepeat,
               )
               argsArray.splice(iFirstSave, count * 4, [
                 firstPIMXOArg0,
@@ -63887,13 +63900,13 @@
               fnArray.splice(
                 iFirstSave,
                 count * 4,
-                _util.OPS.paintImageMaskXObjectGroup
+                _util.OPS.paintImageMaskXObjectGroup,
               )
               argsArray.splice(iFirstSave, count * 4, [images])
             }
 
             return iFirstSave + 1
-          }
+          },
         )
         addState(
           InitialState,
@@ -63975,7 +63988,7 @@
             const firstTransformArg3 = argsArray[iFirstTransform][3]
             const count = Math.min(
               Math.floor((i - iFirstSave) / 4),
-              MAX_IMAGES_IN_BLOCK
+              MAX_IMAGES_IN_BLOCK,
             )
 
             if (count < MIN_IMAGES_IN_BLOCK) {
@@ -64000,11 +64013,11 @@
             fnArray.splice(
               iFirstSave,
               count * 4,
-              _util.OPS.paintImageXObjectRepeat
+              _util.OPS.paintImageXObjectRepeat,
             )
             argsArray.splice(iFirstSave, count * 4, args)
             return iFirstSave + 1
-          }
+          },
         )
         addState(
           InitialState,
@@ -64071,7 +64084,7 @@
             const firstSetFontArg1 = argsArray[iFirstSetFont][1]
             let count = Math.min(
               Math.floor((i - iFirstBeginText) / 5),
-              MAX_CHARS_IN_BLOCK
+              MAX_CHARS_IN_BLOCK,
             )
 
             if (count < MIN_CHARS_IN_BLOCK) {
@@ -64102,7 +64115,7 @@
             }
 
             return iEndText + 1
-          }
+          },
         )
 
         class NullOptimizer {
@@ -64199,7 +64212,7 @@
               const length = this.queue.fnArray.length
               this.lastProcessed = (0, this.match.processFn)(
                 this.context,
-                length
+                length,
               )
               this.match = null
               this.state = null
@@ -64224,7 +64237,7 @@
             return (0, _util.shadow)(
               this,
               'CHUNK_SIZE_ABOUT',
-              this.CHUNK_SIZE - 5
+              this.CHUNK_SIZE - 5,
             )
           }
 
@@ -64291,7 +64304,7 @@
           addOpList(opList) {
             if (!(opList instanceof OperatorList)) {
               ;(0, _util.warn)(
-                'addOpList - ignoring invalid "opList" parameter.'
+                'addOpList - ignoring invalid "opList" parameter.',
               )
               return
             }
@@ -64347,7 +64360,7 @@
                 length,
               },
               1,
-              this._transfers
+              this._transfers,
             )
 
             this.dependencies.clear()
@@ -64478,7 +64491,7 @@
             ) {
               ;(0, _util.warn)(
                 'PDFImage - using the Width/Height of the image data, ' +
-                  'rather than the image dictionary.'
+                  'rather than the image dictionary.',
               )
               width = image.width
               height = image.height
@@ -64486,7 +64499,7 @@
 
             if (width < 1 || height < 1) {
               throw new _util.FormatError(
-                `Invalid image width: ${width} or height: ${height}`
+                `Invalid image width: ${width} or height: ${height}`,
               )
             }
 
@@ -64505,7 +64518,7 @@
                   bitsPerComponent = 1
                 } else {
                   throw new _util.FormatError(
-                    `Bits per component missing in image: ${this.imageMask}`
+                    `Bits per component missing in image: ${this.imageMask}`,
                   )
                 }
               }
@@ -64518,7 +64531,7 @@
 
               if (!colorSpace) {
                 ;(0, _util.info)(
-                  'JPX images (which do not require color spaces)'
+                  'JPX images (which do not require color spaces)',
                 )
 
                 switch (image.numComps) {
@@ -64536,7 +64549,7 @@
 
                   default:
                     throw new Error(
-                      `JPX images with ${image.numComps} color components not supported.`
+                      `JPX images with ${image.numComps} color components not supported.`,
                     )
                 }
               }
@@ -64559,7 +64572,7 @@
               ((this.colorSpace &&
                 !this.colorSpace.isDefaultDecode(
                   this.decode,
-                  bitsPerComponent
+                  bitsPerComponent,
                 )) ||
                 (isMask &&
                   !_colorspace.ColorSpace.isDefaultDecode(this.decode, 1)))
@@ -64597,7 +64610,7 @@
 
                 if (!imageMask) {
                   ;(0, _util.warn)(
-                    'Ignoring /Mask in image without /ImageMask.'
+                    'Ignoring /Mask in image without /ImageMask.',
                   )
                 } else {
                   this.mask = new PDFImage({
@@ -64697,7 +64710,7 @@
             return Math.max(
               this.width,
               (this.smask && this.smask.width) || 0,
-              (this.mask && this.mask.width) || 0
+              (this.mask && this.mask.width) || 0,
             )
           }
 
@@ -64705,7 +64718,7 @@
             return Math.max(
               this.height,
               (this.smask && this.smask.height) || 0,
-              (this.mask && this.mask.height) || 0
+              (this.mask && this.mask.height) || 0,
             )
           }
 
@@ -64733,7 +64746,7 @@
                   buffer[index],
                   decodeAddends[j],
                   decodeCoefficients[j],
-                  max
+                  max,
                 )
                 index++
               }
@@ -64849,7 +64862,7 @@
                   sw,
                   sh,
                   width,
-                  height
+                  height,
                 )
               }
             } else if (mask) {
@@ -64871,7 +64884,7 @@
                     sw,
                     sh,
                     width,
-                    height
+                    height,
                   )
                 }
               } else if (Array.isArray(mask)) {
@@ -65002,7 +65015,7 @@
                 if (this.needsDecode) {
                   ;(0, _util.assert)(
                     kind === _util.ImageKind.GRAYSCALE_1BPP,
-                    'PDFImage.createImageData: The image must be grayscale.'
+                    'PDFImage.createImageData: The image must be grayscale.',
                   )
                   const buffer = imgData.data
 
@@ -65032,7 +65045,7 @@
                       imageLength,
                       drawWidth,
                       drawHeight,
-                      true
+                      true,
                     )
                     return imgData
                 }
@@ -65060,7 +65073,7 @@
                 drawWidth,
                 drawHeight,
                 actualHeight,
-                comps
+                comps,
               )
             }
 
@@ -65077,7 +65090,7 @@
               actualHeight,
               bpc,
               comps,
-              alpha01
+              alpha01,
             )
 
             if (maybeUndoPreblend) {
@@ -65092,7 +65105,7 @@
 
             if (numComps !== 1) {
               throw new _util.FormatError(
-                `Reading gray scale from a color image: ${numComps}`
+                `Reading gray scale from a color image: ${numComps}`,
               )
             }
 
@@ -65207,7 +65220,7 @@
             return (0, _util.shadow)(
               this,
               'version',
-              version instanceof _primitives.Name ? version.name : null
+              version instanceof _primitives.Name ? version.name : null,
             )
           }
 
@@ -65219,7 +65232,7 @@
               'lang',
               typeof lang === 'string'
                 ? (0, _util.stringToPDFString)(lang)
-                : null
+                : null,
             )
           }
 
@@ -65229,7 +65242,7 @@
             return (0, _util.shadow)(
               this,
               'needsRendering',
-              typeof needsRendering === 'boolean' ? needsRendering : false
+              typeof needsRendering === 'boolean' ? needsRendering : false,
             )
           }
 
@@ -65248,7 +65261,7 @@
               }
 
               ;(0, _util.info)(
-                'Cannot fetch Collection entry; assuming no collection is present.'
+                'Cannot fetch Collection entry; assuming no collection is present.',
               )
             }
 
@@ -65270,7 +65283,7 @@
               }
 
               ;(0, _util.info)(
-                'Cannot fetch AcroForm entry; assuming no forms are present.'
+                'Cannot fetch AcroForm entry; assuming no forms are present.',
               )
             }
 
@@ -65283,7 +65296,7 @@
             return (0, _util.shadow)(
               this,
               'acroFormRef',
-              (0, _primitives.isRef)(value) ? value : null
+              (0, _primitives.isRef)(value) ? value : null,
             )
           }
 
@@ -65493,7 +65506,7 @@
               ) {
                 rgbColor = _colorspace.ColorSpace.singletons.rgb.getRgb(
                   color,
-                  0
+                  0,
                 )
               }
 
@@ -65703,7 +65716,7 @@
             function parseNestedOrder(ref, nestedLevels) {
               if (++nestedLevels > MAX_NESTED_LEVELS) {
                 ;(0, _util.warn)(
-                  'parseNestedOrder - reached MAX_NESTED_LEVELS.'
+                  'parseNestedOrder - reached MAX_NESTED_LEVELS.',
                 )
                 return null
               }
@@ -65765,7 +65778,7 @@
 
             if (!Number.isInteger(obj)) {
               throw new _util.FormatError(
-                'Page count in top-level pages dictionary is not an integer.'
+                'Page count in top-level pages dictionary is not an integer.',
               )
             }
 
@@ -65817,7 +65830,7 @@
 
               if (allDest) {
                 ;(0, _util.warn)(
-                  `Found "${id}" at an incorrect position in the NameTree.`
+                  `Found "${id}" at an incorrect position in the NameTree.`,
                 )
                 return allDest
               }
@@ -65838,7 +65851,7 @@
             if (obj && obj.has('Dests')) {
               return new _name_number_tree.NameTree(
                 obj.getRaw('Dests'),
-                this.xref
+                this.xref,
               )
             } else if (this._catDict.has('Dests')) {
               return this._catDict.get('Dests')
@@ -65891,7 +65904,7 @@
                   !(0, _primitives.isName)(labelDict.get('Type'), 'PageLabel')
                 ) {
                   throw new _util.FormatError(
-                    'Invalid type in PageLabel dictionary.'
+                    'Invalid type in PageLabel dictionary.',
                   )
                 }
 
@@ -65900,7 +65913,7 @@
 
                   if (!(0, _primitives.isName)(s)) {
                     throw new _util.FormatError(
-                      'Invalid style in PageLabel dictionary.'
+                      'Invalid style in PageLabel dictionary.',
                     )
                   }
 
@@ -65914,7 +65927,7 @@
 
                   if (!(0, _util.isString)(p)) {
                     throw new _util.FormatError(
-                      'Invalid prefix in PageLabel dictionary.'
+                      'Invalid prefix in PageLabel dictionary.',
                     )
                   }
 
@@ -65928,7 +65941,7 @@
 
                   if (!(Number.isInteger(st) && st >= 1)) {
                     throw new _util.FormatError(
-                      'Invalid start in PageLabel dictionary.'
+                      'Invalid start in PageLabel dictionary.',
                     )
                   }
 
@@ -65947,7 +65960,7 @@
                 case 'r':
                   currentLabel = (0, _core_utils.toRomanNumerals)(
                     currentIndex,
-                    style === 'r'
+                    style === 'r',
                   )
                   break
 
@@ -65960,7 +65973,7 @@
                     style === 'a' ? A_LOWER_CASE : A_UPPER_CASE
                   const letterIndex = currentIndex - 1
                   const character = String.fromCharCode(
-                    baseCharCode + (letterIndex % LIMIT)
+                    baseCharCode + (letterIndex % LIMIT),
                   )
                   const charBuf = []
 
@@ -65978,7 +65991,7 @@
                 default:
                   if (style) {
                     throw new _util.FormatError(
-                      `Invalid style "${style}" in PageLabel dictionary.`
+                      `Invalid style "${style}" in PageLabel dictionary.`,
                     )
                   }
 
@@ -66067,7 +66080,7 @@
 
                 if (!ViewerPreferencesValidators[key](value)) {
                   ;(0, _util.info)(
-                    `Bad value in ViewerPreferences for "${key}".`
+                    `Bad value in ViewerPreferences for "${key}".`,
                   )
                   continue
                 }
@@ -66181,7 +66194,7 @@
                   default:
                     if (typeof value !== 'boolean') {
                       throw new _util.FormatError(
-                        `viewerPreferences - expected a boolean value for: ${key}`
+                        `viewerPreferences - expected a boolean value for: ${key}`,
                       )
                     }
 
@@ -66196,7 +66209,7 @@
                   prefs[key] = prefValue
                 } else {
                   ;(0, _util.info)(
-                    `Bad value in ViewerPreferences for "${key}".`
+                    `Bad value in ViewerPreferences for "${key}".`,
                   )
                 }
               }
@@ -66235,7 +66248,7 @@
             return (0, _util.shadow)(
               this,
               'openAction',
-              (0, _util.objectSize)(openAction) > 0 ? openAction : null
+              (0, _util.objectSize)(openAction) > 0 ? openAction : null,
             )
           }
 
@@ -66247,7 +66260,7 @@
             if (obj instanceof _primitives.Dict && obj.has('EmbeddedFiles')) {
               const nameTree = new _name_number_tree.NameTree(
                 obj.getRaw('EmbeddedFiles'),
-                this.xref
+                this.xref,
               )
 
               for (const [key, value] of nameTree.getAll()) {
@@ -66272,7 +66285,7 @@
             if (obj instanceof _primitives.Dict && obj.has('XFAImages')) {
               const nameTree = new _name_number_tree.NameTree(
                 obj.getRaw('XFAImages'),
-                this.xref
+                this.xref,
               )
 
               for (const [key, value] of nameTree.getAll()) {
@@ -66319,7 +66332,7 @@
             if (obj instanceof _primitives.Dict && obj.has('JavaScript')) {
               const nameTree = new _name_number_tree.NameTree(
                 obj.getRaw('JavaScript'),
-                this.xref
+                this.xref,
               )
 
               for (const [key, value] of nameTree.getAll()) {
@@ -66342,7 +66355,7 @@
             return (0, _util.shadow)(
               this,
               'javaScript',
-              javaScript ? [...javaScript.values()] : null
+              javaScript ? [...javaScript.values()] : null,
             )
           }
 
@@ -66352,7 +66365,7 @@
             let actions = (0, _core_utils.collectActions)(
               this.xref,
               this._catDict,
-              _util.DocumentActionEventType
+              _util.DocumentActionEventType,
             )
 
             if (javaScript) {
@@ -66438,8 +66451,8 @@
                   if (visitedNodes.has(currentNode)) {
                     capability.reject(
                       new _util.FormatError(
-                        'Pages tree contains circular reference.'
-                      )
+                        'Pages tree contains circular reference.',
+                      ),
                     )
                     return
                   }
@@ -66473,8 +66486,8 @@
                 if (!(currentNode instanceof _primitives.Dict)) {
                   capability.reject(
                     new _util.FormatError(
-                      'Page dictionary kid reference points to wrong type of object.'
-                    )
+                      'Page dictionary kid reference points to wrong type of object.',
+                    ),
                   )
                   return
                 }
@@ -66538,8 +66551,8 @@
 
                   capability.reject(
                     new _util.FormatError(
-                      'Page dictionary kids object is not an array.'
-                    )
+                      'Page dictionary kids object is not an array.',
+                    ),
                   )
                   return
                 }
@@ -66608,8 +66621,8 @@
               if (!Array.isArray(kids)) {
                 addPageError(
                   new _util.FormatError(
-                    'Page dictionary kids object is not an array.'
-                  )
+                    'Page dictionary kids object is not an array.',
+                  ),
                 )
                 break
               }
@@ -66644,8 +66657,8 @@
                 if (visitedNodes.has(kidObj)) {
                   addPageError(
                     new _util.FormatError(
-                      'Pages tree contains circular reference.'
-                    )
+                      'Pages tree contains circular reference.',
+                    ),
                   )
                   break
                 }
@@ -66658,8 +66671,8 @@
               if (!(obj instanceof _primitives.Dict)) {
                 addPageError(
                   new _util.FormatError(
-                    'Page dictionary kid reference points to wrong type of object.'
-                  )
+                    'Page dictionary kid reference points to wrong type of object.',
+                  ),
                 )
                 break
               }
@@ -66667,7 +66680,7 @@
               if ((0, _primitives.isDict)(obj, 'Page') || !obj.has('Kids')) {
                 addPageDict(
                   obj,
-                  kidObj instanceof _primitives.Ref ? kidObj : null
+                  kidObj instanceof _primitives.Ref ? kidObj : null,
                 )
               } else {
                 queue.push({
@@ -66707,7 +66720,7 @@
                     )
                   ) {
                     throw new _util.FormatError(
-                      'The reference does not point to a /Page dictionary.'
+                      'The reference does not point to a /Page dictionary.',
                     )
                   }
 
@@ -66757,7 +66770,7 @@
                       xref.fetchAsync(kid).then(function (obj) {
                         if (!(0, _primitives.isDict)(obj)) {
                           throw new _util.FormatError(
-                            'Kid node must be a dictionary.'
+                            'Kid node must be a dictionary.',
                           )
                         }
 
@@ -66766,13 +66779,13 @@
                         } else {
                           total++
                         }
-                      })
+                      }),
                     )
                   }
 
                   if (!found) {
                     throw new _util.FormatError(
-                      "Kid reference not found in parent's kids."
+                      "Kid reference not found in parent's kids.",
                     )
                   }
 
@@ -66804,7 +66817,7 @@
 
             if (!(0, _primitives.isDict)(destDict)) {
               ;(0, _util.warn)(
-                'parseDestDictionary: `destDict` must be a dictionary.'
+                'parseDestDictionary: `destDict` must be a dictionary.',
               )
               return
             }
@@ -66813,7 +66826,7 @@
 
             if (typeof resultObj !== 'object') {
               ;(0, _util.warn)(
-                'parseDestDictionary: `resultObj` must be an object.'
+                'parseDestDictionary: `resultObj` must be an object.',
               )
               return
             }
@@ -66844,7 +66857,7 @@
 
               if (!(0, _primitives.isName)(actionType)) {
                 ;(0, _util.warn)(
-                  'parseDestDictionary: Invalid type in Action dictionary.'
+                  'parseDestDictionary: Invalid type in Action dictionary.',
                 )
                 return
               }
@@ -66945,7 +66958,7 @@
                   const jsURL =
                     js &&
                     (0, _core_utils.recoverJsURL)(
-                      (0, _util.stringToPDFString)(js)
+                      (0, _util.stringToPDFString)(js),
                     )
 
                   if (jsURL) {
@@ -66963,7 +66976,7 @@
                   }
 
                   ;(0, _util.warn)(
-                    `parseDestDictionary - unsupported action: "${actionName}".`
+                    `parseDestDictionary - unsupported action: "${actionName}".`,
                   )
                   break
               }
@@ -66978,7 +66991,7 @@
                 {
                   addDefaultProtocol: true,
                   tryConvertEncoding: true,
-                }
+                },
               )
 
               if (absoluteUrl) {
@@ -67053,7 +67066,7 @@
 
                   if (processed.has(kid)) {
                     throw new _util.FormatError(
-                      `Duplicate entry in "${this._type}" tree.`
+                      `Duplicate entry in "${this._type}" tree.`,
                     )
                   }
 
@@ -67073,7 +67086,7 @@
               for (let i = 0, ii = entries.length; i < ii; i += 2) {
                 map.set(
                   xref.fetchIfRef(entries[i]),
-                  xref.fetchIfRef(entries[i + 1])
+                  xref.fetchIfRef(entries[i + 1]),
                 )
               }
             }
@@ -67094,7 +67107,7 @@
             while (kidsOrEntries.has('Kids')) {
               if (++loopCount > MAX_LEVELS) {
                 ;(0, _util.warn)(
-                  `Search depth limit reached for "${this._type}" tree.`
+                  `Search depth limit reached for "${this._type}" tree.`,
                 )
                 return null
               }
@@ -67224,7 +67237,7 @@
             if (!root.has('EF')) {
               this.contentAvailable = false
               ;(0, _util.warn)(
-                'Non-embedded file specifications are not supported'
+                'Non-embedded file specifications are not supported',
               )
             }
           }
@@ -67259,12 +67272,12 @@
                 content = fileObj.getBytes()
               } else {
                 ;(0, _util.warn)(
-                  'Embedded file specification points to non-existing/invalid content'
+                  'Embedded file specification points to non-existing/invalid content',
                 )
               }
             } else {
               ;(0, _util.warn)(
-                'Embedded file specification does not have a content'
+                'Embedded file specification does not have a content',
               )
             }
 
@@ -67316,7 +67329,7 @@
                     /\\([0-3])([0-7])([0-7])/g,
                     function (code, d1, d2, d3) {
                       return String.fromCharCode(d1 * 64 + d2 * 8 + d3 * 1)
-                    }
+                    },
                   )
                   .replace(/&(amp|apos|gt|lt|quot);/g, function (str, name) {
                     switch (name) {
@@ -67354,7 +67367,7 @@
                     charBuf.push(String.fromCharCode(code))
                   } else {
                     charBuf.push(
-                      '&#x' + (0x10000 + code).toString(16).substring(1) + ';'
+                      '&#x' + (0x10000 + code).toString(16).substring(1) + ';',
                     )
                   }
                 }
@@ -67387,7 +67400,7 @@
 
             this._metadataMap.set(
               entry.nodeName,
-              sequence.map((node) => node.textContent.trim())
+              sequence.map((node) => node.textContent.trim()),
             )
           }
 
@@ -67662,7 +67675,7 @@
                       s.substring(j + pi.parsed, j + pi.parsed + 2) !== '?>'
                     ) {
                       this.onError(
-                        XMLParserErrorCode.UnterminatedXmlDeclaration
+                        XMLParserErrorCode.UnterminatedXmlDeclaration,
                       )
                       return
                     }
@@ -67699,7 +67712,7 @@
 
                       if (q < 0) {
                         this.onError(
-                          XMLParserErrorCode.UnterminatedDoctypeDeclaration
+                          XMLParserErrorCode.UnterminatedDoctypeDeclaration,
                         )
                         return
                       }
@@ -67709,7 +67722,7 @@
 
                         if (q < 0) {
                           this.onError(
-                            XMLParserErrorCode.UnterminatedDoctypeDeclaration
+                            XMLParserErrorCode.UnterminatedDoctypeDeclaration,
                           )
                           return
                         }
@@ -67719,7 +67732,7 @@
 
                       const doctypeContent = s.substring(
                         j + 8,
-                        q + (complexDoctype ? 1 : 0)
+                        q + (complexDoctype ? 1 : 0),
                       )
                       this.onDoctype(doctypeContent)
                       j = q + (complexDoctype ? 2 : 1)
@@ -67743,14 +67756,14 @@
                     if (
                       s.substring(
                         j + content.parsed,
-                        j + content.parsed + 2
+                        j + content.parsed + 2,
                       ) === '/>'
                     ) {
                       isClosed = true
                     } else if (
                       s.substring(
                         j + content.parsed,
-                        j + content.parsed + 1
+                        j + content.parsed + 1,
                       ) !== '>'
                     ) {
                       this.onError(XMLParserErrorCode.UnterminatedElement)
@@ -67760,7 +67773,7 @@
                     this.onBeginElement(
                       content.name,
                       content.attributes,
-                      isClosed
+                      isClosed,
                     )
                     j += content.parsed + (isClosed ? 2 : 1)
                     break
@@ -67920,8 +67933,8 @@
               for (const attribute of this.attributes) {
                 buffer.push(
                   ` ${attribute.name}="${(0, _core_utils.encodeToXmlString)(
-                    attribute.value
-                  )}"`
+                    attribute.value,
+                  )}"`,
                 )
               }
             }
@@ -67938,7 +67951,7 @@
               buffer.push(
                 `>${(0, _core_utils.encodeToXmlString)(this.nodeValue)}</${
                   this.nodeName
-                }>`
+                }>`,
               )
             } else {
               buffer.push('/>')
@@ -68253,7 +68266,7 @@
 
             const numberTree = new _name_number_tree.NumberTree(
               parentTree,
-              this.rootDict.xref
+              this.rootDict.xref,
             )
             const parentArray = numberTree.get(id)
 
@@ -68502,7 +68515,7 @@
                 } catch (ex) {
                   if (!(ex instanceof _core_utils.MissingDataException)) {
                     ;(0, _util.warn)(
-                      `ObjectLoader._walk - requesting all data: "${ex}".`
+                      `ObjectLoader._walk - requesting all data: "${ex}".`,
                     )
                     this.refSet = null
                     const { manager } = this.xref.stream
@@ -68666,7 +68679,7 @@
             buffer.push('null')
           } else {
             ;(0, _util.warn)(
-              `Unhandled value in writer: ${typeof value}, please file a bug.`
+              `Unhandled value in writer: ${typeof value}, please file a bug.`,
             )
           }
         }
@@ -68726,7 +68739,7 @@
 
             const node = xml.documentElement.searchNode(
               (0, _core_utils.parseXFAPath)(path),
-              0
+              0,
             )
 
             if (node) {
@@ -68772,7 +68785,7 @@
             if (encrypt) {
               transform = encrypt.createCipherTransform(
                 acroFormRef.num,
-                acroFormRef.gen
+                acroFormRef.gen,
               )
             }
 
@@ -68796,7 +68809,7 @@
           if (encrypt) {
             const transform = encrypt.createCipherTransform(
               xfaDatasetsRef.num,
-              xfaDatasetsRef.gen
+              xfaDatasetsRef.gen,
             )
             xfaData = transform.encryptString(xfaData)
           }
@@ -68904,7 +68917,7 @@
           const bufferLen = buffer.reduce((a, str) => a + str.length, 0)
           const footer = `\nendstream\nendobj\nstartxref\n${baseOffset}\n%%EOF\n`
           const array = new Uint8Array(
-            originalData.length + bufferLen + tableLength + footer.length
+            originalData.length + bufferLen + tableLength + footer.length,
           )
           array.set(originalData)
           let offset = originalData.length
@@ -69856,7 +69869,7 @@
 
           _expandKey(cipherKey) {
             ;(0, _util.unreachable)(
-              'Cannot call `_expandKey` on the base class'
+              'Cannot call `_expandKey` on the base class',
             )
           }
 
@@ -70299,14 +70312,14 @@
             password,
             ownerValidationSalt,
             userBytes,
-            ownerPassword
+            ownerPassword,
           ) {
             const hashData = new Uint8Array(password.length + 56)
             hashData.set(password, 0)
             hashData.set(ownerValidationSalt, password.length)
             hashData.set(
               userBytes,
-              password.length + ownerValidationSalt.length
+              password.length + ownerValidationSalt.length,
             )
             const result = calculateSHA256(hashData, 0, hashData.length)
             return (0, _util.isArrayEqual)(result, ownerPassword)
@@ -70330,7 +70343,7 @@
             return cipher.decryptBlock(
               ownerEncryption,
               false,
-              new Uint8Array(16)
+              new Uint8Array(16),
             )
           }
 
@@ -70343,7 +70356,7 @@
             return cipher.decryptBlock(
               userEncryption,
               false,
-              new Uint8Array(16)
+              new Uint8Array(16),
             )
           }
         }
@@ -70406,14 +70419,14 @@
               password,
               ownerValidationSalt,
               userBytes,
-              ownerPassword
+              ownerPassword,
             ) {
               const hashData = new Uint8Array(password.length + 56)
               hashData.set(password, 0)
               hashData.set(ownerValidationSalt, password.length)
               hashData.set(
                 userBytes,
-                password.length + ownerValidationSalt.length
+                password.length + ownerValidationSalt.length,
               )
               const result = calculatePDF20Hash(password, hashData, userBytes)
               return (0, _util.isArrayEqual)(result, ownerPassword)
@@ -70437,7 +70450,7 @@
               return cipher.decryptBlock(
                 ownerEncryption,
                 false,
-                new Uint8Array(16)
+                new Uint8Array(16),
               )
             }
 
@@ -70450,7 +70463,7 @@
               return cipher.decryptBlock(
                 userEncryption,
                 false,
-                new Uint8Array(16)
+                new Uint8Array(16),
               )
             }
           }
@@ -70473,7 +70486,7 @@
               length,
               function cipherTransformDecryptStream(data, finalize) {
                 return cipher.decryptBlock(data, finalize)
-              }
+              },
             )
           }
 
@@ -70535,7 +70548,7 @@
               userKeySalt,
               ownerEncryption,
               userEncryption,
-              perms
+              perms,
             ) {
               if (password) {
                 const passwordLength = Math.min(127, password.length)
@@ -70556,13 +70569,13 @@
                 pdfAlgorithm.checkUserPassword(
                   password,
                   userValidationSalt,
-                  userPassword
+                  userPassword,
                 )
               ) {
                 return pdfAlgorithm.getUserKey(
                   password,
                   userKeySalt,
-                  userEncryption
+                  userEncryption,
                 )
               } else if (
                 password.length &&
@@ -70570,14 +70583,14 @@
                   password,
                   ownerValidationSalt,
                   uBytes,
-                  ownerPassword
+                  ownerPassword,
                 )
               ) {
                 return pdfAlgorithm.getOwnerKey(
                   password,
                   ownerKeySalt,
                   uBytes,
-                  ownerEncryption
+                  ownerEncryption,
                 )
               }
 
@@ -70592,7 +70605,7 @@
               flags,
               revision,
               keyLength,
-              encryptMetadata
+              encryptMetadata,
             ) {
               const hashDataSize = 40 + ownerPassword.length + fileId.length
               const hashData = new Uint8Array(hashDataSize)
@@ -70692,7 +70705,7 @@
               password,
               ownerPassword,
               revision,
-              keyLength
+              keyLength,
             ) {
               const hashData = new Uint8Array(32)
               let i = 0
@@ -70826,7 +70839,7 @@
                     algorithm !== 5)
                 ) {
                   throw new _util.FormatError(
-                    'unsupported encryption algorithm'
+                    'unsupported encryption algorithm',
                   )
                 }
 
@@ -70865,10 +70878,10 @@
                 }
 
                 const ownerPassword = (0, _util.stringToBytes)(
-                  dict.get('O')
+                  dict.get('O'),
                 ).subarray(0, 32)
                 const userPassword = (0, _util.stringToBytes)(
-                  dict.get('U')
+                  dict.get('U'),
                 ).subarray(0, 32)
                 const flags = dict.get('P')
                 const revision = dict.get('R')
@@ -70886,7 +70899,7 @@
                     } catch (ex) {
                       ;(0, _util.warn)(
                         'CipherTransformFactory: ' +
-                          'Unable to convert UTF8 encoded password.'
+                          'Unable to convert UTF8 encoded password.',
                       )
                     }
                   }
@@ -70905,29 +70918,29 @@
                     flags,
                     revision,
                     keyLength,
-                    encryptMetadata
+                    encryptMetadata,
                   )
                 } else {
                   const ownerValidationSalt = (0, _util.stringToBytes)(
-                    dict.get('O')
+                    dict.get('O'),
                   ).subarray(32, 40)
                   const ownerKeySalt = (0, _util.stringToBytes)(
-                    dict.get('O')
+                    dict.get('O'),
                   ).subarray(40, 48)
                   const uBytes = (0, _util.stringToBytes)(
-                    dict.get('U')
+                    dict.get('U'),
                   ).subarray(0, 48)
                   const userValidationSalt = (0, _util.stringToBytes)(
-                    dict.get('U')
+                    dict.get('U'),
                   ).subarray(32, 40)
                   const userKeySalt = (0, _util.stringToBytes)(
-                    dict.get('U')
+                    dict.get('U'),
                   ).subarray(40, 48)
                   const ownerEncryption = (0, _util.stringToBytes)(
-                    dict.get('OE')
+                    dict.get('OE'),
                   )
                   const userEncryption = (0, _util.stringToBytes)(
-                    dict.get('UE')
+                    dict.get('UE'),
                   )
                   const perms = (0, _util.stringToBytes)(dict.get('Perms'))
                   encryptionKey = createEncryptionKey20(
@@ -70942,21 +70955,21 @@
                     userKeySalt,
                     ownerEncryption,
                     userEncryption,
-                    perms
+                    perms,
                   )
                 }
 
                 if (!encryptionKey && !password) {
                   throw new _util.PasswordException(
                     'No password given',
-                    _util.PasswordResponses.NEED_PASSWORD
+                    _util.PasswordResponses.NEED_PASSWORD,
                   )
                 } else if (!encryptionKey && password) {
                   const decodedPassword = decodeUserPassword(
                     passwordBytes,
                     ownerPassword,
                     revision,
-                    keyLength
+                    keyLength,
                   )
                   encryptionKey = prepareKeyData(
                     fileIdBytes,
@@ -70966,14 +70979,14 @@
                     flags,
                     revision,
                     keyLength,
-                    encryptMetadata
+                    encryptMetadata,
                   )
                 }
 
                 if (!encryptionKey) {
                   throw new _util.PasswordException(
                     'Incorrect Password',
-                    _util.PasswordResponses.INCORRECT_PASSWORD
+                    _util.PasswordResponses.INCORRECT_PASSWORD,
                   )
                 }
 
@@ -71001,15 +71014,15 @@
                       this.stmf,
                       num,
                       gen,
-                      this.encryptionKey
+                      this.encryptionKey,
                     ),
                     buildCipherConstructor(
                       this.cf,
                       this.strf,
                       num,
                       gen,
-                      this.encryptionKey
-                    )
+                      this.encryptionKey,
+                    ),
                   )
                 }
 
@@ -71114,18 +71127,18 @@
           constructor(data) {
             try {
               this.root = new _parser.XFAParser().parse(
-                XFAFactory._createDocument(data)
+                XFAFactory._createDocument(data),
               )
               const binder = new _bind.Binder(this.root)
               this.form = binder.bind()
               this.dataHandler = new _data.DataHandler(
                 this.root,
-                binder.getData()
+                binder.getData(),
               )
               this.form[_xfa_object.$globalData].template = this.form
             } catch (e) {
               ;(0, _util.warn)(
-                `XFA - an error occurred during parsing and binding: ${e}`
+                `XFA - an error occurred during parsing and binding: ${e}`,
               )
             }
           }
@@ -71211,7 +71224,7 @@
           appendFonts(fonts, reallyMissingFonts) {
             this.form[_xfa_object.$globalData].fontFinder.add(
               fonts,
-              reallyMissingFonts
+              reallyMissingFonts,
             )
           }
 
@@ -71245,7 +71258,7 @@
             try {
               let root = new _parser.XFAParser(
                 _xhtml.XhtmlNamespace,
-                true
+                true,
               ).parse(rc)
 
               if (!['body', 'xhtml'].includes(root[_xfa_object.$nodeName])) {
@@ -71268,7 +71281,7 @@
               if (attributes) {
                 if (attributes.class) {
                   attributes.class = attributes.class.filter(
-                    (attr) => !attr.startsWith('xfa')
+                    (attr) => !attr.startsWith('xfa'),
                   )
                 }
 
@@ -71281,7 +71294,7 @@
               }
             } catch (e) {
               ;(0, _util.warn)(
-                `XFA - an error occurred during parsing of rich text: ${e}`
+                `XFA - an error occurred during parsing of rich text: ${e}`,
               )
             }
 
@@ -71603,7 +71616,7 @@
             }
 
             ;(0, _util.warn)(
-              `XFA - node "${this[$nodeName]}"${id} has already enough "${name}"!`
+              `XFA - node "${this[$nodeName]}"${id} has already enough "${name}"!`,
             )
             return false
           }
@@ -71850,7 +71863,7 @@
             if (!this[$extra].generator) {
               this[$extra].generator = this[_filteredChildrenGenerator](
                 filter,
-                include
+                include,
               )
             } else {
               const availableSpace = this[$getAvailableSpace]()
@@ -71897,7 +71910,7 @@
             const allAttr = this[_attributeNames]
             const setAttr = this[_setAttributes]
             return [...protoAttributes].filter(
-              (x) => allAttr.has(x) && !setAttr.has(x)
+              (x) => allAttr.has(x) && !setAttr.has(x),
             )
           }
 
@@ -71935,7 +71948,7 @@
               if (usehref.startsWith('#som(') && usehref.endsWith(')')) {
                 somExpression = usehref.slice(
                   '#som('.length,
-                  usehref.length - 1
+                  usehref.length - 1,
                 )
               } else if (
                 usehref.startsWith('.#som(') &&
@@ -71943,7 +71956,7 @@
               ) {
                 somExpression = usehref.slice(
                   '.#som('.length,
-                  usehref.length - 1
+                  usehref.length - 1,
                 )
               } else if (usehref.startsWith('#')) {
                 id = usehref.slice(1)
@@ -71966,7 +71979,7 @@
                 this,
                 somExpression,
                 true,
-                false
+                false,
               )
 
               if (proto) {
@@ -71981,7 +71994,7 @@
 
             if (proto[$nodeName] !== this[$nodeName]) {
               ;(0, _util.warn)(
-                `XFA - Incompatible prototype: ${proto[$nodeName]} !== ${this[$nodeName]}.`
+                `XFA - Incompatible prototype: ${proto[$nodeName]} !== ${this[$nodeName]}.`,
               )
               return null
             }
@@ -72018,7 +72031,7 @@
             newAncestors.add(proto)
 
             for (const unsetAttrName of this[_getUnsetAttributes](
-              proto[_setAttributes]
+              proto[_setAttributes],
             )) {
               this[unsetAttrName] = proto[unsetAttrName]
 
@@ -72157,7 +72170,7 @@
 
           [$getChildrenByName](name, allTransparent, first = true) {
             return Array.from(
-              this[$getChildrenByNameIt](name, allTransparent, first)
+              this[$getChildrenByNameIt](name, allTransparent, first),
             )
           }
 
@@ -72205,7 +72218,7 @@
             }
 
             ;(0, _util.warn)(
-              `XFA - node "${child[$nodeName]}" accepts no more than ${this[_max]} children`
+              `XFA - node "${child[$nodeName]}" accepts no more than ${this[_max]} children`,
             )
             return false
           }
@@ -72322,8 +72335,8 @@
               const utf8Name = (0, _util.utf8StringToString)(name)
               buf.push(
                 ` ${utf8Name}="${(0, _core_utils.encodeToXmlString)(
-                  value[$content]
-                )}"`
+                  value[$content],
+                )}"`,
               )
             }
 
@@ -72458,7 +72471,7 @@
                 yield* child[$getRealChildrenByNameIt](
                   name,
                   allTransparent,
-                  skipConsumed
+                  skipConsumed,
                 )
               }
             }
@@ -72859,7 +72872,7 @@
             return (0, _util.shadow)(
               this,
               'FAILURE',
-              new HTMLResult(false, null, null, null)
+              new HTMLResult(false, null, null, null),
             )
           }
 
@@ -72867,7 +72880,7 @@
             return (0, _util.shadow)(
               this,
               'EMPTY',
-              new HTMLResult(true, null, null, null)
+              new HTMLResult(true, null, null, null),
             )
           }
 
@@ -73090,7 +73103,7 @@
               case '[':
                 if (noExpr) {
                   ;(0, _util.warn)(
-                    'XFA - SOM expression contains a FormCalc subexpression which is not supported for now.'
+                    'XFA - SOM expression contains a FormCalc subexpression which is not supported for now.',
                   )
                   return null
                 }
@@ -73101,7 +73114,7 @@
               case '(':
                 if (noExpr) {
                   ;(0, _util.warn)(
-                    'XFA - SOM expression contains a JavaScript subexpression which is not supported for now.'
+                    'XFA - SOM expression contains a JavaScript subexpression which is not supported for now.',
                   )
                   return null
                 }
@@ -73140,7 +73153,7 @@
           container,
           expr,
           dotDotAllowed = true,
-          useCache = true
+          useCache = true,
         ) {
           const parsed = parseExpression(expr, dotDotAllowed)
 
@@ -73382,7 +73395,7 @@
             } else {
               this.data = new _xfa_object.XmlObject(
                 _namespaces.NamespaceIds.datasets.id,
-                'data'
+                'data',
               )
             }
 
@@ -73451,7 +73464,7 @@
               generator = dataNode[_xfa_object.$getRealChildrenByNameIt](
                 name,
                 false,
-                true
+                true,
               )
 
               while (true) {
@@ -73484,7 +73497,7 @@
             generator = this.data[_xfa_object.$getRealChildrenByNameIt](
               name,
               true,
-              false
+              false,
             )
             match = generator.next().value
 
@@ -73522,7 +73535,7 @@
                 dataNode,
                 ref,
                 false,
-                false
+                false,
               )
 
               if (!nodes) {
@@ -73542,7 +73555,7 @@
                 formNode,
                 target,
                 false,
-                false
+                false,
               )
 
               if (!targetNodes) {
@@ -73554,7 +73567,7 @@
 
               if (!targetNode[_xfa_object.$isDescendent](formNode)) {
                 ;(0, _util.warn)(
-                  `XFA - Invalid target: must be a property or subproperty.`
+                  `XFA - Invalid target: must be a property or subproperty.`,
                 )
                 continue
               }
@@ -73566,7 +73579,7 @@
                 targetParent instanceof _template.SetProperty
               ) {
                 ;(0, _util.warn)(
-                  `XFA - Invalid target: cannot be a setProperty or one of its properties.`
+                  `XFA - Invalid target: cannot be a setProperty or one of its properties.`,
                 )
                 continue
               }
@@ -73576,7 +73589,7 @@
                 targetParent instanceof _template.BindItems
               ) {
                 ;(0, _util.warn)(
-                  `XFA - Invalid target: cannot be a bindItems or one of its properties.`
+                  `XFA - Invalid target: cannot be a bindItems or one of its properties.`,
                 )
                 continue
               }
@@ -73590,7 +73603,7 @@
                 attrs[name] = content
                 const obj = Reflect.construct(
                   Object.getPrototypeOf(targetParent).constructor,
-                  [attrs]
+                  [attrs],
                 )
                 targetParent[name] = obj[name]
                 continue
@@ -73648,7 +73661,7 @@
                 dataNode,
                 ref,
                 false,
-                false
+                false,
               )
 
               if (!nodes) {
@@ -73659,7 +73672,7 @@
               for (const node of nodes) {
                 if (!node[_xfa_object.$isDescendent](this.datasets)) {
                   ;(0, _util.warn)(
-                    `XFA - Invalid ref (${ref}): must be a datasets child.`
+                    `XFA - Invalid ref (${ref}): must be a datasets child.`,
                   )
                   continue
                 }
@@ -73669,7 +73682,7 @@
                   node,
                   labelRef,
                   true,
-                  false
+                  false,
                 )
 
                 if (!labelNodes) {
@@ -73681,7 +73694,7 @@
 
                 if (!labelNode[_xfa_object.$isDescendent](this.datasets)) {
                   ;(0, _util.warn)(
-                    `XFA - Invalid label: must be a datasets child.`
+                    `XFA - Invalid label: must be a datasets child.`,
                   )
                   continue
                 }
@@ -73691,7 +73704,7 @@
                   node,
                   valueRef,
                   true,
-                  false
+                  false,
                 )
 
                 if (!valueNodes) {
@@ -73703,7 +73716,7 @@
 
                 if (!valueNode[_xfa_object.$isDescendent](this.datasets)) {
                   ;(0, _util.warn)(
-                    `XFA - Invalid value: must be a datasets child.`
+                    `XFA - Invalid value: must be a datasets child.`,
                   )
                   continue
                 }
@@ -73789,7 +73802,7 @@
 
             if (formNode.name) {
               currentNumber = parent[name].children.filter(
-                (e) => e.name === formNode.name
+                (e) => e.name === formNode.name,
               ).length
             } else {
               currentNumber = parent[name].children.length
@@ -73898,7 +73911,7 @@
                       ;(0, _util.warn)(
                         `XFA - ref is empty in node ${
                           child[_xfa_object.$nodeName]
-                        }.`
+                        }.`,
                       )
 
                       this._setAndBind(child, dataNode)
@@ -73926,7 +73939,7 @@
                   dataNode,
                   ref,
                   true,
-                  false
+                  false,
                 )
 
                 if (match === null) {
@@ -73975,7 +73988,7 @@
                       child.name,
                       child[_xfa_object.$hasSettableValue](),
                       dataNode,
-                      global
+                      global,
                     )
 
                     if (!found) {
@@ -73991,7 +74004,7 @@
                   match = dataNode[_xfa_object.$getRealChildrenByNameIt](
                     child.name,
                     false,
-                    this.emptyMerge
+                    this.emptyMerge,
                   ).next().value
 
                   if (!match) {
@@ -74036,7 +74049,7 @@
             }
 
             uselessNodes.forEach((node) =>
-              node[_xfa_object.$getParent]()[_xfa_object.$removeChild](node)
+              node[_xfa_object.$getParent]()[_xfa_object.$removeChild](node),
             )
           }
         }
@@ -74322,7 +74335,7 @@
           if (node.target) {
             target = root[_xfa_object.$searchNode](
               node.target,
-              node[_xfa_object.$getParent]()
+              node[_xfa_object.$getParent](),
             )
 
             if (!target) {
@@ -74463,7 +74476,7 @@
             }
 
             style.strokeWidth = (0, _html_utils.measureToString)(
-              edge.presence === 'visible' ? edge.thickness : 0
+              edge.presence === 'visible' ? edge.thickness : 0,
             )
             style.stroke = edgeStyle.color
             let arc
@@ -74583,11 +74596,11 @@
             const [x, y, w, h] = bbox
             this[_xfa_object.$extra].width = Math.max(
               this[_xfa_object.$extra].width,
-              x + w
+              x + w,
             )
             this[_xfa_object.$extra].height = Math.max(
               this[_xfa_object.$extra].height,
-              y + h
+              y + h,
             )
 
             this[_xfa_object.$extra].children.push(html)
@@ -74643,10 +74656,10 @@
             }
 
             style.width = (0, _html_utils.measureToString)(
-              this[_xfa_object.$extra].width
+              this[_xfa_object.$extra].width,
             )
             style.height = (0, _html_utils.measureToString)(
-              this[_xfa_object.$extra].height
+              this[_xfa_object.$extra].height,
             )
             const html = {
               name: 'div',
@@ -74740,11 +74753,11 @@
             this.id = attributes.id || ''
             this.moduleHeight = (0, _utils.getMeasurement)(
               attributes.moduleHeight,
-              '5mm'
+              '5mm',
             )
             this.moduleWidth = (0, _utils.getMeasurement)(
               attributes.moduleWidth,
-              '0.25mm'
+              '0.25mm',
             )
             this.printCheckDigit = (0, _utils.getInteger)({
               data: attributes.printCheckDigit,
@@ -74752,12 +74765,12 @@
               validate: (x) => x === 1,
             })
             this.rowColumnRatio = (0, _utils.getRatio)(
-              attributes.rowColumnRatio
+              attributes.rowColumnRatio,
             )
             this.startChar = attributes.startChar || ''
             this.textLocation = (0, _utils.getStringOption)(
               attributes.textLocation,
-              ['below', 'above', 'aboveEmbedded', 'belowEmbedded', 'none']
+              ['below', 'above', 'aboveEmbedded', 'belowEmbedded', 'none'],
             )
             this.truncate = (0, _utils.getInteger)({
               data: attributes.truncate,
@@ -74829,7 +74842,7 @@
                 'upcean2',
                 'upcean5',
                 'upsmaxicode',
-              ]
+              ],
             )
             this.upsMode = (0, _utils.getStringOption)(attributes.upsMode, [
               'usCarrier',
@@ -74840,7 +74853,7 @@
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
             this.wideNarrowRatio = (0, _utils.getRatio)(
-              attributes.wideNarrowRatio
+              attributes.wideNarrowRatio,
             )
             this.encrypt = null
             this.extras = null
@@ -74980,7 +74993,7 @@
 
             if (this.corner.children.some((node) => node.radius !== 0)) {
               const cornerStyles = this.corner.children.map((node) =>
-                node[_xfa_object.$toStyle]()
+                node[_xfa_object.$toStyle](),
               )
 
               if (cornerStyles.length === 2 || cornerStyles.length === 3) {
@@ -75064,7 +75077,7 @@
             this.target = attributes.target || ''
             this.targetType = (0, _utils.getStringOption)(
               attributes.targetType,
-              ['auto', 'contentArea', 'pageArea']
+              ['auto', 'contentArea', 'pageArea'],
             )
             this.trailer = attributes.trailer || ''
             this.use = attributes.use || ''
@@ -75086,7 +75099,7 @@
             this.target = attributes.target || ''
             this.targetType = (0, _utils.getStringOption)(
               attributes.targetType,
-              ['auto', 'contentArea', 'pageArea']
+              ['auto', 'contentArea', 'pageArea'],
             )
             this.trailer = attributes.trailer || ''
             this.use = attributes.use || ''
@@ -75136,7 +75149,7 @@
               }
 
               const jsURL = (0, _core_utils.recoverJsURL)(
-                event.script[_xfa_object.$content]
+                event.script[_xfa_object.$content],
               )
 
               if (!jsURL) {
@@ -75202,7 +75215,7 @@
               'invisible',
             ])
             this.reserve = Math.ceil(
-              (0, _utils.getMeasurement)(attributes.reserve)
+              (0, _utils.getMeasurement)(attributes.reserve),
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -75292,7 +75305,7 @@
               this,
               'font',
               'margin',
-              'visibility'
+              'visibility',
             )
 
             switch (this.placement) {
@@ -75344,7 +75357,7 @@
             super(TEMPLATE_NS_ID, 'certificates', true)
             this.credentialServerPolicy = (0, _utils.getStringOption)(
               attributes.credentialServerPolicy,
-              ['optional', 'required']
+              ['optional', 'required'],
             )
             this.id = attributes.id || ''
             this.url = attributes.url || ''
@@ -75602,7 +75615,7 @@
               ? _util.Util.makeHexColor(
                   this.value.r,
                   this.value.g,
-                  this.value.b
+                  this.value.b,
                 )
               : null
           }
@@ -75715,7 +75728,7 @@
             ])
             this.thickness = (0, _utils.getMeasurement)(
               attributes.thickness,
-              '0.5pt'
+              '0.5pt',
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -75726,7 +75739,7 @@
           [_xfa_object.$toStyle]() {
             const style = (0, _html_utils.toStyle)(this, 'visibility')
             style.radius = (0, _html_utils.measureToString)(
-              this.join === 'square' ? 0 : this.radius
+              this.join === 'square' ? 0 : this.radius,
             )
             return style
           }
@@ -75751,7 +75764,7 @@
             return valueToHtml(
               this[_xfa_object.$content]
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -75775,7 +75788,7 @@
             return valueToHtml(
               this[_xfa_object.$content]
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -75785,7 +75798,7 @@
             super(TEMPLATE_NS_ID, 'dateTimeEdit', true)
             this.hScrollPolicy = (0, _utils.getStringOption)(
               attributes.hScrollPolicy,
-              ['auto', 'off', 'on']
+              ['auto', 'off', 'on'],
             )
             this.id = attributes.id || ''
             this.picker = (0, _utils.getStringOption)(attributes.picker, [
@@ -75805,7 +75818,7 @@
               this,
               'border',
               'font',
-              'margin'
+              'margin',
             )
 
             const field =
@@ -75863,7 +75876,7 @@
             return valueToHtml(
               this[_xfa_object.$content] !== null
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -75941,7 +75954,7 @@
                 'middleRight',
                 'topCenter',
                 'topRight',
-              ]
+              ],
             )
             this.colSpan = (0, _utils.getInteger)({
               data: attributes.colSpan,
@@ -76019,7 +76032,7 @@
             const savedH = this.h
             const { w, h, isBroken } = (0, _html_utils.layoutNode)(
               this,
-              availableSpace
+              availableSpace,
             )
 
             if (w && this.w === '') {
@@ -76063,7 +76076,7 @@
               'rotate',
               'anchorType',
               'border',
-              'margin'
+              'margin',
             )
             ;(0, _html_utils.setMinMaxDimensions)(this, style)
 
@@ -76101,7 +76114,7 @@
             const bbox = (0, _html_utils.computeBbox)(
               this,
               html,
-              availableSpace
+              availableSpace,
             )
             const value = this.value
               ? this.value[_xfa_object.$toHTML](availableSpace).html
@@ -76115,7 +76128,7 @@
 
               return _utils.HTMLResult.success(
                 (0, _html_utils.createWrapper)(this, html),
-                bbox
+                bbox,
               )
             }
 
@@ -76128,7 +76141,7 @@
 
             return _utils.HTMLResult.success(
               (0, _html_utils.createWrapper)(this, html),
-              bbox
+              bbox,
             )
           }
         }
@@ -76161,7 +76174,7 @@
             ])
             this.thickness = (0, _utils.getMeasurement)(
               attributes.thickness,
-              '0.5pt'
+              '0.5pt',
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -76387,7 +76400,7 @@
             this.rid = attributes.rid || ''
             this.transferEncoding = (0, _utils.getStringOption)(
               attributes.transferEncoding,
-              ['none', 'base64', 'package']
+              ['none', 'base64', 'package'],
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -76424,7 +76437,7 @@
             }
 
             return this[_xfa_object.$content][_xfa_object.$toHTML](
-              availableSpace
+              availableSpace,
             )
           }
         }
@@ -76477,7 +76490,7 @@
                 'middleRight',
                 'topCenter',
                 'topRight',
-              ]
+              ],
             )
             this.colSpan = (0, _utils.getInteger)({
               data: attributes.colSpan,
@@ -76682,7 +76695,7 @@
               'presence',
               'border',
               'margin',
-              'hAlign'
+              'hAlign',
             )
             const classNames = ['xfaExclgroup']
             const cl = (0, _html_utils.layoutClass)(this)
@@ -76771,11 +76784,11 @@
 
             const width = Math.max(
               this[_xfa_object.$extra].width + marginH,
-              this.w || 0
+              this.w || 0,
             )
             const height = Math.max(
               this[_xfa_object.$extra].height + marginV,
-              this.h || 0
+              this.h || 0,
             )
             const bbox = [this.x, this.y, width, height]
 
@@ -76796,7 +76809,7 @@
             delete this[_xfa_object.$extra]
             return _utils.HTMLResult.success(
               (0, _html_utils.createWrapper)(this, html),
-              bbox
+              bbox,
             )
           }
         }
@@ -76807,7 +76820,7 @@
             this.connection = attributes.connection || ''
             this.executeType = (0, _utils.getStringOption)(
               attributes.executeType,
-              ['import', 'remerge']
+              ['import', 'remerge'],
             )
             this.id = attributes.id || ''
             this.runAt = (0, _utils.getStringOption)(attributes.runAt, [
@@ -76863,7 +76876,7 @@
                 'middleRight',
                 'topCenter',
                 'topRight',
-              ]
+              ],
             )
             this.colSpan = (0, _utils.getInteger)({
               data: attributes.colSpan,
@@ -77011,7 +77024,7 @@
               } else {
                 const { w, h } = (0, _html_utils.layoutNode)(
                   this,
-                  availableSpace
+                  availableSpace,
                 )
 
                 if (w !== null) {
@@ -77065,7 +77078,7 @@
                 width += marginH
                 this.w = Math.min(
                   this.maxW <= 0 ? Infinity : this.maxW,
-                  this.minW + 1 < width ? width : this.minW
+                  this.minW + 1 < width ? width : this.minW,
                 )
               }
 
@@ -77073,7 +77086,7 @@
                 height += marginV
                 this.h = Math.min(
                   this.maxH <= 0 ? Infinity : this.maxH,
-                  this.minH + 1 < height ? height : this.minH
+                  this.minH + 1 < height ? height : this.minH,
                 )
               }
             }
@@ -77101,7 +77114,7 @@
               'anchorType',
               'presence',
               'margin',
-              'hAlign'
+              'hAlign',
             )
             ;(0, _html_utils.setMinMaxDimensions)(this, style)
             const classNames = ['xfaField']
@@ -77144,7 +77157,7 @@
             const bbox = (0, _html_utils.computeBbox)(
               this,
               html,
-              availableSpace
+              availableSpace,
             )
 
             const ui = this.ui[_xfa_object.$toHTML]().html
@@ -77153,7 +77166,7 @@
               Object.assign(style, borderStyle)
               return _utils.HTMLResult.success(
                 (0, _html_utils.createWrapper)(this, html),
-                bbox
+                bbox,
               )
             }
 
@@ -77262,7 +77275,7 @@
               this.h = savedH
               return _utils.HTMLResult.success(
                 (0, _html_utils.createWrapper)(this, html),
-                bbox
+                bbox,
               )
             }
 
@@ -77313,7 +77326,7 @@
             this.h = savedH
             return _utils.HTMLResult.success(
               (0, _html_utils.createWrapper)(this, html),
-              bbox
+              bbox,
             )
           }
         }
@@ -77401,7 +77414,7 @@
             super(TEMPLATE_NS_ID, 'filter', true)
             this.addRevocationInfo = (0, _utils.getStringOption)(
               attributes.addRevocationInfo,
-              ['', 'required', 'optional', 'none']
+              ['', 'required', 'optional', 'none'],
             )
             this.id = attributes.id || ''
             this.name = attributes.name || ''
@@ -77443,7 +77456,7 @@
             return valueToHtml(
               this[_xfa_object.$content] !== null
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -77452,7 +77465,7 @@
           constructor(attributes) {
             super(TEMPLATE_NS_ID, 'font', true)
             this.baselineShift = (0, _utils.getMeasurement)(
-              attributes.baselineShift
+              attributes.baselineShift,
             )
             this.fontHorizontalScale = (0, _utils.getFloat)({
               data: attributes.fontHorizontalScale,
@@ -77467,11 +77480,11 @@
             this.id = attributes.id || ''
             this.kerningMode = (0, _utils.getStringOption)(
               attributes.kerningMode,
-              ['none', 'pair']
+              ['none', 'pair'],
             )
             this.letterSpacing = (0, _utils.getMeasurement)(
               attributes.letterSpacing,
-              '0'
+              '0',
             )
             this.lineThrough = (0, _utils.getInteger)({
               data: attributes.lineThrough,
@@ -77480,7 +77493,7 @@
             })
             this.lineThroughPeriod = (0, _utils.getStringOption)(
               attributes.lineThroughPeriod,
-              ['all', 'word']
+              ['all', 'word'],
             )
             this.overline = (0, _utils.getInteger)({
               data: attributes.overline,
@@ -77489,7 +77502,7 @@
             })
             this.overlinePeriod = (0, _utils.getStringOption)(
               attributes.overlinePeriod,
-              ['all', 'word']
+              ['all', 'word'],
             )
             this.posture = (0, _utils.getStringOption)(attributes.posture, [
               'normal',
@@ -77504,7 +77517,7 @@
             })
             this.underlinePeriod = (0, _utils.getStringOption)(
               attributes.underlinePeriod,
-              ['all', 'word']
+              ['all', 'word'],
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -77538,13 +77551,13 @@
 
             if (this.baselineShift) {
               style.verticalAlign = (0, _html_utils.measureToString)(
-                this.baselineShift
+                this.baselineShift,
               )
             }
 
             style.fontKerning = this.kerningMode === 'none' ? 'none' : 'normal'
             style.letterSpacing = (0, _html_utils.measureToString)(
-              this.letterSpacing
+              this.letterSpacing,
             )
 
             if (this.lineThrough !== 0) {
@@ -77569,7 +77582,7 @@
               this,
               this,
               this[_xfa_object.$globalData].fontFinder,
-              style
+              style,
             )
 
             if (this.underline !== 0) {
@@ -77664,7 +77677,7 @@
             this.name = attributes.name || ''
             this.transferEncoding = (0, _utils.getStringOption)(
               attributes.transferEncoding,
-              ['base64', 'none', 'package']
+              ['base64', 'none', 'package'],
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -77688,7 +77701,7 @@
 
             if (!buffer && this.transferEncoding === 'base64') {
               buffer = (0, _util.stringToBytes)(
-                atob(this[_xfa_object.$content])
+                atob(this[_xfa_object.$content]),
               )
             }
 
@@ -77807,7 +77820,7 @@
             return valueToHtml(
               this[_xfa_object.$content] !== null
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -77877,12 +77890,12 @@
             const options = ['none', 'contentArea', 'pageArea']
             this.intact = (0, _utils.getStringOption)(
               attributes.intact,
-              options
+              options,
             )
             this.next = (0, _utils.getStringOption)(attributes.next, options)
             this.previous = (0, _utils.getStringOption)(
               attributes.previous,
-              options
+              options,
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -77896,40 +77909,40 @@
             const options = ['', 'yes', 'no']
             this.crlSign = (0, _utils.getStringOption)(
               attributes.crlSign,
-              options
+              options,
             )
             this.dataEncipherment = (0, _utils.getStringOption)(
               attributes.dataEncipherment,
-              options
+              options,
             )
             this.decipherOnly = (0, _utils.getStringOption)(
               attributes.decipherOnly,
-              options
+              options,
             )
             this.digitalSignature = (0, _utils.getStringOption)(
               attributes.digitalSignature,
-              options
+              options,
             )
             this.encipherOnly = (0, _utils.getStringOption)(
               attributes.encipherOnly,
-              options
+              options,
             )
             this.id = attributes.id || ''
             this.keyAgreement = (0, _utils.getStringOption)(
               attributes.keyAgreement,
-              options
+              options,
             )
             this.keyCertSign = (0, _utils.getStringOption)(
               attributes.keyCertSign,
-              options
+              options,
             )
             this.keyEncipherment = (0, _utils.getStringOption)(
               attributes.keyEncipherment,
-              options
+              options,
             )
             this.nonRepudiation = (0, _utils.getStringOption)(
               attributes.nonRepudiation,
-              options
+              options,
             )
             this.type = (0, _utils.getStringOption)(attributes.type, [
               'optional',
@@ -78074,7 +78087,7 @@
           [_xfa_object.$finalize]() {
             this[_xfa_object.$content] = (0, _utils.getStringOption)(
               this[_xfa_object.$content],
-              ['auto', '0', '1']
+              ['auto', '0', '1'],
             )
           }
         }
@@ -78101,16 +78114,16 @@
             super(TEMPLATE_NS_ID, 'margin', true)
             this.bottomInset = (0, _utils.getMeasurement)(
               attributes.bottomInset,
-              '0'
+              '0',
             )
             this.id = attributes.id || ''
             this.leftInset = (0, _utils.getMeasurement)(
               attributes.leftInset,
-              '0'
+              '0',
             )
             this.rightInset = (0, _utils.getMeasurement)(
               attributes.rightInset,
-              '0'
+              '0',
             )
             this.topInset = (0, _utils.getMeasurement)(attributes.topInset, '0')
             this.use = attributes.use || ''
@@ -78143,7 +78156,7 @@
             })
             this.signatureType = (0, _utils.getStringOption)(
               attributes.signatureType,
-              ['filler', 'author']
+              ['filler', 'author'],
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -78158,7 +78171,7 @@
             this.long = (0, _utils.getMeasurement)(attributes.long)
             this.orientation = (0, _utils.getStringOption)(
               attributes.orientation,
-              ['portrait', 'landscape']
+              ['portrait', 'landscape'],
             )
             this.short = (0, _utils.getMeasurement)(attributes.short)
             this.stock = attributes.stock || ''
@@ -78191,7 +78204,7 @@
             super(TEMPLATE_NS_ID, 'numericEdit', true)
             this.hScrollPolicy = (0, _utils.getStringOption)(
               attributes.hScrollPolicy,
-              ['auto', 'off', 'on']
+              ['auto', 'off', 'on'],
             )
             this.id = attributes.id || ''
             this.use = attributes.use || ''
@@ -78207,7 +78220,7 @@
               this,
               'border',
               'font',
-              'margin'
+              'margin',
             )
 
             const field =
@@ -78348,7 +78361,7 @@
 
               const trailer = root[_xfa_object.$searchNode](
                 this.trailer,
-                parent
+                parent,
               )
 
               this[_xfa_object.$extra] = {
@@ -78369,7 +78382,7 @@
             super(TEMPLATE_NS_ID, 'pageArea', true)
             this.blankOrNotBlank = (0, _utils.getStringOption)(
               attributes.blankOrNotBlank,
-              ['any', 'blank', 'notBlank']
+              ['any', 'blank', 'notBlank'],
             )
             this.id = attributes.id || ''
             this.initialNumber = (0, _utils.getInteger)({
@@ -78390,7 +78403,7 @@
             ])
             this.pagePosition = (0, _utils.getStringOption)(
               attributes.pagePosition,
-              ['any', 'first', 'last', 'only', 'rest']
+              ['any', 'first', 'last', 'only', 'rest'],
             )
             this.relevant = (0, _utils.getRelevant)(attributes.relevant)
             this.use = attributes.use || ''
@@ -78484,7 +78497,7 @@
               }
             } else {
               ;(0, _util.warn)(
-                'XFA - No medium specified in pageArea: please file a bug.'
+                'XFA - No medium specified in pageArea: please file a bug.',
               )
             }
 
@@ -78516,7 +78529,7 @@
             super(TEMPLATE_NS_ID, 'pageSet', true)
             this.duplexImposition = (0, _utils.getStringOption)(
               attributes.duplexImposition,
-              ['longEdge', 'shortEdge']
+              ['longEdge', 'shortEdge'],
             )
             this.id = attributes.id || ''
             this.name = attributes.name || ''
@@ -78607,7 +78620,7 @@
             const parity = pageNumber % 2 === 0 ? 'even' : 'odd'
             const position = pageNumber === 0 ? 'first' : 'rest'
             let page = this.pageArea.children.find(
-              (p) => p.oddOrEven === parity && p.pagePosition === position
+              (p) => p.oddOrEven === parity && p.pagePosition === position,
             )
 
             if (page) {
@@ -78615,7 +78628,7 @@
             }
 
             page = this.pageArea.children.find(
-              (p) => p.oddOrEven === 'any' && p.pagePosition === position
+              (p) => p.oddOrEven === 'any' && p.pagePosition === position,
             )
 
             if (page) {
@@ -78623,7 +78636,7 @@
             }
 
             page = this.pageArea.children.find(
-              (p) => p.oddOrEven === 'any' && p.pagePosition === 'any'
+              (p) => p.oddOrEven === 'any' && p.pagePosition === 'any',
             )
 
             if (page) {
@@ -78700,38 +78713,38 @@
 
             if (this.marginLeft !== '') {
               style.paddingLeft = (0, _html_utils.measureToString)(
-                this.marginLeft
+                this.marginLeft,
               )
             }
 
             if (this.marginRight !== '') {
               style.paddingight = (0, _html_utils.measureToString)(
-                this.marginRight
+                this.marginRight,
               )
             }
 
             if (this.spaceAbove !== '') {
               style.paddingTop = (0, _html_utils.measureToString)(
-                this.spaceAbove
+                this.spaceAbove,
               )
             }
 
             if (this.spaceBelow !== '') {
               style.paddingBottom = (0, _html_utils.measureToString)(
-                this.spaceBelow
+                this.spaceBelow,
               )
             }
 
             if (this.textIndent !== '') {
               style.textIndent = (0, _html_utils.measureToString)(
-                this.textIndent
+                this.textIndent,
               )
               ;(0, _html_utils.fixTextIndent)(style)
             }
 
             if (this.lineHeight > 0) {
               style.lineHeight = (0, _html_utils.measureToString)(
-                this.lineHeight
+                this.lineHeight,
               )
             }
 
@@ -78755,7 +78768,7 @@
             super(TEMPLATE_NS_ID, 'passwordEdit', true)
             this.hScrollPolicy = (0, _utils.getStringOption)(
               attributes.hScrollPolicy,
-              ['auto', 'off', 'on']
+              ['auto', 'off', 'on'],
             )
             this.id = attributes.id || ''
             this.passwordChar = attributes.passwordChar || '*'
@@ -79032,7 +79045,7 @@
             }
 
             style.strokeWidth = (0, _html_utils.measureToString)(
-              edge.presence === 'visible' ? edge.thickness : 0
+              edge.presence === 'visible' ? edge.thickness : 0,
             )
             style.stroke = edgeStyle.color
             const corner = this.corner.children.length
@@ -79231,7 +79244,7 @@
             return _util.Util.makeHexColor(
               Math.round(bgColor.value.r * (1 - alpha) + this.value.r * alpha),
               Math.round(bgColor.value.g * (1 - alpha) + this.value.g * alpha),
-              Math.round(bgColor.value.b * (1 - alpha) + this.value.b * alpha)
+              Math.round(bgColor.value.b * (1 - alpha) + this.value.b * alpha),
             )
           }
         }
@@ -79262,7 +79275,7 @@
                 'middleRight',
                 'topCenter',
                 'topRight',
-              ]
+              ],
             )
             this.colSpan = (0, _utils.getInteger)({
               data: attributes.colSpan,
@@ -79313,7 +79326,7 @@
             this.relevant = (0, _utils.getRelevant)(attributes.relevant)
             this.restoreState = (0, _utils.getStringOption)(
               attributes.restoreState,
-              ['manual', 'auto']
+              ['manual', 'auto'],
             )
             this.scope = (0, _utils.getStringOption)(attributes.scope, [
               'name',
@@ -79493,7 +79506,7 @@
               this.breakAfter.children.length > 1
             ) {
               ;(0, _util.warn)(
-                'XFA - Several breakBefore or breakAfter in subforms: please file a bug.'
+                'XFA - Several breakBefore or breakAfter in subforms: please file a bug.',
               )
             }
 
@@ -79582,7 +79595,7 @@
               'presence',
               'border',
               'margin',
-              'hAlign'
+              'hAlign',
             )
             const classNames = ['xfaSubform']
             const cl = (0, _html_utils.layoutClass)(this)
@@ -79692,11 +79705,11 @@
 
             const width = Math.max(
               this[_xfa_object.$extra].width + marginH,
-              this.w || 0
+              this.w || 0,
             )
             const height = Math.max(
               this[_xfa_object.$extra].height + marginV,
-              this.h || 0
+              this.h || 0,
             )
             const bbox = [this.x, this.y, width, height]
 
@@ -79724,7 +79737,7 @@
 
             const result = _utils.HTMLResult.success(
               (0, _html_utils.createWrapper)(this, html),
-              bbox
+              bbox,
             )
 
             if (this.breakAfter.children.length >= 1) {
@@ -79801,7 +79814,7 @@
                 kv = kv.split('=', 2)
                 kv[0] = kv[0].trim()
                 return kv
-              })
+              }),
             )
           }
         }
@@ -79872,7 +79885,7 @@
             super(TEMPLATE_NS_ID, 'template', true)
             this.baseProfile = (0, _utils.getStringOption)(
               attributes.baseProfile,
-              ['full', 'interactiveForms']
+              ['full', 'interactiveForms'],
             )
             this.extras = null
             this.subform = new _xfa_object.XFAObjectArray()
@@ -79885,7 +79898,7 @@
 
             if (this.subform.children.length >= 2) {
               ;(0, _util.warn)(
-                'XFA - Several subforms in template node: please file a bug.'
+                'XFA - Several subforms in template node: please file a bug.',
               )
             }
 
@@ -79961,7 +79974,7 @@
             if (breakBefore) {
               const target = this[_xfa_object.$searchNode](
                 breakBeforeTarget,
-                breakBefore[_xfa_object.$getParent]()
+                breakBefore[_xfa_object.$getParent](),
               )
 
               if (target instanceof PageArea) {
@@ -79998,7 +80011,7 @@
 
                 if (++hasSomethingCounter === MAX_EMPTY_PAGES) {
                   ;(0, _util.warn)(
-                    'XFA - Something goes wrong: please file a bug.'
+                    'XFA - Something goes wrong: please file a bug.',
                   )
                   return mainHtml
                 }
@@ -80017,8 +80030,8 @@
                 this[_xfa_object.$extra].noLayoutFailure = true
                 page.children.push(
                   leader[_xfa_object.$toHTML](
-                    pageArea[_xfa_object.$extra].space
-                  ).html
+                    pageArea[_xfa_object.$extra].space,
+                  ).html,
                 )
                 leader = null
               }
@@ -80027,15 +80040,15 @@
                 this[_xfa_object.$extra].noLayoutFailure = true
                 page.children.push(
                   trailer[_xfa_object.$toHTML](
-                    pageArea[_xfa_object.$extra].space
-                  ).html
+                    pageArea[_xfa_object.$extra].space,
+                  ).html,
                 )
                 trailer = null
               }
 
               const contentAreas = pageArea.contentArea.children
               const htmlContentAreas = page.children.filter((node) =>
-                node.attributes.class.includes('xfaContentarea')
+                node.attributes.class.includes('xfaContentarea'),
               )
               hasSomething = false
               this[_xfa_object.$extra].firstUnsplittable = null
@@ -80064,14 +80077,14 @@
 
                 if (leader) {
                   htmlContentAreas[i].children.push(
-                    leader[_xfa_object.$toHTML](space).html
+                    leader[_xfa_object.$toHTML](space).html,
                   )
                   leader = null
                 }
 
                 if (trailer) {
                   htmlContentAreas[i].children.push(
-                    trailer[_xfa_object.$toHTML](space).html
+                    trailer[_xfa_object.$toHTML](space).html,
                   )
                   trailer = null
                 }
@@ -80102,7 +80115,7 @@
                   if (node.leader) {
                     leader = this[_xfa_object.$searchNode](
                       node.leader,
-                      node[_xfa_object.$getParent]()
+                      node[_xfa_object.$getParent](),
                     )
                     leader = leader ? leader[0] : null
                   }
@@ -80110,7 +80123,7 @@
                   if (node.trailer) {
                     trailer = this[_xfa_object.$searchNode](
                       node.trailer,
-                      node[_xfa_object.$getParent]()
+                      node[_xfa_object.$getParent](),
                     )
                     trailer = trailer ? trailer[0] : null
                   }
@@ -80157,7 +80170,7 @@
                       targetPageArea = target[_xfa_object.$getParent]()
                       startIndex =
                         targetPageArea.contentArea.children.findIndex(
-                          (e) => e === target
+                          (e) => e === target,
                         )
                     }
                   }
@@ -80215,7 +80228,7 @@
             }
 
             ;(0, _util.warn)(
-              `XFA - Invalid content in Text: ${child[_xfa_object.$nodeName]}.`
+              `XFA - Invalid content in Text: ${child[_xfa_object.$nodeName]}.`,
             )
             return false
           }
@@ -80232,7 +80245,7 @@
             if (typeof this[_xfa_object.$content] === 'string') {
               this[_xfa_object.$content] = this[_xfa_object.$content].replace(
                 /\r\n/g,
-                '\n'
+                '\n',
               )
             }
           }
@@ -80273,10 +80286,10 @@
                         },
                         {
                           name: 'br',
-                        }
+                        },
                       )
                       return acc
-                    }, [])
+                    }, []),
                   )
                   .forEach((lines) => {
                     html.children.push({
@@ -80298,7 +80311,7 @@
                       },
                       {
                         name: 'br',
-                      }
+                      },
                     )
                   })
               }
@@ -80307,7 +80320,7 @@
             }
 
             return this[_xfa_object.$content][_xfa_object.$toHTML](
-              availableSpace
+              availableSpace,
             )
           }
         }
@@ -80324,7 +80337,7 @@
             })
             this.hScrollPolicy = (0, _utils.getStringOption)(
               attributes.hScrollPolicy,
-              ['auto', 'off', 'on']
+              ['auto', 'off', 'on'],
             )
             this.id = attributes.id || ''
             this.multiLine = (0, _utils.getInteger)({
@@ -80336,7 +80349,7 @@
             this.usehref = attributes.usehref || ''
             this.vScrollPolicy = (0, _utils.getStringOption)(
               attributes.vScrollPolicy,
-              ['auto', 'off', 'on']
+              ['auto', 'off', 'on'],
             )
             this.border = null
             this.comb = null
@@ -80349,7 +80362,7 @@
               this,
               'border',
               'font',
-              'margin'
+              'margin',
             )
             let html
 
@@ -80420,7 +80433,7 @@
             return valueToHtml(
               this[_xfa_object.$content]
                 ? this[_xfa_object.$content].toString()
-                : ''
+                : '',
             )
           }
         }
@@ -80549,7 +80562,7 @@
             super(TEMPLATE_NS_ID, 'validate', true)
             this.formatTest = (0, _utils.getStringOption)(
               attributes.formatTest,
-              ['warning', 'disabled', 'error']
+              ['warning', 'disabled', 'error'],
             )
             this.id = attributes.id || ''
             this.nullTest = (0, _utils.getStringOption)(attributes.nullTest, [
@@ -80559,7 +80572,7 @@
             ])
             this.scriptTest = (0, _utils.getStringOption)(
               attributes.scriptTest,
-              ['error', 'disabled', 'warning']
+              ['error', 'disabled', 'warning'],
             )
             this.use = attributes.use || ''
             this.usehref = attributes.usehref || ''
@@ -81284,7 +81297,7 @@
             case 'table': {
               extra.width = Math.min(
                 availableSpace.width,
-                Math.max(extra.width, w)
+                Math.max(extra.width, w),
               )
               extra.height += h
               extra.children.push(html)
@@ -81294,7 +81307,7 @@
             case 'tb': {
               extra.width = Math.min(
                 availableSpace.width,
-                Math.max(extra.width, w)
+                Math.max(extra.width, w),
               )
               extra.height += h
               extra.children.push(html)
@@ -81803,13 +81816,13 @@
           margin,
           lineHeight,
           fontFinder,
-          width
+          width,
         ) {
           const measure = new _text.TextMeasure(
             xfaFont,
             margin,
             lineHeight,
-            fontFinder
+            fontFinder,
           )
 
           if (typeof text === 'string') {
@@ -81883,7 +81896,7 @@
                 margin,
                 lineHeight,
                 fontFinder,
-                maxWidth
+                maxWidth,
               )
               width = res.width
               height = res.height
@@ -81898,7 +81911,7 @@
                   margin,
                   lineHeight,
                   fontFinder,
-                  maxWidth
+                  maxWidth,
                 )
                 width = res.width
                 height = res.height
@@ -82058,7 +82071,7 @@
                 Object.assign(style, newStyle)
               } else {
                 ;(0, _util.warn)(
-                  `(DEBUG) - XFA - style for ${name} not implemented yet`
+                  `(DEBUG) - XFA - style for ${name} not implemented yet`,
                 )
               }
             }
@@ -82492,7 +82505,7 @@
             if (maybe.length >= 1) {
               if (maybe.length !== 1 && mustWarn) {
                 ;(0, _util.warn)(
-                  `XFA - Too many choices to guess the correct font: ${fontName}`
+                  `XFA - Too many choices to guess the correct font: ${fontName}`,
                 )
               }
 
@@ -82642,7 +82655,7 @@
             defaultXfaFont,
             defaultParaMargin,
             defaultLineHeight,
-            fontFinder
+            fontFinder,
           ) {
             this.fontFinder = fontFinder
             this.stack = [
@@ -82650,7 +82663,7 @@
                 defaultXfaFont,
                 defaultParaMargin,
                 defaultLineHeight,
-                fontFinder
+                fontFinder,
               ),
             ]
           }
@@ -82680,7 +82693,7 @@
               xfaFont,
               margin,
               lineHeight || lastFont.lineHeight,
-              this.fontFinder
+              this.fontFinder,
             )
 
             if (!fontInfo.pdfFont) {
@@ -82704,14 +82717,14 @@
             defaultXfaFont,
             defaultParaMargin,
             defaultLineHeight,
-            fonts
+            fonts,
           ) {
             this.glyphs = []
             this.fontSelector = new FontSelector(
               defaultXfaFont,
               defaultParaMargin,
               defaultLineHeight,
-              fonts
+              fonts,
             )
             this.extraHeight = 0
           }
@@ -83029,7 +83042,7 @@
                   namespace = value
                 } else {
                   ;(0, _util.warn)(
-                    `XFA - multiple namespace definition in <${tagName}>`
+                    `XFA - multiple namespace definition in <${tagName}>`,
                   )
                 }
               } else if (name.startsWith('xmlns:')) {
@@ -83087,12 +83100,12 @@
           onBeginElement(tagName, attributes, isEmpty) {
             const [namespace, prefixes, attributesObj] = this._mkAttributes(
               attributes,
-              tagName
+              tagName,
             )
 
             const [name, nsPrefix] = this._getNameAndPrefix(
               tagName,
-              this._builder.isNsAgnostic()
+              this._builder.isNsAgnostic(),
             )
 
             const node = this._builder.build({
@@ -83195,7 +83208,7 @@
               this[_xfa_object.$ids].set(_xfa_object.$root, this.element)
 
               this.element.template[_xfa_object.$resolvePrototypes](
-                this[_xfa_object.$ids]
+                this[_xfa_object.$ids],
               )
 
               this.element.template[_xfa_object.$ids] = this[_xfa_object.$ids]
@@ -83220,7 +83233,7 @@
             this._namespacePrefixes = new Map()
             this._namespaces = new Map()
             this._nextNsId = Math.max(
-              ...Object.values(_namespaces.NamespaceIds).map(({ id }) => id)
+              ...Object.values(_namespaces.NamespaceIds).map(({ id }) => id),
             )
             this._currentNamespace =
               rootNameSpace || new _unknown.UnknownNamespace(++this._nextNsId)
@@ -83272,7 +83285,7 @@
               (namespaceToUse &&
                 namespaceToUse[_namespaces.$buildXFAObject](
                   name,
-                  attributes
+                  attributes,
                 )) ||
               new Empty()
 
@@ -83307,7 +83320,7 @@
             }
 
             for (const [name, { check }] of Object.entries(
-              _namespaces.NamespaceIds
+              _namespaces.NamespaceIds,
             )) {
               if (check(nsName)) {
                 ns = _setup.NamespaceSetUp[name]
@@ -83503,7 +83516,7 @@
               CONFIG_NS_ID,
               'adobeExtensionLevel',
               0,
-              (n) => n >= 1 && n <= 8
+              (n) => n >= 1 && n <= 8,
             )
           }
         }
@@ -83598,7 +83611,7 @@
                 .trim()
                 .split(/\s+/)
                 .filter((x) => x.includes(':'))
-                .map((x) => x.split(':', 2))
+                .map((x) => x.split(':', 2)),
             )
           }
         }
@@ -83747,7 +83760,7 @@
                 'Thai',
                 'TraditionalChinese',
                 'Vietnamese',
-              ]
+              ],
             )
           }
         }
@@ -83899,7 +83912,7 @@
                     'initialize',
                     'ready',
                     'validate',
-                  ].includes(x)
+                  ].includes(x),
               )
           }
         }
@@ -84152,7 +84165,7 @@
               .trim()
               .split(/\s+/)
               .filter((x) =>
-                ['config', 'datasets', 'template', 'xfdf', 'xslt'].includes(x)
+                ['config', 'datasets', 'template', 'xfdf', 'xslt'].includes(x),
               )
           }
         }
@@ -84400,7 +84413,7 @@
               .trim()
               .split(/\s*,\s*/, 2)
               .map((range) =>
-                range.split('-').map((x) => parseInt(x.trim(), 10))
+                range.split('-').map((x) => parseInt(x.trim(), 10)),
               )
               .filter((range) => range.every((x) => !isNaN(x)))
               .map((range) => {
@@ -84451,7 +84464,7 @@
             if (
               this[_xfa_object.$content].toLowerCase().startsWith('xml') ||
               this[_xfa_object.$content].match(
-                new RegExp('[\\p{L}_][\\p{L}\\d._\\p{M}-]*', 'u')
+                new RegExp('[\\p{L}_][\\p{L}\\d._\\p{M}-]*', 'u'),
               )
             ) {
               ;(0, _util.warn)('XFA - Rename: invalid XFA name')
@@ -84712,15 +84725,15 @@
             super(CONFIG_NS_ID, 'VersionControl')
             this.outputBelow = (0, _utils.getStringOption)(
               attributes.outputBelow,
-              ['warn', 'error', 'update']
+              ['warn', 'error', 'update'],
             )
             this.sourceAbove = (0, _utils.getStringOption)(
               attributes.sourceAbove,
-              ['warn', 'error']
+              ['warn', 'error'],
             )
             this.sourceBelow = (0, _utils.getStringOption)(
               attributes.sourceBelow,
-              ['update', 'maintain']
+              ['update', 'maintain'],
             )
           }
         }
@@ -86175,14 +86188,14 @@
             'xfa-font-horizontal-scale',
             (value) =>
               `scaleX(${Math.max(0, Math.min(parseInt(value) / 100)).toFixed(
-                2
+                2,
               )})`,
           ],
           [
             'xfa-font-vertical-scale',
             (value) =>
               `scaleY(${Math.max(0, Math.min(parseInt(value) / 100)).toFixed(
-                2
+                2,
               )})`,
           ],
           ['xfa-spacerun', ''],
@@ -86198,56 +86211,56 @@
             'letter-spacing',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'line-height',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'margin',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'margin-bottom',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'margin-left',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'margin-right',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'margin-top',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           [
             'text-indent',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
           ['font-family', (value) => value],
@@ -86255,7 +86268,7 @@
             'vertical-align',
             (value) =>
               (0, _html_utils.measureToString)(
-                (0, _utils.getMeasurement)(value)
+                (0, _utils.getMeasurement)(value),
               ),
           ],
         ])
@@ -86313,7 +86326,7 @@
               },
               node,
               node[_xfa_object.$globalData].fontFinder,
-              style
+              style,
             )
           }
 
@@ -86327,12 +86340,12 @@
             const VERTICAL_FACTOR = 0.333
             const fontSize = (0, _utils.getMeasurement)(style.fontSize)
             style.fontSize = (0, _html_utils.measureToString)(
-              fontSize * SUB_SUPER_SCRIPT_FACTOR
+              fontSize * SUB_SUPER_SCRIPT_FACTOR,
             )
             style.verticalAlign = (0, _html_utils.measureToString)(
               Math.sign((0, _utils.getMeasurement)(style.verticalAlign)) *
                 fontSize *
-                VERTICAL_FACTOR
+                VERTICAL_FACTOR,
             )
           }
 
@@ -86525,7 +86538,7 @@
               value = this[_xfa_object.$content]
                 ? this[_xfa_object.$content].replace(
                     crlfForRichTextRegExp,
-                    '\n'
+                    '\n',
                   )
                 : undefined
             } else {
@@ -86890,7 +86903,7 @@
               }
 
               ;(0, _util.warn)(
-                `XRef.parse - Invalid "Encrypt" reference: "${ex}".`
+                `XRef.parse - Invalid "Encrypt" reference: "${ex}".`,
               )
             }
 
@@ -86901,7 +86914,7 @@
               this.encrypt = new _crypto.CipherTransformFactory(
                 encrypt,
                 fileId,
-                this.pdfManager.password
+                this.pdfManager.password,
               )
             }
 
@@ -86915,7 +86928,7 @@
               }
 
               ;(0, _util.warn)(
-                `XRef.parse - Invalid "Root" reference: "${ex}".`
+                `XRef.parse - Invalid "Root" reference: "${ex}".`,
               )
             }
 
@@ -86933,7 +86946,7 @@
                 }
 
                 ;(0, _util.warn)(
-                  `XRef.parse - Invalid "Pages" reference: "${ex}".`
+                  `XRef.parse - Invalid "Pages" reference: "${ex}".`,
                 )
               }
             }
@@ -86959,7 +86972,7 @@
 
             if (!(0, _primitives.isCmd)(obj, 'trailer')) {
               throw new _util.FormatError(
-                'Invalid XRef table: could not find trailer dictionary'
+                'Invalid XRef table: could not find trailer dictionary',
               )
             }
 
@@ -86971,7 +86984,7 @@
 
             if (!(dict instanceof _primitives.Dict)) {
               throw new _util.FormatError(
-                'Invalid XRef table: could not parse trailer dictionary'
+                'Invalid XRef table: could not parse trailer dictionary',
               )
             }
 
@@ -87007,7 +87020,7 @@
 
               if (!Number.isInteger(first) || !Number.isInteger(count)) {
                 throw new _util.FormatError(
-                  'Invalid XRef table: wrong types in subsection header'
+                  'Invalid XRef table: wrong types in subsection header',
                 )
               }
 
@@ -87039,7 +87052,7 @@
                   !(entry.free || entry.uncompressed)
                 ) {
                   throw new _util.FormatError(
-                    `Invalid entry in XRef subsection: ${first}, ${count}`
+                    `Invalid entry in XRef subsection: ${first}, ${count}`,
                   )
                 }
 
@@ -87062,7 +87075,7 @@
 
             if (this.entries[0] && !this.entries[0].free) {
               throw new _util.FormatError(
-                'Invalid XRef table: unexpected first object'
+                'Invalid XRef table: unexpected first object',
               )
             }
 
@@ -87104,7 +87117,7 @@
 
               if (!Number.isInteger(first) || !Number.isInteger(n)) {
                 throw new _util.FormatError(
-                  `Invalid XRef range fields: ${first}, ${n}`
+                  `Invalid XRef range fields: ${first}, ${n}`,
                 )
               }
 
@@ -87114,7 +87127,7 @@
                 !Number.isInteger(generationFieldWidth)
               ) {
                 throw new _util.FormatError(
-                  `Invalid XRef entry fields length: ${first}, ${n}`
+                  `Invalid XRef entry fields length: ${first}, ${n}`,
                 )
               }
 
@@ -87130,7 +87143,7 @@
 
                   if (typeByte === -1) {
                     throw new _util.FormatError(
-                      "Invalid XRef byteWidths 'type'."
+                      "Invalid XRef byteWidths 'type'.",
                     )
                   }
 
@@ -87146,7 +87159,7 @@
 
                   if (offsetByte === -1) {
                     throw new _util.FormatError(
-                      "Invalid XRef byteWidths 'offset'."
+                      "Invalid XRef byteWidths 'offset'.",
                     )
                   }
 
@@ -87158,7 +87171,7 @@
 
                   if (generationByte === -1) {
                     throw new _util.FormatError(
-                      "Invalid XRef byteWidths 'generation'."
+                      "Invalid XRef byteWidths 'generation'.",
                     )
                   }
 
@@ -87183,7 +87196,7 @@
 
                   default:
                     throw new _util.FormatError(
-                      `Invalid XRef entry type: ${type}`
+                      `Invalid XRef entry type: ${type}`,
                     )
                 }
 
@@ -87320,7 +87333,7 @@
                   } catch (ex) {
                     if (ex instanceof _core_utils.ParserEOFException) {
                       ;(0, _util.warn)(
-                        `indexObjects -- checking object (${token}): "${ex}".`
+                        `indexObjects -- checking object (${token}): "${ex}".`,
                       )
                     } else {
                       updateEntries = true
@@ -87342,10 +87355,10 @@
                   contentLength = endPos - position
                   const checkPos = Math.max(
                     endPos - CHECK_CONTENT_LENGTH,
-                    startPos
+                    startPos,
                   )
                   const tokenStr = (0, _util.bytesToString)(
-                    buffer.subarray(checkPos, endPos)
+                    buffer.subarray(checkPos, endPos),
                   )
 
                   if (endobjRegExp.test(tokenStr)) {
@@ -87356,7 +87369,7 @@
                     if (objToken && objToken[1]) {
                       ;(0, _util.warn)(
                         'indexObjects: Found new "obj" inside of another "obj", ' +
-                          'caused by missing "endobj" -- trying to recover.'
+                          'caused by missing "endobj" -- trying to recover.',
                       )
                       contentLength -= objToken[1].length
                       break
@@ -87368,7 +87381,7 @@
 
                 const content = buffer.subarray(
                   position,
-                  position + contentLength
+                  position + contentLength,
                 )
                 const xrefTagOffset = skipUntil(content, 0, xrefBytes)
 
@@ -87469,7 +87482,7 @@
 
                 if (startXRefParsedCache.has(startXRef)) {
                   ;(0, _util.warn)(
-                    'readXRef - skipping XRef table since it was already parsed.'
+                    'readXRef - skipping XRef table since it was already parsed.',
                   )
                   this.startXRefQueue.shift()
                   continue
@@ -87610,13 +87623,13 @@
                 xrefEntry = this.fetchUncompressed(
                   ref,
                   xrefEntry,
-                  suppressEncryption
+                  suppressEncryption,
                 )
               } else {
                 xrefEntry = this.fetchCompressed(
                   ref,
                   xrefEntry,
-                  suppressEncryption
+                  suppressEncryption,
                 )
               }
 
@@ -87642,12 +87655,12 @@
 
             if (xrefEntry.gen !== gen) {
               throw new _core_utils.XRefEntryException(
-                `Inconsistent generation in XRef: ${ref}`
+                `Inconsistent generation in XRef: ${ref}`,
               )
             }
 
             const stream = this.stream.makeSubStream(
-              xrefEntry.offset + this.stream.start
+              xrefEntry.offset + this.stream.start,
             )
             const parser = new _parser.Parser({
               lexer: new _parser.Lexer(stream),
@@ -87664,7 +87677,7 @@
               !(obj3 instanceof _primitives.Cmd)
             ) {
               throw new _core_utils.XRefEntryException(
-                `Bad (uncompressed) XRef entry: ${ref}`
+                `Bad (uncompressed) XRef entry: ${ref}`,
               )
             }
 
@@ -87678,13 +87691,13 @@
               }
 
               throw new _core_utils.XRefEntryException(
-                `Bad (uncompressed) XRef entry: ${ref}`
+                `Bad (uncompressed) XRef entry: ${ref}`,
               )
             }
 
             if (this.encrypt && !suppressEncryption) {
               xrefEntry = parser.getObj(
-                this.encrypt.createCipherTransform(num, gen)
+                this.encrypt.createCipherTransform(num, gen),
               )
             } else {
               xrefEntry = parser.getObj()
@@ -87710,7 +87723,7 @@
 
             if (!Number.isInteger(first) || !Number.isInteger(n)) {
               throw new _util.FormatError(
-                'invalid first and n parameters for ObjStm stream'
+                'invalid first and n parameters for ObjStm stream',
               )
             }
 
@@ -87727,7 +87740,7 @@
 
               if (!Number.isInteger(num)) {
                 throw new _util.FormatError(
-                  `invalid object number in the ObjStm stream: ${num}`
+                  `invalid object number in the ObjStm stream: ${num}`,
                 )
               }
 
@@ -87735,7 +87748,7 @@
 
               if (!Number.isInteger(offset)) {
                 throw new _util.FormatError(
-                  `invalid object offset in the ObjStm stream: ${offset}`
+                  `invalid object offset in the ObjStm stream: ${offset}`,
                 )
               }
 
@@ -87751,13 +87764,13 @@
 
               if (length < 0) {
                 throw new _util.FormatError(
-                  'Invalid offset in the ObjStm stream.'
+                  'Invalid offset in the ObjStm stream.',
                 )
               }
 
               parser = new _parser.Parser({
                 lexer: new _parser.Lexer(
-                  stream.makeSubStream(start + offsets[i], length, stream.dict)
+                  stream.makeSubStream(start + offsets[i], length, stream.dict),
                 ),
                 xref: this,
                 allowStreams: true,
@@ -87781,7 +87794,7 @@
 
             if (xrefEntry === undefined) {
               throw new _core_utils.XRefEntryException(
-                `Bad (compressed) XRef entry: ${ref}`
+                `Bad (compressed) XRef entry: ${ref}`,
               )
             }
 
@@ -87852,7 +87865,7 @@
             )
           ) {
             ;(0, _util.warn)(
-              'wrapReason: Expected "reason" to be a (possibly cloned) Error.'
+              'wrapReason: Expected "reason" to be a (possibly cloned) Error.',
             )
             return reason
           }
@@ -87870,19 +87883,19 @@
             case 'UnexpectedResponseException':
               return new _util.UnexpectedResponseException(
                 reason.message,
-                reason.status
+                reason.status,
               )
 
             case 'UnknownErrorException':
               return new _util.UnknownErrorException(
                 reason.message,
-                reason.details
+                reason.details,
               )
 
             default:
               return new _util.UnknownErrorException(
                 reason.message,
-                reason.toString()
+                reason.toString(),
               )
           }
         }
@@ -87962,7 +87975,7 @@
                       callbackId: data.callbackId,
                       reason: wrapReason(reason),
                     })
-                  }
+                  },
                 )
                 return
               }
@@ -87984,7 +87997,7 @@
 
             if (ah[actionName]) {
               throw new Error(
-                `There is already an actionName called "${actionName}"`
+                `There is already an actionName called "${actionName}"`,
               )
             }
 
@@ -87999,7 +88012,7 @@
                 action: actionName,
                 data,
               },
-              transfers
+              transfers,
             )
           }
 
@@ -88017,7 +88030,7 @@
                   callbackId,
                   data,
                 },
-                transfers
+                transfers,
               )
             } catch (ex) {
               capability.reject(ex)
@@ -88051,7 +88064,7 @@
                       data,
                       desiredSize: controller.desiredSize,
                     },
-                    transfers
+                    transfers,
                   )
                   return startCapability.promise
                 },
@@ -88070,7 +88083,7 @@
                 cancel: (reason) => {
                   ;(0, _util.assert)(
                     reason instanceof Error,
-                    'cancel must have a valid reason'
+                    'cancel must have a valid reason',
                   )
                   const cancelCapability = (0, _util.createPromiseCapability)()
                   this.streamControllers[streamId].cancelCall = cancelCapability
@@ -88085,7 +88098,7 @@
                   return cancelCapability.promise
                 },
               },
-              queueingStrategy
+              queueingStrategy,
             )
           }
 
@@ -88118,7 +88131,7 @@
                     streamId,
                     chunk,
                   },
-                  transfers
+                  transfers,
                 )
               },
 
@@ -88140,7 +88153,7 @@
               error(reason) {
                 ;(0, _util.assert)(
                   reason instanceof Error,
-                  'error must have a valid reason'
+                  'error must have a valid reason',
                 )
 
                 if (this.isCancelled) {
@@ -88187,7 +88200,7 @@
                   streamId,
                   reason: wrapReason(reason),
                 })
-              }
+              },
             )
           }
 
@@ -88255,14 +88268,14 @@
                       streamId,
                       reason: wrapReason(reason),
                     })
-                  }
+                  },
                 )
                 break
 
               case StreamKind.ENQUEUE:
                 ;(0, _util.assert)(
                   streamController,
-                  'enqueue should have stream controller'
+                  'enqueue should have stream controller',
                 )
 
                 if (streamController.isClosed) {
@@ -88275,7 +88288,7 @@
               case StreamKind.CLOSE:
                 ;(0, _util.assert)(
                   streamController,
-                  'close should have stream controller'
+                  'close should have stream controller',
                 )
 
                 if (streamController.isClosed) {
@@ -88292,7 +88305,7 @@
               case StreamKind.ERROR:
                 ;(0, _util.assert)(
                   streamController,
-                  'error should have stream controller'
+                  'error should have stream controller',
                 )
                 streamController.controller.error(wrapReason(data.reason))
 
@@ -88319,7 +88332,7 @@
                 new Promise(function (resolve) {
                   resolve(
                     streamSink.onCancel &&
-                      streamSink.onCancel(wrapReason(data.reason))
+                      streamSink.onCancel(wrapReason(data.reason)),
                   )
                 }).then(
                   function () {
@@ -88339,7 +88352,7 @@
                       streamId,
                       reason: wrapReason(reason),
                     })
-                  }
+                  },
                 )
                 streamSink.sinkCapability.reject(wrapReason(data.reason))
                 streamSink.isCancelled = true
@@ -88390,10 +88403,10 @@
           getFullReader() {
             ;(0, _util.assert)(
               !this._fullRequestReader,
-              'PDFWorkerStream.getFullReader can only be called once.'
+              'PDFWorkerStream.getFullReader can only be called once.',
             )
             this._fullRequestReader = new PDFWorkerStreamReader(
-              this._msgHandler
+              this._msgHandler,
             )
             return this._fullRequestReader
           }
@@ -88402,7 +88415,7 @@
             const reader = new PDFWorkerStreamRangeReader(
               begin,
               end,
-              this._msgHandler
+              this._msgHandler,
             )
 
             this._rangeRequestReaders.push(reader)
@@ -88490,7 +88503,7 @@
               {
                 begin,
                 end,
-              }
+              },
             )
 
             this._reader = readableStream.getReader()
@@ -88549,7 +88562,7 @@
       /******/ __webpack_modules__[moduleId](
         module,
         module.exports,
-        __w_pdfjs_require__
+        __w_pdfjs_require__,
       )
       /******/
       /******/ // Return the exports of the module

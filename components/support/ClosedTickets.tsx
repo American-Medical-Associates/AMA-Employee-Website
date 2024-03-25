@@ -22,7 +22,7 @@ const ClosedTickets: React.FC<{ supportTickets: any }> = ({
     const phoneNumber = ticket.urgentCallBackPhoneNumber
     const formattedPhoneNumber = `(${phoneNumber.slice(
       0,
-      3
+      3,
     )}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
     //show photo from url
     const screenShot = ticket.screenShot

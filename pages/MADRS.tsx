@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import Header from '../components/navigation/Header'
+
 import Router, { useRouter } from 'next/router'
 import { auth, submitMadrs } from '../firebase/firebase'
 import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
@@ -11,18 +11,18 @@ import { set } from 'date-fns'
 
 const formatDate = (date: string | number | Date) => {
   const d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear()
 
-  return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/');
-};
+  return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/')
+}
 
 export default function MADRS() {
   const [validationError, setValidationError] = useState('')
   const [name, setName] = useState('')
   const [requiredName, setRequiredName] = useState(false)
-  const [date, setDate] = useState(formatDate(new Date()));
+  const [date, setDate] = useState(formatDate(new Date()))
   const [requiredDate, setRequiredDate] = useState(false)
   const [dob, setDob] = useState('')
   const [requiredDob, setRequiredDob] = useState(false)
@@ -56,12 +56,12 @@ export default function MADRS() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const router = useRouter()
 
-// Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
-useEffect(() => {
-  if (!auth.currentUser?.email) {
-    router.push('/PatientLogin')
-  }
-}, [])
+  // Authenticated user check. Reality this makes it so no one can copy and paste a link to access the page.
+  useEffect(() => {
+    if (!auth.currentUser?.email) {
+      router.push('/PatientLogin')
+    }
+  }, [])
 
   const calculateTotalScore = () => {
     const checkBoxArrays = [
@@ -130,12 +130,12 @@ useEffect(() => {
 
   const handleSubmit = async () => {
     if (isSubmitted) {
-      alert("The form has already been submitted.");
-      return;
+      alert('The form has already been submitted.')
+      return
     }
     if (validateSelections()) {
       try {
-        const totalScore = calculateTotalScore();
+        const totalScore = calculateTotalScore()
         submitMadrs({
           name: name,
           date: date,
@@ -146,21 +146,23 @@ useEffect(() => {
           innerTension: extractNumber(innerTension[0]),
           reducedSleep: extractNumber(reducedSleep[0]),
           reducedAppetite: extractNumber(reducedAppetite[0]),
-          concentrationDifficulties: extractNumber(concentrationDifficulties[0]),
+          concentrationDifficulties: extractNumber(
+            concentrationDifficulties[0],
+          ),
           lassitude: extractNumber(lassitude[0]),
           inabilityToFeel: extractNumber(inabilityToFeel[0]),
           pessimisticThoughts: extractNumber(pessimisticThoughts[0]),
           suicidalThoughts: extractNumber(suicidalThoughts[0]),
-        }).then(async() => {
+        }).then(async () => {
           setIsSubmitted(true)
-            await auth.signOut(); // Sign out the user after the form is submitted.
-            router.push('/MadrsThankYou');
-        });
+          await auth.signOut() // Sign out the user after the form is submitted.
+          router.push('/MadrsThankYou')
+        })
       } catch (error) {
-        console.log('Error Submitting MADRS:', error);
+        console.log('Error Submitting MADRS:', error)
       }
     }
-  };
+  }
 
   useEffect(() => {
     calculateTotalScore()
@@ -179,7 +181,7 @@ useEffect(() => {
 
   return (
     <div className="bg-gray-100">
-      {/* <Header selectCompany={'AMA'} routePatientsHome={true} /> */}
+      {/*  */}
       <div className="text-center mx-10 my-5">
         <h1 className="mb-3 font-bold text-xl">
           Montgomery-Asberg Depression Scale (MADRS)

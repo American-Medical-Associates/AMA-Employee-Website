@@ -5,7 +5,7 @@ import MainButton from '../components/Buttons/MainButton'
 import GreenCheckMark from '../components/formComponents/GreenCheckMark'
 import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxField'
 import TextInput from '../components/userInput/TextInput'
-import Header from '../components/navigation/Header'
+
 import CustomYesOrNo from '../components/formComponents/CustomYesOrNo'
 import { submitMentalHeathGroupSurvey } from '../firebase/firebase'
 import { useRouter } from 'next/router'
@@ -35,7 +35,6 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="mt-5">
         <div className="mb-5 text-center text-4xl">Mental Health Survey</div>
 
@@ -74,63 +73,64 @@ const MentalHealthQuestionnaire: NextPage<{}> = () => {
           ]}
         />
 
-      {checkMark && (
-        <GreenCheckMark
-          checkMarkText="Thank you!"
-          bottomText="Your information has been submitted."
-        />
-      )}
-      <div className='text-center'>
-        <MainButton
-          onClick={() => {
-            if (name === '') {
-              alert('Please enter your name')
-              setRequiredAge(true)
-              router.push('/MentalHealthQuestionnaire/#age').then(() => {
-                setTimeout(() => {
-                  window.scrollBy(0, -150)
-                }, 100)
-                //scroll up 200px
+        {checkMark && (
+          <GreenCheckMark
+            checkMarkText="Thank you!"
+            bottomText="Your information has been submitted."
+          />
+        )}
+        <div className="text-center">
+          <MainButton
+            onClick={() => {
+              if (name === '') {
+                alert('Please enter your name')
+                setRequiredAge(true)
+                router.push('/MentalHealthQuestionnaire/#age').then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                  //scroll up 200px
+                })
+                setLoading(false)
+                return
+              } else if (interest === '') {
+                setRequiredInterest(true)
+                router.push('/MentalHealthQuestionnaire/#Interest').then(() => {
+                  setTimeout(() => {
+                    window.scrollBy(0, -150)
+                  }, 100)
+                })
+                setLoading(false)
+                return
+              } else if (focusArea.length <= 0) {
+                setRequiredFocusArea(true)
+                router
+                  .push('/MentalHealthQuestionnaire/#FocusArea')
+                  .then(() => {
+                    setTimeout(() => {
+                      window.scrollBy(0, -150)
+                    }, 100)
+                  })
+                setLoading(false)
+                return
+              }
+              setLoading(true)
+              submitMentalHeathGroupSurvey({
+                name: name,
+                interest: interest,
+                focusArea: focusArea,
+              }).then(() => {
+                setLoading(false)
+                setCheckMark(true)
               })
-              setLoading(false)
-              return
-            } else if (interest === '') {
-              setRequiredInterest(true)
-              router.push('/MentalHealthQuestionnaire/#Interest').then(() => {
-                setTimeout(() => {
-                  window.scrollBy(0, -150)
-                }, 100)
-              })
-              setLoading(false)
-              return
-            } else if (focusArea.length <= 0) {
-              setRequiredFocusArea(true)
-              router.push('/MentalHealthQuestionnaire/#FocusArea').then(() => {
-                setTimeout(() => {
-                  window.scrollBy(0, -150)
-                }, 100)
-              })
-              setLoading(false)
-              return
-            } 
-            setLoading(true)
-            submitMentalHeathGroupSurvey({
-              name: name,
-              interest: interest,
-              focusArea: focusArea,
-            }).then(() => {
-              setLoading(false)
-              setCheckMark(true)
-            })
-          }}
-          buttonText="Submit"
-          loading={loading}
-        />
+            }}
+            buttonText="Submit"
+            loading={loading}
+          />
+        </div>
       </div>
     </div>
-  </div>
   )
 }
-
 
 export default MentalHealthQuestionnaire

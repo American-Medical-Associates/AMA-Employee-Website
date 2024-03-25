@@ -1,11 +1,10 @@
 import React from 'react'
-import Header from '../components/navigation/Header'
+
 import YouTube from 'react-youtube'
 
 export default function PatientHelpPage() {
   return (
     <div className=" ">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" flex h-full w-full flex-col items-center justify-center ">
         <h1 className=" m-10 text-3xl text-blue-500">Help Page</h1>
         <div className=" flex w-full flex-col items-center justify-center">

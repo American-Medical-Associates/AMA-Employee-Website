@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import { useRouter } from 'next/router'
 import { auth } from '../firebase/firebase'
 import { GetSurveys } from '../firebase/firebase'
@@ -77,7 +77,7 @@ const SurveyGraph: NextPage<{}> = () => {
       focusArea.forEach((item: Array<string>) => {
         item.forEach((item1: string) => {
           const index = focusAreaCount.findIndex(
-            (focusAreaItem) => focusAreaItem.name == item1
+            (focusAreaItem) => focusAreaItem.name == item1,
           )
 
           if (index != -1) {
@@ -90,7 +90,7 @@ const SurveyGraph: NextPage<{}> = () => {
       })
     }
   }, [focusArea, refresh])
-  
+
   // This is for the Interest Graph
   /* Here is the explanation for the code below:
   1. I set a state called "hasRunInterest" that will run the useEffect only once, so it won't run the loop again and again
@@ -101,7 +101,7 @@ const SurveyGraph: NextPage<{}> = () => {
     if (!hasRunInterest) {
       interest.forEach((item) => {
         const index = interestCount.findIndex(
-          (interestItem) => interestItem.name == item.name
+          (interestItem) => interestItem.name == item.name,
         )
 
         if (index != -1) {
@@ -188,17 +188,10 @@ const SurveyGraph: NextPage<{}> = () => {
         interestCount.splice(index, 1)
       }
     })
-  }, [
-    nameCount,
-    focusAreaCount,
-    interestCount,
-    data,
-    refresh,
-  ])
+  }, [nameCount, focusAreaCount, interestCount, data, refresh])
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className="justify-content flex h-full w-full flex-col items-center">
         {/* This is the "Show Survey button" */}
         {!hasRun && (

@@ -58,7 +58,7 @@ export default function Datepicker({
   const isToday = (date: number) =>
     isEqual(
       new Date(selectedDate.getFullYear(), selectedDate.getMonth(), date),
-      selectedDate
+      selectedDate,
     )
 
   const setDateValue = (date: number) => () => {
@@ -66,8 +66,8 @@ export default function Datepicker({
       new Date(
         datepickerHeaderDate.getFullYear(),
         datepickerHeaderDate.getMonth(),
-        date
-      )
+        date,
+      ),
     )
     setShowDatepicker(false)
   }
@@ -94,7 +94,7 @@ export default function Datepicker({
   const isSelectedMonth = (month: number) =>
     isEqual(
       new Date(selectedDate.getFullYear(), month, selectedDate.getDate()),
-      selectedDate
+      selectedDate,
     )
 
   const setMonthValue = (month: number) => () => {
@@ -102,8 +102,8 @@ export default function Datepicker({
       new Date(
         datepickerHeaderDate.getFullYear(),
         month,
-        datepickerHeaderDate.getDate()
-      )
+        datepickerHeaderDate.getDate(),
+      ),
     )
     setType('date')
   }
@@ -290,9 +290,9 @@ export default function Datepicker({
                                   new Date(
                                     datepickerHeaderDate.getFullYear(),
                                     i,
-                                    datepickerHeaderDate.getDate()
+                                    datepickerHeaderDate.getDate(),
                                   ),
-                                  'MMM'
+                                  'MMM',
                                 )}
                               </div>
                             </div>

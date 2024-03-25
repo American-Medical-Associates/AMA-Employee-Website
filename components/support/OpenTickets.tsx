@@ -7,7 +7,11 @@ import {
 } from '../../firebase/firebase'
 import { MenuItem } from '../navigation/MenuItem'
 
-import { auth, functions, AddNoteToSupportTicket } from '../../firebase/firebase'
+import {
+  auth,
+  functions,
+  AddNoteToSupportTicket,
+} from '../../firebase/firebase'
 import ClosedTickets from './ClosedTickets'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,7 +43,7 @@ const OpenTickets: React.FC<{ supportTickets: any }> = ({ supportTickets }) => {
     const phoneNumber = ticket.urgentCallBackPhoneNumber
     const formattedPhoneNumber = `(${phoneNumber.slice(
       0,
-      3
+      3,
     )}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6, 10)}`
     //show photo from url
     const screenShot = ticket.screenShot

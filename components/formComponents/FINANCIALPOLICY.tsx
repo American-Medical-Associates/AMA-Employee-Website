@@ -62,14 +62,15 @@ const FINANCIALPOLICY: React.FC<{}> = () => {
               termination from our practice. "No-Show" fees will be billed to
               the patient. This fee is NOT covered by any insurance plan and
               will be your responsibility. Our practice fees are listed below.
-              $50.00(Primary), $100(Specialist) - Request to complete Disability, FMLA, Life, and various
-              other types of independent health forms. Forms MUST be present at
-              the time of visit, or you will be asked to be rescheduled. $25.00
-              - Returned checks for non-sufficient funds will have a processing
-              fee that will be charged back to the patient. We will be unable to
-              accept any personal checks after the first occurrence. $50.00 -
-              Charge for missed appointments or appointments canceled with less
-              than 24-hour notice with the Physician, Nurse Practitioner, or
+              $50.00(Primary), $100(Specialist) - Request to complete
+              Disability, FMLA, Life, and various other types of independent
+              health forms. Forms MUST be present at the time of visit, or you
+              will be asked to be rescheduled. $25.00 - Returned checks for
+              non-sufficient funds will have a processing fee that will be
+              charged back to the patient. We will be unable to accept any
+              personal checks after the first occurrence. $50.00 - Charge for
+              missed appointments or appointments canceled with less than
+              24-hour notice with the Physician, Nurse Practitioner, or
               Physicians' Assistant. $100.00 - Charge for missed appointments or
               appointments canceled with less than 24-hour notice with the
               Psychiatric Nurse Practitioner and Nephrologist. By signing below,

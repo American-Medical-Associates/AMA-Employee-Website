@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import { useRouter } from 'next/router'
 import MainButton from '../components/Buttons/MainButton'
 import {
@@ -31,7 +31,7 @@ const PatientPage: NextPage = () => {
   const [noFoundPacket, setNoFoundPacket] = useState(false)
   // const [collapsedArray, setCollapsedArray] = useState()
   const [weightLossSurveyPatient, setWeightLossSurveyPatient] = useState(
-    [] as any
+    [] as any,
   )
   // const [weightLossAutoSaveSubmission, setWeightLossAutoSaveSubmission] =
   //   useState<any>([])
@@ -45,7 +45,7 @@ const PatientPage: NextPage = () => {
 
   console.log(
     'weightLossAutoSaveSubmission',
-    patientInfo?.isInWeightLossProgram
+    patientInfo?.isInWeightLossProgram,
   )
 
   useEffect(() => {
@@ -131,7 +131,6 @@ const PatientPage: NextPage = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center">
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <div className="m-10 w-[85%] rounded-[30px] shadow-2xl md:w-[50%]">
         <div className=" flex w-full ">
           <div className="m-2 w-1/2 ">
@@ -142,7 +141,7 @@ const PatientPage: NextPage = () => {
               className={classNames(
                 `h-10 w-7 cursor-pointer  ${
                   showEditPatientInfo == true ? 'text-[#5289F6]' : 'text-black'
-                } duration-[500s] ease-in`
+                } duration-[500s] ease-in`,
               )}
             />
           </div>
@@ -185,8 +184,8 @@ const PatientPage: NextPage = () => {
                   ? 'Hide New Patient Packet'
                   : 'View New Patient Packet'
                 : noFoundPacket
-                ? 'Fill out New Patient Packet'
-                : 'Resume New Patient Packet'
+                  ? 'Fill out New Patient Packet'
+                  : 'Resume New Patient Packet'
             }
             onClick={() => {
               if (submittedPacket.emailValue) {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import TextInput from '../../components/userInput/TextInput'
 import DateInput from '../../components/userInput/DateInput'
 import MainButton from '../../components/Buttons/MainButton'
-import Header from '../../components/navigation/Header'
+
 import { savePatentForms } from '../../firebase/firebase'
 import GreenCheckMark from '../../components/formComponents/GreenCheckMark'
 
@@ -41,7 +41,6 @@ const RecordsRequestForm = () => {
   }
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={false} />
       <main className=" container mx-auto my-[50px]">
         <h1 className="text-center text-3xl">Records Request</h1>
         <div className="mb-5">

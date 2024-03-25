@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Header from '../components/navigation/Header'
+
 import { auth, submitRecordsRequest } from '../firebase/firebase'
 import router from 'next/router'
 
@@ -119,7 +119,7 @@ function recordsRequest() {
   return (
     <div>
       <ToastContainer position={'bottom-right'} />
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
+
       <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-8">
         <h1 className="text-center text-3xl font-bold text-gray-700 mb-6">
           Hosptial Records Request

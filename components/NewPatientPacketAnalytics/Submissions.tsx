@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { auth } from '../../firebase/firebase'
-import Header from '../navigation/Header'
 import { MenuItem } from '../navigation/MenuItem'
 import { UserIcon } from '@heroicons/react/24/outline'
 import Datepicker from '../userInput/Datepicker'
@@ -77,7 +76,7 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
   const daysInMonth = new Date(
     new Date().getFullYear(),
     selectedDate.getMonth() + 1,
-    0
+    0,
   ).getDate()
 
   const daysInMonthArray = []
@@ -95,14 +94,14 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
         NewPatientPacketAnalyticsArray[i].dateAdded
           .toDate()
           .toDateString()
-          .split(' ')[3]
+          .split(' ')[3],
       )
     ) {
       yearsTotal.push(
         NewPatientPacketAnalyticsArray[i].dateAdded
           .toDate()
           .toDateString()
-          .split(' ')[3]
+          .split(' ')[3],
       )
     }
   }

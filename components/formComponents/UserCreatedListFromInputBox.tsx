@@ -39,7 +39,7 @@ const UserCreatedListFromInputBox: React.FC<{
       //format the date with slashes after 2 digits
       const dateWithSlashes = item.twoItems.date.replace(
         /(\d{2})(\d{2})(\d{4})/,
-        '$1/$2/$3'
+        '$1/$2/$3',
       )
       if (required) {
         if (list.length === 0) {

@@ -10,7 +10,7 @@ const LineDivider: React.FC<{
   return (
     <div
       className={classnames(
-        ` rounded-[30px] ${lineWidth} ${margin} ${lineHeight} ${lineColor}`
+        ` rounded-[30px] ${lineWidth} ${margin} ${lineHeight} ${lineColor}`,
       )}
     ></div>
   )

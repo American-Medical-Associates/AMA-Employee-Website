@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { NextPage } from 'next'
-import Header from '../components/navigation/Header'
+
 import Head from 'next/head'
 import LineDivider from '../components/formComponents/lineDiveider'
 import SearchComponent from '../components/userInput/searchComponent'
-import { AddNPToArchive, GetNewPatientPacketSubmissions } from '../firebase/firebase'
+import {
+  AddNPToArchive,
+  GetNewPatientPacketSubmissions,
+} from '../firebase/firebase'
 import { useSelector } from 'react-redux'
 import { selectCompany } from '../redux/slices/companySlice'
 import { jsPDF } from 'jspdf'
@@ -41,7 +44,7 @@ export default function NewPatientPacketSubmitions() {
   const [showArchived, setShowArchived] = useState(false)
   const addPatientToEclinicalPuppeteer = httpsCallable(
     functions,
-    'addPatientToEclinicalPuppeteer'
+    'addPatientToEclinicalPuppeteer',
   )
   const [loading, setLoading] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -88,7 +91,7 @@ export default function NewPatientPacketSubmitions() {
       //remove all spaces in the searchFormAnswers
       const searchFormAnswersWithoutSpaces = searchFormAnswers.replace(
         /\s/g,
-        ''
+        '',
       )
 
       Object.keys(selectedPacket).map((item: any) => {
@@ -131,10 +134,10 @@ export default function NewPatientPacketSubmitions() {
     } else {
       submissions.map((submission: any) => {
         const firstName: string = JSON.stringify(
-          submission.firstName.toLowerCase()
+          submission.firstName.toLowerCase(),
         ) as string
         const lastName: string = JSON.stringify(
-          submission.lastName.toLowerCase()
+          submission.lastName.toLowerCase(),
         ) as string
         if (
           firstName.includes(SearchInputForNewPatientPacket.toLowerCase()) ||
@@ -189,7 +192,6 @@ export default function NewPatientPacketSubmitions() {
         <link rel="icon" href="/American Medical Associates.png" />
       </Head>
 
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       {/* @ts-ignore */}
       <py-config src="./pyscript.toml"></py-config>
       {/* @ts-ignore */}

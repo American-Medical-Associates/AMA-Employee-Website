@@ -3,15 +3,14 @@
 @tailwind utilities;
 
 @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(-360deg);
-    }
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(-360deg);
+  }
+}
 
-  .slow-spin {
-    animation: spin 20s linear infinite;
-  }
-  
+.slow-spin {
+  animation: spin 20s linear infinite;
+}

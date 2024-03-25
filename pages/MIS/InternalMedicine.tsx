@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import Header from '../../components/navigation/Header'
+
 import { useRouter } from 'next/router'
 import MainButton from '../../components/Buttons/MainButton'
 import TextInput from '../../components/userInput/TextInput'
@@ -49,8 +49,8 @@ const InternalMedicine: NextPage<{}> = () => {
               setSubmittedProvider(
                 submittedProvider.filter(
                   (item) =>
-                    item[0].selectedProvider !== provider[0].selectedProvider
-                )
+                    item[0].selectedProvider !== provider[0].selectedProvider,
+                ),
               )
             }}
           />
@@ -68,7 +68,6 @@ const InternalMedicine: NextPage<{}> = () => {
 
   return (
     <div>
-      <Header selectCompany={'AMA'} routePatientsHome={true} />
       <main className="flex flex-col items-center justify-center p-10">
         <h1 className=" mb-10 text-3xl">Internal Medicine MIS</h1>
         {submittedProvider.length > 0 && (
@@ -196,7 +195,7 @@ const InternalMedicine: NextPage<{}> = () => {
                   <div className="w-1/2   p-2">
                     <TextInput
                       onChange={(
-                        text: React.ChangeEvent<HTMLInputElement>
+                        text: React.ChangeEvent<HTMLInputElement>,
                       ) => {}}
                       placeHolder="Hours Scheduled"
                       type="number"
@@ -206,7 +205,7 @@ const InternalMedicine: NextPage<{}> = () => {
                   <div className="w-1/2  p-2">
                     <TextInput
                       onChange={(
-                        text: React.ChangeEvent<HTMLInputElement>
+                        text: React.ChangeEvent<HTMLInputElement>,
                       ) => {}}
                       placeHolder="Patient Referred By (New Patients Only)"
                       type="number"
@@ -221,7 +220,7 @@ const InternalMedicine: NextPage<{}> = () => {
                   <div className="w-1/2   p-2">
                     <TextInput
                       onChange={(
-                        text: React.ChangeEvent<HTMLInputElement>
+                        text: React.ChangeEvent<HTMLInputElement>,
                       ) => {}}
                       placeHolder="Number of IM Injections"
                       type="number"
@@ -231,7 +230,7 @@ const InternalMedicine: NextPage<{}> = () => {
                   <div className="w-1/2  p-2">
                     <TextInput
                       onChange={(
-                        text: React.ChangeEvent<HTMLInputElement>
+                        text: React.ChangeEvent<HTMLInputElement>,
                       ) => {}}
                       placeHolder="Number of Trigger/Joint Injections"
                       type="number"
