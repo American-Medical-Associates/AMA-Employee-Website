@@ -123,7 +123,7 @@ const PhentermineForm = () => {
       .then(async () => {
         toast.success('Form submitted successfully!')
         // TODO: Change thank you page to use a Model instead of individual thank you pages.
-        router.push('/SubstanceContractThankYou') // Redirect to Thank You page
+        router.push('/PhentermineContractThankYou') // Redirect to Thank You page
       })
       .then(() => {
         auth.signOut()
