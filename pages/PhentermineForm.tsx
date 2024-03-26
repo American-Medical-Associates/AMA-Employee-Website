@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { auth, submitPhentermineForm } from '../firebase/firebase'
 import router from 'next/router'
-import { formatDate } from './Formatters/DateFormatter'
+import { formatDate } from '../components/Formatters/DateFormatter'
 
 const PhentermineForm = () => {
   // State declarations for form fields
