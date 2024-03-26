@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { auth, submitPhentermineForm } from '../firebase/firebase'
 import router from 'next/router'
-import DateFormatter from './Formatters/DateFormatter'
+import { formatDate } from './Formatters/DateFormatter'
 
 const PhentermineForm = () => {
   // State declarations for form fields
@@ -22,7 +22,7 @@ const PhentermineForm = () => {
   const [witnessSignature, setWitnessSignature] = useState('')
 
   // Sets the current date as default for the 'date' field
-  const [date, setDate] = useState(() => DateFormatter.formatDate(new Date()))
+  const [date, setDate] = useState(() => formatDate(new Date()))
   const [initials, setInitials] = useState<string[]>(new Array(12).fill(''))
 
   // Redirects to login page if no user is authenticated
