@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {
-  auth,
-  submitControlledSubstance,
-  submitExcisionForm,
-} from '../firebase/firebase'
+import { auth, submitExcisionForm } from '../firebase/firebase'
 import router from 'next/router'
-import TextInput from '../components/userInput/TextInput'
 import { formatDate } from '../components/Formatters/DateFormatter'
 
 function SubstanceContract() {
@@ -18,6 +13,7 @@ function SubstanceContract() {
   const [witnessSignature, setWitnessSignature] = useState('')
   const [providersSignature, setProvidersSignature] = useState('')
   const [date, setDate] = useState(formatDate(new Date()))
+  const [providersDate, setProvidersDate] = useState(formatDate(new Date()))
   const [initials, setInitials] = useState('')
   const [exceptions, setExceptions] = useState('')
 
@@ -27,6 +23,48 @@ function SubstanceContract() {
       router.push('/PatientLogin')
     }
   }, [])
+
+  // const handleInitialChange = (index: number, value: string) => {
+  //   const newInitials = [...initials]
+  //   newInitials[index] = value
+  //   setInitials(newInitials)
+  // }
+
+  const handlePatientName = (event: ChangeEvent<HTMLInputElement>) => {
+    setPatientName(event.target.value)
+  }
+
+  const handleProvidersName = (event: ChangeEvent<HTMLInputElement>) => {
+    setProvidersName(event.target.value)
+  }
+
+  const handleInitials = (event: ChangeEvent<HTMLInputElement>) => {
+    setInitials(event.target.value)
+  }
+
+  const handleExceptions = (event: ChangeEvent<HTMLInputElement>) => {
+    setExceptions(event.target.value)
+  }
+
+  const handlePatientSignature = (event: ChangeEvent<HTMLInputElement>) => {
+    setPatientSignature(event.target.value)
+  }
+
+  const handleWitnessSignature = (event: ChangeEvent<HTMLInputElement>) => {
+    setWitnessSignature(event.target.value)
+  }
+
+  const handleDate = (event: ChangeEvent<HTMLInputElement>) => {
+    setDate(event.target.value)
+  }
+
+  const handleProvidersSignature = (event: ChangeEvent<HTMLInputElement>) => {
+    setProvidersSignature(event.target.value)
+  }
+
+  const handleProvidersDate = (event: ChangeEvent<HTMLInputElement>) => {
+    setProvidersDate(event.target.value)
+  }
 
   // Handles form submission
   const handleSubmit = () => {
@@ -38,7 +76,8 @@ function SubstanceContract() {
       !witnessSignature ||
       !date ||
       !providersSignature ||
-      !initials
+      !initials ||
+      !providersDate
     ) {
       toast.error('Please fill out all fields.')
       return
@@ -50,30 +89,21 @@ function SubstanceContract() {
       patientName,
       providersName,
       initials,
+      exceptions,
       patientSignature,
       witnessSignature,
       date,
       providersSignature,
+      providersDate,
     }
     // Submit the form data to the server/database
     submitExcisionForm(formData)
-      .then(() => {
+      .then(async () => {
         toast.success('Form submitted successfully!')
-
-        // Reset form fields to initial state
-        setPatientName('')
-        setProvidersName('')
-        setInitials('')
-        setPatientSignature('')
-        setWitnessSignature('')
-        setDate('')
-        setProvidersSignature('')
-
-        // Delay the sign-out and redirection by 2 seconds
-        setTimeout(async () => {
-          auth.signOut() // Sign out the user
-          router.push('/SubstanceContractThankYou') // Redirect to Thank You page
-        }, 1000)
+        router.push('/ExcisionThankYou') // Redirect to Thank You page
+      })
+      .then(() => {
+        auth.signOut()
       })
       .catch((error) => {
         toast.error('Error submitting form: ' + error.message)
@@ -96,7 +126,8 @@ function SubstanceContract() {
               placeholder="Patient's Name"
               className="mx-2 p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={patientName}
-              onChange={(e) => setPatientName(e.target.value)}
+              onChange={handlePatientName}
+              required
             />
             authorize
             <input
@@ -104,7 +135,8 @@ function SubstanceContract() {
               placeholder="Provider's Name"
               className="mx-2 p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={providersName}
-              onChange={(e) => setProvidersName(e.target.value)}
+              onChange={handleProvidersName}
+              required
             />
             and associates & assistants of his/her choosing to perform the
             following operation or procedure:
@@ -143,7 +175,8 @@ function SubstanceContract() {
               maxLength={4}
               className="mx-2 p-2 w-16 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={initials}
-              onChange={(e) => setInitials(e.target.value)}
+              onChange={handleInitials}
+              required
             />
           </div>
           <p className="text-gray-700">
@@ -163,7 +196,7 @@ function SubstanceContract() {
               placeholder="Exceptions (If multiple separate by comma), if none type 'None'"
               className="w-full p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={exceptions}
-              onChange={(e) => setExceptions(e.target.value)}
+              onChange={handleExceptions}
             />
           </p>
           <p>
@@ -184,21 +217,24 @@ function SubstanceContract() {
               placeholder="Patient/Responsible Party Signature"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={patientSignature}
-              onChange={(e) => setPatientSignature(e.target.value)}
+              onChange={handlePatientSignature}
+              required
             />
             <input
               type="text"
               placeholder="Witness Signature"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={witnessSignature}
-              onChange={(e) => setWitnessSignature(e.target.value)}
+              onChange={handleWitnessSignature}
+              required
             />
             <input
               type="text"
               placeholder="Date"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={date}
-              onChange={(e) => setDate(e.target.value)}
+              onChange={handleDate}
+              required
             />
             <p>
               <br />
@@ -211,10 +247,18 @@ function SubstanceContract() {
               placeholder="Provider's Signature"
               className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
               value={providersSignature}
-              onChange={(e) => setProvidersSignature(e.target.value)}
+              onChange={handleProvidersSignature}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Date"
+              className="p-2 border-b-2 border-gray-300 focus:border-blue-500 outline-none"
+              value={date}
+              onChange={handleProvidersDate}
+              required
             />
           </div>
-
           <button
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
