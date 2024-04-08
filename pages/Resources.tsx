@@ -92,7 +92,27 @@ const Resources: NextPage<{}> = () => {
                 router.push('/PhentermineSubmissions')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Excision Form"
+              onClick={() => {
+                router.push('/ExcisionForm')
+              }}
+            />
             {/* Add more buttons here if necessary */}
+          </div>
+          <div className="flex justify-center items-center">
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Excision Form Submissions"
+              onClick={() => {
+                router.push('/ExcisionFormDetails')
+              }}
+            />
           </div>
         </div>
 
