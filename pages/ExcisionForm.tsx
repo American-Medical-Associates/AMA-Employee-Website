@@ -24,12 +24,6 @@ function SubstanceContract() {
     }
   }, [])
 
-  // const handleInitialChange = (index: number, value: string) => {
-  //   const newInitials = [...initials]
-  //   newInitials[index] = value
-  //   setInitials(newInitials)
-  // }
-
   const handlePatientName = (event: ChangeEvent<HTMLInputElement>) => {
     setPatientName(event.target.value)
   }
