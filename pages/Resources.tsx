@@ -113,6 +113,15 @@ const Resources: NextPage<{}> = () => {
                 router.push('/ExcisionFormDetails')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="PHQ-9 Form"
+              onClick={() => {
+                router.push('/PhqForm')
+              }}
+            />
           </div>
         </div>
 
