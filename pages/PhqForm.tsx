@@ -35,13 +35,11 @@ export default function PhqForm() {
   const [requiredPoorAppetite, setRequiredPoorAppetite] = useState(false)
   const [feelingBad, setFeelingBad] = useState<string[]>([])
   const [requiredFeelingBad, setRequiredFeelingBad] = useState(false)
-  const [lassitude, setLassitude] = useState<string[]>([])
-  const [requiredLassitude, setRequiredLassitude] = useState(false)
-  const [inabilityToFeel, setInabilityToFeel] = useState<string[]>([])
-  const [requiredInabilityToFeel, setRequiredInabilityToFeel] = useState(false)
-  const [pessimisticThoughts, setPessimisticThoughts] = useState<string[]>([])
-  const [requiredPessimisticThoughts, setRequiredPessimisticThoughts] =
+  const [troubleConcentrating, setTroubleConcentrating] = useState<string[]>([])
+  const [requiredTroubleConcentrating, setRequiredTroubleConcentrating] =
     useState(false)
+  const [speakingSlowly, setSpeakingSlowly] = useState<string[]>([])
+  const [requiredSpeakingSlowly, setRequiredSpeakingSlowly] = useState(false)
   const [suicidalThoughts, setSuicidalThoughts] = useState<string[]>([])
   const [requiredSuicidalThoughts, setRequiredSuicidalThoughts] =
     useState(false)
@@ -63,9 +61,8 @@ export default function PhqForm() {
       tiredness,
       poorAppetite,
       feelingBad,
-      lassitude,
-      inabilityToFeel,
-      pessimisticThoughts,
+      troubleConcentrating,
+      speakingSlowly,
       suicidalThoughts,
     ]
 
@@ -97,9 +94,8 @@ export default function PhqForm() {
       { title: 'Feeling Tired', value: tiredness },
       { title: 'Poor Appetite', value: poorAppetite },
       { title: 'Feeling Bad', value: feelingBad },
-      { title: 'Lassitude', value: lassitude },
-      { title: 'Inability to Feel', value: inabilityToFeel },
-      { title: 'Pessimistic Thoughts', value: pessimisticThoughts },
+      { title: 'Trouble Concentrating', value: troubleConcentrating },
+      { title: 'Speaking Slowly', value: speakingSlowly },
       { title: 'Suicidal Thoughts', value: suicidalThoughts },
     ]
 
@@ -138,9 +134,8 @@ export default function PhqForm() {
           tiredness: extractNumber(tiredness[0]),
           poorAppetite: extractNumber(poorAppetite[0]),
           feelingBad: extractNumber(feelingBad[0]),
-          lassitude: extractNumber(lassitude[0]),
-          inabilityToFeel: extractNumber(inabilityToFeel[0]),
-          pessimisticThoughts: extractNumber(pessimisticThoughts[0]),
+          troubleConcentrating: extractNumber(troubleConcentrating[0]),
+          speakingSlowly: extractNumber(speakingSlowly[0]),
           suicidalThoughts: extractNumber(suicidalThoughts[0]),
         }).then(async () => {
           setIsSubmitted(true)
@@ -162,9 +157,8 @@ export default function PhqForm() {
     tiredness,
     poorAppetite,
     feelingBad,
-    lassitude,
-    inabilityToFeel,
-    pessimisticThoughts,
+    troubleConcentrating,
+    speakingSlowly,
     suicidalThoughts,
   ])
 
@@ -303,101 +297,52 @@ export default function PhqForm() {
           />
         </div>
         <div className="w-full px-4">
-          <p className="font-bold text-xl">
-            Representing a difficulty getting started or slowness initiating and
-            performing everyday activities.
-          </p>
           <CustomCheckBoxField
-            key={'lassitude'}
-            id="lassitude"
-            title="Lassitude"
-            checkBoxValues={lassitude}
-            setCheckBoxValues={setLassitude}
+            key={'troubleConcentrating'}
+            id="troubleConcentrating"
+            title="7. Trouble concentrating on things, such as reading the newspaper or watching television."
+            checkBoxValues={troubleConcentrating}
+            setCheckBoxValues={setTroubleConcentrating}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              '0 Hardly no difficulty in getting started. No sluggishness.',
-              '1',
-              '2 Difficulties in starting activities.',
-              '3',
-              '4 Difficulties in starting simple routine activities which are carried out with effort.',
-              '5',
-              '6 Complete lassitude. Unable to do anything without help.',
+              '0 - Not at all',
+              '1 - Several days',
+              '2 - More than half the days',
+              '3 - Nearly every day',
             ]}
-            required={requiredLassitude}
+            required={requiredTroubleConcentrating}
           />
         </div>
         <div className="w-full px-4">
-          <p className="font-bold text-xl">
-            Representing the subjective experience of reduced interest in the
-            surroundings, or activites that normally give pleasure. The ability
-            to react with adequate emotion to circumstances or people is
-            reduced.
-          </p>
           <CustomCheckBoxField
-            key={'inabilityToFeel'}
-            id="inabilityToFeel"
-            title="Inability to Feel"
-            checkBoxValues={inabilityToFeel}
-            setCheckBoxValues={setInabilityToFeel}
+            key={'speakingSlowly'}
+            id="speakingSlowly"
+            title="8. Moving or speaking so slowly that other people could have noticed. Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual."
+            checkBoxValues={speakingSlowly}
+            setCheckBoxValues={setSpeakingSlowly}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              '0 Normal interest in the surroundings and in other people.',
-              '1',
-              '2 Reduced ability to enjoy usual interest.',
-              '3',
-              '4 Loss of interest in surroundings. Loss of feelings for friends and acquaintances.',
-              '5',
-              '6 The experience of being emotionally paralyzed, inability to feel anger, gried or pleasure and a complete or even painful failure to feel for close relatives and friends.',
+              '0 - Not at all',
+              '1 - Several days',
+              '2 - More than half the days',
+              '3 - Nearly every day',
             ]}
-            required={requiredInabilityToFeel}
+            required={requiredSpeakingSlowly}
           />
         </div>
         <div className="w-full px-4">
-          <p className="font-bold text-xl">
-            Representing thoughts of guilt, inferiority, self-reproach,
-            sinfulness, remorse and ruin.
-          </p>
-          <CustomCheckBoxField
-            key={'pessimisticThoughts'}
-            id="pessimisticThoughts"
-            title="Pessimistic Thoughts"
-            checkBoxValues={pessimisticThoughts}
-            setCheckBoxValues={setPessimisticThoughts}
-            allowMultipleCheckBoxes={true}
-            checkBoxTitles={[
-              '0 No pessimistic thoughts.',
-              '1',
-              '2 Fluctuating ideas of failure, self-reproach or self-depreciation.',
-              '3',
-              '4 Persistent self-accusations, or definite but still rational ideas of guilt or sin. Increasingly pessimistic about the future.',
-              '5',
-              '6 Delusions of ruin, remorse or unredeemable sin. Self-accusations which are absurd and unshakable.',
-            ]}
-            required={requiredPessimisticThoughts}
-          />
-        </div>
-        <div className="w-full px-4">
-          <p className="font-bold text-xl">
-            Representing the feeling that life is not worth living, that a
-            natural death would be welcome, suicidal thoughts, and the
-            preparations for suicide. Suicidal attempts should not in themselves
-            influence the rating.
-          </p>
           <CustomCheckBoxField
             key={'suicidalThoughts'}
             id="suicidalThoughts"
-            title="Suicidal Thoughts"
+            title="9. Thoughts that you would be better off dead or of hurting yourself in some way."
             checkBoxValues={suicidalThoughts}
             setCheckBoxValues={setSuicidalThoughts}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              '0 Enjoys life or takes it as it comes.',
-              '1',
-              '2 Weary of life. Only fleeting suicidal thoughts.',
-              '3',
-              '4 Probably better off dead. Suicidal thoughts are common, and suicide is considered as a possible solution, but without specific plans or intention.',
-              '5',
-              '6 Explicit plans for suicide when there is an opportunity. Active preparations for suicide.',
+              '0 - Not at all',
+              '1 - Several days',
+              '2 - More than half the days',
+              '3 - Nearly every day',
             ]}
             required={requiredSuicidalThoughts}
           />
@@ -434,15 +379,12 @@ export default function PhqForm() {
             } else if (feelingBad.length === 0) {
               setRequiredFeelingBad(true)
               alert('Please enter your score for question #6.')
-            } else if (lassitude.length === 0) {
-              setRequiredLassitude(true)
-              alert('Please enter your score for Lassitude.')
-            } else if (inabilityToFeel.length === 0) {
-              setRequiredInabilityToFeel(true)
-              alert('Please enter your score for Inability to Feel.')
-            } else if (pessimisticThoughts.length === 0) {
-              setRequiredPessimisticThoughts(true)
-              alert('Please enter your score for Pessimistic Thoughts.')
+            } else if (troubleConcentrating.length === 0) {
+              setRequiredTroubleConcentrating(true)
+              alert('Please enter your score for question #7.')
+            } else if (speakingSlowly.length === 0) {
+              setRequiredSpeakingSlowly(true)
+              alert('Please enter your score for question #8.')
             } else if (suicidalThoughts.length === 0) {
               setRequiredSuicidalThoughts(true)
               alert('Please enter your score for Suicidal Thoughts.')
