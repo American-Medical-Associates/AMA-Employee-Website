@@ -31,7 +31,7 @@ export default function PhqForm() {
   const [requiredFallingAsleep, setRequiredFallingAsleep] = useState(false)
   const [tiredness, setTiredness] = useState<string[]>([])
   const [requiredTiredness, setRequiredTiredness] = useState(false)
-  const [poorAppetite, setReducedPoorAppetite] = useState<string[]>([])
+  const [poorAppetite, setPoorAppetite] = useState<string[]>([])
   const [requiredPoorAppetite, setRequiredPoorAppetite] = useState(false)
   const [feelingBad, setFeelingBad] = useState<string[]>([])
   const [requiredFeelingBad, setRequiredFeelingBad] = useState(false)
@@ -55,15 +55,15 @@ export default function PhqForm() {
 
   const calculateTotalScore = () => {
     const checkBoxArrays = [
-      littleInterest,
-      feelingDown,
-      fallingAsleep,
-      tiredness,
-      poorAppetite,
-      feelingBad,
-      troubleConcentrating,
-      speakingSlowly,
-      suicidalThoughts,
+      Array.isArray(littleInterest) ? littleInterest : [],
+      Array.isArray(feelingDown) ? feelingDown : [],
+      Array.isArray(fallingAsleep) ? fallingAsleep : [],
+      Array.isArray(tiredness) ? tiredness : [],
+      Array.isArray(poorAppetite) ? poorAppetite : [],
+      Array.isArray(feelingBad) ? feelingBad : [],
+      Array.isArray(troubleConcentrating) ? troubleConcentrating : [],
+      Array.isArray(speakingSlowly) ? speakingSlowly : [],
+      Array.isArray(suicidalThoughts) ? suicidalThoughts : [],
     ]
 
     const totalScore = checkBoxArrays.reduce((total, checkBoxArray) => {
@@ -88,15 +88,18 @@ export default function PhqForm() {
   // Makes sure that only one checkbox is selected for each question.
   const validateSelections = () => {
     const questions = [
-      { title: 'Little Interest', value: littleInterest },
-      { title: 'Feeling Down', value: feelingDown },
-      { title: 'Falling Asleep', value: fallingAsleep },
-      { title: 'Feeling Tired', value: tiredness },
-      { title: 'Poor Appetite', value: poorAppetite },
-      { title: 'Feeling Bad', value: feelingBad },
-      { title: 'Trouble Concentrating', value: troubleConcentrating },
-      { title: 'Speaking Slowly', value: speakingSlowly },
-      { title: 'Suicidal Thoughts', value: suicidalThoughts },
+      { title: 'Question 1: Little Interest', value: littleInterest },
+      { title: 'Question 2: Feeling Down', value: feelingDown },
+      { title: 'Question 3: Falling Asleep', value: fallingAsleep },
+      { title: 'Question 4: Feeling Tired', value: tiredness },
+      { title: 'Question 5: Poor Appetite', value: poorAppetite },
+      { title: 'Question 6: Feeling Bad', value: feelingBad },
+      {
+        title: 'Question 7: Trouble Concentrating',
+        value: troubleConcentrating,
+      },
+      { title: 'Question 8: Speaking Slowly', value: speakingSlowly },
+      { title: 'Question 9: Suicidal Thoughts', value: suicidalThoughts },
     ]
 
     const invalidQuestion = questions.find(
@@ -140,10 +143,10 @@ export default function PhqForm() {
         }).then(async () => {
           setIsSubmitted(true)
           await auth.signOut() // Sign out the user after the form is submitted.
-          router.push('/MadrsThankYou')
+          router.push('/PhqThankYou')
         })
       } catch (error) {
-        console.log('Error Submitting MADRS:', error)
+        console.log('Error Submitting PHQ Form:', error)
       }
     }
   }
@@ -268,7 +271,7 @@ export default function PhqForm() {
             id="poorAppetite"
             title="5. Poor appetite or overeating."
             checkBoxValues={poorAppetite}
-            setCheckBoxValues={setRequiredPoorAppetite}
+            setCheckBoxValues={setPoorAppetite}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
               '0 - Not at all',
