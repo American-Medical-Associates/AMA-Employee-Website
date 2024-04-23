@@ -6,6 +6,7 @@ import {
   ChartBarIcon,
   ClipboardIcon,
   ClipboardDocumentListIcon,
+  UserCircleIcon,
 } from '@heroicons/react/24/outline'
 import { NextPage } from 'next'
 import { auth } from '../firebase/firebase'
@@ -226,6 +227,15 @@ const Resources: NextPage<{}> = () => {
             {/* Misc Buttons */}
             <MenuItem
               icon={
+                <UserCircleIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Patients Rights & Responsibilities"
+              onClick={() => {
+                router.push('/patientsRights')
+              }}
+            />
+            <MenuItem
+              icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
               text="Controlled Substance Contract"
@@ -251,6 +261,9 @@ const Resources: NextPage<{}> = () => {
                 router.push('/VitalizeNation/VitalizeBookAnAppointment')
               }}
             />
+            {/* Add more buttons here if necessary */}
+          </div>
+          <div className="flex justify-center items-center">
             <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
@@ -260,9 +273,6 @@ const Resources: NextPage<{}> = () => {
                 router.push('/PdfSignatures')
               }}
             />
-            {/* Add more buttons here if necessary */}
-          </div>
-          <div className="flex justify-center items-center">
             <MenuItem
               icon={
                 <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
