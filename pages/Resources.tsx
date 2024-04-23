@@ -85,7 +85,7 @@ const Resources: NextPage<{}> = () => {
             />
             <MenuItem
               icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
               text="Phentermine Submissions"
               onClick={() => {
@@ -106,11 +106,29 @@ const Resources: NextPage<{}> = () => {
           <div className="flex justify-center items-center">
             <MenuItem
               icon={
-                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
               }
               text="Excision Form Submissions"
               onClick={() => {
                 router.push('/ExcisionFormDetails')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="PHQ-9 Form"
+              onClick={() => {
+                router.push('/PhqForm')
+              }}
+            />
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="PHQ-9 Submissions"
+              onClick={() => {
+                router.push('/PhqSubmissions')
               }}
             />
           </div>
