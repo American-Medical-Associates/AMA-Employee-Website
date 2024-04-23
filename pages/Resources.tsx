@@ -122,6 +122,15 @@ const Resources: NextPage<{}> = () => {
                 router.push('/PhqForm')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="PHQ-9 Submissions"
+              onClick={() => {
+                router.push('/PhqSubmissions')
+              }}
+            />
           </div>
         </div>
 
