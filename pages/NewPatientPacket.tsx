@@ -2962,6 +2962,118 @@ const NewPatientPacket: NextPage<{}> = ({}) => {
             lineHeight="h-[10px]"
           />
         </div>
+        <div className="max-w-6xl mx-auto px-4 py-8 flex flex-row gap-5 items-stretch">
+          <div className="flex flex-col bg-white shadow-md rounded-lg p-6 w-3/5">
+            <h1 className="text-xl font-semibold text-blue-500 mb-4">
+              Patient's Rights
+            </h1>
+            <ul className="list-disc space-y-2 pl-14 text-left flex-grow">
+              <li>
+                To Safe, considerate, and respectful care provided in a manner
+                consistent with your beliefs.
+              </li>
+              <li>
+                To Expectation that all communications and records pertaining to
+                your care will be treated as confidential to the extent
+                permitted by law and mandated by your insurance company.
+              </li>
+              <li>
+                To Effective communication based on your individual needs.
+              </li>
+              <li>
+                To Knowledge of the healthcare provider responsible for
+                coordinating your care at the medical practice.
+              </li>
+              <li>
+                To Ability to make health care decisions in advance or to
+                appoint a healthcare agent through an advance directive.
+              </li>
+              <li>
+                To Complete information about diagnosis, treatment, and
+                prognosis from the healthcare provider in terms that are easily
+                understood.
+              </li>
+              <li>
+                To Right to refuse treatment to the extent permitted by law and
+                to be informed of the medical consequences of your refusal.
+              </li>
+              <li>
+                To Knowledge in advance what appointment times and physicians
+                are available and where to go for treatment by the medical
+                practice.
+              </li>
+              <li>
+                To Receive appropriate assessment of and treatment for pain as
+                part of primary care within the medical practice.
+              </li>
+              <li>
+                To Designate additional physicians or organizations at any time
+                to receive medical updates.
+              </li>
+              <li>
+                To Explanation of any charges for which you are responsible.
+              </li>
+              <li>
+                To Speak with someone about your concerns if you are not
+                satisfied with any aspect of your care and are unable to resolve
+                the situation.
+              </li>
+            </ul>
+          </div>
+
+          <div className="flex flex-col bg-white shadow-md rounded-lg p-6 w-2/5">
+            <h1 className="text-xl font-semibold text-blue-500 mb-4">
+              Patient's Responsibilities
+            </h1>
+            <ul className="list-disc space-y-2 pl-14 text-left flex-grow">
+              <li>
+                Providing complete and accurate information about your health.
+              </li>
+              <li>
+                Providing documentation of Advance Directives, Living
+                Will/Health Care Power of Attorney.
+              </li>
+              <li>
+                Reporting whether you understand the proposed treatment and what
+                is expected of you as a patient.
+              </li>
+              <li>
+                Consequences of your actions if you refuse treatment or do not
+                follow the healthcare provider's instructions.
+              </li>
+              <li>
+                Following the treatment plans agreed upon by you and your
+                healthcare provider.
+              </li>
+              <li>
+                Keeping all your appointments or notifying the clinic when you
+                are unable to do so.
+              </li>
+              <li>
+                Ensuring that financial obligations for your health care are
+                fulfilled.
+              </li>
+              <li>
+                Following clinic rules and regulations concerning the safety and
+                respect of others.
+              </li>
+              <li>
+                Being considerate of the rights of other patients and clinic
+                staff.
+              </li>
+              <li>
+                Being respectful of the property of others and of the clinic.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className=" mt-20 flex items-center justify-center">
+          <LineDivider
+            lineColor="bg-[#e9e7e7b1]"
+            lineWidth="w-3/4"
+            lineHeight="h-[10px]"
+          />
+        </div>
         <SectionWithTitle
           title="Notice of Privacy Practices "
           subTitle="If You Need a copy of this form, please ask the office staff."
