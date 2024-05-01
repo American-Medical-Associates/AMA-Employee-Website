@@ -5,6 +5,7 @@ import CustomCheckBoxField from '../components/formComponents/CustomCheckBoxFiel
 import MainButton from '../components/Buttons/MainButton'
 import DateInput from '../components/userInput/DateInput'
 import { useRouter } from 'next/router'
+import { ca } from 'date-fns/locale'
 
 const formatDate = (date: string | number | Date) => {
   const d = new Date(date),
@@ -72,6 +73,7 @@ function PatientReleaseForm() {
   const [dateOfRequest, setDateOfRequest] = useState(formatDate(new Date()))
   const [date, setDate] = useState(formatDate(new Date()))
   const [requiredDate, setRequiredDate] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const router = useRouter()
 
@@ -81,37 +83,45 @@ function PatientReleaseForm() {
     }
   }, [])
 
-  const handleSubmit = () => {
-    submitPatientReleaseForm({
-      patientName,
-      patientDOB,
-      lastFourSSN,
-      patientStreetAddress,
-      patientCity,
-      patientState,
-      patientZip,
-      patientPhone,
-      purposeOfRelease,
-      treatmentFrom,
-      treatmentTo,
-      facilityName,
-      facilityAddress,
-      facilityPhone,
-      facilityFax,
-      nameOfPractice,
-      addressOfPractice,
-      practicePhone,
-      practiceFax,
-      hospital,
-      officeClinic,
-      format,
-      deliveryMethod,
-      patientSignature,
-      legalGuardianSignature,
-      relationshipToPatient,
-      dateOfRequest,
-      date,
-    })
+  const handleSubmit = async () => {
+    try {
+      await submitPatientReleaseForm({
+        patientName,
+        patientDOB,
+        lastFourSSN,
+        patientStreetAddress,
+        patientCity,
+        patientState,
+        patientZip,
+        patientPhone,
+        purposeOfRelease,
+        treatmentFrom,
+        treatmentTo,
+        facilityName,
+        facilityAddress,
+        facilityPhone,
+        facilityFax,
+        nameOfPractice,
+        addressOfPractice,
+        practicePhone,
+        practiceFax,
+        hospital,
+        officeClinic,
+        format,
+        deliveryMethod,
+        patientSignature,
+        legalGuardianSignature,
+        relationshipToPatient,
+        dateOfRequest,
+        date,
+      }).then(async () => {
+        setIsSubmitted(true)
+        await auth.signOut() // Sign out the user after the form is submitted.
+        router.push('/PatientReleaseFormThankYou')
+      })
+    } catch (error) {
+      console.error('Error submitting form: ', error)
+    }
   }
 
   return (
@@ -230,12 +240,12 @@ function PatientReleaseForm() {
             setCheckBoxValues={setPurposeOfRelease}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              'Patient Use',
-              'Insurance',
-              'Disability',
-              'Workers Compensation',
-              'Legal Purposes',
-              'Further Medical Care',
+              'Patient Use, ',
+              'Insurance, ',
+              'Disability, ',
+              'Workers Compensation, ',
+              'Legal Purposes, ',
+              'Further Medical Care, ',
               'Other',
             ]}
             required={requiredPurposeOfRelease}
@@ -360,22 +370,22 @@ function PatientReleaseForm() {
             setCheckBoxValues={setHospital}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              'History & Physical',
-              'Discharge Summary',
-              'Operative Report',
-              'Consultation Report',
-              'Diagnostic Results',
-              'Medications',
-              'Allergies',
-              'Physicians Orders',
-              'Progress Notes',
-              'Emergency Record',
-              'Cardiac Reports / EKG',
-              'Laboratory Reports',
-              'Radiology Reports',
-              'Pathology Reports',
-              'Billing Information',
-              'Entire Record',
+              'History & Physical, ',
+              'Discharge Summary, ',
+              'Operative Report, ',
+              'Consultation Report, ',
+              'Diagnostic Results, ',
+              'Medications, ',
+              'Allergies, ',
+              'Physicians Orders, ',
+              'Progress Notes, ',
+              'Emergency Record, ',
+              'Cardiac Reports / EKG, ',
+              'Laboratory Reports, ',
+              'Radiology Reports, ',
+              'Pathology Reports, ',
+              'Billing Information, ',
+              'Entire Record, ',
               'Other',
             ]}
             required={requiredHospital}
@@ -390,16 +400,16 @@ function PatientReleaseForm() {
             setCheckBoxValues={setOfficeClinic}
             allowMultipleCheckBoxes={true}
             checkBoxTitles={[
-              'Office / Clinic Abstract',
-              'Office Visits',
-              'Physical Exam',
-              'Consultation Reports',
-              'Diagnostic Test Results',
-              'Laboratory Reports',
-              'Radiology Reports',
-              'Medications',
-              'Billing Information',
-              'Entire Record',
+              'Office / Clinic Abstract, ',
+              'Office Visits, ',
+              'Physical Exam, ',
+              'Consultation Reports, ',
+              'Diagnostic Test Results, ',
+              'Laboratory Reports, ',
+              'Radiology Reports, ',
+              'Medications, ',
+              'Billing Information, ',
+              'Entire Record, ',
               'Other',
             ]}
             required={requiredOfficeClinic}
