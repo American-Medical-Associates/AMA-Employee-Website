@@ -132,6 +132,26 @@ const Resources: NextPage<{}> = () => {
                 router.push('/PhqSubmissions')
               }}
             />
+            <MenuItem
+              icon={
+                <ClipboardIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Authorization to Release Protected Health Information"
+              onClick={() => {
+                router.push('/PatientReleaseForm')
+              }}
+            />
+          </div>
+          <div className="flex justify-center items-center">
+            <MenuItem
+              icon={
+                <ClipboardDocumentListIcon className="h-10 w-7 cursor-pointer text-black duration-[500s] ease-in" />
+              }
+              text="Authorization to Release Protected Health Information Submissions"
+              onClick={() => {
+                router.push('/PatientReleaseSubmissions')
+              }}
+            />
           </div>
         </div>
 
