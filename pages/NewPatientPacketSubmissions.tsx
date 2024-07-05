@@ -24,6 +24,14 @@ import { LoadingSpinner } from '../components/General/LoadingSpinner'
 import axios from 'axios'
 import { CircularButton } from '../components/Buttons/CircularButtonIcon'
 import { Cog6ToothIcon, XMarkIcon } from '@heroicons/react/24/outline'
+
+
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { Stack } from '@mui/material'
+import dayjs, { Dayjs } from 'dayjs'
+
+
+
 export default function NewPatientPacketSubmitions() {
   const [submissions, setSubmissions] = useState<Array<any>>([])
   const [SearchInputForNewPatientPacket, setSearchInputForNewPatientPacket] =
@@ -54,6 +62,8 @@ export default function NewPatientPacketSubmitions() {
   const [addToECWDisabled, setAddToECWDisabled] = useState(false)
   const [serverIPAddress, setServerIPAddress] = useState('f868-24-255-110-228')
   const [cancelServerRequest, setCancelServerRequest] = useState(false)
+  const [startSearch, setStartSearch] = useState<Dayjs | null>(dayjs(new Date()))
+  const [endSearch, setEndSearch] = useState<Dayjs | null>(dayjs(new Date()))
 
   const addPatient = async (e: any) => {
     e.preventDefault()
@@ -120,8 +130,10 @@ export default function NewPatientPacketSubmitions() {
       NewPatientPacketsState: setSubmissions,
       archived: showArchived,
       setLoading: setLoading,
+      start: startSearch?.toDate(),
+      end: endSearch?.toDate(),
     })
-  }, [showArchived])
+  }, [showArchived, startSearch, endSearch])
 
   useEffect(() => {
     var searchResults: any = []
@@ -228,6 +240,83 @@ export default function NewPatientPacketSubmitions() {
                 setSearchInputForNewPatientPacket(text.target.value)
               }}
             />
+            <Stack flexDirection={'row'} gap={1} my={2} justifyContent={'center'} alignItems={'center'}>
+              <DatePicker
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '300px', // Set border radius to make it more rounded
+
+                    backgroundColor: 'white', // Set background color to white
+                    '& fieldset': {
+                      borderColor: 'white', // Set border color to white
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'white',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white',
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Ensure the text color is black
+                  },
+                  '& .MuiIconButton-root': {
+                    color: 'black', // Change calendar button color to white
+                    backgroundColor: '#FFFFFF00', // Change calendar button background color to black for visibility
+                    '&:hover': {
+                      backgroundColor: '#0080FFA9', // Change background color on hover
+                      color: 'white'
+                    },
+
+                  },
+                }}
+                onChange={(value) => {
+                  setStartSearch(value)
+                }}
+                value={startSearch}
+                label="Start Date"
+                disableFuture
+              />
+              <DatePicker
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '300px', // Set border radius to make it more rounded
+
+                    backgroundColor: 'white', // Set background color to white
+                    '& fieldset': {
+                      borderColor: 'white', // Set border color to white
+                    },
+                    '&:hover fieldset': {
+                      borderColor: 'white',
+                    },
+                    '&.Mui-focused fieldset': {
+                      borderColor: 'white',
+                    },
+                  },
+                  '& .MuiInputBase-input': {
+                    color: 'black', // Ensure the text color is black
+                  },
+                  '& .MuiIconButton-root': {
+                    color: 'black', // Change calendar button color to white
+                    backgroundColor: '#FFFFFF00', // Change calendar button background color to black for visibility
+                    '&:hover': {
+                      backgroundColor: '#0080FFA9', // Change background color on hover
+                      color: 'white'
+                    },
+
+                  },
+                }}
+                onChange={(value) => {
+                  setEndSearch(value)
+                }}
+                disableFuture
+                value={endSearch}
+                label="End date"
+              />
+
+
+            </Stack>
+
 
             <LineDivider
               lineHeight="h-[10px]"

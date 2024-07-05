@@ -8,7 +8,12 @@
     "copy-pdfjs-worker": "cp ./node_modules/pdfjs-dist/build/pdf.worker.js public/scripts"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@heroicons/react": "^2.0.18",
+    "@mui/material": "^5.15.21",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-date-pickers": "^7.8.0",
     "@react-pdf-viewer/core": "3.12.0",
     "@react-pdf-viewer/toolbar": "^3.12.0",
     "@react-pdf/renderer": "^3.1.12",
@@ -23,6 +28,7 @@
     "classnames": "^2.3.2",
     "compressorjs": "^1.2.1",
     "date-fns": "^2.30.0",
+    "dayjs": "^1.11.11",
     "firebase": "^10.0.0",
     "firebase-tools": "^12.4.3",
     "fs": "^0.0.1-security",
@@ -50,6 +56,7 @@
     "selenium-webdriver": "^4.10.0",
     "sharp": "^0.32.2",
     "signature_pad": "^4.1.5",
+    "styled-components": "^6.1.11",
     "tls": "^0.0.1",
     "twilio-cli": "^5.5.0",
     "twilio-client": "^1.15.0",

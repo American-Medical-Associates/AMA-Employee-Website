@@ -1757,11 +1757,15 @@ export async function GetNewPatientPacketSubmissions({
   NewPatientPacketsState,
   archived,
   setLoading,
+  start,
+  end
 }) {
   onSnapshot(
     query(
       collection(db, 'companys', 'AMA', 'NewPatientPacket'),
       where('archived', '==', archived),
+      where('dateAdded', '>=', start),
+      where('dateAdded', '<=', end),
     ),
 
     (querySnapshot) => {
@@ -2219,7 +2223,7 @@ export async function GetSignatures({ signaturesState }) {
         console.log(arrays)
       },
     )
-  } catch (error) {}
+  } catch (error) { }
 }
 
 //add pdf to storage and store the link in a sub collection under the user
@@ -2274,7 +2278,7 @@ export async function GetUsersPDFs({ pdfState }) {
         console.log(arrays)
       },
     )
-  } catch (error) {}
+  } catch (error) { }
 }
 //get all users
 export async function GetUsers({ usersState }) {
