@@ -81,7 +81,9 @@ const FormSubmissions: NextPage<{}> = () => {
       company: company,
       NewPatientPacketsState: setSubmissions,
       archived: true,
-      setLoading: () => {},
+      setLoading: () => { },
+      start: new Date('2021-01-01'),
+      end: new Date('2022-01-01'),
     })
   }, [])
 
@@ -534,7 +536,7 @@ const FormSubmissions: NextPage<{}> = () => {
               {auth.currentUser?.email ==
                 'h.fontaine@americanmedicalassociatesaz.com' ||
                 auth.currentUser?.email ==
-                  'j.cervantes@americanmedicalassociatesaz.com' ||
+                'j.cervantes@americanmedicalassociatesaz.com' ||
                 (auth.currentUser?.email == 'juju@gmail.com' && (
                   <div className=" mx-3">
                     <MainButton

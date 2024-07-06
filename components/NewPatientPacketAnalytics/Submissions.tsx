@@ -68,7 +68,9 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
         company: 'AMA',
         NewPatientPacketsState: setNewPatientPacketAnalyticsArray,
         archived: true,
-        setLoading: () => {},
+        setLoading: () => { },
+        start: new Date('2021-01-01'),
+        end: new Date('2022-01-01'),
       })
     }
   }, [month, year, all, day, week])
@@ -116,7 +118,7 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
         if (
           NewPatientPacket.dateAdded.toDate().getDate() == day &&
           NewPatientPacket.dateAdded.toDate().getMonth() + 1 ==
-            selectedDate.getMonth() + 1
+          selectedDate.getMonth() + 1
         ) {
           dayNumber = dayNumber + 1
           totalDayNumber = totalDayNumber + 1
@@ -138,7 +140,7 @@ const Submissions: React.FC<{ selectedDate: Date }> = ({ selectedDate }) => {
         if (
           NewPatientPacket.dateAdded.toDate().getMonth() + 1 == month &&
           NewPatientPacket.dateAdded.toDate().getFullYear() ==
-            selectedDate.getFullYear()
+          selectedDate.getFullYear()
         ) {
           monthNumber = monthNumber + 1
           totalDayNumber = totalDayNumber + 1
