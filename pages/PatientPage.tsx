@@ -139,8 +139,7 @@ const PatientPage: NextPage = () => {
                 setShowEditPatientInfo(!showEditPatientInfo)
               }}
               className={classNames(
-                `h-10 w-7 cursor-pointer  ${
-                  showEditPatientInfo == true ? 'text-[#5289F6]' : 'text-black'
+                `h-10 w-7 cursor-pointer  ${showEditPatientInfo == true ? 'text-[#5289F6]' : 'text-black'
                 } duration-[500s] ease-in`,
               )}
             />
@@ -188,7 +187,7 @@ const PatientPage: NextPage = () => {
                   : 'Resume New Patient Packet'
             }
             onClick={() => {
-              if (submittedPacket.emailValue) {
+              if (submittedPacket?.emailValue) {
                 setHasSubmitted(!hasSubmitted)
               } else {
                 router.push('/NewPatientPacket')
