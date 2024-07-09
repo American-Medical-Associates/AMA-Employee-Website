@@ -60,7 +60,7 @@ const PatientLogin: NextPage<{}> = () => {
           widthPercentage="w-3/4"
           type="password"
           onChange={(text: React.ChangeEvent<HTMLInputElement>) => {
-            setPassword(text.target.value.trim())
+            setPassword(text.target.value)
           }}
           required={requiredPassword}
           autoCapitalize="none"

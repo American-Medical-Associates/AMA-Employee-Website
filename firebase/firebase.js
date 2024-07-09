@@ -356,11 +356,14 @@ export function isAdmin({ adminState }) {
     adminState(doc.get('isAuthUser'))
   })
 }
+
 export function SignInToAccount({ email, password }) {
-  signInWithEmailAndPassword(auth, email, password)
+
+  signInWithEmailAndPassword(auth, email.trim().toLowerCase(), password.trim())
     .then((userCredential) => {
       // Signed in
       console.log('it worked')
+
       // const user = userCredential.user;
 
       // ...

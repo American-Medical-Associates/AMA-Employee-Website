@@ -20,16 +20,16 @@ const RegisterPatient = () => {
     createUserWithEmailAndPassword(
       auth,
       registerEmail.toLowerCase().trim(),
-      registerPassword.toLowerCase().trim(),
+      registerPassword.trim(),
     )
       .then(async (userCredential) => {
-        const user = userCredential.user.uid
+
         try {
           await setDoc(
             doc(db, 'companys', 'AMA', 'patients', auth.currentUser.email),
             {
               email: registerEmail.toLowerCase().trim(),
-              uid: user,
+              uid: userCredential.user.uid,
               isAuthUser: false,
               isPatient: true,
               timestamp: serverTimestamp(),
